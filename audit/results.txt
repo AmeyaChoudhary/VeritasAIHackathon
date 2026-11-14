@@ -1,0 +1,12 @@
+test size 1530 | share label 1: 0.492
+baseline: most common label                             acc 0.508  recall 0.000  precision 0.000  missed 752  false alarms 0
+length only: 'more than 29 words'                       acc 0.875  recall 0.750  precision 0.993  missed 188  false alarms 4
+keyword list                                            acc 0.820  recall 0.644  precision 0.986  missed 268  false alarms 7
+TF-IDF + LR, full text                                  acc 0.956  recall 0.923  precision 0.987  missed 58  false alarms 9
+TF-IDF + LR, first 14 words only                        acc 0.846  recall 0.814  precision 0.866  missed 140  false alarms 95
+TF-IDF + LR, give-away words removed                    acc 0.911  recall 0.855  precision 0.960  missed 109  false alarms 27
+TF-IDF + LR, first 14 words + give-aways removed        acc 0.813  recall 0.786  precision 0.825  missed 161  false alarms 125
+top words -> label 1: ['and', 'life', 'mizzzidc', 'myself', 'year', 've', 'of', 'hi', 'fucking', 'been', 'health', 'if', 'because', 'when', 'people', 'this', 'feel', 'everyone', 'month', 'recently', 'ago', 'co', 'real', 'help', 'every']
+top words -> label 0: ['sleep', 'miss', 'sad', 'twitter', 'com', 'quot', 'oh', 'work', 'missed', 'morning', 'lol', 'cold', 'bed', 'too', 'ugh', 'missing', 'bored', 'still', 'haha', 'sick', 'damn', 'didn', 'site', 'watch', 'tweet']
+label 1 rows with <= 30 words: 880 of 3761
+label 0 rows with > 42 words: 0

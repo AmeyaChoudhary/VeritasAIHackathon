@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Downloaded datasets stay out of the repo; each one is linked from the README
+data/
+
+# macOS
+.DS_Store
