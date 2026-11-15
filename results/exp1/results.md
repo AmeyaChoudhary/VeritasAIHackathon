@@ -15,7 +15,7 @@ At 21 asks per student-year, 14.6% of the drift rule's asks landed on weeks with
 
 ## What we tested
 
-Steady asks a student two screening questions when their phone signals stay outside their own normal range. The question here is whether that rule picks better weeks to ask than a fixed calendar that asks the same number of times. A second question is whether the parent heads-up rule, run on phone signals alone, picks better weeks than a calendar. The PHQ-2 answers that Dartmouth students gave on their phones are the yardstick: a week counts as high when PHQ-2 is 3 or more, the published screening cut-off.
+Stability asks a student two screening questions when their phone signals stay outside their own normal range. The question here is whether that rule picks better weeks to ask than a fixed calendar that asks the same number of times. A second question is whether the parent heads-up rule, run on phone signals alone, picks better weeks than a calendar. The PHQ-2 answers that Dartmouth students gave on their phones are the yardstick: a week counts as high when PHQ-2 is 3 or more, the published screening cut-off.
 
 ## Data
 
@@ -31,7 +31,7 @@ Steady asks a student two screening questions when their phone signals stay outs
 
 ## Signals
 
-Each of Steady's signals was mapped to a feature recorded on both iPhone and Android. Each weekly value is the mean over the week's usable days unless the note says otherwise.
+Each of Stability's signals was mapped to a feature recorded on both iPhone and Android. Each weekly value is the mean over the week's usable days unless the note says otherwise.
 
 | Signal | Feature | Worse when | Note |
 | --- | --- | --- | --- |
@@ -64,7 +64,7 @@ All 213 students. Budget: 21.4 asks per student-year.
 
 | Method | Hit rate (95% interval) | Lift | Low periods reached | High weeks asked | False alarms per student-year |
 | --- | --- | --- | --- | --- | --- |
-| Steady drift rule | 14.6% | 1.14 | 55% | 46% | 13.5 |
+| Stability drift rule | 14.6% | 1.14 | 55% | 46% | 13.5 |
 | Fixed calendar | 12.9% | 1.00 | 88% | 41% | 13.9 |
 | Random weeks | 12.9% (12.2% to 13.4%) | 1.00 | 73% |  |  |
 | Random weeks, same count per student | 13.5% (13.1% to 14.0%) | 1.05 | 70% |  |  |
@@ -211,16 +211,16 @@ Single-signal AUC for the platform-only signals: Steps 0.53 (12,850 weeks); Audi
 
 It shows that, in this dataset, the drift rule as written does not choose better weeks to ask than chance once you account for which student and which season the asks fall in. A fixed calendar at the same budget reaches more low periods. Learned weights did not carry over to new students. The parent heads-up rule, run on phone signals alone, landed near high scores about as often as a calendar with the same number of notes.
 
-It does not show that phone signals are useless for Steady. The features here are the study's own, and typing, tone and music were missing. The students were also older than Steady's users. It cannot say whether a note helped a family. A high mood score only stands in for a note being right.
+It does not show that phone signals are useless for Stability. The features here are the study's own, and typing, tone and music were missing. The students were also older than Stability's users. It cannot say whether a note helped a family. A high mood score only stands in for a note being right.
 
 For the design, this weakens the case for the drift rule as the main trigger. The check at the door and the two-monthly ask do not depend on it. The adaptive range as written asked in most weeks, so its update needs rethinking before it is used.
 
 ## Caveats
 
 - Mood scores stand in for a note being right. They cannot show whether a note helped a family.
-- The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Steady is meant for high school students.
+- The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Stability is meant for high school students.
 - The label is two PHQ-4 items answered on the phone, counted as high at 3 or more. Only 74% of monitored weeks have one.
-- The phone signals are the study's own features. Steady would record different ones, and typing, tone and music were not available.
+- The phone signals are the study's own features. Stability would record different ones, and typing, tone and music were not available.
 - The personal range is learned in each student's first four valid weeks and then frozen, so it drifts: the rule asked in 26% of weeks in year one and 61% in year three.
 - At k = 1.0 the rule asks in 41% of monitored weeks, far more often than a real app should.
 - The logistic regression and heads-up numbers come from the test half of one fixed split of students. The spread over five splits is in results.json.

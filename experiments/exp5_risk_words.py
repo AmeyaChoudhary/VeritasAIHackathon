@@ -255,7 +255,7 @@ def caveats(r) -> list[str]:
     return first + [
         "The labels come from where a post was written (r/SuicideWatch, or a source dataset's tag), not from a clinician. "
         "Some r/SuicideWatch posts are people supporting others, and some posts elsewhere talk about self-harm.",
-        f"These are long posts (median {r['data']['median_words']:.0f} words), mostly by adults. Steady reads short messages from teens.",
+        f"These are long posts (median {r['data']['median_words']:.0f} words), mostly by adults. Stability reads short messages from teens.",
         f"{pc(r['data']['self_harm_share'])} of these posts are self-harm language. In a teen's real messages it is far rarer, "
         "so the share of flags that are right would be much lower than on the test posts.",
         "The 60 messages were written and labelled by a Claude session, not by teens or clinicians. One message moves a count.",

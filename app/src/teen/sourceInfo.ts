@@ -19,7 +19,7 @@ export interface SourceInfo {
 const GMAIL_LIMITS =
   "School accounts for students under 18 block apps like this until the school allows them, so use a personal account. Google lets up to 100 test users try it before it reviews the app.";
 const SERVER =
-  "This one needs the phone app or a server. Its API doesn't accept calls from a web page, so this web prototype can only show sample data. Steady never asks for your password.";
+  "This one needs the phone app or a server. Its API doesn't accept calls from a web page, so this web prototype can only show sample data. Stability never asks for your password.";
 const FILE_NOTE = "The file is read on this phone and nothing is uploaded. Other people's messages in it are skipped without being read.";
 
 export const SOURCE_INFO: Record<SourceId, SourceInfo> = {
@@ -93,8 +93,23 @@ export const SOURCE_INFO: Record<SourceId, SourceInfo> = {
     reads: "The plays from the last 28 days on the public Last.fm profile for the name you type.",
     keeps: "Weekly listening, how much is after midnight, and how often the same songs repeat.",
     more: [
-      "Steady can't check that the profile is yours. Checking would need Last.fm sign-in, which needs a server this prototype doesn't have. The name you type is used once and not kept.",
+      "Stability can't check that the profile is yours. Checking would need Last.fm sign-in, which needs a server this prototype doesn't have. The name you type is used once and not kept.",
       "To send your Spotify plays to Last.fm: sign in at last.fm, open Settings, then Applications, and connect Spotify. New plays show up there within a few minutes.",
+    ],
+  },
+  spotify: {
+    name: "Spotify",
+    group: "Music",
+    kind: "file",
+    reads: "The listening history in your Spotify data download. Only songs you played for 30 seconds or more. Podcasts, audiobooks and videos are skipped.",
+    keeps: "Weekly: songs played, minutes listened, how many were between midnight and 5 a.m., and how often you skipped or repeated. Song names are used only to count repeats, then dropped.",
+    more: [
+      "The file is read on this phone and nothing is uploaded.",
+      "Stability doesn't connect to Spotify directly. Spotify's rules for apps don't allow turning listening into numbers about a person. For new plays every week, send your Spotify plays to Last.fm and connect Last.fm too.",
+    ],
+    howTo: [
+      "On spotify.com, open your account, then Account privacy, and request your data. Account data comes in about 5 days. Extended streaming history can take up to 30 days and covers more.",
+      "Choose the .zip here, or the StreamingHistory_music or Streaming_History_Audio .json files. You can pick several at once.",
     ],
   },
   fitbit: {
@@ -109,9 +124,9 @@ export const SOURCE_INFO: Record<SourceId, SourceInfo> = {
     name: "Phone data (Android)",
     group: "Phone",
     kind: "phone",
-    reads: "A file from the Steady app on Android: screen time, Health Connect sleep and steps, and the Steady keyboard's daily numbers. On iPhone, screen-time threshold events.",
+    reads: "A file from the Stability app on Android: screen time, Health Connect sleep and steps, and the Stability keyboard's daily numbers. On iPhone, screen-time threshold events.",
     keeps: "Daily minutes on the phone and between midnight and 5 a.m., sleep hours and bedtime, steps, and from the keyboard: messages sent, typing speed, pauses, corrections and the share that reads as low mood. Never what you typed.",
-    more: ["This needs the Steady app in native/. Export its file, then choose it here."],
+    more: ["This needs the Stability app in native/. Export its file, then choose it here."],
   },
   instagram: {
     name: "Instagram data file",

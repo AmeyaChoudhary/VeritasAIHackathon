@@ -401,7 +401,7 @@ describe("urgent path", () => {
     expect(p.of("urgent")).toHaveLength(1);
   });
 
-  it('turning Steady off while "Are you safe right now?" is open sends the urgent note first', () => {
+  it('turning Stability off while "Are you safe right now?" is open sends the urgent note first', () => {
     const h = new Harness();
     h.do({ kind: "typed", level: "concern" }, t0);
     h.do({ kind: "setOff", off: true }, t0 + 5 * MINUTE);
@@ -412,7 +412,7 @@ describe("urgent path", () => {
     expect(h.of("urgent")).toHaveLength(1);
   });
 
-  it("held evidence is dropped, not sent, while Steady is off", () => {
+  it("held evidence is dropped, not sent, while Stability is off", () => {
     const h = new Harness().learn().weeks(4, OUT2);
     h.answer([2, 2, 2, 1, 1, 1, 1, 1]); // heads-up
     h.week(OUT2);
@@ -448,7 +448,7 @@ describe("status", () => {
     expect(st[8].enough_data).toBe(false); // days 2-8 hold days 2-4
   });
 
-  it("typing on the Steady keyboard marks the day as used", () => {
+  it("typing on the Stability keyboard marks the day as used", () => {
     const h = new Harness();
     h.do({ kind: "typed", level: "none" }, START + 3 * HOUR);
     h.do({ kind: "dayEnd", day: 0, hasData: true, keyboardUsed: false }, START + 23 * HOUR);
@@ -526,20 +526,20 @@ describe("events and wording", () => {
     const t = headsUpText({ type: "heads_up", areas: ["sleep", "reaching_out"], weeks: 4, sent_at: "" }, DEMO_PEOPLE);
     expect(t.title).toBe("Worth checking in with Maya");
     expect(t.sections[0].text).toBe(
-      "For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often. Steady can't say why, and this is not a diagnosis.",
+      "For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often. Stability can't say why, and this is not a diagnosis.",
     );
     expect(t.sections[4]).toEqual({
       label: "If she says she isn't safe:",
       text: "call or text 988. If she has hurt herself or is in immediate danger, call 911.",
     });
     const plain = headsUpText({ type: "heads_up", sent_at: "" }, { ...DEMO_PEOPLE, teen: "Sam", teenPronoun: "he" });
-    expect(plain.sections[0].text).toBe("Steady suggests you check in with Sam about how he has been feeling lately. This is not a diagnosis.");
+    expect(plain.sections[0].text).toBe("Stability suggests you check in with Sam about how he has been feeling lately. This is not a diagnosis.");
   });
 
   it("the urgent note starts with the revised wording", () => {
     const u = urgentText(DEMO_PEOPLE);
     expect(u.sections[0].text).toBe(
-      "Maya typed words that may be about suicide or self-harm. Steady can't tell how serious this is. Treat it as real until you have talked with her.",
+      "Maya typed words that may be about suicide or self-harm. Stability can't tell how serious this is. Treat it as real until you have talked with her.",
     );
     expect(u.replies).toEqual(["I'm with her", "Called 988", "I can't reach her"]);
     expect(u.sections.map((s) => s.label)).toEqual([
@@ -555,8 +555,8 @@ describe("events and wording", () => {
 
   it("the setup screen names the linked parent", () => {
     const s = setupScreenText({ ...DEMO_PEOPLE, parent: "Dad", parentPronoun: "he", second: undefined });
-    expect(s.title).toBe("Steady is linked to Dad's phone.");
-    expect(s.paragraphs[1]).toContain("Steady sends Dad a short note asking him to check in with you.");
+    expect(s.title).toBe("Stability is linked to Dad's phone.");
+    expect(s.paragraphs[1]).toContain("Stability sends Dad a short note asking him to check in with you.");
     expect(s.secondLine).toBeUndefined();
   });
 

@@ -5,5 +5,5 @@ import DeviceActivity
 import SwiftUI
 
 extension DeviceActivityReport.Context {
-    static let steadyWeek = Self("Steady week")
+    static let steadyWeek = Self("Stability week")
 }

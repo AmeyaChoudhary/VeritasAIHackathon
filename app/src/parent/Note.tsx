@@ -86,7 +86,7 @@ export function NoteScreen({
               {weeks} weeks
             </li>
           </ul>
-          <p className="note-lead">Steady can't say why, and this is not a diagnosis.</p>
+          <p className="note-lead">Stability can't say why, and this is not a diagnosis.</p>
         </>
       ) : (
         <p className="note-lead">{lead.text}</p>

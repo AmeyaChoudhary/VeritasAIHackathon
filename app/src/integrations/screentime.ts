@@ -1,6 +1,6 @@
-// The phone-data file the Steady app writes (native/). Android gives minutes; iPhone gives
+// The phone-data file the Stability app writes (native/). Android gives minutes; iPhone gives
 // threshold buckets such as ">=30". Version 2 (Android) adds Health Connect sleep and steps,
-// the Steady keyboard's daily numbers (no words), and self-harm flags as opaque ids.
+// the Stability keyboard's daily numbers (no words), and self-harm flags as opaque ids.
 
 import { CONFIG, type Config } from "../engine/config";
 import { mondayOfYmd, wallTimeToMs } from "./common";
@@ -56,7 +56,7 @@ export interface ScreenWeek {
    *  nights could be measured. A rough sleep proxy, left out when the file can't support it. */
   phone_free_hours: number | null;
   free_nights: number;
-  // Version 2: Health Connect and the Steady keyboard. Each with its own count of days.
+  // Version 2: Health Connect and the Stability keyboard. Each with its own count of days.
   sleep_hours?: number | null;
   sleep_days?: number;
   /** Minutes after 6 p.m., so 23:30 is 330 and 00:30 is 390. */
@@ -155,14 +155,14 @@ export function parseScreenTime(
   try {
     f = JSON.parse(text) as ScreenFile;
   } catch {
-    throw new Error("This file is not JSON. Export it again from the Steady app.");
+    throw new Error("This file is not JSON. Export it again from the Stability app.");
   }
-  if (!f || (f.source !== "android_usage_stats" && f.source !== "ios_device_activity")) throw new Error("This is not a Steady phone-data file.");
-  if (f.version !== 1 && f.version !== 2) throw new Error("This file is from a newer version of the Steady app.");
+  if (!f || (f.source !== "android_usage_stats" && f.source !== "ios_device_activity")) throw new Error("This is not a Stability phone-data file.");
+  if (f.version !== 1 && f.version !== 2) throw new Error("This file is from a newer version of the Stability app.");
   if (!Array.isArray(f.days)) throw new Error("This file has no days in it.");
   const days = f.days.filter((d) => d && isDate(d.date)).sort((a, b) => a.date.localeCompare(b.date));
   for (let i = 1; i < days.length; i++) {
-    if (days[i].date === days[i - 1].date) throw new Error(`This file lists ${days[i].date} twice. Export it again from the Steady app.`);
+    if (days[i].date === days[i - 1].date) throw new Error(`This file lists ${days[i].date} twice. Export it again from the Stability app.`);
   }
   const byDate = new Map(days.map((d) => [d.date, d]));
   const ic = cfg.integrations;

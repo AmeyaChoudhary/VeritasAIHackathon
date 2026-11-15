@@ -61,7 +61,7 @@ Gradient-boosted trees here are scikit-learn's histogram gradient boosting, the 
 
 ## Caveats
 
-- These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.
+- These are Dartmouth college students from 2017 to 2022. Stability is meant for high school students.
 - The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.
 - Most of the model's skill comes from the student's earlier PHQ-2 answers: a student who scored high tends to score high again. It finds who to ask more often. It does not pick the week: random weeks for the same students in the same term did as well.
 - The earlier answers were at least 11 days old, a median of 2.1 weeks. The app asks once a month unless the model asks sooner, so its answers will often be older than that, and the model will do worse than this.

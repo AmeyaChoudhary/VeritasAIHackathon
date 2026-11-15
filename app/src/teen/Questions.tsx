@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Stable } from "../ui/Stable";
 import { useSnap, useStore } from "../store/hooks";
 import { PHQ8, PHQ_STEM, PHQ_STOPS } from "../engine/phq";
 import { questionnaireLine } from "../engine/notes";
@@ -53,11 +54,15 @@ export function Questions({ mode, onDone }: { mode: "setup" | "check"; onDone: (
     }
     return (
       <div className="q-wrap rise">
-        <span className="badge badge-lg">
-          <Icon name="check" size={26} />
-        </span>
+        {rec?.result === "skipped" ? (
+          <span className="badge badge-lg">
+            <Icon name="check" size={26} />
+          </span>
+        ) : (
+          <Stable mood="happy" size={92} className="thanks-stable" />
+        )}
         <h1 className="display">{rec?.result === "skipped" ? "This set has closed." : "Thanks for answering."}</h1>
-        <p className="lede">{rec?.result === "skipped" ? "Steady will ask again another week." : "That's all for now."}</p>
+        <p className="lede">{rec?.result === "skipped" ? "Stability will ask again another week." : "That's all for now."}</p>
         <div className="q-foot">
           <button className="btn btn-primary btn-lg btn-block" onClick={onDone}>
             Done

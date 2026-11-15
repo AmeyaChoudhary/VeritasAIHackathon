@@ -1,5 +1,6 @@
 // Read the student's own files in the browser. Nothing is uploaded.
 // Spotify: StreamingHistory*.json (endTime, msPlayed) or the extended history (ts, ms_played).
+// Only song plays of 30 seconds or more count; titles are never kept.
 // Sleep and steps: a CSV with the header date,sleep_hours,steps.
 
 export interface ImportedWeek {
@@ -35,14 +36,65 @@ export function mondayOf(d: Date): string {
   return ymd(x);
 }
 
-function parseTime(v: unknown): Date | null {
-  if (typeof v !== "string" || !v) return null;
-  // endTime looks like "2024-01-05 23:41" and is in UTC. ts is ISO with a Z.
-  const s = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(v) ? `${v.replace(" ", "T")}:00Z` : v;
-  const d = new Date(s);
-  return Number.isNaN(d.getTime()) ? null : d;
+/** One song play from a Spotify data file. key identifies the song only so repeats can be
+ *  counted; it lives in memory while a file is read and is never stored. */
+export interface SpotifyPlay {
+  at: number;
+  ms: number;
+  skipped: boolean;
+  key: string;
 }
 
+/** A play counts as listening from 30 seconds on, the same line Spotify uses for a stream. */
+export const MIN_PLAY_MS = 30_000;
+
+/** Spotify gives UTC in both formats: endTime "2024-01-05 23:41" (account data) and ts
+ *  "2024-01-05T23:41:07Z" (extended history). Returns ms, or NaN. */
+export function spotifyTime(v: unknown): number {
+  if (typeof v !== "string" || !v) return NaN;
+  const s = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(v) ? `${v.replace(" ", "T")}:00Z` : v;
+  return Date.parse(s);
+}
+
+const text = (v: unknown) => (typeof v === "string" ? v : "");
+
+/** Song plays from one Spotify file, in either format. Podcasts, audiobooks and videos are left
+ *  out, and so are plays under 30 seconds. Song titles are used only for the in-memory key.
+ *  Account data: StreamingHistory_music_N.json (older: StreamingHistoryN.json), entries with
+ *  endTime, msPlayed, artistName, trackName. Extended history: Streaming_History_Audio_*.json
+ *  (older: endsong_N.json), entries with ts, ms_played, master_metadata_track_name,
+ *  spotify_track_uri, skipped, reason_end, and episode_name or audiobook_title for spoken audio. */
+export function spotifyPlays(data: unknown, path = ""): { plays: SpotifyPlay[]; short: number; other: number } {
+  if (!Array.isArray(data)) throw new Error("Expected a list of plays, as in StreamingHistory_music_0.json.");
+  if (/podcast|video/i.test(path.split("/").pop() ?? "")) return { plays: [], short: 0, other: data.length };
+  const plays: SpotifyPlay[] = [];
+  let short = 0;
+  let other = 0;
+  for (const item of data) {
+    if (!item || typeof item !== "object") continue;
+    const o = item as Record<string, unknown>;
+    const spoken =
+      !!o.episode_name || !!o.audiobook_title || !!o.podcastName || !!o.episodeName ||
+      ("master_metadata_track_name" in o && o.master_metadata_track_name == null && !o.spotify_track_uri);
+    if (spoken) {
+      other++;
+      continue;
+    }
+    const at = spotifyTime(o.ts ?? o.endTime);
+    const msRaw = o.ms_played ?? o.msPlayed;
+    const ms = typeof msRaw === "number" ? msRaw : Number(msRaw);
+    if (!Number.isFinite(at) || !Number.isFinite(ms) || ms <= 0) continue;
+    if (ms < MIN_PLAY_MS) {
+      short++;
+      continue;
+    }
+    const key = text(o.spotify_track_uri) || `${text(o.master_metadata_album_artist_name ?? o.artistName)}\u0000${text(o.master_metadata_track_name ?? o.trackName)}`.toLowerCase();
+    plays.push({ at, ms, skipped: o.skipped === true, key });
+  }
+  return { plays, short, other };
+}
+
+/** A quick look at one Spotify file (the Import screen). Weeks in the phone's own time. */
 export function parseSpotify(text: string): { weeks: MusicWeek[]; plays: number } {
   let data: unknown;
   try {
@@ -50,29 +102,22 @@ export function parseSpotify(text: string): { weeks: MusicWeek[]; plays: number 
   } catch {
     throw new Error("This file is not JSON. Spotify sends StreamingHistory files as .json.");
   }
-  if (!Array.isArray(data)) throw new Error("Expected a list of plays, as in StreamingHistory_music_0.json.");
+  const { plays } = spotifyPlays(data);
   const byWeek = new Map<string, { ms: number; late: number; days: Set<string> }>();
-  let plays = 0;
-  for (const item of data) {
-    if (!item || typeof item !== "object") continue;
-    const o = item as Record<string, unknown>;
-    const d = parseTime(o.ts ?? o.endTime);
-    const msRaw = o.ms_played ?? o.msPlayed;
-    const ms = typeof msRaw === "number" ? msRaw : Number(msRaw);
-    if (!d || !Number.isFinite(ms) || ms <= 0) continue;
-    plays++;
+  for (const p of plays) {
+    const d = new Date(p.at);
     const key = mondayOf(d);
     const w = byWeek.get(key) ?? { ms: 0, late: 0, days: new Set<string>() };
-    w.ms += ms;
-    if (d.getHours() < 5) w.late += ms;
+    w.ms += p.ms;
+    if (d.getHours() < 5) w.late += p.ms;
     w.days.add(ymd(d));
     byWeek.set(key, w);
   }
-  if (!plays) throw new Error("No plays found. Each entry needs ts or endTime, and ms_played or msPlayed.");
+  if (!plays.length) throw new Error("No song plays of 30 seconds or more. Each entry needs ts or endTime, and ms_played or msPlayed.");
   const weeks = [...byWeek.entries()]
     .sort((a, b) => a[0].localeCompare(b[0]))
     .map(([weekOf, w]) => ({ weekOf, days: w.days.size, hours: w.ms / 3.6e6, afterMidnight: w.ms ? w.late / w.ms : 0 }));
-  return { weeks, plays };
+  return { weeks, plays: plays.length };
 }
 
 export const CSV_TEMPLATE = `date,sleep_hours,steps

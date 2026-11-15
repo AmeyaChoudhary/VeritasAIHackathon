@@ -129,7 +129,7 @@ For the design, the evidence is for knowing whom to ask more often, and less for
 
 ## Caveats
 
-- These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.
+- These are Dartmouth college students from 2017 to 2022. Stability is meant for high school students.
 - The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.
 - In this study the check-in questions came in the same survey as the PHQ-2. We cannot tell whether students would answer a short check-in more often than two screening questions.
 - 80% of monitored weeks had a check-in in the week before. The other weeks are scored from a missing-value flag.

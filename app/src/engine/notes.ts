@@ -58,8 +58,8 @@ export function headsUpText(e: HeadsUpEvent, people: People): NoteText {
   const name = people.teen;
   const first =
     e.areas && e.areas.length && e.weeks
-      ? `For the past ${e.weeks} weeks, ${name} has been ${joinWords(e.areas.map((a) => AREA_PHRASE[a](p)))}. Steady can't say why, and this is not a diagnosis.`
-      : `Steady suggests you check in with ${name} about how ${p.sub} ${p.has} been feeling lately. This is not a diagnosis.`;
+      ? `For the past ${e.weeks} weeks, ${name} has been ${joinWords(e.areas.map((a) => AREA_PHRASE[a](p)))}. Stability can't say why, and this is not a diagnosis.`
+      : `Stability suggests you check in with ${name} about how ${p.sub} ${p.has} been feeling lately. This is not a diagnosis.`;
   return {
     title: `Worth checking in with ${name}`,
     sections: [
@@ -87,7 +87,7 @@ export function urgentText(people: People): NoteText {
     title: `Please check on ${name} now`,
     sections: [
       {
-        text: `${name} typed words that may be about suicide or self-harm. Steady can't tell how serious this is. Treat it as real until you have talked with ${p.obj}.`,
+        text: `${name} typed words that may be about suicide or self-harm. Stability can't tell how serious this is. Treat it as real until you have talked with ${p.obj}.`,
       },
       {
         label: "Now:",
@@ -124,14 +124,14 @@ export function setupScreenText(people: People): { title: string; paragraphs: st
   const pp = PRONOUNS[people.parentPronoun];
   const parent = people.parent;
   return {
-    title: `Steady is linked to ${parent}'s phone.`,
+    title: `Stability is linked to ${parent}'s phone.`,
     secondLine: people.second ? `If ${parent} doesn't answer an urgent note, it also goes to ${people.second}.` : undefined,
     paragraphs: [
-      "Steady learns what's normal for you: sleep, activity, how often you message people, and the tone of what you type. Your messages never leave this phone.",
-      `If something stays off for a few weeks, or your answers to its questions are high, Steady sends ${parent} a short note asking ${pp.obj} to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Steady can send ${parent} an urgent note right away.`,
-      `Notes never include your messages, your answers or your scores. Steady won't tell you when it sends one. ${parent} can also see whether Steady is on and whether its keyboard is in use.`,
+      "Stability learns what's normal for you: sleep, activity, how often you message people, and the tone of what you type. Your messages never leave this phone.",
+      `If something stays off for a few weeks, or your answers to its questions are high, Stability sends ${parent} a short note asking ${pp.obj} to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Stability can send ${parent} an urgent note right away.`,
+      `Notes never include your messages, your answers or your scores. Stability won't tell you when it sends one. ${parent} can also see whether Stability is on and whether its keyboard is in use.`,
       "If you want, name a trusted adult outside your home. Urgent notes go to them too.",
-      "You can also connect Gmail, Google Calendar, Last.fm and screen time. Steady reads them on this phone. From Gmail it reads only emails you send: how quickly you reply and their tone. Nothing you wrote leaves this phone.",
+      "You can also connect Gmail, Google Calendar, Last.fm and screen time. Stability reads them on this phone. From Gmail it reads only emails you send: how quickly you reply and their tone. Nothing you wrote leaves this phone.",
       "Help from 988 is always one tap away.",
     ],
   };
@@ -143,14 +143,14 @@ export function questionnaireLine(people: People): string {
 
 export function missesText(people: People): string {
   const p = PRONOUNS[people.teenPronoun];
-  return `Steady will miss things. It only sees words typed on its own keyboard, and most worrying changes never send a note. No note does not mean ${people.teen} is fine. If you are worried, talk with ${p.obj}, and call ${p.pos} pediatrician or 988 any time.`;
+  return `Stability will miss things. It only sees words typed on its own keyboard, and most worrying changes never send a note. No note does not mean ${people.teen} is fine. If you are worried, talk with ${p.obj}, and call ${p.pos} pediatrician or 988 any time.`;
 }
 
 export function statusLine(state: "waiting" | "on" | "not_connected", lowData: boolean, noKeyboard: boolean, people: People): { head: string; sub?: string } {
   if (state === "waiting") return { head: `Waiting for ${people.teen}'s phone` };
   if (state === "not_connected") return { head: "Not connected" };
-  if (lowData) return { head: "On, but not enough data", sub: noKeyboard ? "The Steady keyboard isn't in use, so typed words aren't checked." : undefined };
-  if (noKeyboard) return { head: "On, but the Steady keyboard isn't in use, so typed words aren't checked." };
+  if (lowData) return { head: "On, but not enough data", sub: noKeyboard ? "The Stability keyboard isn't in use, so typed words aren't checked." : undefined };
+  if (noKeyboard) return { head: "On, but the Stability keyboard isn't in use, so typed words aren't checked." };
   return { head: "On" };
 }
 

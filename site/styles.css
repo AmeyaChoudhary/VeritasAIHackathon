@@ -1,4 +1,4 @@
-/* Steady landing page. Night to morning: the stage warms from --night to --paper as you scroll.
+/* Stability landing page. Night to morning: the stage warms from --night to --paper as you scroll.
    main.js writes --bg, --fg, --fg2, --hair and --grain on <html>; everything else reads them. */
 
 @font-face { font-family: "Inter"; font-weight: 400; font-display: swap; src: url("assets/fonts/inter-400.woff2") format("woff2"); }
@@ -210,7 +210,7 @@ img, svg, video, canvas { display: block; }
 .shot video, .shot img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; }
 .phone-tag { text-align: center; margin-top: 16px; }
 
-/* ---------- 3. what Steady does ---------- */
+/* ---------- 3. what Stability does ---------- */
 .sticky.how { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.85fr); gap: clamp(20px, 4vw, 80px); align-items: center; padding: 96px var(--pad) 64px; }
 .steps { display: grid; gap: clamp(4px, 1.2vh, 14px); }
 .step { display: grid; grid-template-columns: 46px minmax(0, 1fr); align-items: baseline; opacity: 0.2; transition: opacity .6s var(--ease), transform .6s var(--ease); }
@@ -387,3 +387,19 @@ html.rm { scroll-behavior: auto; }
 .rm .bar-fill { transition: none; clip-path: inset(0 calc(100% - var(--w)) 0 0 round 12px); }
 .rm .ten i, .rm .ml, .rm .shot { transition: none; }
 .rm .sticky.how, .rm .sticky.privacy, .rm .sticky.notes { padding-top: 130px; padding-bottom: 90px; }
+
+/* Stable, the mascot, in the check-in step (same drawing and motion as app/src/ui/Stable.tsx) */
+.note-stable { display: flex; align-items: flex-start; gap: 16px; }
+.note-stable b { color: var(--fg, #15171A); font-weight: 600; }
+.stable-site { flex: none; line-height: 0; margin-top: -4px; animation: ssFloat 3.6s ease-in-out infinite; }
+.stable-site svg { display: block; overflow: visible; }
+.ss-body { transform-origin: 50% 92%; transform-box: view-box; animation: ssBreathe 3.6s ease-in-out infinite; }
+.ss-eyes { transform-origin: 50% 55%; transform-box: fill-box; animation: ssBlink 4.8s infinite; }
+.ss-sprout { transform-origin: 50% 22%; transform-box: view-box; animation: ssSway 3.6s ease-in-out infinite; }
+@keyframes ssFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes ssBreathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.025, 0.98); } }
+@keyframes ssBlink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.12); } }
+@keyframes ssSway { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+@media (max-width: 720px) { .stable-site svg { width: 44px; height: 44px; } .note-stable { gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .stable-site, .ss-body, .ss-eyes, .ss-sprout { animation: none; } }
+.rm .stable-site, .rm .ss-body, .rm .ss-eyes, .rm .ss-sprout { animation: none; }

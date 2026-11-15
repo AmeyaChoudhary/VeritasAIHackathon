@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""A quiet original bed for the Steady video, synthesized from oscillators (no samples, nothing to license).
+"""A quiet original bed for the Stability video, synthesized from oscillators (no samples, nothing to license).
 
 Reads  src/timing.json         (section starts, total duration)
 Writes public/music/score.wav  (48 kHz stereo, narration + 3 s)
 
 Shape: slow pads and a soft two-note pulse. B minor while the problem is on screen, then D major
-from the moment Steady appears, and one held chord under the end card. Kept low and mostly below
+from the moment Stability appears, and one held chord under the end card. Kept low and mostly below
 1 kHz so it sits under a voice. Re-run whenever the narration changes:
     python3 tools/music.py
 """

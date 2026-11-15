@@ -11,7 +11,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 
 /**
- * The ongoing notification shown while the Steady keyboard is on. Google Play requires a
+ * The ongoing notification shown while the Stability keyboard is on. Google Play requires a
  * monitoring app to "present users with a persistent notification at all times when the app
  * is running", and the keyboard runs whenever it is the chosen keyboard.
  * https://support.google.com/googleplay/android-developer/answer/9888380

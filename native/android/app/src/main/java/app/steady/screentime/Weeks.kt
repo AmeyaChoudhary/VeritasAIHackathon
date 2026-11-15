@@ -5,10 +5,10 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.TemporalAdjusters
 
-/** One week for the screen, Monday to Sunday, the same weeks the Steady web app uses. */
+/** One week for the screen, Monday to Sunday, the same weeks the Stability web app uses. */
 data class WeekSummary(
     val monday: LocalDate,
-    /** Days with anything from any source. Steady leaves out weeks with fewer than 4. */
+    /** Days with anything from any source. Stability leaves out weeks with fewer than 4. */
     val days: Int,
     val screenDays: Int,
     val screenMinutesPerDay: Int?,

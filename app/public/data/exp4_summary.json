@@ -20,7 +20,7 @@
   "weekly_reference_auc": 0.907888,
   "headline": "The ask model the app runs scored an AUC of 0.89 on students it never saw. At 12 asks per student-year, 44% of its asks landed on a week with a high PHQ-2, against 13% for a fixed calendar. It finds who to ask more often, not which week: random weeks for the same students did as well (45%).",
   "caveats": [
-    "These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.",
+    "These are Dartmouth college students from 2017 to 2022. Stability is meant for high school students.",
     "The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.",
     "Most of the model's skill comes from the student's earlier PHQ-2 answers: a student who scored high tends to score high again. It finds who to ask more often. It does not pick the week: random weeks for the same students in the same term did as well.",
     "The earlier answers were at least 11 days old, a median of 2.1 weeks. The app asks once a month unless the model asks sooner, so its answers will often be older than that, and the model will do worse than this.",

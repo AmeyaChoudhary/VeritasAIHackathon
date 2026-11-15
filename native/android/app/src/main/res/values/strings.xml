@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Steady</string>
+    <string name="app_name">Stability</string>
 
     <string name="intro_heading">What this app reads</string>
-    <string name="intro_reads">Screen time. Steady looks at when your screen turns on and off. For each of the last 28 days it adds up how long the screen was on. It also counts the minutes between midnight and 5 a.m., and notes the first and last time you used your phone. It does not save which apps you used.</string>
-    <string name="intro_health">Health Connect, if you connect it. Steady reads the sleep and steps your phone or watch recorded. It keeps how long you slept each night and when you went to bed. It also keeps your steps each day.</string>
-    <string name="intro_keyboard">The Steady keyboard, if you turn it on. It reads what you type as you type it and never saves the words. When a message ends, it counts your typing speed and pauses. It counts how often you went back to fix something, and whether the message read as low mood. Then the words are dropped.</string>
+    <string name="intro_reads">Screen time. Stability looks at when your screen turns on and off. For each of the last 28 days it adds up how long the screen was on. It also counts the minutes between midnight and 5 a.m., and notes the first and last time you used your phone. It does not save which apps you used.</string>
+    <string name="intro_health">Health Connect, if you connect it. Stability reads the sleep and steps your phone or watch recorded. It keeps how long you slept each night and when you went to bed. It also keeps your steps each day.</string>
+    <string name="intro_keyboard">The Stability keyboard, if you turn it on. It reads what you type as you type it and never saves the words. When a message ends, it counts your typing speed and pauses. It counts how often you went back to fix something, and whether the message read as low mood. Then the words are dropped.</string>
     <string name="intro_keyboard_help">If a message sounds like you might hurt yourself, the keyboard opens a screen with 988. This includes words you typed and then deleted before sending. It may ask if you are safe right now. It saves the time and your answer, never the words.</string>
     <string name="intro_offline">This app has no internet permission, so it cannot send anything. The numbers leave your phone only if you save the file and share it yourself.</string>
-    <string name="intro_parent">Steady is linked to a parent. A note to them can say which areas changed, like sleep, and for how long. It never includes these numbers or your words.</string>
+    <string name="intro_parent">Stability is linked to a parent. A note to them can say which areas changed, like sleep, and for how long. It never includes these numbers or your words.</string>
 
     <string name="section_screen">Screen time</string>
     <string name="access_off">Usage access is off.</string>
     <string name="access_on">Usage access is on.</string>
-    <string name="access_body">Android asks you to allow this yourself. Tap the button, find Steady in the list, and turn on usage access. You can turn it off again in the same place at any time.</string>
+    <string name="access_body">Android asks you to allow this yourself. Tap the button, find Stability in the list, and turn on usage access. You can turn it off again in the same place at any time.</string>
     <string name="access_button">Open usage access settings</string>
     <string name="access_missing">This phone has no usage access screen to open. Look in Settings under Apps, then Special app access.</string>
 
@@ -22,37 +22,37 @@
     <string name="health_install">Health Connect is not installed, or it needs an update.</string>
     <string name="health_install_button">Get Health Connect</string>
     <string name="health_no_store">This phone has no Play Store to get it from.</string>
-    <string name="health_off">Not connected. Connecting lets Steady read sleep sessions and steps. You can connect it later.</string>
+    <string name="health_off">Not connected. Connecting lets Stability read sleep sessions and steps. You can connect it later.</string>
     <string name="health_connect">Connect Health Connect</string>
     <string name="health_denied">Health Connect did not give access. You can allow it in Health Connect.</string>
-    <string name="health_on">Connected. Steady reads sleep and steps while this screen is open.</string>
+    <string name="health_on">Connected. Stability reads sleep and steps while this screen is open.</string>
     <string name="health_manage">Manage in Health Connect</string>
     <string name="health_disconnect">Disconnect</string>
     <string name="health_error">Could not read Health Connect this time. Tap Refresh to try again.</string>
 
-    <string name="health_policy_title">How Steady uses Health Connect</string>
-    <string name="health_policy_reads">Steady reads two kinds of records from Health Connect: sleep sessions and steps. It reads the last 28 days, and only while you have the Steady screen open.</string>
+    <string name="health_policy_title">How Stability uses Health Connect</string>
+    <string name="health_policy_reads">Stability reads two kinds of records from Health Connect: sleep sessions and steps. It reads the last 28 days, and only while you have the Stability screen open.</string>
     <string name="health_policy_keeps">For each night it works out how long you slept and when you went to bed. For each day it adds up your steps. It does not keep the records themselves.</string>
     <string name="health_policy_leaves">Nothing leaves your phone. The app has no internet permission. The numbers go into a file only if you save one, and only you can share that file.</string>
-    <string name="health_policy_stop">You can stop this at any time with Disconnect in the Steady app, or in Health Connect\'s own settings.</string>
+    <string name="health_policy_stop">You can stop this at any time with Disconnect in the Stability app, or in Health Connect\'s own settings.</string>
 
-    <string name="kb_title">Steady keyboard</string>
-    <string name="kb_off">The Steady keyboard is off. Turn it on in Settings, then choose it as your keyboard.</string>
-    <string name="kb_enabled">The Steady keyboard is on, but another keyboard is in use.</string>
-    <string name="kb_active">The Steady keyboard is in use.</string>
+    <string name="kb_title">Stability keyboard</string>
+    <string name="kb_off">The Stability keyboard is off. Turn it on in Settings, then choose it as your keyboard.</string>
+    <string name="kb_enabled">The Stability keyboard is on, but another keyboard is in use.</string>
+    <string name="kb_active">The Stability keyboard is in use.</string>
     <string name="kb_skips">It types in every field. It does not count or check anything in password fields, incognito tabs, or email, web address and number fields.</string>
     <string name="kb_turn_on">Turn on the keyboard</string>
     <string name="kb_choose">Choose keyboard</string>
     <string name="kb_no_settings">This phone has no keyboard settings screen to open.</string>
-    <string name="kb_notice_body">While the Steady keyboard is on, Steady shows a notification, so you always know it is checking what you type. Android asks you to allow notifications first.</string>
+    <string name="kb_notice_body">While the Stability keyboard is on, Stability shows a notification, so you always know it is checking what you type. Android asks you to allow notifications first.</string>
     <string name="kb_notice_button">Allow the notification</string>
 
-    <string name="notice_channel">Steady keyboard</string>
-    <string name="notice_channel_description">Shows while the Steady keyboard is on.</string>
-    <string name="notice_title">The Steady keyboard is on</string>
+    <string name="notice_channel">Stability keyboard</string>
+    <string name="notice_channel_description">Shows while the Stability keyboard is on.</string>
+    <string name="notice_title">The Stability keyboard is on</string>
     <string name="notice_text">It checks what you type on this phone and keeps daily counts, never your words. Tap to see them.</string>
 
-    <string name="keyboard_name">Steady keyboard</string>
+    <string name="keyboard_name">Stability keyboard</string>
     <string name="keyboard_subtype">English (US)</string>
     <string name="key_symbols">\?123</string>
     <string name="key_letters">ABC</string>
@@ -82,7 +82,7 @@
     <string name="crisis_988_body">You can call or text 988 any time, day or night. It is free, and someone will listen.</string>
     <string name="crisis_call_988">Call 988</string>
     <string name="crisis_text_988">Text 988</string>
-    <string name="crisis_after">You can also talk to someone you trust. Steady did not save what you typed.</string>
+    <string name="crisis_after">You can also talk to someone you trust. Stability did not save what you typed.</string>
     <string name="crisis_close">Close</string>
     <string name="crisis_no_app">This phone has no app for that. Call 988 or 911 from another phone.</string>
 
@@ -106,7 +106,7 @@
         <item quantity="one">%d day with data</item>
         <item quantity="other">%d days with data</item>
     </plurals>
-    <string name="week_short">Under 4 days, so Steady would leave this week out.</string>
+    <string name="week_short">Under 4 days, so Stability would leave this week out.</string>
     <string name="week_screen">Screen on: %1$s a day</string>
     <string name="week_night">Midnight to 5 a.m.: %1$s a night</string>
     <string name="week_times">Usual first use %1$s, last use %2$s</string>

@@ -891,7 +891,7 @@
   "last_week_phq_auc": 0.8771,
   "headline": "Using only phone data recorded before the answer, models picked out high PHQ-2 weeks in students they never saw at an AUC of 0.57 to 0.60, while a single check-in from the week before reached 0.69.",
   "caveats": [
-    "These are Dartmouth college students from 2017 to 2022, through the pandemic. Steady is meant for high school students.",
+    "These are Dartmouth college students from 2017 to 2022, through the pandemic. Stability is meant for high school students.",
     "The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.",
     "Phone features are the study's own daily summaries. Typing, tone and music were not available.",
     "Every AUC is an exploratory cross-validation estimate for one model. The intervals resample students but do not include choosing among models.",

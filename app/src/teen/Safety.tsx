@@ -93,7 +93,7 @@ export function Crisis({ emergency, onMore }: { emergency: boolean; onMore: () =
             More help
           </button>
           <button className="btn btn-quiet" onClick={() => store.dispatch({ a: "teen", input: { kind: "dismiss", what: "safety" } })}>
-            Back to Steady
+            Back to Stability
           </button>
         </div>
       </div>

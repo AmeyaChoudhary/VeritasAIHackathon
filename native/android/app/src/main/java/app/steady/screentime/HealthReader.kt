@@ -21,7 +21,7 @@ import java.time.ZoneId
  * Setup, permissions and the privacy screen follow
  * https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started
  * Health Connect lets an app read up to 30 days before access was first given, which covers
- * the 28 days Steady uses.
+ * the 28 days Stability uses.
  */
 object HealthAccess {
     val permissions: Set<String> = setOf(
@@ -57,8 +57,8 @@ object HealthAccess {
         }
 
     /**
-     * "Disconnect" asks Health Connect to drop Steady's access. From Android 14 that only takes
-     * effect when the app's process ends, so Steady also stops reading right away on its own.
+     * "Disconnect" asks Health Connect to drop Stability's access. From Android 14 that only takes
+     * effect when the app's process ends, so Stability also stops reading right away on its own.
      */
     suspend fun disconnect(context: Context) {
         setTurnedOff(context, true)

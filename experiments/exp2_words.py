@@ -1,4 +1,4 @@
-"""Experiment 2 for Steady: words.
+"""Experiment 2 for Stability: words.
 
 Part A. A tone model that reads low mood in short messages and runs in the browser.
   TF-IDF over word unigrams and bigrams (our own tokenizer, copied exactly in
@@ -587,7 +587,7 @@ def main():
 CAVEATS = [
     "GoEmotions is Reddit comments, mostly by adults. It holds no teen texts, so the test numbers may not carry over to a teen's phone.",
     "Low mood means a comment was labelled sadness, grief, disappointment or remorse. These are emotion labels and say nothing about depression or suicide risk.",
-    "The model scores one message at a time. Steady uses the weekly share of low-mood messages against the student's own normal, which this test does not measure.",
+    "The model scores one message at a time. Stability uses the weekly share of low-mood messages against the student's own normal, which this test does not measure.",
     "The word 'sorry' pushes a message hard toward low mood, so 'sorry im late' scores as low mood.",
     "The self-harm check is a short phrase list and it is not validated. No clinician has reviewed it, and it missed 9 of the 15 risk messages we wrote.",
     "The 60 messages were written by a Claude session, not by teens, and labelled by that one writer. 60 messages are too few for reliable rates.",
@@ -743,7 +743,7 @@ def render_md(res, msgs):
       + (" \"sorry\" is far ahead of the rest, because Reddit comments labelled remorse or sadness often say \"sorry\"." if sorry == 0 and tf_[0][1] > 1.25 * tf_[1][1]
          else (" \"sorry\" is among them, because Reddit comments labelled remorse or sadness often say \"sorry\"." if sorry is not None else ""))
       + (" Teens say sorry for small things, and \"sorry im late lol\" scores as low mood." if late and late["low_mood"] else "")
-      + " In Steady the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.")
+      + " In Stability the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.")
     w("")
     w("### Size and browser check")
     w("")
@@ -868,7 +868,7 @@ def render_md(res, msgs):
     w("")
     w("- **GoEmotions is Reddit comments by adults, mostly.** The dataset does not record ages. Its raters were three crowdworkers in India for each comment, according to the dataset card. None of it is teen texting.")
     w("- **The labels are emotions.** Sadness, grief, disappointment and remorse in one comment say nothing about depression or suicide risk.")
-    w("- **One message is not a week.** Steady uses the weekly share of low-mood messages against the student's own range. This test scores single messages only.")
+    w("- **One message is not a week.** Stability uses the weekly share of low-mood messages against the student's own range. This test scores single messages only.")
     w("- **The self-harm list is not validated.** No clinician has reviewed it. It missed 9 of 15 risk messages here.")
     w("- **The 60 messages are few and made up.** A Claude session wrote and labelled them, not teens. One message moves the risk-pool rate by about 7 points.")
     w("- **Some labels are borderline.** The writer was unsure about the low-mood label on m29, m34, m37, m43, m46, m60 and x01, and about concern on m52.")

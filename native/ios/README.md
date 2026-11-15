@@ -1,4 +1,4 @@
-# Steady screen time for iPhone
+# Stability screen time for iPhone
 
 **Status: builds, not yet run on an iPhone.** On November 14, 2026 the app and both extensions built with no warnings in Xcode 27.2 (iOS 27.2 SDK), for iPhone with signing off and for the Simulator. In the Simulator (iPhone 18 Pro) the app opens, shows its disclosure, and answers "Screen Time access was not turned on" when the button is tapped: the Simulator cannot grant Screen Time access, and the build had no signing team. Threshold events and the report view need a real iPhone with a development team set. **A free Apple ID is not enough:** with a Personal Team, Xcode refuses to sign it with "Personal development teams ... do not support the Family Controls (Development) capability" (seen on November 14, 2026). Running it on any iPhone needs a paid Apple Developer Program team.
 
@@ -25,7 +25,7 @@ Since iOS 26.4 Apple also has [`DeviceActivityData.activityData(filteredBy:using
    - `steady.night`, 00:00 to 05:00, with lines at 15, 30, 60 and 120 minutes.
    - `steady.day`, 00:00 to 23:59, with lines at 60, 120, 180, 240, 300, 360 and 480 minutes.
 
-   Each line is a `DeviceActivityEvent` with no apps, categories or web domains, which [Apple's docs say](https://developer.apple.com/documentation/deviceactivity/deviceactivityevent/init(applications:categories:webdomains:threshold:)) covers all of them. So there is no app picker, and Steady never holds tokens for single apps. The app starts a schedule only if it is not already running, because starting it again resets today's count.
+   Each line is a `DeviceActivityEvent` with no apps, categories or web domains, which [Apple's docs say](https://developer.apple.com/documentation/deviceactivity/deviceactivityevent/init(applications:categories:webdomains:threshold:)) covers all of them. So there is no app picker, and Stability never holds tokens for single apps. The app starts a schedule only if it is not already running, because starting it again resets today's count.
 3. **Records lines passed.** SteadyMonitor gets `eventDidReachThreshold` for each line and `intervalDidEnd` when a schedule ends. It saves, for each date, the highest line passed and whether the schedule ended. Night use on Nov 10 between 00:00 and 05:00 counts toward Nov 10, the same as on Android.
 4. **Shows the week.** The app embeds `DeviceActivityReport` with hourly segments for the last 7 days. SteadyReport adds the hours into a total for each day and a total for 00:00 to 05:00.
 5. **Saves the file.** **Save as file** writes the last 28 complete days with `.fileExporter`, which opens the system Save to Files sheet.
@@ -50,7 +50,7 @@ Same keys as the Android file. The minutes are buckets, and the clock times are 
 
 - `">=180"` means use that day passed the 180 minute line and no higher one.
 - `"<15"` means the schedule ended without passing the lowest line.
-- `null` means Steady has no record, for example because the phone was off when the schedule ended.
+- `null` means Stability has no record, for example because the phone was off when the schedule ended.
 
 Left out: today, the day monitoring started (its count began part way through), and days with no record at all. Keys are written in alphabetical order.
 

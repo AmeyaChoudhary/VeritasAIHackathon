@@ -12,7 +12,7 @@ for i, s in enumerate(S, 1):
   <div class="show">On screen: {html.escape(s["show"])}</div>
 </section>''')
 page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Steady teleprompter</title>
+<title>Stability teleprompter</title>
 <style>
 :root{{--bg:#0E1114;--ink:#F4F2EC;--soft:rgba(244,242,236,.6);--acc:#F2A33A;--grn:#5FAE8B}}
 *{{box-sizing:border-box}}body{{margin:0;background:var(--bg);color:var(--ink);font:500 20px/1.4 Inter,system-ui,-apple-system,sans-serif}}
@@ -26,7 +26,7 @@ page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 .keys{{position:fixed;bottom:16px;right:22px;color:var(--soft);font:14px ui-monospace,Menlo,monospace}}
 </style></head><body>
 <section class="card on intro" data-i="0"><div>
-<h1>Recording the voice for the Steady video</h1>
+<h1>Recording the voice for the Stability video</h1>
 <ul>
 <li><b>What to record:</b> sound only. Voice Memos on a phone is fine, or QuickTime, File, New Audio Recording.</li>
 <li><b>Where:</b> a quiet room with soft things in it (a bedroom beats a kitchen). Hold the phone about a hand's length from your mouth.</li>

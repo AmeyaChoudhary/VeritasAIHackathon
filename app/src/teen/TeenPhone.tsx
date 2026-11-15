@@ -79,7 +79,7 @@ export function TeenPhone() {
       <div className="phone-body">{body}</div>
       <ProtoLine />
       {showTabs && (
-        <nav className="tabs" aria-label="Steady">
+        <nav className="tabs" aria-label="Stability">
           {TABS.map((t) => (
             <button
               key={t.id}

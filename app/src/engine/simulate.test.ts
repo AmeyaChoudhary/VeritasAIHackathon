@@ -59,7 +59,7 @@ describe("scenarios", () => {
     expect(emitted.filter((x) => x.event.type === "status").length).toBeGreaterThanOrEqual(83);
   });
 
-  it("Steady week to week: no notes", () => {
+  it("Stable week to week: no notes", () => {
     const { emitted, world } = play("steady");
     expect(notes(emitted)).toHaveLength(0);
     const st = emitted.filter((x) => x.event.type === "status").map((x) => x.event as { enough_data: boolean; keyboard_used: boolean });

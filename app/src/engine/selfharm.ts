@@ -1,4 +1,4 @@
-// Self-harm phrase check for Steady (Experiment 2, part B).
+// Self-harm phrase check for Stability (Experiment 2, part B).
 //
 // This is NOT the tone model and it is NOT validated. It is a short phrase list
 // (selfharm_phrases.json) written for the demo without clinical review.

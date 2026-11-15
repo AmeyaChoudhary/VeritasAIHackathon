@@ -101,9 +101,9 @@
   "headline": "At 21 asks per student-year, 14.6% of the drift rule's asks landed on weeks with a high mood score against 12.9% for a fixed calendar, but random weeks from the same student in the same three months did as well (14.9%), so the rule found harder stretches and did no better than chance at picking the week.",
   "caveats": [
     "Mood scores stand in for a note being right. They cannot show whether a note helped a family.",
-    "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Steady is meant for high school students.",
+    "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Stability is meant for high school students.",
     "The label is two PHQ-4 items answered on the phone, counted as high at 3 or more. Only 74% of monitored weeks have one.",
-    "The phone signals are the study's own features. Steady would record different ones, and typing, tone and music were not available.",
+    "The phone signals are the study's own features. Stability would record different ones, and typing, tone and music were not available.",
     "The personal range is learned in each student's first four valid weeks and then frozen, so it drifts: the rule asked in 26% of weeks in year one and 61% in year three.",
     "At k = 1.0 the rule asks in 41% of monitored weeks, far more often than a real app should.",
     "The logistic regression and heads-up numbers come from the test half of one fixed split of students. The spread over five splits is in results.json.",

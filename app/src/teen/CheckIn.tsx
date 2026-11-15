@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSnap, useStore } from "../store/hooks";
 import { Icon } from "../ui/icons";
+import { Stable } from "../ui/Stable";
 
 // The two-tap weekly check-in. Its two questions and their five answers are the ones the
 // College Experience Study asked, which is what the ask model was trained on.
@@ -59,9 +60,12 @@ export function CheckIn() {
   return (
     <section className="card checkin" aria-labelledby="ci-h">
       <div className="ci-head">
-        <h2 id="ci-h" className="label">
-          Check-in
-        </h2>
+        <div className="ci-who">
+          <Stable mood={done ? "happy" : "idle"} size={34} />
+          <h2 id="ci-h" className="ci-title">
+            {done ? "Thanks. See you next week." : "Stable's check-in"}
+          </h2>
+        </div>
         <span className={`ci-done${done ? " show" : ""}`} aria-live="polite">
           {done ? (
             <>

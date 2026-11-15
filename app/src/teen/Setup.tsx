@@ -15,12 +15,12 @@ export function Disclosure() {
   const obj = PRONOUNS[people.parentPronoun].obj;
 
   const rows: { icon: IconName; head: string; text: string }[] = [
-    { icon: "pulse", head: "Steady learns your normal", text: "Sleep, activity, how often you message people, and the tone of what you type." },
+    { icon: "pulse", head: "Stability learns your normal", text: "Sleep, activity, how often you message people, and the tone of what you type." },
     { icon: "lock", head: "Your words stay on this phone", text: "Notes never include your messages, your answers or your scores." },
     {
       icon: "bell",
       head: `${parent} can get a short note`,
-      text: `If something stays off for a few weeks, or your answers to its questions are high, it asks ${obj} to check in with you. Steady won't tell you when it sends one.`,
+      text: `If something stays off for a few weeks, or your answers to its questions are high, it asks ${obj} to check in with you. Stability won't tell you when it sends one.`,
     },
     {
       icon: "alert",

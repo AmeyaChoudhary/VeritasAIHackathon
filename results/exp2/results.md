@@ -65,7 +65,7 @@ Recall by label (a comment can carry more than one):
 
 Disappointment is the hardest label: the model misses 115 of 151. Reading the missed ones, many are plain complaints such as "Your TLDR sucks", and several also carry the annoyance label.
 
-The words that push hardest toward low mood are "sorry", "sad", "sadly", "disappointed", "disappointing", "hurts", "poor", "regret", "painful", "unfortunately", "miss", "bad". "sorry" is among them, because Reddit comments labelled remorse or sadness often say "sorry". Teens say sorry for small things, and "sorry im late lol" scores as low mood. In Steady the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.
+The words that push hardest toward low mood are "sorry", "sad", "sadly", "disappointed", "disappointing", "hurts", "poor", "regret", "painful", "unfortunately", "miss", "bad". "sorry" is among them, because Reddit comments labelled remorse or sadness often say "sorry". Teens say sorry for small things, and "sorry im late lol" scores as low mood. In Stability the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.
 
 ### Size and browser check
 
@@ -174,7 +174,7 @@ All four false flags were dark jokes, and all four landed at concern, so each wo
 
 - **GoEmotions is Reddit comments by adults, mostly.** The dataset does not record ages. Its raters were three crowdworkers in India for each comment, according to the dataset card. None of it is teen texting.
 - **The labels are emotions.** Sadness, grief, disappointment and remorse in one comment say nothing about depression or suicide risk.
-- **One message is not a week.** Steady uses the weekly share of low-mood messages against the student's own range. This test scores single messages only.
+- **One message is not a week.** Stability uses the weekly share of low-mood messages against the student's own range. This test scores single messages only.
 - **The self-harm list is not validated.** No clinician has reviewed it. It missed 9 of 15 risk messages here.
 - **The 60 messages are few and made up.** A Claude session wrote and labelled them, not teens. One message moves the risk-pool rate by about 7 points.
 - **Some labels are borderline.** The writer was unsure about the low-mood label on m29, m34, m37, m43, m46, m60 and x01, and about concern on m52.

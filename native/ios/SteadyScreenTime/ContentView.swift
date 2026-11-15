@@ -13,11 +13,11 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section {
-                    Text("Steady can see how long you use your phone each day, and how much of that is between midnight and 5 a.m.")
-                    Text("The week below is drawn inside a sealed area that Apple provides. Nothing in that area can be saved or sent, even by Steady.")
-                    Text("What Steady can save is smaller. It notes when your use that day passes a set line: 1, 2, 3, 4, 5, 6 or 8 hours in the day, and 15, 30, 60 or 120 minutes between midnight and 5 a.m. It never learns which apps you used.")
+                    Text("Stability can see how long you use your phone each day, and how much of that is between midnight and 5 a.m.")
+                    Text("The week below is drawn inside a sealed area that Apple provides. Nothing in that area can be saved or sent, even by Stability.")
+                    Text("What Stability can save is smaller. It notes when your use that day passes a set line: 1, 2, 3, 4, 5, 6 or 8 hours in the day, and 15, 30, 60 or 120 minutes between midnight and 5 a.m. It never learns which apps you used.")
                     Text("This app sends nothing. The lines leave your phone only if you save the file and share it yourself.")
-                    Text("Steady is linked to a parent. A note to them can say that your phone use changed, and for how long. It never includes these numbers.")
+                    Text("Stability is linked to a parent. A note to them can say that your phone use changed, and for how long. It never includes these numbers.")
                 }
 
                 Section("Screen Time access") {
@@ -66,7 +66,7 @@ struct ContentView: View {
                     Section { Text(note) }
                 }
             }
-            .navigationTitle("Steady screen time")
+            .navigationTitle("Stability screen time")
         }
         .onAppear {
             access.refresh()

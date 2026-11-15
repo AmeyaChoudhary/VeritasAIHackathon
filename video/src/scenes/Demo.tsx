@@ -6,6 +6,7 @@ import { Callout, Icon, Mark, Mono } from "../components/ui";
 import { Phone, PHONE_H, PHONE_W, Seg, Track } from "../components/Phone";
 import rec from "../rec.json";
 import numbers from "../numbers.json";
+import { StableMascot } from "../components/StableMascot";
 
 const M = rec.marks as Record<string, number>;
 const TOP = 92;
@@ -71,21 +72,23 @@ const ScoreMeter: React.FC<{ at: number; crossAt: number }> = ({ at, crossAt }) 
   );
 };
 
-/** The walkthrough: Steady appears, then Maya's twelve weeks on her phone and her mom's. */
+/** The walkthrough: Stability appears, then Maya's twelve weeks on her phone and her mom's. */
 export const Demo: React.FC = () => {
   const frame = useCurrentFrame();
   const r = sceneRange("steady");
   const G = (t: number) => f(t) - r.from;               // seconds on the video clock to local frames
   const S = (t: number) => t - r.start;                 // seconds on the video clock to local seconds
   const q = (id: string, ph: string) => cue(id, ph);
-  const end = G(sceneRange("proof").start);
+  const end = G(sceneRange("how").start);
 
   // cues
-  const builtAt = G(q("steady", "So we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
-  const learnAt = G(q("learn", "For four weeks")), sleepAt = G(q("learn", "her sleep")), reachAt = G(q("learn", "how often")), moveAt = G(q("learn", "how much")), toneAt = G(q("learn", "the tone")), onceAt = G(q("learn", "Once a week"));
+  const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
+  const learnAt = G(q("learn", "For four weeks")), sleepAt = G(q("learn", "sleep")), reachAt = G(q("learn", "reaching out")), moveAt = G(q("learn", "movement")), toneAt = G(q("learn", "the tone")), onceAt = G(q("learn", "Once a week"));
+  const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
   const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks two questions")), wordAt = G(q("drift", "takes her at"));
   const finalsAt = G(q("drift", "Then finals")), modelAt = G(q("drift", "and our model")), againAt = G(q("drift", "It asks again"));
   const passAt = G(q("note", "But at week eight")), nudgeAt = G(q("note", "Maya sees")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "what changed")), longAt = G(q("note", "for how long")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
+  const helpAt = G(q("private", "988 is"));
   const privAt = G(q("private", "What Maya types")), smallAt = G(q("private", "A small model")), dotAt = G(q("private", "keeps one dot"));
 
   // brand: big in the centre, then tucked into the corner for the rest of the walkthrough
@@ -108,7 +111,7 @@ export const Demo: React.FC = () => {
   const teenY = TOP + (1 - teenRise) * 1000 + (1 - sceneOut) * 60;
 
   // what plays on each phone
-  const sceneEnd = S(sceneRange("proof").start) + 1;
+  const sceneEnd = S(sceneRange("how").start) + 1;
   const fit = (from: number, to: number, start: number, until: number) => Math.min(4, Math.max(0.5, (to - from) / Math.max(0.4, until - start)));
   const off = (rec as { parentOffset?: number }).parentOffset ?? 0;   // the parent recording started this much later
   const W = (id: string, from: string, until: string | number) => [q(id, from), typeof until === "number" ? until : q(id, until)] as const;
@@ -148,7 +151,7 @@ export const Demo: React.FC = () => {
       {/* brand */}
       <div style={{ position: "absolute", left: brandX, top: brandY, transform: `translate(-50%,-50%) scale(${brandScale})`, display: "flex", alignItems: "center", gap: 34, opacity: ramp(frame, builtAt - 4, 12) }}>
         <Mark size={210} draw={draw} stroke={2.4} />
-        <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 230, letterSpacing: -10, color: C.ink, lineHeight: 1 }}>Steady</span>
+        <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 230, letterSpacing: -10, color: C.ink, lineHeight: 1 }}>Stability</span>
       </div>
       <div style={{ position: "absolute", left: 0, right: 0, top: 640, textAlign: "center", fontFamily: F.display, fontWeight: 500, fontSize: 60, letterSpacing: -1.6, color: C.inkSoft, opacity: ramp(frame, builtAt + 16, 16) * (1 - tuck) }}>knowing when to ask</div>
 
@@ -183,7 +186,7 @@ export const Demo: React.FC = () => {
           <SignalRow base={learnAt + 11} at={reachAt} icon="chat" label="Reaching out" />
           <SignalRow base={learnAt + 14} at={moveAt} icon="move" label="Activity" />
           <SignalRow base={learnAt + 17} at={toneAt} icon="tone" label="Tone" />
-          {frame >= onceAt - 6 ? <SignalRow base={onceAt - 4} at={onceAt + 2} icon="tap" label="A two-tap check-in" /> : null}
+          {frame >= onceAt - 6 ? <SignalRow base={onceAt - 4} at={tapsAt} icon="tap" label="A two-tap check-in" /> : null}
         </div>
       ) : null}
       {frame >= learnAt && frame < onceAt + 2 ? (
@@ -194,14 +197,31 @@ export const Demo: React.FC = () => {
         </div>
       ) : null}
       {frame >= onceAt - 2 && frame < driftAt ? (
-        <div style={{ position: "absolute", left: 1270, top: 300, width: 540, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
+        <div style={{ position: "absolute", left: 1270, top: 250, width: 560, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
           <div style={enter(frame, onceAt, 26, 16)}>
             <Mono size={20}>Once a week</Mono>
-            <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 150, lineHeight: 0.96, letterSpacing: -6.5, color: C.ink, marginTop: 14 }}>Two<br />taps</div>
-            <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 22, maxWidth: 480, lineHeight: 1.36 }}>How stressed, and how much time with people. It stays on her phone.</div>
+            <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 132, lineHeight: 0.96, letterSpacing: -5.5, color: C.ink, marginTop: 14 }}>Meet<br />Stable</div>
           </div>
+          <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 22, maxWidth: 500, lineHeight: 1.36, ...enter(frame, tapsAt - 2, 20, 14) }}>Two taps: how stressed, and how much time with people. It stays on her phone.</div>
         </div>
       ) : null}
+      {(() => {
+        // Stable floats in on its name, drifts in the open space, then flies into the check-in card on her phone.
+        if (frame < stableAt - 8 || frame > tapsAt + 34) return null;
+        const t = (frame - stableAt) / 30;
+        const inP = interpolate(frame, [stableAt - 8, stableAt + 14], [0, 1], { ...clamp, easing: ease });
+        const fly = interpolate(frame, [tapsAt - 4, tapsAt + 24], [0, 1], { ...clamp, easing: ease });
+        const fx = 1560 + 70 * Math.sin(t * 1.7), fy = 760 + 30 * Math.sin(t * 3.1);
+        const tx = teenX - PHONE_W / 2 + 12 + 34, ty = TOP + 12 + 44 + 313;
+        const x = fx + (tx - fx) * fly, y = fy + (ty - fy) * fly - Math.sin(fly * Math.PI) * 120;
+        const size = 210 + (34 - 210) * fly;
+        const op = inP * interpolate(frame, [tapsAt + 17, tapsAt + 25], [1, 0], clamp);
+        return (
+          <div style={{ position: "absolute", left: x - size / 2, top: y - size / 2 + (1 - inP) * 60, opacity: op, transform: `rotate(${(1 - fly) * 6 * Math.sin(t * 2)}deg)` }}>
+            <StableMascot size={size} />
+          </div>
+        );
+      })()}
 
       {/* 02 it asks, every month */}
       <Callout at={driftAt} until={finalsAt - 2} tag="02 · Ask" title={<>Asks,<br />every month</>} body="Everyone gets the same two questions, whatever their phone shows." style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
@@ -262,6 +282,10 @@ export const Demo: React.FC = () => {
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 30, opacity: ramp(frame, dotAt - 2, 14) }}>
             <span style={{ width: 22, height: 22, borderRadius: 14, background: C.ink }} />
             <span style={{ fontFamily: F.body, fontSize: 32, color: C.inkSoft }}>One dot is kept. The words are gone.</span>
+          </div>
+          <div style={{ marginTop: 40, display: "inline-flex", alignItems: "center", gap: 14, padding: "18px 28px", borderRadius: 999, background: C.card, boxShadow: "0 0 0 1px rgba(21,23,26,0.07), 0 10px 26px rgba(21,23,26,0.07)", ...enter(frame, helpAt - 2, 20, 14) }}>
+            <span style={{ width: 12, height: 12, borderRadius: 8, background: C.amber }} />
+            <span style={{ fontFamily: F.display, fontWeight: 600, fontSize: 38, letterSpacing: -1, color: C.ink }}>988, one tap away</span>
           </div>
         </div>
       ) : null}

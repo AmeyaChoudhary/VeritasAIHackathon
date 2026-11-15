@@ -1,6 +1,6 @@
 // Google sign-in on the teen's own phone, with Google Identity Services (token model).
 // The script loads only when the teen taps Connect, so the app works offline until then.
-// Steady never sees a password: Google shows its own sign-in and consent screens.
+// Stability never sees a password: Google shows its own sign-in and consent screens.
 // Access tokens stay in memory and are gone when the page closes.
 
 import { CONFIG } from "../engine/config";

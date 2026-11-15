@@ -10,9 +10,9 @@ import edge_tts
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VOICE = os.environ.get("VOICE", "en-US-AvaNeural")
-RATE = os.environ.get("RATE", "+8%")
+RATE = os.environ.get("RATE", "+11%")
 GAP = {"hook": 0.55, "steady": 0.45, "learn": 0.4, "drift": 0.45, "note": 0.5, "private": 0.55,
-       "proof": 0.4, "timing": 0.5, "next": 0.55, "close": 1.0}
+       "how": 0.5, "proof": 0.45, "timing": 0.5, "next": 0.55, "close": 1.0}
 LEAD = 0.7
 script = json.load(open(f"{ROOT}/script/script.json"))
 os.makedirs(f"{ROOT}/public/voice/parts", exist_ok=True)

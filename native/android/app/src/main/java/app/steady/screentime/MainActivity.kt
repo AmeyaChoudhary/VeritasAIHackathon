@@ -38,7 +38,7 @@ internal val TEXT_COLOR: Int = android.graphics.Color.rgb(0x20, 0x21, 0x24)
 
 /**
  * One screen, built in code: what the app reads, a section for each source (screen time,
- * Health Connect, the Steady keyboard), the weeks, and Save as file.
+ * Health Connect, the Stability keyboard), the weeks, and Save as file.
  */
 class MainActivity : ComponentActivity() {
 

@@ -8,7 +8,7 @@ On 500 Reddit users labelled by psychiatrists, the shipped self-harm model ranke
 
 ## Why this test
 
-Experiment 5 learned from posts labelled by the forum they came from. A model can learn the forum instead of the risk. Here every user comes from the same group of forums, and psychiatrists gave the labels, so the forum cannot give the answer away. The model was not changed. A user counts as flagged when any one of their posts is flagged, because Steady scores each message on its own.
+Experiment 5 learned from posts labelled by the forum they came from. A model can learn the forum instead of the risk. Here every user comes from the same group of forums, and psychiatrists gave the labels, so the forum cannot give the answer away. The model was not changed. A user counts as flagged when any one of their posts is flagged, because Stability scores each message on its own.
 
 ## Results
 

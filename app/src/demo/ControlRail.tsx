@@ -204,7 +204,7 @@ export function ControlBar({ drawerOpen, onDrawer }: { drawerOpen: boolean; onDr
     <>
       <div className="bar-row">
         <div className="brand">
-          <Wordmark>Steady</Wordmark>
+          <Wordmark>Stability</Wordmark>
           <span className="label">Prototype. Not medical advice.</span>
         </div>
         <ScenarioPills />

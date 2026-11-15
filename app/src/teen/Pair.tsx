@@ -18,7 +18,7 @@ export function TeenPair() {
         <p className="code" aria-label={`Code ${teen.code.split("").join(" ")}`}>
           {teen.code}
         </p>
-        <p className="small muted">They scan it with the Steady parent app, or type it in.</p>
+        <p className="small muted">They scan it with the Stability parent app, or type it in.</p>
       </div>
       <label className="field">
         <span className="label">Your first name</span>

@@ -1,4 +1,4 @@
-// Shared types for the Steady engine. Pure TypeScript, no React.
+// Shared types for the Stability engine. Pure TypeScript, no React.
 
 export type SignalId =
   | "sleep"
@@ -34,7 +34,7 @@ export const SIGNALS: SignalId[] = [
 export const CORE_SIGNALS: SignalId[] = ["sleep", "reaching_out", "activity", "tone"];
 
 /** Accounts and files the teen can connect on their own phone. "screentime" is the Android
- *  phone-data file (screen time, and from version 2 Health Connect and the Steady keyboard). */
+ *  phone-data file (screen time, and from version 2 Health Connect and the Stability keyboard). */
 export type SourceId =
   | "gmail"
   | "calendar"
@@ -44,6 +44,7 @@ export type SourceId =
   | "canvas"
   | "schoology"
   | "lastfm"
+  | "spotify"
   | "fitbit"
   | "screentime"
   | "instagram"
@@ -61,6 +62,7 @@ export const SOURCES: SourceId[] = [
   "canvas",
   "schoology",
   "lastfm",
+  "spotify",
   "fitbit",
   "screentime",
   "instagram",
@@ -122,7 +124,7 @@ export interface WeekData {
   days: number;
   /** Weekly value per signal. sleep: hours a night; reaching_out: people messaged;
    *  activity: steps a day; tone: share of own messages read as low mood;
-   *  music: share of plays between midnight and 5 a.m. (Last.fm); replies: median hours to
+   *  music: share of plays between midnight and 5 a.m. (Last.fm or Spotify); replies: median hours to
    *  reply to an email (Gmail); night_phone: minutes on the phone between midnight and 5 a.m.
    *  a day; screen_time: minutes on the phone a day (screen-time app). */
   values: SignalValues;
@@ -137,7 +139,7 @@ export interface WeekData {
   /** Exams and events on the calendar. Context only, never a trigger, and only shown
    *  when the calendar is connected. */
   calendar?: string;
-  /** Days this week the Steady keyboard was used. Defaults to 7. */
+  /** Days this week the Stability keyboard was used. Defaults to 7. */
   keyboardDays?: number;
 }
 

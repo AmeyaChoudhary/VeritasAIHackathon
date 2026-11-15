@@ -1,4 +1,4 @@
-# Steady: knowing when to ask
+# Stability: knowing when to ask
 
 **Track:** Health
 **Team:** two high school students (names are on the submission form)
@@ -12,9 +12,9 @@ One in five US teenagers has a major depressive episode in a year, and only abou
 
 ## What we built
 
-Steady is a prototype app on a teen's phone, linked once to a parent's phone.
+Stability is a prototype app on a teen's phone, linked once to a parent's phone.
 
-- **In:** a two-tap check-in each week (how stressed, how much time with other people), the teen's answers to the PHQ-2 and PHQ-8 screening questions, weekly phone signals (sleep, messaging, activity), and the words the teen types.
+- **In:** a two-tap weekly check-in from Stable, the app's mascot (how stressed, how much time with other people), the teen's answers to the PHQ-2 and PHQ-8 screening questions, weekly phone signals (sleep, messaging, activity), and the words the teen types.
 - **Out:** for the teen, the screening questions when a model picks, and a nudge to see a doctor. For the parent, a short note on what changed and how to start the conversation, never messages, answers or scores.
 - **Demo:** Maya's phone and her mom's, side by side. In week 6 the model asks Maya early; in week 8 her mom gets the note.
 
@@ -39,10 +39,10 @@ Our own idea, with our own question: can a phone tell us when to ask a teenager 
 | Is this message low mood? | Keyword list finds 24%: 263 missed, 89 false alarms | Tone model finds 50%: 171 missed, 123 false alarms | 5,427 comments, 345 low mood |
 | Is this message about self-harm? | Phrase list finds 52%: 6,075 missed, 596 false alarms | Model finds 92% at 90% precision: 989 missed, 1,316 false alarms | 28,277 posts, labelled by forum |
 | Is this person at risk? | Phrase list flags 70% of at-risk users and 45% of users helping others | AUC 0.66; flags 99% of at-risk users (4 missed) but 86% of users helping others | 500 Reddit users rated by psychiatrists |
-| Which weeks should Steady ask, at 12 asks a year? | Fixed calendar: 13% of asks land on a high week; 1,670 missed, 3,391 false alarms | Ask model: 44% (AUC 0.89); 586 of 2,171 high weeks missed, 2,012 false alarms | 213 college students never seen |
+| Which weeks should Stability ask, at 12 asks a year? | Fixed calendar: 13% of asks land on a high week; 1,670 missed, 3,391 false alarms | Ask model: 44% (AUC 0.89); 586 of 2,171 high weeks missed, 2,012 false alarms | 213 college students never seen |
 | Does the ask model hold up on teens? | Asking at random: 41% of asks land on a high answer | Same model, unchanged: 74% (AUC 0.85); 14 of 46 high answers missed, 11 false alarms | 113 teens aged 12 to 17 never seen |
 
-**Our first idea failed.** A drift rule (ask when two phone signals leave the student's own range) picked weeks no better than chance: 14.6% against 14.9% for random weeks from the same student and term. 686 phone features reached only 18%. So we rebuilt Steady to ask first ([Experiment 1](results/exp1/results.md), [Experiment 3](results/exp3/results.md)).
+**Our first idea failed.** A drift rule (ask when two phone signals leave the student's own range) picked weeks no better than chance: 14.6% against 14.9% for random weeks from the same student and term. 686 phone features reached only 18%. So we rebuilt Stability to ask first ([Experiment 1](results/exp1/results.md), [Experiment 3](results/exp3/results.md)).
 
 **Our self-harm model failed a harder test.** Its training labels came from the forum a post was in, with r/teenagers as "not suicidal". On users rated by psychiatrists, all from the same forums, it could not tell a crisis from someone helping: "please don't kill yourself" reads like a crisis. So alone it now only asks the teen, and no answer sends nothing ([Experiment 5b](results/exp5b/results.md)).
 

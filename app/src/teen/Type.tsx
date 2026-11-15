@@ -5,7 +5,7 @@ import { isLowMood, scoreTone } from "../engine/tone";
 import { textHash } from "../engine/hash";
 import { Icon } from "../ui/icons";
 
-/** Stands in for the Steady keyboard. Each message is scored on this phone, then dropped.
+/** Stands in for the Stability keyboard. Each message is scored on this phone, then dropped.
  *  Only a number per message stays, as a dot on the tone line. */
 export function TypeScreen({ incoming }: { incoming: { text: string; key: number } | null }) {
   const snap = useSnap();
@@ -48,7 +48,7 @@ export function TypeScreen({ incoming }: { incoming: { text: string; key: number
   return (
     <div className="type">
       <p className="label">Type</p>
-      <p className="type-lede">This box stands in for the Steady keyboard.</p>
+      <p className="type-lede">This box stands in for the Stability keyboard.</p>
 
       <div className="card tone-card">
         <div className="tone-head">

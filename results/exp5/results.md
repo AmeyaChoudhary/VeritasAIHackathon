@@ -63,7 +63,7 @@ Share of each kind of post flagged:
 
 - It flagged 32% of posts labelled Depression (the phrase list 20%). Each flag only asks the teen if they are safe, but a clinician has to decide whether that is acceptable.
 - The labels come from where a post was written (r/SuicideWatch, or a source dataset's tag), not from a clinician. Some r/SuicideWatch posts are people supporting others, and some posts elsewhere talk about self-harm.
-- These are long posts (median 60 words), mostly by adults. Steady reads short messages from teens.
+- These are long posts (median 60 words), mostly by adults. Stability reads short messages from teens.
 - 45% of these posts are self-harm language. In a teen's real messages it is far rarer, so the share of flags that are right would be much lower than on the test posts.
 - The 60 messages were written and labelled by a Claude session, not by teens or clinicians. One message moves a count.
 - Nothing here is clinically validated. A clinician has to review any self-harm check before anyone relies on it.

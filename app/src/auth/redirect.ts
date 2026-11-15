@@ -1,5 +1,5 @@
 // The page sign-in windows come back to (Microsoft and Fitbit). It passes the result to the
-// Steady page that opened it and closes. Nothing is stored here.
+// Stability page that opened it and closes. Nothing is stored here.
 
 const params = new URLSearchParams(window.location.search || window.location.hash.slice(1));
 const state = params.get("state") ?? "";

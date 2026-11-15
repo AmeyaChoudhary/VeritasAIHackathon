@@ -1,4 +1,4 @@
-"""Experiment 2b for Steady: does a fine-tuned small language model read low mood better
+"""Experiment 2b for Stability: does a fine-tuned small language model read low mood better
 than the word-count model the app ships?
 
 The shipped tone model (Experiment 2) counts words and word pairs. This experiment takes a

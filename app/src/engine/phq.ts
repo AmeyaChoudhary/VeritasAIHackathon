@@ -2,7 +2,7 @@
 // Janet B.W. Williams, Kurt Kroenke and colleagues, with an educational grant from Pfizer Inc.
 // No permission is required to reproduce, translate, display or distribute it.
 // Item wording is the published PHQ-8; only the punctuation of item 8 is changed.
-// The first two items are the PHQ-2. Steady leaves out the ninth item; see docs/parent-alerts.md.
+// The first two items are the PHQ-2. Stability leaves out the ninth item; see docs/parent-alerts.md.
 
 export const PHQ_STEM = "Over the last 2 weeks, how often have you been bothered by";
 

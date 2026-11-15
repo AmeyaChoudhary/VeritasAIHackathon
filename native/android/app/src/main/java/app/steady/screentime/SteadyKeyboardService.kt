@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
- * The Steady keyboard.
+ * The Stability keyboard.
  *
  * What it keeps: daily sums (counted messages, typing speed, pauses, corrections, how many
  * messages read as low mood) and, for a self-harm match, a random id, the time, the level and

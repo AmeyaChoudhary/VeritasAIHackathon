@@ -1,6 +1,6 @@
 # Signals and model ideas
 
-Steady could draw on about a dozen signals, and most of them can be tested on open data. This page keeps the full list from our ideation day, so [the concept](concept.md) can stay short.
+Stability could draw on about a dozen signals, and most of them can be tested on open data. This page keeps the full list from our ideation day, so [the concept](concept.md) can stay short.
 
 ## Every signal we considered
 
@@ -12,12 +12,12 @@ Seven of these can be tested on open data now, and two more are worth adding to 
 | Phone rhythm | Unlocks and night-time use | The phone itself | Dartmouth data | Core |
 | Movement | Steps, walking, time spent still | Health records | Dartmouth data | Core |
 | Places | Time at home, number of places, distance; no map is kept | Location, processed on the phone | Dartmouth data | Core |
-| Tone of writing | Share of the student's own messages that read as low mood | Steady keyboard | GoEmotions and our own messages | Core |
+| Tone of writing | Share of the student's own messages that read as low mood | Stability keyboard | GoEmotions and our own messages | Core |
 | Music: how | How much, how late, how repetitive | Listening history | Partly: Dartmouth has playback time by part of day, for iPhone users | Add |
 | Calls and texts | Counts in and out, missed calls; never content | Android only | Dartmouth data, Android users | Add |
-| One-tap check-ins | Pick the picture that fits your mood; alone or with others today | Asked by Steady | Dartmouth data | Add |
+| One-tap check-ins | Pick the picture that fits your mood; alone or with others today | Asked by Stability | Dartmouth data | Add |
 | Music: what | Mood of the songs against the student's usual | Listening history matched to open mood scores | None links song mood to depression over time | Demo only |
-| Typing rhythm | Speed, pauses and corrections; never the words | Steady keyboard | None open | Later |
+| Typing rhythm | Speed, pauses and corrections; never the words | Stability keyboard | None open | Later |
 | Light | Daylight reaching the phone | Light sensor, Android | Dartmouth data, Android users | Later |
 | School | Missing or late assignments | The student's own school account | None | Later |
 | Voice | Pace and pauses when the student speaks to the mascot | Microphone, only when they choose | Gated sets only | Later, with care |
@@ -42,7 +42,7 @@ Music is compared with the student's own usual, so a taste for sad songs is neve
 
 **The route that works is the student's own download.** Spotify gives every user [a year of their listening history](https://support.spotify.com/us/article/understanding-my-data/) on request, with a timestamp for each play. The lifetime version adds skips and shuffle.
 
-**That route is better anyway.** A year of history gives Steady the student's normal on the first day, with no four-week wait. It also helps with the student who installs Steady while already low, because last month can be compared with last spring.
+**That route is better anyway.** A year of history gives Stability the student's normal on the first day, with no four-week wait. It also helps with the student who installs Stability while already low, because last month can be compared with last spring.
 
 **Limits.**
 
@@ -79,7 +79,7 @@ A phone app can see the student's own habits and typed words, and almost nothing
 
 | What | iPhone | Android |
 | --- | --- | --- |
-| Words the student types | Steady keyboard; it cannot tell which app or person | Steady keyboard |
+| Words the student types | Stability keyboard; it cannot tell which app or person | Stability keyboard |
 | Messages the student receives | Impossible | Possible through notification access; we choose not to |
 | Sleep and steps | Health records, with permission | Health Connect, with permission |
 | Time in each app | Hidden from apps; only coarse limits such as "used after 1 a.m." | [Available with permission](https://developer.android.com/reference/android/app/usage/UsageStatsManager) |
@@ -87,9 +87,9 @@ A phone app can see the student's own habits and typed words, and almost nothing
 | Music | The student's own download | The student's own download |
 | Instagram, TikTok and Snapchat content | Only the student's own data download | Only the student's own data download |
 
-**Closing the app changes nothing on a phone.** The phone keeps recording sleep and steps, and Steady reads them when the system wakes it. A web page on a laptop cannot do this. Closed means off.
+**Closing the app changes nothing on a phone.** The phone keeps recording sleep and steps, and Stability reads them when the system wakes it. A web page on a laptop cannot do this. Closed means off.
 
-**Apple makes a keyboard choose.** With full access off, [the system guarantees that keystrokes cannot leave the keyboard](https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html). The keyboard then cannot pass anything to its own app either. Steady needs full access to hand over its weekly numbers, so its no-network promise would rest on open code, not on Apple.
+**Apple makes a keyboard choose.** With full access off, [the system guarantees that keystrokes cannot leave the keyboard](https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/CustomKeyboard.html). The keyboard then cannot pass anything to its own app either. Stability needs full access to hand over its weekly numbers, so its no-network promise would rest on open code, not on Apple.
 
 **A keyboard never types in password fields.** The system swaps in its own keyboard there.
 

@@ -16,7 +16,7 @@ type View = { k: "home" } | { k: "note"; id: string; fresh: boolean } | { k: "sa
 function ParentTop({ onBack }: { onBack?: () => void }) {
   return (
     <div className="phone-top">
-      <Wordmark>Steady for parents</Wordmark>
+      <Wordmark>Stability for parents</Wordmark>
       {onBack && (
         <button className="btn btn-sm btn-top" onClick={onBack}>
           <Icon name="back" size={16} />
@@ -54,7 +54,7 @@ function PairFlow() {
       <div className="rise">
         <p className="label">Step 1 of 3</p>
         <h1 className="display">Link to your teen's phone.</h1>
-        <p className="lede">Scan the code on their Steady screen, or type it in.</p>
+        <p className="lede">Scan the code on their Stability screen, or type it in.</p>
         <button className="btn btn-lg btn-block" onClick={() => setCode(teen.code)} disabled={teen.paired}>
           <Icon name="phone" size={18} />
           Scan the code
@@ -69,7 +69,7 @@ function PairFlow() {
           <input value={name} maxLength={24} onChange={(e) => setName(e.target.value)} />
         </label>
         <label className="field">
-          <span className="label">In Steady's words to your teen, call me</span>
+          <span className="label">In Stability's words to your teen, call me</span>
           <select value={pron} onChange={(e) => setPron(e.target.value as Pronoun)}>
             <option value="she">she / her</option>
             <option value="he">he / him</option>
@@ -146,7 +146,7 @@ function PairFlow() {
       <span className="badge badge-lg">
         <Icon name="alert" size={26} />
       </span>
-      <h1 className="display">What Steady misses</h1>
+      <h1 className="display">What Stability misses</h1>
       <p className="lede">{missesText(people)}</p>
       <button className="btn btn-primary btn-lg btn-block" style={{ marginTop: 18 }} onClick={() => store.updateParent((s) => ({ ...s, step: "done" }))}>
         I understand
@@ -227,7 +227,7 @@ export function ParentPhone() {
           <h1 className="display hero-name">{people.teen}</h1>
           <p className="hero-status">
             <i className={`pulse-dot${conn.state === "on" ? "" : " idle"}`} aria-hidden="true" />
-            {allGood ? "Steady is on" : status.head}
+            {allGood ? "Stability is on" : status.head}
           </p>
           {status.sub && <p className="small muted">{status.sub}</p>}
           {conn.lastAt != null && <p className="hero-last">Last heard {fmtTime(conn.lastAt)}</p>}

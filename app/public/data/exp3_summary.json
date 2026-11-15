@@ -95,7 +95,7 @@
   },
   "headline": "At 12 asks per student-year, 24% of the asks chosen from one check-in landed on a week with a high PHQ-2, against 13% for a fixed calendar and 18% for a phone model; random weeks from the same student and quarter reached 23%, so nearly all of the gain comes from finding which students and which term to ask in, and the choice of week adds about one point.",
   "caveats": [
-    "These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.",
+    "These are Dartmouth college students from 2017 to 2022. Stability is meant for high school students.",
     "The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.",
     "In this study the check-in questions came in the same survey as the PHQ-2. We cannot tell whether students would answer a short check-in more often than two screening questions.",
     "80% of monitored weeks had a check-in in the week before. The other weeks are scored from a missing-value flag.",

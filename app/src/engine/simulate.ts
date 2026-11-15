@@ -1,6 +1,6 @@
 // Synthetic weekly data for the demo scenarios. Every number here is made up.
 // Maya is fictional. Her story follows docs/parent-alerts.md ("In the demo") and the
-// twelve weeks in docs/Steady-product-concept.pdf.
+// twelve weeks in docs/Stability-product-concept.pdf.
 
 import { DAY, HOUR, MINUTE, WEEK } from "./config";
 import type { Contrib, ContribKey, People, SourceId, WeekData } from "./types";
@@ -85,7 +85,7 @@ const STEADY_EXTRA = {
 
 type Extra = Partial<Record<keyof typeof STEADY_EXTRA, number[]>>;
 
-/** Made-up weekly numbers for the newer sources, used only in sample mode. Steady week to week. */
+/** Made-up weekly numbers for the newer sources, used only in sample mode. Stable week to week. */
 type PartSeries = Partial<Record<SourceId, Partial<Record<ContribKey, number[]>>>>;
 
 const STEADY_PARTS: PartSeries = {
@@ -221,9 +221,9 @@ const maya: Scenario = {
 
 const steady: Scenario = {
   id: "steady",
-  title: "Steady week to week",
+  title: "Stable week to week",
   blurb:
-    "Everything stays in range. The two questions come up once a month anyway. Week 10 has too little data and week 11 has days without the Steady keyboard. No notes.",
+    "Everything stays in range. The two questions come up once a month anyway. Week 10 has too little data and week 11 has days without the Stability keyboard. No notes.",
   startAt: T0,
   people: { ...DEMO_PEOPLE, teen: "Maya" },
   setupAnswers: [0, 0, 1, 0, 0, 0, 0, 0],
@@ -272,7 +272,7 @@ const skips: Scenario = {
     wk(6.4, 7.5, 7900, 0.12),
   ]),
   // She answers the monthly ask in week 4, then stops: no check-ins, and every set skipped.
-  // With no check-ins, Steady falls back to her phone signals to decide when to ask.
+  // With no check-ins, Stability falls back to her phone signals to decide when to ask.
   answers: { 4: [0, 1], 6: "skip", 7: "skip", 8: "skip", 9: "skip", 10: "skip", 11: "skip", 12: "skip" },
   messages: [],
   stops: [],
@@ -303,7 +303,7 @@ const urgentConcern: Scenario = {
   id: "urgent_concern",
   title: "Urgent: concern, no answer",
   blurb:
-    'In week 3 Maya types words about self-harm that do not state a plan. Steady asks "Are you safe right now?" with 988 behind it. Nobody answers, so after 30 minutes Mom gets an urgent note. Nobody replies, so after 15 more minutes it shows on Dad\'s phone and Ms. Patel\'s phone too.',
+    'In week 3 Maya types words about self-harm that do not state a plan. Stability asks "Are you safe right now?" with 988 behind it. Nobody answers, so after 30 minutes Mom gets an urgent note. Nobody replies, so after 15 more minutes it shows on Dad\'s phone and Ms. Patel\'s phone too.',
   startAt: T0,
   people: DEMO_PEOPLE,
   setupAnswers: [1, 1, 1, 1, 1, 0, 1, 0],

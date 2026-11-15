@@ -33,6 +33,7 @@ export const SOURCE_PROVIDES: Record<SourceId, ContribKey[]> = {
   canvas: ["school"],
   schoology: ["school"],
   lastfm: ["music"],
+  spotify: ["music"],
   fitbit: ["sleep", "steps"],
   screentime: ["screen", "night", "sleep", "steps", "messages", "lowMood", "typingSpeed", "corrections"],
   instagram: ["messages", "lowMood", "lateEvents", "events"],
@@ -82,7 +83,7 @@ export function signalSources(s: TeenState, k: SignalId): SourceId[] {
   return SOURCES.filter((src) => needs(spec).every((key) => provides(s, src).includes(key)));
 }
 
-/** Signals Steady reads now: the phone's own, plus those of connected sources. */
+/** Signals Stability reads now: the phone's own, plus those of connected sources. */
 export function activeSignals(s: TeenState): SignalId[] {
   return SIGNALS.filter((k) => CORE_SIGNALS.includes(k) || signalSources(s, k).length > 0);
 }
@@ -107,7 +108,10 @@ export function legacyParts(input: WeekData): Partial<Record<PartId, Contrib>> {
   const parts: Partial<Record<PartId, Contrib>> = {
     phone: { sleep: v.sleep, steps: v.activity, messages: v.reaching_out, lowMood: v.tone },
   };
-  if (num(v.music)) parts.lastfm = { music: v.music };
+  if (num(v.music)) {
+    parts.lastfm = { music: v.music };
+    parts.spotify = { music: v.music };
+  }
   if (num(v.replies) || num(input.emailTone)) parts.gmail = { replyHours: v.replies, lowMood: input.emailTone };
   if (num(v.night_phone) || num(v.screen_time)) parts.screentime = { night: v.night_phone, screen: v.screen_time };
   for (const [src, c] of Object.entries(input.parts ?? {})) parts[src as PartId] = { ...(parts[src as PartId] ?? {}), ...c };

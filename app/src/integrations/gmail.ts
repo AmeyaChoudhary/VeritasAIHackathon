@@ -1,4 +1,4 @@
-// Gmail, read on the teen's phone. Steady downloads full bodies only of the teen's own sent
+// Gmail, read on the teen's phone. Stability downloads full bodies only of the teen's own sent
 // emails, with a field mask so nothing else comes with them. For threads it asks only for each
 // message's Message-ID and In-Reply-To, to find the message a reply answered.
 // Quoted and forwarded text is cut before scoring. An email whose own words can't be

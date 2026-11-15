@@ -14,15 +14,15 @@ loadFonts();
 export const Main: React.FC = () => {
   const hook = sceneRange("hook", 0);
   const demoFrom = sceneRange("steady").from;
-  const proof = sceneRange("proof");
-  const next = sceneRange("next");
+  const how = sceneRange("how");
+  const close = sceneRange("close");
   return (
     <AbsoluteFill>
       <Stage />
       <Sequence from={hook.from} durationInFrames={hook.dur + 8} name="hook"><Hook /></Sequence>
-      <Sequence from={demoFrom} durationInFrames={proof.from - demoFrom + 10} name="demo"><Demo /></Sequence>
-      <Sequence from={proof.from} durationInFrames={next.from - proof.from + 10} name="evidence"><Evidence /></Sequence>
-      <Sequence from={next.from} durationInFrames={totalFrames() - next.from} name="outro"><Outro /></Sequence>
+      <Sequence from={demoFrom} durationInFrames={how.from - demoFrom + 10} name="demo"><Demo /></Sequence>
+      <Sequence from={how.from} durationInFrames={close.from - how.from + 10} name="evidence"><Evidence /></Sequence>
+      <Sequence from={close.from} durationInFrames={totalFrames() - close.from} name="outro"><Outro /></Sequence>
       <Captions />
       <Audio src={staticFile(media.voiceSrc)} />
       {media.musicVolume > 0 ? <Audio src={staticFile(media.music)} volume={media.musicVolume} /> : null}

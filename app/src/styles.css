@@ -1,4 +1,4 @@
-/* Steady: calm, visual first, very little text. Warm paper surfaces, ink type, and two signal
+/* Stability: calm, visual first, very little text. Warm paper surfaces, ink type, and two signal
    colours: sage for in range, amber for outside. Urgent screens are dark ink with white type. */
 
 :root {
@@ -2347,7 +2347,7 @@ pre.json {
   }
 }
 
-/* The "put Steady on your home screen" line above the phone switcher (src/ui/Install.tsx). */
+/* The "put Stability on your home screen" line above the phone switcher (src/ui/Install.tsx). */
 .install {
   display: flex;
   align-items: center;
@@ -2489,4 +2489,129 @@ pre.json {
   color: var(--ink-2);
   text-align: right;
   animation: fadeIn var(--t) var(--ease) both;
+}
+
+/* ---- Stable, the mascot ---- */
+
+.stable {
+  display: inline-block;
+  flex: none;
+  line-height: 0;
+}
+
+.stable svg {
+  display: block;
+  overflow: visible;
+}
+
+.stable-float {
+  animation: stableFloat 3.6s ease-in-out infinite;
+}
+
+.stable-body {
+  transform-origin: 50% 92%;
+  animation: stableBreathe 3.6s ease-in-out infinite;
+}
+
+.stable-eyes {
+  transform-origin: 50% 55%;
+  transform-box: fill-box;
+  animation: stableBlink 4.8s infinite;
+}
+
+.stable-sprout {
+  transform-origin: 50% 22%;
+  transform-box: view-box;
+  animation: stableSway 3.6s ease-in-out infinite;
+}
+
+.stable-ask .stable-body {
+  animation: stableBob 1.6s var(--ease) infinite;
+}
+
+.stable-ring {
+  transform-origin: 50px 56px;
+  animation: stableRing 1.8s ease-out infinite;
+}
+
+.stable-happy .stable-body {
+  animation: stableHop 700ms var(--ease) 1 both;
+}
+
+@keyframes stableFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes stableBreathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.025, 0.98); }
+}
+
+@keyframes stableBlink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.12); }
+}
+
+@keyframes stableSway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(6deg); }
+}
+
+@keyframes stableBob {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-4px) scale(1.03, 0.98); }
+}
+
+@keyframes stableRing {
+  0% { opacity: 0.55; transform: scale(0.9); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+@keyframes stableHop {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-7px) scale(0.97, 1.04); }
+  70% { transform: translateY(0) scale(1.04, 0.96); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.ci-who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ci-title {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.ask .ask-stable {
+  margin-top: -2px;
+}
+
+.ask {
+  grid-template-columns: 46px 1fr;
+}
+
+.ask-from {
+  margin: -8px 0 10px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.thanks-stable {
+  margin-bottom: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stable-float,
+  .stable-body,
+  .stable-eyes,
+  .stable-sprout,
+  .stable-ring {
+    animation: none !important;
+  }
 }

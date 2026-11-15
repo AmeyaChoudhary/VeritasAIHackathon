@@ -4,7 +4,7 @@
 // specify any applications, categories, or web domains, the event includes all applications,
 // categories, and web domains."
 // https://developer.apple.com/documentation/deviceactivity/deviceactivityevent/init(applications:categories:webdomains:threshold:)
-// So no app picker is needed, and Steady never holds tokens for single apps.
+// So no app picker is needed, and Stability never holds tokens for single apps.
 
 import DeviceActivity
 import Foundation

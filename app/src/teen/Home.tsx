@@ -8,11 +8,12 @@ import type { TeenState } from "../engine/types";
 import { DoctorCard } from "./Doctor";
 import { Icon } from "../ui/icons";
 import { CheckIn } from "./CheckIn";
+import { Stable } from "../ui/Stable";
 
 /** The two to five words in the middle of the ring. The full sentence from the rules is still
  *  on the page for screen readers; this is the glanceable form of the same state. */
 function ringWords(s: TeenState): { status: string; sub?: string } {
-  if (s.off) return { status: "Steady is off" };
+  if (s.off) return { status: "Stability is off" };
   if (!s.setupDone) return { status: "Setting up" };
   const last = s.weeks[s.weeks.length - 1];
   if (s.setupHigh.active) return { status: "Checking in", sub: "Every two weeks" };
@@ -56,13 +57,12 @@ export function Home({ onStart }: { onStart: () => void }) {
       <SignalRing states={states} week={teen.week ? `Week ${teen.week}` : "This week"} status={words.status} sub={words.sub} />
       {ask && (
         <section className="card ask rise" aria-labelledby="ask-h">
-          <span className="badge">
-            <Icon name="chat" />
-          </span>
+          <Stable mood="ask" size={46} className="ask-stable" />
           <div className="ask-body">
             <h2 id="ask-h" className="ask-title">
               {ask}
             </h2>
+            <p className="ask-from">From Stable</p>
             <div className="btn-row">
               <button className="btn btn-primary" onClick={onStart}>
                 Start

@@ -31,6 +31,7 @@ import { readCanvas, readSchoology, type PagedGetter } from "./school";
 import { PARSERS, type ExportPlatform } from "./exports";
 import type { Entries } from "./zip";
 import type { Poster } from "./common";
+import { sampleSpotify } from "./spotify";
 
 type GmailFixture = {
   referenceTime: string;
@@ -181,6 +182,8 @@ export async function sampleSource(source: string, tone: ToneModel | null, time:
     }
     case "fitbit":
       return readFitbit(fitbitFixtureGetter(), { now, time });
+    case "spotify":
+      return sampleSpotify(now, time);
     case "canvas":
       return readCanvas(canvasFixtureGetter(), { base: "https://school.example", now, time });
     case "schoology":

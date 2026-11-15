@@ -57,12 +57,12 @@ export function ImportData() {
     <div>
       <p className="label">Import my data</p>
       <h1 className="title" style={{ fontSize: 20 }}>
-        Give Steady your normal on day one.
+        Give Stability your normal on day one.
       </h1>
       <p className="small">Files are read in this browser. Nothing is uploaded.</p>
 
       <label className="field">
-        <span className="label">Spotify listening history (.json)</span>
+        <span className="label">One Spotify listening history file (.json), a look only</span>
         <input type="file" accept=".json,application/json" onChange={(e) => read(e.target.files?.[0], "music")} />
       </label>
       <label className="field">

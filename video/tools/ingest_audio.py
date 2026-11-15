@@ -32,7 +32,7 @@ def transcribe(src):
         return json.load(open(cache))
     wav = f"{WORK}/{os.path.basename(src)}.16k.wav"
     run("ffmpeg", "-v", "error", "-y", "-i", src, "-ar", "16000", "-ac", "1", wav)
-    prompt = "Steady, Maya, PHQ, check-in, self-harm, clinician, Dartmouth."
+    prompt = "Stability, Maya, PHQ, check-in, self-harm, clinician, Dartmouth."
     words = []
     try:
         from faster_whisper import WhisperModel

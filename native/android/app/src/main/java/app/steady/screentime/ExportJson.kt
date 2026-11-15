@@ -9,7 +9,7 @@ import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 import kotlin.math.roundToLong
 
-/** Everything Steady has for one day, from all three sources. Any part can be missing. */
+/** Everything Stability has for one day, from all three sources. Any part can be missing. */
 data class DayExport(
     val date: LocalDate,
     val screen: DaySummary? = null,
@@ -46,7 +46,7 @@ object DayMerge {
 }
 
 /**
- * The file the Steady web app imports, version 2. The schema is written out in
+ * The file the Stability web app imports, version 2. The schema is written out in
  * native/README.md. Text, app names and rule ids never appear in it.
  */
 object ExportJson {

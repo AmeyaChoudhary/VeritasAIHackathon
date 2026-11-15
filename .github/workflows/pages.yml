@@ -1,4 +1,4 @@
-# Publishes the Steady site to GitHub Pages: the landing page (site/) at the root
+# Publishes the Stability site to GitHub Pages: the landing page (site/) at the root
 # and the app (app/) under /app/. Runs when either changes on main, or by hand.
 name: Deploy the site to GitHub Pages
 

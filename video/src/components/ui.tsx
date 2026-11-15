@@ -7,7 +7,7 @@ export const Mono: React.FC<{ children: React.ReactNode; color?: string; size?: 
   <div style={{ fontFamily: F.mono, fontSize: size, letterSpacing: size * 0.12, textTransform: "uppercase", color, fontWeight: 500, ...style }}>{children}</div>
 );
 
-/** The Steady mark: one calm wave. `draw` 0 to 1 draws it. */
+/** The Stability mark: one calm wave. `draw` 0 to 1 draws it. */
 export const Mark: React.FC<{ size?: number; color?: string; draw?: number; stroke?: number }> = ({ size = 64, color = C.ink, draw = 1, stroke = 2.6 }) => (
   <svg width={size} height={size} viewBox="0 0 32 32">
     <path d="M4 18 C 10 18, 11.5 11, 16 11 S 22 18, 28 14" fill="none" stroke={color} strokeWidth={stroke} strokeLinecap="round" pathLength={1} strokeDasharray={1} strokeDashoffset={1 - draw} />

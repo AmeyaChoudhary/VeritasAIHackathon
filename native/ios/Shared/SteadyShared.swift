@@ -152,7 +152,7 @@ struct ExportDay: Encodable, Equatable {
         // encode(_:forKey:) with an Optional writes null. encodeIfPresent would drop the key.
         try container.encode(screenMinutes, forKey: .screenMinutes)
         try container.encode(nightMinutes, forKey: .nightMinutes)
-        // The Screen Time API gives Steady no clock times outside the report extension.
+        // The Screen Time API gives Stability no clock times outside the report extension.
         try container.encodeNil(forKey: .firstUse)
         try container.encodeNil(forKey: .lastUse)
     }

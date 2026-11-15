@@ -74,7 +74,7 @@ export function HowWeKnow() {
               <dd>{pct(get(e1.data, "base_rate"))}</dd>
               <dt>Asks per student-year</dt>
               <dd>{num(get(e1.data, "ask_comparison.budget_asks_per_student_year"), 1)}</dd>
-              <dt>Hit rate: Steady rule</dt>
+              <dt>Hit rate: Stability rule</dt>
               <dd>{pct(get(e1.data, "ask_comparison.steady_rule.hit_rate"))}</dd>
               <dt>Hit rate: fixed calendar</dt>
               <dd>{pct(get(e1.data, "ask_comparison.fixed_calendar.hit_rate"))}</dd>

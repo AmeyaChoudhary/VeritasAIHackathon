@@ -1,4 +1,4 @@
-// The Steady rules, as a pure state machine. Source: docs/parent-alerts.md and docs/concept.md.
+// The Stability rules, as a pure state machine. Source: docs/parent-alerts.md and docs/concept.md.
 // Every number comes from CONFIG. step() never mutates its input and returns the events
 // that would leave the teen's phone. Nothing here sees typed text: the keyboard passes only
 // the self-harm level, and the tone share arrives as a weekly number.
@@ -328,7 +328,7 @@ function sendHeadsUp(ctx: Ctx, at: number) {
 function headsUp(ctx: Ctx, reason: HeldReason, why: string, deferDoctor: boolean): boolean {
   const { s, cfg, now } = ctx;
   if (s.off) {
-    trace(ctx, `${why} Steady is off, so nothing is sent.`);
+    trace(ctx, `${why} Stability is off, so nothing is sent.`);
     return false;
   }
   if (deferDoctor) {
@@ -436,7 +436,7 @@ function answer(ctx: Ctx, raw: number) {
       s.setupHigh = { active: true, nextWeek: cfg.setupRecheckWeeks, clearInRow: 0, skipsInRow: 0 };
       headsUp(ctx, "highScore", "Setup score of 10 or more. Learning waits.", false);
     } else {
-      trace(ctx, "Setup answers under the cut-off. Steady starts learning the range.");
+      trace(ctx, "Setup answers under the cut-off. Stability starts learning the range.");
     }
     return;
   }
@@ -487,7 +487,7 @@ function dayEnd(ctx: Ctx, day: number, hasData: boolean, keyboardUsed: boolean) 
   });
 }
 
-/** A week left out of the count: too little data, or Steady was off. Two in a row restart it. */
+/** A week left out of the count: too little data, or Stability was off. Two in a row restart it. */
 function shortWeek(ctx: Ctx, rec: WeekRecord, why: string) {
   const { s, cfg } = ctx;
   const w = rec.week;
@@ -545,9 +545,9 @@ function weekEnd(ctx: Ctx, input: WeekData, live?: LiveWeek) {
   if (s.sources?.gmail && typeof parts.gmail?.lowMood === "number") data.emailTone = parts.gmail.lowMood;
   const rec: WeekRecord = { week: w, endedAt: now, data, valid: false, z: {}, out: [], counting: [], learning: [], ranges: {} };
 
-  // While Steady is off nothing is read, asked or sent. The week is left out.
+  // While Stability is off nothing is read, asked or sent. The week is left out.
   if (s.off) {
-    if (s.setupDone && !s.setupHigh.active) shortWeek(ctx, rec, "Steady was off");
+    if (s.setupDone && !s.setupHigh.active) shortWeek(ctx, rec, "Stability was off");
     else s.weeks.push(rec);
     return;
   }
@@ -689,7 +689,7 @@ const SOURCE_WORDS: Record<string, string> = {
   tiktok: "A TikTok message",
   snapchat: "A Snapchat message",
   discord: "A Discord message",
-  android: "The Steady keyboard on Android",
+  android: "The Stability keyboard on Android",
   email: "A message",
 };
 
@@ -822,7 +822,7 @@ function tickCooldown(ctx: Ctx) {
   const h = s.held;
   s.held = noHeld();
   if (s.off) {
-    trace(ctx, "Three weeks are up, but Steady is off. Nothing sent.", at);
+    trace(ctx, "Three weeks are up, but Stability is off. Nothing sent.", at);
     return;
   }
   const send = h.highScore || h.flags || (h.skipRule && skipRuleHolds(s, cfg)) || (h.setupSkips && setupSkipsHold(s, cfg));
@@ -848,7 +848,7 @@ export function step(state: TeenState, input: Input, now: number, cfg: Config = 
   // three-week limit is processed before held evidence is checked again.
   if (input.kind === "weekEnd") tickDeadline(ctx);
   else if (input.kind !== "tick") tick(ctx);
-  // While Steady is off nothing is read or asked.
+  // While Stability is off nothing is read or asked.
   if (s.off && (input.kind === "answer" || input.kind === "skipAsk")) return { state: s, events: ctx.events };
   switch (input.kind) {
     case "pair":
@@ -960,7 +960,7 @@ export function step(state: TeenState, input: Input, now: number, cfg: Config = 
         s.skipSince[k] = null;
       }
       reconcile(ctx);
-      trace(ctx, `${src} disconnected. What Steady learned from it is gone.`);
+      trace(ctx, `${src} disconnected. What Stability learned from it is gone.`);
       break;
     }
     case "safe":
@@ -981,10 +981,10 @@ export function step(state: TeenState, input: Input, now: number, cfg: Config = 
         }
         s.off = true;
         s.safety.screen = "none";
-        trace(ctx, "Steady turned off. No status events from now on.");
+        trace(ctx, "Stability turned off. No status events from now on.");
       } else if (!input.off && s.off) {
         s.off = false;
-        trace(ctx, "Steady turned back on.");
+        trace(ctx, "Stability turned back on.");
       }
       break;
     case "dismiss":

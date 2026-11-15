@@ -1,12 +1,12 @@
 # Native phone apps
 
-Two small phone apps that collect Steady's phone signals and save them as a file the Steady web app can import. On both phones that means screen time: how long the phone is used each day, and how much of that is between midnight and 5 a.m. On Android it also means sleep and steps from Health Connect, and the Steady keyboard.
+Two small phone apps that collect Stability's phone signals and save them as a file the Stability web app can import. On both phones that means screen time: how long the phone is used each day, and how much of that is between midnight and 5 a.m. On Android it also means sleep and steps from Health Connect, and the Stability keyboard.
 
 **Status.** The Android app builds, and its 72 JVM tests pass. These include tone and self-harm results that match the web app's own code exactly. Its first version worked on an Android 15 emulator: the Health Connect permission flow, the keyboard, the 988 screen and the version 2 export. The review fixes since then have been unit tested but not run on a device. They include the safety question, cursor tracking, message counting, sleep merging and the keyboard notification. Health Connect with real records, and any real phone, have not been tried yet. The iOS app and both extensions build with no warnings in Xcode 27.2 (iOS 27.2 SDK), for iPhone and for the Simulator. In the Simulator the app opens, shows its disclosure, and reports "Screen Time access was not turned on" when asked, because the Simulator cannot grant Screen Time access. Nothing has run on a real iPhone yet. The details are in each app's README.
 
 | Folder | What it is |
 | --- | --- |
-| [`android/`](android/README.md) | Kotlin app for Android 8 and later: screen time from `UsageStatsManager`, sleep and steps from Health Connect, and the Steady keyboard. |
+| [`android/`](android/README.md) | Kotlin app for Android 8 and later: screen time from `UsageStatsManager`, sleep and steps from Health Connect, and the Stability keyboard. |
 | [`ios/`](ios/README.md) | Swift sources for an iOS 16 app with two extensions, using Apple's Screen Time API. |
 | [`sample/steady_android_v2_sample.json`](sample/steady_android_v2_sample.json) | 28 made-up days in the Android version 2 format, for testing the web app. |
 | [`sample/screen_time_android_sample.json`](sample/screen_time_android_sample.json) | The same 28 screen days in the older version 1 format. |
@@ -17,17 +17,17 @@ Two small phone apps that collect Steady's phone signals and save them as a file
 
 If the teen connects Health Connect, the Android app also reads sleep sessions and steps. It keeps each night's sleep minutes and bedtime, and each day's steps.
 
-If the teen turns on the Steady keyboard, it scores each message at the end of the message and then drops the words. The scores are the web app's tone model, its self-harm phrase check, and typing rhythm. It keeps daily sums only. A self-harm match opens a full-screen 988 screen and records a random id, the time and the level, never the words. For words short of a plan, that screen first asks "Are you safe right now?", and the answer is kept on the flag. Password, incognito, email, web address and number fields are skipped. While the keyboard is on, an ongoing notification says so.
+If the teen turns on the Stability keyboard, it scores each message at the end of the message and then drops the words. The scores are the web app's tone model, its self-harm phrase check, and typing rhythm. It keeps daily sums only. A self-harm match opens a full-screen 988 screen and records a random id, the time and the level, never the words. For words short of a plan, that screen first asks "Are you safe right now?", and the answer is kept on the flag. Password, incognito, email, web address and number fields are skipped. While the keyboard is on, an ongoing notification says so.
 
-**iPhone** cannot read exact numbers. Apple shows the teen their week inside a sealed report that cannot be saved or sent. Steady's own code learns only when the day's use passes set lines, such as 3 hours in the day or 30 minutes after midnight. That is all the iPhone file can hold.
+**iPhone** cannot read exact numbers. Apple shows the teen their week inside a sealed report that cannot be saved or sent. Stability's own code learns only when the day's use passes set lines, such as 3 hours in the day or 30 minutes after midnight. That is all the iPhone file can hold.
 
 Both apps explain this on screen before asking for access.
 
 ## What leaves the phone
 
-Nothing, unless the teen chooses to share it. Neither app sends anything over the network. The Android app does not even have the internet permission, and none of its libraries adds it. The teen taps **Save as file**, picks where it goes, and opens it in the Steady web app. The web app reads imported files in the browser and uploads nothing.
+Nothing, unless the teen chooses to share it. Neither app sends anything over the network. The Android app does not even have the internet permission, and none of its libraries adds it. The teen taps **Save as file**, picks where it goes, and opens it in the Stability web app. The web app reads imported files in the browser and uploads nothing.
 
-The file has one entry per day. The web app works out the weeks, as the Steady phone app would. In the product, no daily or weekly number goes to a parent, and no typed words ever do. A note to a parent can say that phone use changed and for how long, as [docs/parent-alerts.md](../docs/parent-alerts.md) describes.
+The file has one entry per day. The web app works out the weeks, as the Stability phone app would. In the product, no daily or weekly number goes to a parent, and no typed words ever do. A note to a parent can say that phone use changed and for how long, as [docs/parent-alerts.md](../docs/parent-alerts.md) describes.
 
 ## The file format
 
@@ -75,7 +75,7 @@ The file has one entry per day. The web app works out the weeks, as the Steady p
 | `sleep_minutes` | int or null | Minutes asleep in the main sleep of the night that ended this morning: the longest Health Connect session ending that date, minus time marked awake or out of bed. |
 | `bedtime` | `"HH:MM"` or null | When that sleep started. `"23:40"` on Nov 10 means 23:40 on Nov 9. |
 | `steps` | int or null | Steps that day from Health Connect, with overlap between phone and watch removed. |
-| `kb_messages` | int or null | Counted messages typed with the Steady keyboard that day. `0` means the keyboard was open but no counted message ended; the other `kb_` fields are then null. `null` means the keyboard was not used that day. A message counts when it was typed in a message field, or sent with the Send key, or the app emptied the field after its own send button. |
+| `kb_messages` | int or null | Counted messages typed with the Stability keyboard that day. `0` means the keyboard was open but no counted message ended; the other `kb_` fields are then null. `null` means the keyboard was not used that day. A message counts when it was typed in a message field, or sent with the Send key, or the app emptied the field after its own send button. |
 | `kb_chars_per_min` | number or null | Characters a minute while typing steadily: characters typed within 2 seconds of the key before, over the time those gaps took. One decimal. |
 | `kb_pause_share` | number or null | Share of gaps between keys longer than 2 seconds, 0 to 1. Three decimals. |
 | `kb_correction_rate` | number or null | Share of key presses that were delete: corrections / (characters typed + corrections), 0 to 1. Three decimals. |

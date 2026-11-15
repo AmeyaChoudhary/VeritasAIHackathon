@@ -3,7 +3,7 @@ import { C } from "../theme";
 import { f, sec } from "../timing";
 import { clamp, ease } from "./anim";
 
-/** When the stage turns from night to morning: just before "So we built Steady". */
+/** When the stage turns from night to morning: just before "So we built Stability". */
 export const dawnFrame = () => f(sec("steady").start) - 10;
 
 /** Night for the problem, then paper opens from the centre like a sunrise and stays. A little grain on both. */

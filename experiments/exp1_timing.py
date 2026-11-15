@@ -1,11 +1,11 @@
-"""Experiment 1 for Steady: does the drift rule pick better weeks to ask?
+"""Experiment 1 for Stability: does the drift rule pick better weeks to ask?
 
 Run end to end with:
 
     .venv/bin/python experiments/exp1_timing.py
 
 The script reads the College Experience Study (Dartmouth) phone sensing and EMA
-files from data/ces/, builds one row per student-week, applies Steady's rules
+files from data/ces/, builds one row per student-week, applies Stability's rules
 from docs/concept.md and docs/parent-alerts.md, and compares them with a fixed
 calendar and with random weeks at the same number of asks.
 
@@ -68,7 +68,7 @@ MAX_ALERTS_PER_YEAR = 4.0
 DOOR_FIRST_WEEKS = 12
 WEEKS_PER_YEAR = 52.0
 
-# Steady's signals mapped to College Experience Study features available on
+# Stability's signals mapped to College Experience Study features available on
 # both iPhone and Android. "worse" is the direction that counts against the
 # student. Each weekly value is the mean over usable days unless noted.
 CORE_SIGNALS = [
@@ -968,7 +968,7 @@ def run_all(refresh: bool = False, write: bool = True, verbose: bool = True) -> 
     _log(f"  {summary['students_analysed']} students, {summary['monitored_student_weeks']:,} monitored weeks, "
          f"{summary['student_weeks_with_label']:,} labelled, base rate {summary['base_rate']:.3f}", verbose)
 
-    _log("Steady rule and matched-budget baselines...", verbose)
+    _log("Stability rule and matched-budget baselines...", verbose)
     Z, zinfo = personal_z(wk, CORE_SIGNALS)
     by_k = {}
     rules = {}
@@ -1149,9 +1149,9 @@ def make_caveats(results: dict) -> list[str]:
     share_weeks = main["method"]["asks"] / d["monitored_student_weeks"]
     cav = [
         "Mood scores stand in for a note being right. They cannot show whether a note helped a family.",
-        "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Steady is meant for high school students.",
+        "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Stability is meant for high school students.",
         f"The label is two PHQ-4 items answered on the phone, counted as high at 3 or more. Only {_pct(d['share_monitored_weeks_labelled'], 0)} of monitored weeks have one.",
-        "The phone signals are the study's own features. Steady would record different ones, and typing, tone and music were not available.",
+        "The phone signals are the study's own features. Stability would record different ones, and typing, tone and music were not available.",
     ]
     if 1 in yrs and 3 in yrs:
         cav.append(f"The personal range is learned in each student's first four valid weeks and then frozen, so it drifts: "
@@ -1224,7 +1224,7 @@ def comparison_table(results: dict) -> pd.DataFrame:
     main = results["ask_comparison_by_k"][str(K_DEFAULT)]
     lr0 = results["logistic"]["splits"][0]
     rows = [
-        ("Steady drift rule (all students)", main["method"]["asks_per_student_year"], main["method"]["hit_rate"],
+        ("Stability drift rule (all students)", main["method"]["asks_per_student_year"], main["method"]["hit_rate"],
          main["method"]["lift"], main["method"]["share_episodes_reached"], main["method"]["false_alarms_per_student_year"]),
         ("Fixed calendar, same budget", main["fixed_calendar"]["asks_per_student_year"], main["fixed_calendar"]["hit_rate"],
          main["fixed_calendar"]["lift"], main["fixed_calendar"]["share_episodes_reached"],
@@ -1234,7 +1234,7 @@ def comparison_table(results: dict) -> pd.DataFrame:
         ("Random weeks, same students and counts", main["budget_asks_per_student_year"],
          main["random_same_students"]["hit_rate"], main["random_same_students"]["hit_rate"] / main["method"]["base_rate"],
          main["random_same_students"]["share_episodes_reached"], np.nan),
-        ("Steady drift rule (test half)", lr0["rule_on_test"]["asks_per_student_year"], lr0["rule_on_test"]["hit_rate"],
+        ("Stability drift rule (test half)", lr0["rule_on_test"]["asks_per_student_year"], lr0["rule_on_test"]["hit_rate"],
          lr0["rule_on_test"]["lift"], lr0["rule_on_test"]["share_episodes_reached"],
          lr0["rule_on_test"]["false_alarms_per_student_year"]),
         ("Logistic regression (test half)", lr0["logistic_at_budget"]["asks_per_student_year"],
@@ -1351,7 +1351,7 @@ def render_markdown(results: dict) -> str:
     w("")
     w("## What we tested")
     w("")
-    w("Steady asks a student two screening questions when their phone signals stay outside their own normal range. "
+    w("Stability asks a student two screening questions when their phone signals stay outside their own normal range. "
       "The question here is whether that rule picks better weeks to ask than a fixed calendar that asks the same number "
       "of times. A second question is whether the parent heads-up rule, run on phone signals alone, picks better weeks "
       "than a calendar. The PHQ-2 answers that Dartmouth students gave on their phones are the yardstick: a week counts "
@@ -1372,7 +1372,7 @@ def render_markdown(results: dict) -> str:
     w("")
     w("## Signals")
     w("")
-    w("Each of Steady's signals was mapped to a feature recorded on both iPhone and Android. Each weekly value is the "
+    w("Each of Stability's signals was mapped to a feature recorded on both iPhone and Android. Each weekly value is the "
       "mean over the week's usable days unless the note says otherwise.")
     w("")
     w(_md_table(["Signal", "Feature", "Worse when", "Note"],
@@ -1415,7 +1415,7 @@ def render_markdown(results: dict) -> str:
     w(f"All {d['students_analysed']} students. Budget: {budget:.1f} asks per student-year.")
     w("")
     rows = [
-        ["Steady drift rule", _pct(rule_m["hit_rate"]), f"{rule_m['lift']:.2f}", _pct(rule_m["share_episodes_reached"], 0),
+        ["Stability drift rule", _pct(rule_m["hit_rate"]), f"{rule_m['lift']:.2f}", _pct(rule_m["share_episodes_reached"], 0),
          _pct(rule_m["share_positive_weeks_asked"], 0), _f(rule_m["false_alarms_per_student_year"])],
         ["Fixed calendar", _pct(cal["hit_rate"]), f"{cal['lift']:.2f}", _pct(cal["share_episodes_reached"], 0),
          _pct(cal["share_positive_weeks_asked"], 0), _f(cal["false_alarms_per_student_year"])],
@@ -1615,8 +1615,8 @@ def render_markdown(results: dict) -> str:
       "more low periods. Learned weights did not carry over to new students. The parent heads-up rule, run on phone "
       "signals alone, landed near high scores about as often as a calendar with the same number of notes.")
     w("")
-    w("It does not show that phone signals are useless for Steady. The features here are the study's own, and typing, "
-      "tone and music were missing. The students were also older than Steady's users. It cannot say whether a note "
+    w("It does not show that phone signals are useless for Stability. The features here are the study's own, and typing, "
+      "tone and music were missing. The students were also older than Stability's users. It cannot say whether a note "
       "helped a family. A high mood score only stands in for a note being right.")
     w("")
     w("For the design, this weakens the case for the drift rule as the main trigger. The check at the door and the "

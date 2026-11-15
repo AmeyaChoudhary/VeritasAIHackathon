@@ -41,7 +41,7 @@ export function Settings({ onOpenConnect }: { onOpenConnect: (source: SourceId) 
 
       <hr className="hair" />
       <h2 className="label">Connected accounts</h2>
-      <p className="small muted">Turning one off disconnects it and forgets what Steady learned from it.</p>
+      <p className="small muted">Turning one off disconnects it and forgets what Stability learned from it.</p>
       <ul className="help-list" style={{ marginBottom: 6 }}>
         {SOURCES.map((k) => {
           const on = !!teen.sources?.[k];
@@ -66,19 +66,19 @@ export function Settings({ onOpenConnect }: { onOpenConnect: (source: SourceId) 
       </ul>
 
       <hr className="hair" />
-      <h2 className="label">Steady</h2>
+      <h2 className="label">Stability</h2>
       {teen.off ? (
         <>
-          <p>Steady is off. Nothing is read and nothing is sent.</p>
+          <p>Stability is off. Nothing is read and nothing is sent.</p>
           <button className="btn btn-primary" onClick={() => store.dispatch({ a: "teen", input: { kind: "setOff", off: false } })}>
-            Turn Steady on
+            Turn Stability on
           </button>
         </>
       ) : (
         <>
           <p className="small muted">One tap turns it off. After a day, {p.parent}'s app shows it as not connected.</p>
           <button className="btn" onClick={() => store.dispatch({ a: "teen", input: { kind: "setOff", off: true } })}>
-            Turn Steady off
+            Turn Stability off
           </button>
         </>
       )}

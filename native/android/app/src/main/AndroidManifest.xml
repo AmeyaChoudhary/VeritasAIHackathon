@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.health.READ_STEPS" />
 
     <!--
-    The ongoing notification shown while the Steady keyboard is on. Google Play requires a
+    The ongoing notification shown while the Stability keyboard is on. Google Play requires a
     monitoring app to show a persistent notification while it runs. From Android 13 the teen
     allows notifications first; the app asks with a plain explanation.
     https://support.google.com/googleplay/android-developer/answer/9888380
@@ -47,7 +47,7 @@
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
 
         <!--
-        Google Play's flag for monitoring apps. Steady can send a parent a note, so it declares
+        Google Play's flag for monitoring apps. Stability can send a parent a note, so it declares
         itself as parental monitoring.
         https://support.google.com/googleplay/android-developer/answer/12955211
         That page shows this element directly under <manifest>. The Android manifest reference
@@ -99,7 +99,7 @@
             android:taskAffinity="app.steady.screentime.help" />
 
         <!--
-        The Steady keyboard. BIND_INPUT_METHOD means only the system can connect to it.
+        The Stability keyboard. BIND_INPUT_METHOD means only the system can connect to it.
         https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method
         -->
         <service

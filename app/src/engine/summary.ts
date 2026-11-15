@@ -60,20 +60,20 @@ function hoursWords(h: number): string {
 }
 
 export function homeSummary(s: TeenState): HomeSummary {
-  if (s.off) return { sentence: "Steady is off.", note: "You can turn it back on in Settings.", drifted: [] };
+  if (s.off) return { sentence: "Stability is off.", note: "You can turn it back on in Settings.", drifted: [] };
   if (!s.setupDone) return { sentence: "Setting up.", note: "", drifted: [] };
   const last = s.weeks[s.weeks.length - 1];
   if (s.setupHigh.active) {
     return {
       sentence: "Checking in every two weeks for now.",
-      note: "The eight questions come back every two weeks. Steady starts learning your normal after that.",
+      note: "The eight questions come back every two weeks. Stability starts learning your normal after that.",
       drifted: [],
     };
   }
   if (!last) {
     return {
       sentence: `Learning your normal. 0 of ${CONFIG.baselineWeeks} weeks learned.`,
-      note: "One bad night changes nothing. Steady looks for changes that last.",
+      note: "One bad night changes nothing. Stability looks for changes that last.",
       drifted: [],
     };
   }
@@ -84,7 +84,7 @@ export function homeSummary(s: TeenState): HomeSummary {
     const n = Math.min(CONFIG.baselineWeeks, learnedWeeks);
     return {
       sentence: n >= CONFIG.baselineWeeks ? "Learning your normal for what you connected." : `Learning your normal. ${n} of ${CONFIG.baselineWeeks} weeks learned.`,
-      note: "One bad night changes nothing. Steady looks for changes that last.",
+      note: "One bad night changes nothing. Stability looks for changes that last.",
       drifted: last.out,
     };
   }
@@ -100,7 +100,7 @@ export function homeSummary(s: TeenState): HomeSummary {
     const n = Math.min(...counting.map((k) => s.runs[k]));
     return {
       sentence: `${cap(list(counting))} ${counting.length > 1 ? "have" : "has"} been outside your usual for ${numWord(n)} weeks.`,
-      note: last.data.calendar ? `${last.data.calendar} ${/s$/.test(last.data.calendar) ? "are" : "is"} on your calendar.` : "Steady keeps watching for changes that last.",
+      note: last.data.calendar ? `${last.data.calendar} ${/s$/.test(last.data.calendar) ? "are" : "is"} on your calendar.` : "Stability keeps watching for changes that last.",
       drifted: last.out,
       calendar: last.data.calendar,
     };

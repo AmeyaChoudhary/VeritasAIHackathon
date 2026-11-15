@@ -1,7 +1,7 @@
 {
-  "name": "Steady",
-  "short_name": "Steady",
-  "description": "Steady notices when a teenager has drifted from their own normal, and asks. A prototype that runs on sample data. Not medical advice.",
+  "name": "Stability",
+  "short_name": "Stability",
+  "description": "Stability notices when a teenager has drifted from their own normal, and asks. A prototype that runs on sample data. Not medical advice.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -13,7 +13,7 @@ Supportive, Indicator, Ideation, Behavior or Attempt. CC BY 4.0,
 https://zenodo.org/records/4543776 .
 
 At risk = Ideation, Behavior or Attempt. Not at risk = Supportive (people helping others)
-or Indicator (risk factors but no ideation). Steady scores each message on its own, so a
+or Indicator (risk factors but no ideation). Stability scores each message on its own, so a
 user counts as flagged when any one of their posts is flagged, by the model, by the phrase
 list, or by either (what the app runs).
 
@@ -151,7 +151,7 @@ def render(r) -> str:
     w("Experiment 5 learned from posts labelled by the forum they came from. A model can learn the forum instead of the "
       "risk. Here every user comes from the same group of forums, and psychiatrists gave the labels, so the forum cannot "
       "give the answer away. The model was not changed. A user counts as flagged when any one of their posts is flagged, "
-      "because Steady scores each message on its own.")
+      "because Stability scores each message on its own.")
     w("")
     w("## Results")
     w("")

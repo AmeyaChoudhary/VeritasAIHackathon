@@ -28,5 +28,13 @@
   "auc": 0.85,
   "hit": 74,
   "random": 41
+ },
+ "pitch": {
+  "examples": 350000,
+  "times": 3.4,
+  "teenAuc": 0.9,
+  "topAsks": 92,
+  "selfHarmFound": 13,
+  "selfHarmTotal": 15
  }
 }

@@ -9,7 +9,7 @@ const standalone = () =>
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 /**
- * One quiet line above the phone switcher that offers to put Steady on the home screen.
+ * One quiet line above the phone switcher that offers to put Stability on the home screen.
  * Android and desktop Chrome get an Install button. iPhone gets the two taps Safari needs.
  * It never shows once installed, and stays away after it is dismissed.
  */
@@ -37,10 +37,10 @@ export function InstallHint() {
     setHidden(true);
   };
   return (
-    <div className="install" role="region" aria-label="Install Steady">
+    <div className="install" role="region" aria-label="Install Stability">
       {evt ? (
         <>
-          <span>Keep Steady on your home screen.</span>
+          <span>Keep Stability on your home screen.</span>
           <button
             className="install-go"
             onClick={async () => {

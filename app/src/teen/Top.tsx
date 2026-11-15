@@ -14,7 +14,7 @@ export function Wordmark({ children }: { children: React.ReactNode }) {
 export function TeenTop({ onHelp, helpOpen }: { onHelp?: () => void; helpOpen?: boolean }) {
   return (
     <div className="phone-top">
-      <Wordmark>Steady</Wordmark>
+      <Wordmark>Stability</Wordmark>
       {onHelp && (
         <button className="btn btn-sm btn-top" onClick={onHelp} aria-pressed={helpOpen}>
           <Icon name={helpOpen ? "x" : "life"} size={16} />

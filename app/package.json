@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Steady prototype: teen phone, parent phone and demo shell. Prototype. Not medical advice.",
+  "description": "Stability prototype: teen phone, parent phone and demo shell. Prototype. Not medical advice.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",

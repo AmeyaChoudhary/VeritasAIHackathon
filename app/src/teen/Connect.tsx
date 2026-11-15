@@ -23,6 +23,7 @@ import { readDriveActivity } from "../integrations/drive";
 import { loadMsal, msForget, msToken, readOutlook } from "../integrations/microsoft";
 import { fitbitSignIn, pkcePair, readFitbit } from "../integrations/fitbit";
 import { importExport, type ExportPlatform } from "../integrations/exports";
+import { importSpotify } from "../integrations/spotify";
 import { sampleCalendar, sampleGmail, sampleLastfm, samplePhoneV2, sampleSource } from "../integrations/sample";
 import { getAccounts, saveAccount, useAccounts, type Accounts, type GenericAccount } from "../integrations/accounts";
 import { liveWeekFrom } from "../integrations/live";
@@ -84,7 +85,7 @@ function realProvides(source: SourceId): ContribKey[] {
 function genericFrom(r: object): Omit<GenericAccount, "mode" | "fetchedAt"> {
   const o = r as Record<string, unknown>;
   const counts: Record<string, number> = {};
-  for (const k of ["othersSkipped", "skipped", "unreadable", "ownMessages", "activity", "read", "edits", "courses", "nights"]) if (typeof o[k] === "number") counts[k] = o[k] as number;
+  for (const k of ["othersSkipped", "skipped", "unreadable", "ownMessages", "activity", "read", "edits", "courses", "nights", "plays"]) if (typeof o[k] === "number") counts[k] = o[k] as number;
   return {
     weeks: (o.weeks as GenericAccount["weeks"]) ?? [],
     truncated: o.truncated === true,
@@ -135,6 +136,10 @@ function genericLine(source: SourceId, w: GenericAccount["weeks"][number]): stri
         : null;
     case "youtube":
       return n("events") ? `${head} ${n("events")} watched or searched, ${n("late")} after midnight.` : null;
+    case "spotify":
+      return n("plays")
+        ? `${head} ${plural(n("plays"), "song")}, ${hoursWords(n("minutes") / 60)}, ${n("late")} after midnight, ${n("skips")} skipped, ${repeatWords(typeof s.repeats === "number" ? s.repeats : 0)}.`
+        : `${head} no songs.`;
     default:
       return n("events") ? `${head} ${plural(n("messages"), "message")} sent, ${n("late")} of ${n("events")} actions after midnight.` : null;
   }
@@ -152,7 +157,7 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
           }, ${round((w.share_after_midnight ?? 0) * w.emails_sent)} after midnight.`,
       );
     if (a.gmail.skipped) lines.push(`${plural(a.gmail.skipped, "email was", "emails were")} skipped: their own words couldn't be separated from quoted text.`);
-    if (a.gmail.truncated) lines.push("There were more sent emails than Steady reads at once, so the oldest weeks are partial.");
+    if (a.gmail.truncated) lines.push("There were more sent emails than Stability reads at once, so the oldest weeks are partial.");
     return lines;
   }
   if (source === "calendar" && a.calendar) {
@@ -167,7 +172,7 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
           ? `Week of ${weekWords(w.weekOf)}${partWeek(w.complete)}: ${w.plays} plays, ${round((w.late_share ?? 0) * w.plays)} after midnight, ${repeatWords(w.repetition ?? 0)}.`
           : `Week of ${weekWords(w.weekOf)}${partWeek(w.complete)}: no plays.`,
       );
-    if (a.lastfm.truncated) lines.push("There were more plays than Steady reads at once, so the oldest weeks are partial.");
+    if (a.lastfm.truncated) lines.push("There were more plays than Stability reads at once, so the oldest weeks are partial.");
     return lines;
   }
   if (source === "screentime" && a.screentime) {
@@ -193,7 +198,7 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
   if (g.counts?.othersSkipped) lines.push(`${plural(g.counts.othersSkipped, "message")} from other people skipped without being read.`);
   if (g.counts?.skipped) lines.push(`${plural(g.counts.skipped, "email was", "emails were")} skipped: their own words couldn't be separated from quoted text.`);
   if (g.notes?.length) lines.push(...g.notes);
-  else if (g.truncated) lines.push("There was more than Steady reads at once, so some weeks are partial.");
+  else if (g.truncated) lines.push("There was more than Stability reads at once, so some weeks are partial.");
   return lines;
 }
 
@@ -292,6 +297,20 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
       finish("real", { weeks: r.weeks, plays: r.plays, truncated: r.truncated });
     });
 
+  const readFiles = (list: FileList | null) => {
+    const files = list ? Array.from(list) : [];
+    if (!files.length) return;
+    if (source !== "spotify") return readFile(files[0]);
+    run(async () => {
+      // Several Spotify files, or one zip. Each is parsed and dropped; only weeks are kept.
+      const r = await importSpotify(
+        files.map((f) => ({ blob: f, name: f.name })),
+        { now: Date.now() },
+      );
+      finish("real", genericFrom(r));
+    });
+  };
+
   const readFile = (file: File | undefined) =>
     file &&
     run(async () => {
@@ -323,7 +342,7 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
         {info.group}
       </p>
       <h1 className="title">{info.name}</h1>
-      <h2 className="label">What Steady reads</h2>
+      <h2 className="label">What Stability reads</h2>
       <p>{info.reads}</p>
       <h2 className="label">What it keeps</h2>
       <p>{info.keeps}</p>
@@ -367,7 +386,7 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
       ) : info.kind === "server" || missing ? (
         <section className="card">
           <p style={{ marginTop: 0 }}>{info.kind === "server" ? "Needs the phone app or a server." : "Not set up yet."}</p>
-          {info.kind !== "server" && <p className="small muted">This copy of Steady has no key for {info.name}. Sample data shows how it works.</p>}
+          {info.kind !== "server" && <p className="small muted">This copy of Stability has no key for {info.name}. Sample data shows how it works.</p>}
           <div className="btn-col">
             <button className="btn btn-primary" onClick={useSample} disabled={phase === "working"}>
               Use sample data
@@ -387,8 +406,15 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
           )}
           {isFile && (
             <label className="field" style={{ marginTop: 0 }}>
-              <span className="label">{info.kind === "phone" ? "File from the Steady app (.json)" : "Export file (.zip or .json)"}</span>
-              <input type="file" accept=".zip,.json,application/zip,application/json" onChange={(e) => readFile(e.target.files?.[0])} />
+              <span className="label">
+                {info.kind === "phone" ? "File from the Stability app (.json)" : source === "spotify" ? "Spotify data (.zip, or one or more .json)" : "Export file (.zip or .json)"}
+              </span>
+              <input
+                type="file"
+                multiple={source === "spotify"}
+                accept=".zip,.json,application/zip,application/json"
+                onChange={(e) => readFiles(e.target.files)}
+              />
             </label>
           )}
           <div className="btn-col">
@@ -418,7 +444,7 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
           </div>
           {signs && (
             <p className="small muted" style={{ marginBottom: 0 }}>
-              You sign in on the service's own screen. Steady never sees your password.
+              You sign in on the service's own screen. Stability never sees your password.
             </p>
           )}
         </section>
@@ -459,7 +485,7 @@ export function Connect({ initial }: { initial?: SourceId | null }) {
       <h1 className="title" style={{ fontSize: 20 }}>
         Accounts and files you can connect
       </h1>
-      <p className="small">You sign in yourself, on this phone. Steady reads them here and keeps weekly numbers only.</p>
+      <p className="small">You sign in yourself, on this phone. Stability reads them here and keeps weekly numbers only.</p>
       {GROUP_ORDER.map((group) => (
         <section key={group} aria-label={group}>
           <h2 className="label" style={{ marginTop: 16 }}>
@@ -489,8 +515,8 @@ export function Connect({ initial }: { initial?: SourceId | null }) {
         </section>
       ))}
       <button className="list-note card-soft" onClick={() => setOpen("import")}>
-        <span style={{ display: "block", fontWeight: 500 }}>Look at a Spotify history or a sleep and steps file</span>
-        <span className="small muted">Shown here only. It does not join the rules.</span>
+        <span style={{ display: "block", fontWeight: 500 }}>Look at a sleep and steps file, or one Spotify file</span>
+        <span className="small muted">Shown here only. To use Spotify in the rules, open Spotify under Music.</span>
       </button>
     </div>
   );

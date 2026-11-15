@@ -1,4 +1,4 @@
-// Tone model for Steady (Experiment 2, part A).
+// Tone model for Stability (Experiment 2, part A).
 //
 // Reads low mood in a short message: TF-IDF over word unigrams and bigrams,
 // then logistic regression. Trained on GoEmotions (Google, Apache-2.0), where

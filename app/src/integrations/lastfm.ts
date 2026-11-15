@@ -1,5 +1,5 @@
 // Last.fm, read with an API key and the teen's Last.fm username. Read-only, no sign-in.
-// Spotify's developer policy does not allow building user metrics from listening, so Steady
+// Spotify's developer policy does not allow building user metrics from listening, so Stability
 // reads plays that the teen's Spotify sends to Last.fm. Music data from Last.fm.
 
 import { CONFIG, DAY, type Config } from "../engine/config";

@@ -1,6 +1,6 @@
-# Steady: the working prototype
+# Stability: the working prototype
 
-A web app that plays Steady on two phones: the teen's phone and the linked parent's phone, side by side, with a control bar for the demo. It follows [docs/parent-alerts.md](../docs/parent-alerts.md) and [docs/concept.md](../docs/concept.md), and uses their wording where they give it.
+A web app that plays Stability on two phones: the teen's phone and the linked parent's phone, side by side, with a control bar for the demo. It follows [docs/parent-alerts.md](../docs/parent-alerts.md) and [docs/concept.md](../docs/concept.md), and uses their wording where they give it.
 
 **Prototype. Not medical advice.** No clinician has reviewed the rules or the wording.
 
@@ -11,7 +11,7 @@ You need Node 22 or newer.
 ```
 cd app
 npm install
-npm test          # 213 tests of the rules engine, the ask model, the self-harm model and the readers
+npm test          # 224 tests of the rules engine, the ask model, the self-harm model and the readers
 npm run dev -- --port 5210
 ```
 
@@ -41,15 +41,15 @@ Pick one in the control bar. **Next week** plays to just after the next week end
 
 | Scenario | What happens |
 | --- | --- |
-| Maya's 12 weeks | She checks in every week. Weeks 1 to 4 learn her range (week 3 has one four-hour night, and nothing happens). At the end of week 4 the monthly two questions come up: her answers total 2, under the cut-off of 3, and Steady takes her at her word. Finals in weeks 5 and 6: sleep, messaging and activity leave the range and her check-ins get more stressed. At the end of week 6 the ask model's score reaches its threshold, so the two questions come up two weeks early. Her answers are still under the cut-off. Weeks 7 and 8: sleep and messaging stay low. At the end of week 8 the model asks again, her two answers are high, the other six follow, and her score on the eight is 10 or more. Her phone shows the doctor suggestion; Mom gets the heads-up ("For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often.") and taps "Booked a doctor" the next evening. Weeks 9 to 12 come back into range, and the model asks again at weeks 10 and 12; both answers are low |
-| Steady week to week | Everything stays in range. The two questions come up once a month anyway, at weeks 4, 8 and 12, and every answer is low. Week 10 has two days of data, so Mom's app shows "On, but not enough data" for a few days. Week 11 has days without the Steady keyboard. No notes |
+| Maya's 12 weeks | She checks in every week. Weeks 1 to 4 learn her range (week 3 has one four-hour night, and nothing happens). At the end of week 4 the monthly two questions come up: her answers total 2, under the cut-off of 3, and Stability takes her at her word. Finals in weeks 5 and 6: sleep, messaging and activity leave the range and her check-ins get more stressed. At the end of week 6 the ask model's score reaches its threshold, so the two questions come up two weeks early. Her answers are still under the cut-off. Weeks 7 and 8: sleep and messaging stay low. At the end of week 8 the model asks again, her two answers are high, the other six follow, and her score on the eight is 10 or more. Her phone shows the doctor suggestion; Mom gets the heads-up ("For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often.") and taps "Booked a doctor" the next evening. Weeks 9 to 12 come back into range, and the model asks again at weeks 10 and 12; both answers are low |
+| Stable week to week | Everything stays in range. The two questions come up once a month anyway, at weeks 4, 8 and 12, and every answer is low. Week 10 has two days of data, so Mom's app shows "On, but not enough data" for a few days. Week 11 has days without the Stability keyboard. No notes |
 | Skips the questions | She answers the monthly ask in week 4, then stops: no check-ins. From week 5 sleep and messaging drop and stay down. With no check-ins, her phone signals decide when to ask, once a week from week 6, and every set is skipped. At the end of week 8 (four weeks outside, last two asks skipped) Mom gets a heads-up. The evidence keeps coming and is held; three weeks later a second heads-up goes out. Maya's doctor suggestion waits for the next weekly note |
 | Urgent: plan words | Late on a Wednesday in week 3 a message states a plan. 988 and 911 fill her screen and Mom gets an urgent note at once |
 | Urgent: concern, no answer | In week 3 a message has self-harm words from the phrase list, without a plan. "Are you safe right now?" appears with 988 behind it. Nobody answers, so 30 minutes later Mom gets an urgent note. Nobody replies, so it sounds again every 5 minutes, and after 15 minutes it shows on Dad's phone and Ms. Patel's phone (the trusted adult Maya named) |
 
 The clock buttons (+5 MIN, +30 MIN, +1 DAY, and speeds up to an hour a second) show the 30 minutes, the 15 minutes, the 26 hours before "Not connected" and the two-day reminder in seconds.
 
-You can also do it by hand: pair with "Scan the code" on Mom's phone, read the setup screen on Maya's phone, answer the eight, then use Next week. Type in the Type tab to try the self-harm check, and turn Steady off in Settings to watch Mom's app go to "Not connected".
+You can also do it by hand: pair with "Scan the code" on Mom's phone, read the setup screen on Maya's phone, answer the eight, then use Next week. Type in the Type tab to try the self-harm check, and turn Stability off in Settings to watch Mom's app go to "Not connected".
 
 ## What is real and what is simulated
 
@@ -58,7 +58,7 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 | The rules: every rule in docs/parent-alerts.md is in `src/engine/rules.ts`, with all numbers in `src/engine/config.ts` | Maya and all weekly data. The weekly numbers are made up in `src/engine/simulate.ts` |
 | The ask model decides when the two questions come up (`src/engine/askmodel.ts`, weights and 24 test cases in `src/engine/ask_model.json`, from Experiment 4). `askmodel.test.ts` checks that the app's arithmetic gives the same scores as the training script | The check-in answers in the scripted scenarios. Turn "Scripted answers and replies" off and tap the two rows on Maya's Home screen yourself |
 | The tone model runs in the browser on what you type (`src/engine/tone.ts`, weights in `public/models/tone.json`, from Experiment 2) | Sleep, steps and messaging counts. A real app would read them from the phone |
-| The self-harm check runs on what you type (`src/engine/selfharm.ts`): a short phrase list, then, if it finds nothing, the self-harm model from Experiment 5 (`public/models/risk.json`, loaded at start). A flag from the model alone has its own level, `check`: "Are you safe right now?" with 988, but no answer sends nothing and it does not count toward the repeat-flag rules; "No" sends the urgent note at once. Phrase-list flags keep `concern` (30-minute wait) and `plan` (urgent at once). Emails and messages from connected accounts use the phrase list only. If the file fails to load, the phrase list runs alone. Neither part is clinically validated | The keyboard. The Type tab stands in for the Steady keyboard |
+| The self-harm check runs on what you type (`src/engine/selfharm.ts`): a short phrase list, then, if it finds nothing, the self-harm model from Experiment 5 (`public/models/risk.json`, loaded at start). A flag from the model alone has its own level, `check`: "Are you safe right now?" with 988, but no answer sends nothing and it does not count toward the repeat-flag rules; "No" sends the urgent note at once. Phrase-list flags keep `concern` (30-minute wait) and `plan` (urgent at once). Emails and messages from connected accounts use the phrase list only. If the file fails to load, the phrase list runs alone. Neither part is clinically validated | The keyboard. The Type tab stands in for the Stability keyboard |
 | Typed text is scored and dropped. It is never stored, and TEXT SENT stays at 0 BYTES | Time. The clock is simulated, so a week passes in a click |
 | Each note is the JSON event from the doc, and the log shows its exact bytes | The relay. Events move between tabs of one browser, not between phones, and are not encrypted |
 | Connect, then Import a file, parses a Spotify history file or a sleep and steps CSV in the browser, and uploads nothing | Pairing. "Scan the code" reads the code from the teen phone on the same page |
@@ -66,9 +66,9 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 
 "How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json`, `exp3_summary.json`, `exp4_summary.json`, `exp5_summary.json` and `exp6_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
 
-## When Steady asks
+## When Stability asks
 
-The teen's Home screen has a **check-in** card: two rows of five dots, for stress and for time alone or with others. Two taps store one check-in for the week. It stays on the phone and never sends a note.
+The teen's Home screen has a **check-in** card led by **Stable**, the mascot (`src/ui/Stable.tsx`): it floats and blinks, turns amber with a pulsing ring on the question card, and squints happily on the thanks screen. It is kept off the safety screens. The card has two rows of five dots, for stress and for time alone or with others. Two taps store one check-in for the week. It stays on the phone and never sends a note.
 
 At the end of each week the rules decide whether to bring up the two questions, in this order (`weekEnd` in `src/engine/rules.ts`, numbers in `src/engine/config.ts`):
 
@@ -87,7 +87,7 @@ The log in "Evidence and log" says which rule asked. A heads-up to a parent stil
 - **Two flags in 14 days** send a heads-up (inside the three-week limit). When the second flag is within 7 days the urgent note goes instead, so the heads-up is not sent as well. An urgent note replaces an overlapping two-flags heads-up.
 - **The two-week pause after a low answer** is counted in calendar weeks from the week the questions were asked, not 14 days from the moment of the answer. A set asked at the end of week 6 and answered low comes back at the end of week 8, even if the answer came a few days late.
 - **The four weeks of the skip rule** need two signals that each stayed outside for four valid weeks in a row. Signals that take turns do not add up.
-- **While Steady is off** nothing is asked or sent, an open question set is dropped (it does not count as skipped), and the week is left out of the count. A week counts only by the days the phone actually had data and Steady was on.
+- **While Stability is off** nothing is asked or sent, an open question set is dropped (it does not count as skipped), and the week is left out of the count. A week counts only by the days the phone actually had data and Stability was on.
 - **Daily status** counts only days with real data, so the first few days after setup report "not enough data". If no status ever arrives, the parent app shows "Not connected" 26 hours after pairing.
 - **A "yes" to "Are you safe right now?"** holds the note, and the 988 screen stays up until the teen goes back.
 - **A flag from the self-harm model alone** (`check`) asks the same question, but no answer sends nothing and it is not counted by the 7-day or 14-day rules. Experiment 5b showed the model also flags people who are only helping someone else.
@@ -98,7 +98,7 @@ The log in "Evidence and log" says which rule asked. A heads-up to a parent stil
 
 ## Connected accounts
 
-The teen connects each source on their own phone, from the Connect tab, by signing in themselves or choosing their own export file. Each has its own screen that says what it reads, with Connect and Not now, and a switch in Settings turns it off in one tap. Steady never shows a password field and never signs in to an app with the teen's password or session. The rules are in [docs/parent-alerts.md](../docs/parent-alerts.md), "Connected accounts".
+The teen connects each source on their own phone, from the Connect tab, by signing in themselves or choosing their own export file. Each has its own screen that says what it reads, with Connect and Not now, and a switch in Settings turns it off in one tap. Stability never shows a password field and never signs in to an app with the teen's password or session. The rules are in [docs/parent-alerts.md](../docs/parent-alerts.md), "Connected accounts".
 
 ### How each source connects
 
@@ -108,12 +108,13 @@ The teen connects each source on their own phone, from the Connect tab, by signi
 | Google Calendar | Google sign-in, `calendar.events.readonly` | Yes | Events four weeks back and ahead | Exam weeks; titles dropped | Context only |
 | Google Classroom | Google sign-in, `classroom.courses.readonly` and `classroom.coursework.me.readonly` | Yes | Own coursework due dates and own submissions; field masks leave titles out | Due, late, missing, turned in after midnight | School |
 | Google Drive activity | Google sign-in, `drive.activity.readonly` (Drive Activity API v2) | Yes | Own edits only (actor is the current user); a field mask leaves file names out | Days with edits, edits after midnight | Late-night activity |
-| Microsoft 365 | MSAL.js (`@azure/msal-browser`, PKCE popup, memory cache), `Mail.Read` and `Calendars.Read` | Yes | Sent Items only, `$select` of what scoring needs and Graph's text body; for replies, the In-Reply-To value read as Graph's extended property `String 0x1042` (the only header asked for), then the answered message's time and sender address only. When a sent message has no In-Reply-To, Steady uses its conversation id and the latest earlier message in that conversation the teen did not send, asking only for `receivedDateTime` and `from`; calendar subjects matched and dropped | As Gmail, plus exam weeks | Reaching out, tone, reply time, context |
+| Microsoft 365 | MSAL.js (`@azure/msal-browser`, PKCE popup, memory cache), `Mail.Read` and `Calendars.Read` | Yes | Sent Items only, `$select` of what scoring needs and Graph's text body; for replies, the In-Reply-To value read as Graph's extended property `String 0x1042` (the only header asked for), then the answered message's time and sender address only. When a sent message has no In-Reply-To, Stability uses its conversation id and the latest earlier message in that conversation the teen did not send, asking only for `receivedDateTime` and `from`; calendar subjects matched and dropped | As Gmail, plus exam weeks | Reaching out, tone, reply time, context |
 | Last.fm | API key, public profile name | Yes | Plays, fixed 28-day window | Plays, share after midnight, repetition | Late listening |
+| Spotify | None (the teen's own data download, .zip or .json) | Yes | Song plays of 30 s or more, last 12 weeks of the file | Plays, minutes, share after midnight, skips, repeats | Late listening |
 | Fitbit | OAuth 2.0 PKCE popup, `sleep activity` | Yes (CORS allowed), but see below | Sleep logs (main sleep) and daily steps | Sleep hours, bedtime, steps | Sleep, activity |
 | Canvas | The teen's own access token and school address | **No: needs the phone app or a server** | Own submissions: late and missing flags, every page by the `Link` header up to the page cap (a cut list is marked partial) | Late and missing | School |
 | Schoology | The teen's own API key and secret, two-legged OAuth 1.0a (PLAINTEXT) | **No: needs the phone app or a server** | Own grades (missing is exception 3, late flag) and due dates; assignments paged by `links.next` up to the page cap (a cut list is marked partial) | Late and missing | School |
-| Phone data (Android) | File from the Steady app, version 1 or 2 | File | Screen time; in version 2 also Health Connect sleep and steps, the Steady keyboard's daily numbers (no words) and self-harm flags as opaque ids | Screen and night minutes, sleep, bedtime, steps, keyboard messages, speed, pauses, corrections, low-mood share | Sleep, activity, reaching out, tone, typing, night phone use, screen time |
+| Phone data (Android) | File from the Stability app, version 1 or 2 | File | Screen time; in version 2 also Health Connect sleep and steps, the Stability keyboard's daily numbers (no words) and self-harm flags as opaque ids | Screen and night minutes, sleep, bedtime, steps, keyboard messages, speed, pauses, corrections, low-mood share | Sleep, activity, reaching out, tone, typing, night phone use, screen time |
 | Instagram, TikTok, Snapchat, Discord | The teen's own export (.zip or .json) | File | Only the owner's sent messages and own activity times; owner found from the export's own profile file and matched to exactly one participant of each conversation | Messages sent, actions after midnight, low-mood share of own messages | Reaching out, tone, late-night activity |
 | YouTube | Google Takeout, history as JSON | File | Watch and search times only, no titles or search terms | Actions, actions after midnight | Late-night activity |
 
@@ -121,7 +122,7 @@ The teen connects each source on their own phone, from the Connect tab, by signi
 
 **Fitbit's status.** Google ended support for the Fitbit Web API on September 30, 2026 and lists November 2, 2026 as the day its endpoints and Fitbit OAuth turn off, answering HTTP 410 ([Google Health API](https://developers.google.com/health/about)). Its replacement, the Google Health API, uses Google OAuth with restricted scopes that need Google's review. The Fitbit connection here follows the Web API and will most likely fail; the screen says so, and its reader can serve the Android app or a server that still has data in that shape. A Google Health API reader is not built.
 
-**Why some sources are files.** Instagram, TikTok, Snapchat and Discord offer no way for an app to read a person's own activity or messages with their permission, and YouTube no longer gives watch history through its API. Steady reads the export each app gives the teen.
+**Why some sources are files.** Instagram, TikTok, Snapchat and Discord offer no way for an app to read a person's own activity or messages with their permission, and YouTube no longer gives watch history through its API. Stability reads the export each app gives the teen.
 
 **Export layouts read.** The JSON forms, checked against the apps' help pages and known exports. Instagram: `personal_information/.../personal_information.json` and `(your_instagram_activity/)messages/inbox/<thread>/message_N.json` (with Instagram's broken UTF-8 repaired), likes. TikTok: `user_data_tiktok.json` (or `user_data.json`) with "Profile", "Direct Message(s)" and "Activity"/"Your Activity". Snapchat: `json/account.json` and `json/chat_history.json`, both the newer per-conversation layout with `IsSender` and the older "Sent/Received Saved Chat History" lists. Discord: `account/user.json` and `messages/c<id>/messages.json` or the older `messages/<id>/messages.csv`, any capitalisation. YouTube: `.../history/watch-history.json` and `search-history.json`. An HTML export, a missing profile file or an unknown layout imports nothing and says why. Instagram names people by display name, so each conversation's participant list is read: when the owner's name is not among them, or more than one participant has it, the conversation is skipped and counted as unreadable, and the Connect screen says how many. Zip files are read with `fflate` in two streaming passes: the profile files first, then each data file is parsed as soon as it is unpacked and its text dropped. HTML files are never unpacked. One entry over 300 MB is not read, and no more than 1 GB is unpacked from one export; when either cap is hit the import says so, and every week it gives is partial.
 
@@ -159,7 +160,9 @@ Gmail's read scope is restricted: in Testing mode only the listed test users can
 
 **Fitbit.** At [dev.fitbit.com](https://dev.fitbit.com/apps/new), register an app of OAuth 2.0 application type "Client" with the redirect URL `http://localhost:5210/auth.html`, and put its client ID in `VITE_FITBIT_CLIENT_ID`. See Fitbit's status above: expect it to fail.
 
-**Last.fm.** Create a free API account at https://www.last.fm/api/account/create and put the API key in `VITE_LASTFM_API_KEY`. The teen types their Last.fm username; Steady can't check that the profile is theirs (Last.fm sign-in needs a server-side secret), and the name is used once and not kept. To get Spotify plays into Last.fm, the teen connects Spotify under Settings, then Applications, on last.fm. The screen credits "Music data from Last.fm". Steady does not read Spotify's API, because Spotify's developer policy does not allow building user metrics from listening.
+**Last.fm.** Create a free API account at https://www.last.fm/api/account/create and put the API key in `VITE_LASTFM_API_KEY`. The teen types their Last.fm username; Stability can't check that the profile is theirs (Last.fm sign-in needs a server-side secret), and the name is used once and not kept. To get Spotify plays into Last.fm, the teen connects Spotify under Settings, then Applications, on last.fm. The screen credits "Music data from Last.fm". Stability does not read Spotify's API, because Spotify's developer policy does not allow building user metrics from listening.
+
+**Spotify.** No key or sign-in. The teen requests their data on spotify.com (Account privacy) and chooses the .zip, or the `StreamingHistory_music_N.json` / `Streaming_History_Audio_*.json` (older `endsong_N.json`) files, in Connect, Spotify; several files at once are fine. `src/integrations/spotify.ts` reads them on the phone. Only song plays of 30 seconds or more count; podcasts, audiobooks and videos are skipped; a play in both downloads counts once. Spotify writes UTC; plays are placed in the phone's own time zone, as Last.fm's are. Song names are used only to count repeats inside a week and are dropped; `src/integrations/spotify.test.ts` checks that nothing but numbers is kept. It gives the same music signal as Last.fm (share of plays between midnight and 5 a.m.). Stability does not call the Spotify Web API: Spotify's Developer Policy forbids using it to create user metrics or profiles from listening, recently-played returns only the last 50 plays, new apps can't read audio features (valence, energy) since late 2024, and an app in development mode only lets users added in its dashboard sign in. For weekly updates, the teen links Spotify to Last.fm and connects Last.fm. We do not guess mood from songs: there is no way here to check a listener's mood against song labels.
 
 **Canvas and Schoology** need no key here, because the web app can't call them. In a phone app or server: Canvas uses a personal access token from the teen's Account, Settings, Approved Integrations, and the school's Canvas address; Schoology uses the API key and secret from the teen's account (app.schoology.com/api), where the school allows it.
 
@@ -175,7 +178,7 @@ Gmail's read scope is restricted: in Testing mode only the listed test users can
 
 **The demo clock.** The rules check a real item's time against the demo's clock, which starts on November 2, 2026 and moves by weeks. A real flag reaches the rules only while the demo clock is within a day of the item's real time; otherwise it is logged as too old (or from the future) and goes no further.
 
-The Connect screen shows what the phone kept, in words, with partial weeks marked. The older Spotify history and sleep-and-steps CSV viewer is still under Connect; it shows a file and does not join the rules.
+The Connect screen shows what the phone kept, in words, with partial weeks marked. The older viewer for one Spotify file or a sleep-and-steps CSV is still under Connect; it shows a file and does not join the rules. Spotify joins the rules through Connect, Spotify.
 
 **What leaves the phone.** The transport only sends the schema fields of each event type (`heads_up`, `urgent`, `status`, and the parent's `receipt`), in order, and refuses a malformed event. Nothing from a connected source changes that.
 
@@ -184,8 +187,9 @@ The Connect screen shows what the phone kept, in words, with partial weeks marke
 ```
 src/engine/   pure TypeScript: types, config, rules, the ask model (askmodel.ts, ask_model.json), the self-harm check (selfharm.ts), clock, transport, runner, scenarios, notes, tests
 src/store/    the driver tab, cross-tab sync, tone model loading
+src/ui/       shared pieces: icons, Stable the mascot, the install hint
 src/teen/     Pair, setup screen, questions, Home, the check-in card and chart, Type, Connect, Are you safe, Help, Settings, Import
-src/parent/   Pair (with the second adult, Do Not Disturb and "What Steady misses"), Home, Note, What to say, I can't reach her, other adults
+src/parent/   Pair (with the second adult, Do Not Disturb and "What Stability misses"), Home, Note, What to say, I can't reach her, other adults
 src/demo/     the demo shell, control bar, evidence drawer, event log, How we know
 src/integrations/  readers for every source, Google, Microsoft and Fitbit sign-in, the zip reader, fixtures, sample data
 src/auth/     the page sign-in windows return to (auth.html)

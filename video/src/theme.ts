@@ -1,6 +1,6 @@
 import { continueRender, delayRender, staticFile } from "remotion";
 
-/** Steady's palette: the same values as the app (app/src/styles.css). */
+/** Stability's palette: the same values as the app (app/src/styles.css). */
 export const C = {
   night: "#0E1114",
   night2: "#161B21",

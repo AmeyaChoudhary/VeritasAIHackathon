@@ -1,8 +1,8 @@
-# Steady for Android
+# Stability for Android
 
 **Status: built and unit tested; the first version was also smoke-tested on an emulator.** After the review fixes on November 14, 2026, `./gradlew testDebugUnitTest assembleDebug` passed: 72 JVM tests, no failures. The review fixes have not been run on a device or emulator. They are the safety question, cursor tracking, message counting, sleep merging, the notification and targetSdk 36. Before those fixes, these worked on an Android 15 emulator (API 35, Google APIs image):
 
-- The Health Connect permission screen listed Sleep and Steps, and its privacy policy link opened Steady's own policy screen.
+- The Health Connect permission screen listed Sleep and Steps, and its privacy policy link opened Stability's own policy screen.
 - The keyboard typed in Google Messages and capitalized the first letter.
 - A message sent with Messages' own send button was scored, and the 988 screen opened from the keyboard. A plan-level message showed the 911 version.
 - `keyboard.json` held only sums and random flag ids. A search of the app's files found none of the typed words.
@@ -18,9 +18,9 @@ One Kotlin app for Android 8 (API 26) and later, with three sources. Each one is
 
 1. **Screen time**, from Android's usage log.
 2. **Health Connect**: sleep sessions and steps.
-3. **The Steady keyboard**: tone, the self-harm check and typing rhythm, scored as the teen types and never stored.
+3. **The Stability keyboard**: tone, the self-harm check and typing rhythm, scored as the teen types and never stored.
 
-It shows the last 28 days as weeks and saves them as a JSON file the Steady web app can import. The app has no internet permission.
+It shows the last 28 days as weeks and saves them as a JSON file the Stability web app can import. The app has no internet permission.
 
 ## Screen time
 
@@ -50,9 +50,9 @@ Setup follows [Google's get-started guide](https://developer.android.com/health-
   `sleep_minutes` is the main sleep minus stages marked awake, awake in bed or out of bed. `bedtime` is when it started.
 - **Steps.** `aggregateGroupByPeriod` with one-day slices, which removes overlap between a phone and a watch.
 - **History.** Health Connect lets an app read up to 30 days before access was first given. That covers the 28 days used here.
-- **Disconnect** asks Health Connect to drop Steady's access with `revokeAllPermissions()`. From Android 14 that only takes effect when the app's process ends, so Steady also stops reading at once on its own. **Manage in Health Connect** opens Health Connect's page for Steady.
+- **Disconnect** asks Health Connect to drop Stability's access with `revokeAllPermissions()`. From Android 14 that only takes effect when the app's process ends, so Stability also stops reading at once on its own. **Manage in Health Connect** opens Health Connect's page for Stability.
 
-## The Steady keyboard
+## The Stability keyboard
 
 An `InputMethodService` with a QWERTY page and a numbers and symbols page. It has shift with caps lock on double tap, delete that repeats while held, space and enter. The globe key moves to the next keyboard, and a long press opens the keyboard picker. Enter shows the field's action, such as Send or Search.
 
@@ -82,7 +82,7 @@ A small 988 key sits above the letters at all times.
 
 **The help screen.** For "plan" words it shows 911 and 988 at once. For other self-harm words ("concern") it asks "Are you safe right now?" with Yes and No, with 988 on the same screen the whole time. "No" adds 911. The answer is saved on the flag as `"yes"` or `"no"`, never with any words. The buttons open the dialer or messages with the number filled in; the teen still taps call or send. A screen showing 911 never drops it when a weaker match arrives.
 
-**The notification.** While the Steady keyboard is the chosen keyboard, an ongoing notification says it is on and checking typed words on the phone. From Android 13 Android asks the teen to allow notifications first. The app's keyboard section explains why, with an **Allow the notification** button.
+**The notification.** While the Stability keyboard is the chosen keyboard, an ongoing notification says it is on and checking typed words on the phone. From Android 13 Android asks the teen to allow notifications first. The app's keyboard section explains why, with an **Allow the notification** button.
 
 **Fields it skips.** It still types in them, but counts and checks nothing:
 
@@ -175,7 +175,7 @@ The expected scores come from `tools/make_parity_fixtures.mjs`, which runs the w
 - **The red 988 key stays red** after a match until the teen taps it, even if the help screen did open.
 - **A newline in a chat app.** Google Messages sets `IME_FLAG_NO_ENTER_ACTION`, so enter types a newline. The message ends when Messages empties the field after its own send button. This was tested.
 - **Background launch.** Android allowed the 988 screen to open because the keyboard's window was showing (`BAL_ALLOW_VISIBLE_WINDOW` in the log). A message that ends when focus leaves, after the keyboard has hidden, may be blocked from opening the screen. The flag is still recorded, and the keyboard's 988 key turns red.
-- **This app sends no notes.** The answer to "Are you safe right now?" is saved on the flag for the Steady web app. No timer runs here; the 30-minute rule in [docs/parent-alerts.md](../../docs/parent-alerts.md) is the web app's job.
+- **This app sends no notes.** The answer to "Are you safe right now?" is saved on the flag for the Stability web app. No timer runs here; the 30-minute rule in [docs/parent-alerts.md](../../docs/parent-alerts.md) is the web app's job.
 - **The notification** needs the teen to allow notifications on Android 13 and later. From Android 14 the teen can also swipe away an ongoing notification.
 - **The phrase list is not validated.** Experiment 2 found it missed 9 of 15 risk messages written by someone who had not seen it.
 - **Health Connect "Disconnect"** on Android 14 and later only takes full effect when the app's process ends.
@@ -183,7 +183,7 @@ The expected scores come from `tools/make_parity_fixtures.mjs`, which runs the w
 
 ## What a Play Store build would need
 
-[Google Play's stalkerware and monitoring rules](https://support.google.com/googleplay/android-developer/answer/9888380) apply because Steady can send a parent a note.
+[Google Play's stalkerware and monitoring rules](https://support.google.com/googleplay/android-developer/answer/9888380) apply because Stability can send a parent a note.
 
 - **The monitoring flag.** The manifest declares `<meta-data android:name="isMonitoringTool" android:value="child_monitoring" />`, the value [Play's help page](https://support.google.com/googleplay/android-developer/answer/12955211) gives. That page shows it directly under `<manifest>`; here it sits under `<application>`, where the build tools accept `<meta-data>`. The [`<application>` reference](https://developer.android.com/guide/topics/manifest/application-element) also lists an `android:isMonitoringTool` attribute. Check the current Play Console guidance before upload.
 - **A persistent notification while the app runs.** The policy's wording is "at all times when the app is running." The keyboard shows an ongoing notification while it is the chosen keyboard. The app's own screen reads screen time and Health Connect only while it is open.

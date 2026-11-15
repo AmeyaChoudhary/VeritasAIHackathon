@@ -1,4 +1,4 @@
-/* Steady landing page.
+/* Stability landing page.
    Every number on the page lives in DATA. Change it here and nowhere else. */
 const DATA = {
   // "What we found": asks that landed on a week with a high PHQ-2, at this many asks per student-year
@@ -194,7 +194,7 @@ const DATA = {
     slipWrap.style.opacity = mix(1, 0.13, smooth(0.86, 0.94, p)).toFixed(3);
   }
 
-  /* ---------- what Steady does ---------- */
+  /* ---------- what Stability does ---------- */
   const howBox = $(".sticky.how"), steps = $$(".step"), notes = $$(".note"), howShots = $$(".how-phone .shot"), railFill = $(".rail i");
   let howIdx = -1;
   function how(p, rm) {

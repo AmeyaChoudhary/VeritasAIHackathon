@@ -1,6 +1,6 @@
 // Data files the teen downloads from Instagram, TikTok, Snapchat, Discord and YouTube (Google
 // Takeout), read on the phone. These apps give no way for another app to read a person's own
-// activity with their permission, so the teen's own export is the only honest route; Steady
+// activity with their permission, so the teen's own export is the only honest route; Stability
 // never uses a password or a login session.
 //
 // For each export: work out whose account it is from the export's own profile file, keep only
@@ -181,13 +181,13 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
   const finish = (allNames: string[], tooBig: string[]): ExportResult => {
     if (!sawData) {
       if (allNames.some((n) => /\.html?$/i.test(n))) throw new ExportError("This is an HTML export. Request it again and choose JSON. Nothing was imported.");
-      throw new ExportError(`This doesn't look like ${TITLE[platform]} Steady knows. Nothing was imported.`);
+      throw new ExportError(`This doesn't look like ${TITLE[platform]} Stability knows. Nothing was imported.`);
     }
     const range = exportRange(events, opts.now, cfg);
     if (!range)
       throw new ExportError(
         unreadable
-          ? `Steady couldn't tell which messages were yours in ${unreadable} conversation${unreadable === 1 ? "" : "s"}, and found nothing else of yours. Nothing was imported.`
+          ? `Stability couldn't tell which messages were yours in ${unreadable} conversation${unreadable === 1 ? "" : "s"}, and found nothing else of yours. Nothing was imported.`
           : "This export has no activity of yours in it.",
       );
     const inRange = events.filter((e) => e.at >= range.from && e.at <= range.to);
@@ -196,7 +196,7 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
     if (truncated) weeks = weeks.map((w) => ({ ...w, complete: false }));
     const notes: string[] = [];
     if (truncated) notes.push(`${tooBig.length} file${tooBig.length === 1 ? " was" : "s were"} too big to read, so these weeks are partial and do not reach the rules.`);
-    if (unreadable) notes.push(`${unreadable} conversation${unreadable === 1 ? " was" : "s were"} skipped: Steady couldn't tell which messages were yours.`);
+    if (unreadable) notes.push(`${unreadable} conversation${unreadable === 1 ? " was" : "s were"} skipped: Stability couldn't tell which messages were yours.`);
     flags.sort((a, b) => a.at - b.at);
     return {
       platform,
@@ -223,7 +223,7 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
           const text = [...files.entries()].find(([p]) => IG_PROFILE.test(p))?.[1];
           const map = obj(obj(arr(obj(json(text)).profile_user)[0]).string_map_data);
           names = [str(obj(map.Name).value), str(obj(map.Username).value)].filter((n): n is string => !!n).map(repairText);
-          if (!names.length) throw new ExportError("This export has no profile file, so Steady can't tell which messages are yours. Nothing was imported.");
+          if (!names.length) throw new ExportError("This export has no profile file, so Stability can't tell which messages are yours. Nothing was imported.");
           owner = names[0];
           layout = "Instagram JSON";
         },
@@ -271,8 +271,8 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
           owner = str(pmap.userName) ?? str(pmap.username) ?? "";
           const dm = obj(data["Direct Message"] ?? data["Direct Messages"]);
           const act = obj(data.Activity ?? data["Your Activity"]);
-          if (!Object.keys(dm).length && !Object.keys(act).length) throw new ExportError("This TikTok export has a layout Steady doesn't know. Nothing was imported.");
-          if (!owner) throw new ExportError("This export has no profile, so Steady can't tell which messages are yours. Nothing was imported.");
+          if (!Object.keys(dm).length && !Object.keys(act).length) throw new ExportError("This TikTok export has a layout Stability doesn't know. Nothing was imported.");
+          if (!owner) throw new ExportError("This export has no profile, so Stability can't tell which messages are yours. Nothing was imported.");
           layout = "TikTok JSON";
         },
         async consume(_path, text) {
@@ -312,8 +312,8 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
           if (!owner) {
             if (!allNames.some((n) => SC_CHATS.test(n)) && allNames.some((n) => /\.html?$/i.test(n)))
               throw new ExportError("This is an HTML export. Request your data again with JSON files included. Nothing was imported.");
-            if (!allNames.some((n) => SC_CHATS.test(n))) throw new ExportError("This doesn't look like a Snapchat export Steady knows. Nothing was imported.");
-            throw new ExportError("This export has no account file, so Steady can't tell which messages are yours. Nothing was imported.");
+            if (!allNames.some((n) => SC_CHATS.test(n))) throw new ExportError("This doesn't look like a Snapchat export Stability knows. Nothing was imported.");
+            throw new ExportError("This export has no account file, so Stability can't tell which messages are yours. Nothing was imported.");
           }
         },
         async consume(_path, text) {
@@ -355,8 +355,8 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
           const user = obj(json([...files.entries()].find(([p]) => DC_USER.test(p))?.[1]));
           owner = str(user.id) ?? str(user.username) ?? "";
           if (!owner) {
-            if (!allNames.some((n) => DC_MSGS.test(n))) throw new ExportError("This doesn't look like a Discord data package Steady knows. Nothing was imported.");
-            throw new ExportError("This package has no account file, so Steady can't tell whose it is. Nothing was imported.");
+            if (!allNames.some((n) => DC_MSGS.test(n))) throw new ExportError("This doesn't look like a Discord data package Stability knows. Nothing was imported.");
+            throw new ExportError("This package has no account file, so Stability can't tell whose it is. Nothing was imported.");
           }
           layout = "Discord package";
         },

@@ -26,7 +26,7 @@ function playAll(scn: Scenario): Emitted[] {
 const notesOf = (e: Emitted[]) => e.filter((x) => x.event.type !== "status");
 
 describe("review fixes", () => {
-  it("1. nothing is asked or sent while Steady is off, after a high setup score", () => {
+  it("1. nothing is asked or sent while Stability is off, after a high setup score", () => {
     const h = new Harness(HIGH_SETUP);
     expect(h.headsUps()).toHaveLength(1);
     h.do({ kind: "setOff", off: true }, START + HOUR);
@@ -36,7 +36,7 @@ describe("review fixes", () => {
     expect(h.s.asks.filter((a) => a.kind === "recheck")).toHaveLength(0);
   });
 
-  it("1b. an open check-in is dropped, not counted as skipped, when Steady is turned off", () => {
+  it("1b. an open check-in is dropped, not counted as skipped, when Stability is turned off", () => {
     const h = new Harness().learn().weeks(2, OUT2); // ask at week 6
     h.do({ kind: "setOff", off: true }, h.weekEnd - 5 * DAY);
     h.weeks(4, OUT2);
@@ -94,7 +94,7 @@ describe("review fixes", () => {
     expect(replied.repeatCount).toBe(1); // 5 minutes; the 10-minute repeat is cut by the reply
   });
 
-  it("6. a week that was mostly switched off is not counted, even if Steady is back on by its end", () => {
+  it("6. a week that was mostly switched off is not counted, even if Stability is back on by its end", () => {
     const h = new Harness().learn(); // weeks 1 to 4
     const first = 4 * 7; // Monday of week 5
     h.do({ kind: "setOff", off: true }, START + first * DAY + HOUR);

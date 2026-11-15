@@ -418,7 +418,7 @@ The honest numbers to quote: phone data recorded before the answer 0.57 to 0.60;
 
 ## Caveats
 
-- These are Dartmouth college students from 2017 to 2022, through the pandemic. Steady is meant for high school students.
+- These are Dartmouth college students from 2017 to 2022, through the pandemic. Stability is meant for high school students.
 - The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.
 - Phone features are the study's own daily summaries. Typing, tone and music were not available.
 - Every AUC is an exploratory cross-validation estimate for one model. The intervals resample students but do not include choosing among models.

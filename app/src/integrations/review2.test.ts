@@ -46,7 +46,7 @@ describe("1. old flags from files never reach the urgent path", () => {
     const h = new Harness();
     for (const f of r.flags) h.do({ kind: "emailFlag", level: f.level, sentAt: f.at, key: "android:" + f.id, source: "android", answer: f.answer }, NOW);
     expect(h.of("urgent")).toHaveLength(0);
-    expect(h.s.trace.at(-1)!.text).toMatch(/^The Steady keyboard on Android .*not from the last 24 hours/);
+    expect(h.s.trace.at(-1)!.text).toMatch(/^The Stability keyboard on Android .*not from the last 24 hours/);
   });
 
   it("two old concern flags (10 and 9 days ago) send nothing", () => {
