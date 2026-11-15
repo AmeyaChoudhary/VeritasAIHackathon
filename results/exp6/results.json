@@ -1,0 +1,134 @@
+{
+  "generated": "2026-11-15",
+  "data": {
+    "answers_with_phq2": 918,
+    "teens": 283,
+    "teens_with_a_later_answer": 113,
+    "ages": {
+      "12": 19,
+      "13": 32,
+      "14": 40,
+      "15": 45,
+      "16": 71,
+      "17": 76
+    },
+    "first": "2020-07-21",
+    "last": "2025-01-26"
+  },
+  "model_threshold": 0.163374,
+  "first_follow_up": {
+    "teens": 113,
+    "answers": 113,
+    "auc": 0.8520441271901363,
+    "auc_ci": [
+      0.7769573996265173,
+      0.9151096316905141
+    ],
+    "top_share": {
+      "answers": 113,
+      "high": 46,
+      "base_rate": 0.40707964601769914,
+      "asked": 43,
+      "hit_rate": 0.7441860465116279,
+      "missed": 14,
+      "false_alarms": 11
+    },
+    "app_threshold": {
+      "answers": 113,
+      "high": 46,
+      "base_rate": 0.40707964601769914,
+      "asked": 75,
+      "hit_rate": 0.5733333333333334,
+      "missed": 3,
+      "false_alarms": 32
+    },
+    "median_days_since_last": 4.0
+  },
+  "all_answers": {
+    "teens": 113,
+    "answers": 635,
+    "auc": 0.9031867154922422,
+    "auc_ci": [
+      0.8504549089449587,
+      0.9357707706245948
+    ],
+    "top_share": {
+      "answers": 635,
+      "high": 238,
+      "base_rate": 0.37480314960629924,
+      "asked": 147,
+      "hit_rate": 0.9183673469387755,
+      "missed": 103,
+      "false_alarms": 12
+    },
+    "app_threshold": {
+      "answers": 635,
+      "high": 238,
+      "base_rate": 0.37480314960629924,
+      "asked": 370,
+      "hit_rate": 0.6,
+      "missed": 16,
+      "false_alarms": 148
+    },
+    "median_days_since_last": 7.0
+  },
+  "last_answer_alone_auc_first": 0.8520441271901363,
+  "groups": {
+    "Boys": {
+      "teens": 57,
+      "answers": 337,
+      "auc": 0.9289838770153731,
+      "auc_ci": [
+        0.8730553070008473,
+        0.9566320208910166
+      ],
+      "top_share": {
+        "answers": 337,
+        "high": 127,
+        "base_rate": 0.3768545994065282,
+        "asked": 78,
+        "hit_rate": 0.9487179487179487,
+        "missed": 53,
+        "false_alarms": 4
+      },
+      "app_threshold": {
+        "answers": 337,
+        "high": 127,
+        "base_rate": 0.3768545994065282,
+        "asked": 181,
+        "hit_rate": 0.6574585635359116,
+        "missed": 8,
+        "false_alarms": 62
+      },
+      "median_days_since_last": 7.0
+    },
+    "Girls": {
+      "teens": 51,
+      "answers": 273,
+      "auc": 0.863366218946868,
+      "auc_ci": [
+        0.7418506805070457,
+        0.934756565895729
+      ],
+      "top_share": {
+        "answers": 273,
+        "high": 94,
+        "base_rate": 0.3443223443223443,
+        "asked": 63,
+        "hit_rate": 0.7619047619047619,
+        "missed": 46,
+        "false_alarms": 15
+      },
+      "app_threshold": {
+        "answers": 273,
+        "high": 94,
+        "base_rate": 0.3443223443223443,
+        "asked": 165,
+        "hit_rate": 0.5212121212121212,
+        "missed": 8,
+        "false_alarms": 79
+      },
+      "median_days_since_last": 7.0
+    }
+  }
+}

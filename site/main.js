@@ -13,6 +13,8 @@ const DATA = {
     highWeeks: "2,171",
     falseAlarms: "2,012", // asks that landed on weeks that were not high
   },
+  // Experiment 6: the same model, unchanged, on teenagers aged 12 to 17 (first follow-up)
+  teens: { n: 113, auc: "0.85", hitTop: 74, hitRandom: 41 },
   asks: [
     { label: "Fixed calendar", value: 13 },
     { label: "Phone model", value: 18 },
@@ -23,7 +25,11 @@ const DATA = {
   tone: { model: 50, keyword: 24, commentsText: "5,427", scaleMax: 70 },
   // a fine-tuned language model we tested and did not ship (Experiment 2b)
   fineTuned: { found: 62, sizeMB: 91 },
-  limits: { selfHarmMissed: 9, selfHarmTotal: 15, aucMen: "0.75", aucWomen: "0.66" },
+  limits: { aucMen: "0.75", aucWomen: "0.66" },
+  // Experiment 5: the phrase list plus the self-harm model, on our 60 messages and on held-out posts
+  selfHarm: { found: 13, total: 15, falseAlarms: 5, phraseFound: 6, depressionFlagged: 32 },
+  // Experiment 5b: the same model on 500 Reddit users rated by psychiatrists
+  psychiatrists: { users: 500, auc: "0.66", atRiskFlagged: 99, supportiveFlagged: 86 },
   // "The problem" (NIMH, 2021)
   problem: { one: 1, oneIn: 5, untreatedIn10: 6, treatedPct: "40.6" },
   // the message typed in the privacy section

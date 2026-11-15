@@ -1,0 +1,23 @@
+{
+  "generated": "2026-11-15",
+  "headline": "On 28,277 held-out posts, the self-harm model found 92% of self-harm posts at 90% precision; the phrase list found 52%. On our 60 messages, phrase list plus model found 13 of 15 self-harm messages (phrase list alone 6), with 5 false alarms (phrase list alone 4).",
+  "ship": true,
+  "test_recall_model": 0.9218922761017216,
+  "test_precision_model": 0.8986835014242821,
+  "test_recall_phrase": 0.520217975043437,
+  "test_precision_phrase": 0.9170263121258527,
+  "ours_found_model": 12,
+  "ours_found_phrase": 6,
+  "ours_found_either": 13,
+  "ours_false_alarms_either": 5,
+  "ours_false_alarms_phrase": 4,
+  "ours_self_harm": 15,
+  "caveats": [
+    "It flagged 32% of posts labelled Depression (the phrase list 20%). Each flag only asks the teen if they are safe, but a clinician has to decide whether that is acceptable.",
+    "The labels come from where a post was written (r/SuicideWatch, or a source dataset's tag), not from a clinician. Some r/SuicideWatch posts are people supporting others, and some posts elsewhere talk about self-harm.",
+    "These are long posts (median 60 words), mostly by adults. Steady reads short messages from teens.",
+    "45% of these posts are self-harm language. In a teen's real messages it is far rarer, so the share of flags that are right would be much lower than on the test posts.",
+    "The 60 messages were written and labelled by a Claude session, not by teens or clinicians. One message moves a count.",
+    "Nothing here is clinically validated. A clinician has to review any self-harm check before anyone relies on it."
+  ]
+}

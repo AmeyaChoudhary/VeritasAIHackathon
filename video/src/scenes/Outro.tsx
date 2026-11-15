@@ -26,7 +26,7 @@ export const Outro: React.FC = () => {
   const L = (t: number) => f(t) - r0.from;
   const n = (ph: string) => L(cue("next", ph));
   const c = (ph: string) => L(cue("close", ph));
-  const askAt = n("It knows who"), harmAt = n("its self-harm check"), clinAt = n("a clinician");
+  const askAt = n("It knows who"), harmAt = n("Our self-harm model"), clinAt = n("a clinician");
   const closeAt = c("Steady is a prototype"), butAt = c("But asking");
   const rowsOut = interpolate(frame, [closeAt - 12, closeAt - 2], [1, 0], clamp);
   const endIn = ramp(frame, closeAt - 2, 20);
@@ -42,7 +42,7 @@ export const Outro: React.FC = () => {
         </div>
         <div style={{ position: "absolute", left: 150, top: 230, display: "flex", flexDirection: "column", gap: 70 }}>
           <Row at={askAt - 2} icon="tap" title="Who, not yet which week" sub="Random weeks for the same students did as well: 45%." />
-          <Row at={harmAt - 2} icon="model" title="A real self-harm model" sub="The phrase list missed 9 of 15 test messages." />
+          <Row at={harmAt - 2} icon="model" title="A crisis, or a friend helping?" sub="The self-harm model can't tell. On its own, it only asks." />
           <Row at={clinAt - 6} icon="doctor" title="A clinician's review" sub="Of every rule and every note, before anyone relies on it." />
         </div>
       </AbsoluteFill>

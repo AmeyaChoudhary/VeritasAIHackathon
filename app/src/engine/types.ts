@@ -314,6 +314,8 @@ export interface TeenState {
   safety: {
     screen: SafetyScreen;
     deadline: number | null; // answer to "Are you safe right now?" due by then
+    /** The question is open because only the model flagged a message: no deadline, "No" still sends. */
+    soft?: boolean;
     /** Self-harm flags, kept for 14 days. An email flag carries an opaque key so the same
      *  email never counts twice. */
     flags: { at: number; key?: string; textHash?: string }[];

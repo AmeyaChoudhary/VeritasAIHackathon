@@ -70,7 +70,9 @@ export function scoreOwnWords(
   if (!t) return { lowMood: null, level: "none", hash: "" };
   const lowMood = opts.tone ? isLowMood(opts.tone, t) : null;
   const recent = opts.now - at >= 0 && opts.now - at <= cfg.integrations.selfHarmEmailHours * HOUR;
-  return { lowMood, level: recent ? checkSelfHarm(t).level : "none", hash: textHash(t) };
+  // Emails and messages use the phrase list only: the model's "check" asks the teen about what they are typing now.
+  const lv = recent ? checkSelfHarm(t).level : "none";
+  return { lowMood, level: lv === "check" ? "none" : lv, hash: textHash(t) };
 }
 
 /** Weeks from events: messages sent, the share of activity after midnight, and the low-mood

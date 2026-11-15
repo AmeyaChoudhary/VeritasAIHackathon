@@ -212,6 +212,7 @@
         <figcaption id="asks-cap" class="mono">Asks that landed on a high week</figcaption>
         <div class="bars" id="askBars"></div>
         <p class="chart-note">The ask model scored an AUC of <b><span data-bind="askModel.auc">0.89</span></b> on students it never saw. It finds who to ask more often, not which week: random weeks for the same students reached <b><span data-bind="askModel.matchedRandom">45</span>%</b>.</p>
+        <p class="chart-note">On <b><span data-bind="teens.n">113</span> teens</b> aged 12 to 17 it never saw: AUC <b><span data-bind="teens.auc">0.85</span></b>. Its top asks landed on a high score <span data-bind="teens.hitTop">74</span>% of the time, against <span data-bind="teens.hitRandom">41</span>% at random.</p>
         <p class="mono foot"><span data-bind="students">213</span> Dartmouth students <span class="sep">/</span> every model scored on students it never saw</p>
       </figure>
 
@@ -224,7 +225,7 @@
       <div class="limits reveal">
         <p class="mono">Limits</p>
         <ul>
-          <li>The self-harm phrase list missed <b><span data-bind="limits.selfHarmMissed">9</span> of <span data-bind="limits.selfHarmTotal">15</span></b> test messages.</li>
+          <li>The self-harm model cannot tell a crisis from a friend helping. On <span data-bind="psychiatrists.users">500</span> Reddit users rated by psychiatrists, it flagged <b><span data-bind="psychiatrists.atRiskFlagged">99</span>%</b> of those at risk, but also <b><span data-bind="psychiatrists.supportiveFlagged">86</span>%</b> of those only supporting others. So on its own it only asks the teen if they are safe, and only a "no" reaches a parent.</li>
           <li>The ask model still missed <b><span data-bind="askModel.missed">586</span> of <span data-bind="askModel.highWeeks">2,171</span></b> high weeks, and <span data-bind="askModel.falseAlarms">2,012</span> of its asks landed on weeks that were not high.</li>
           <li>A model on one check-in worked better for men (AUC <span data-bind="limits.aucMen">0.75</span>) than for women (<span data-bind="limits.aucWomen">0.66</span>).</li>
           <li>Every student was in college, not high school.</li>

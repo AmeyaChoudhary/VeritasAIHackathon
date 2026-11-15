@@ -215,8 +215,9 @@ async function scoreSent(get: Getter, id: string, now: number, tone: ToneModel |
   if (!own.separable) return { at, lowMood: null, level: "none", skipped: true, hash: "" };
   if (!own.text) return { at, lowMood: null, level: "none", skipped: false, hash: "" };
   const lowMood = tone ? isLowMood(tone, own.text) : null;
-  const level = now - at <= ic.selfHarmEmailHours * HOUR ? checkSelfHarm(own.text).level : "none";
-  return { at, lowMood, level, skipped: false, hash: textHash(own.text) };
+  const lv = now - at <= ic.selfHarmEmailHours * HOUR ? checkSelfHarm(own.text).level : "none";
+  // Phrase list only for emails; see scoreOwnWords in agg.ts.
+  return { at, lowMood, level: lv === "check" ? "none" : lv, skipped: false, hash: textHash(own.text) };
 }
 
 export async function readGmail(

@@ -11,7 +11,7 @@ You need Node 22 or newer.
 ```
 cd app
 npm install
-npm test          # 206 tests of the rules engine, the ask model and the readers
+npm test          # 213 tests of the rules engine, the ask model, the self-harm model and the readers
 npm run dev -- --port 5210
 ```
 
@@ -45,7 +45,7 @@ Pick one in the control bar. **Next week** plays to just after the next week end
 | Steady week to week | Everything stays in range. The two questions come up once a month anyway, at weeks 4, 8 and 12, and every answer is low. Week 10 has two days of data, so Mom's app shows "On, but not enough data" for a few days. Week 11 has days without the Steady keyboard. No notes |
 | Skips the questions | She answers the monthly ask in week 4, then stops: no check-ins. From week 5 sleep and messaging drop and stay down. With no check-ins, her phone signals decide when to ask, once a week from week 6, and every set is skipped. At the end of week 8 (four weeks outside, last two asks skipped) Mom gets a heads-up. The evidence keeps coming and is held; three weeks later a second heads-up goes out. Maya's doctor suggestion waits for the next weekly note |
 | Urgent: plan words | Late on a Wednesday in week 3 a message states a plan. 988 and 911 fill her screen and Mom gets an urgent note at once |
-| Urgent: concern, no answer | In week 3 a message has self-harm words without a plan. "Are you safe right now?" appears with 988 behind it. Nobody answers, so 30 minutes later Mom gets an urgent note. Nobody replies, so it sounds again every 5 minutes, and after 15 minutes it shows on Dad's phone and Ms. Patel's phone (the trusted adult Maya named) |
+| Urgent: concern, no answer | In week 3 a message has self-harm words from the phrase list, without a plan. "Are you safe right now?" appears with 988 behind it. Nobody answers, so 30 minutes later Mom gets an urgent note. Nobody replies, so it sounds again every 5 minutes, and after 15 minutes it shows on Dad's phone and Ms. Patel's phone (the trusted adult Maya named) |
 
 The clock buttons (+5 MIN, +30 MIN, +1 DAY, and speeds up to an hour a second) show the 30 minutes, the 15 minutes, the 26 hours before "Not connected" and the two-day reminder in seconds.
 
@@ -58,13 +58,13 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 | The rules: every rule in docs/parent-alerts.md is in `src/engine/rules.ts`, with all numbers in `src/engine/config.ts` | Maya and all weekly data. The weekly numbers are made up in `src/engine/simulate.ts` |
 | The ask model decides when the two questions come up (`src/engine/askmodel.ts`, weights and 24 test cases in `src/engine/ask_model.json`, from Experiment 4). `askmodel.test.ts` checks that the app's arithmetic gives the same scores as the training script | The check-in answers in the scripted scenarios. Turn "Scripted answers and replies" off and tap the two rows on Maya's Home screen yourself |
 | The tone model runs in the browser on what you type (`src/engine/tone.ts`, weights in `public/models/tone.json`, from Experiment 2) | Sleep, steps and messaging counts. A real app would read them from the phone |
-| The self-harm phrase check runs on what you type (`src/engine/selfharm.ts`). It is a short list and is not validated | The keyboard. The Type tab stands in for the Steady keyboard |
+| The self-harm check runs on what you type (`src/engine/selfharm.ts`): a short phrase list, then, if it finds nothing, the self-harm model from Experiment 5 (`public/models/risk.json`, loaded at start). A flag from the model alone has its own level, `check`: "Are you safe right now?" with 988, but no answer sends nothing and it does not count toward the repeat-flag rules; "No" sends the urgent note at once. Phrase-list flags keep `concern` (30-minute wait) and `plan` (urgent at once). Emails and messages from connected accounts use the phrase list only. If the file fails to load, the phrase list runs alone. Neither part is clinically validated | The keyboard. The Type tab stands in for the Steady keyboard |
 | Typed text is scored and dropped. It is never stored, and TEXT SENT stays at 0 BYTES | Time. The clock is simulated, so a week passes in a click |
 | Each note is the JSON event from the doc, and the log shows its exact bytes | The relay. Events move between tabs of one browser, not between phones, and are not encrypted |
 | Connect, then Import a file, parses a Spotify history file or a sleep and steps CSV in the browser, and uploads nothing | Pairing. "Scan the code" reads the code from the teen phone on the same page |
 | The parent app's timing: urgent notes repeat every 5 minutes, reach the other adults after 15, reminders after 2 days, "Not connected" after 26 hours, heads-ups held quietly for six weeks after "Booked a doctor" | Do Not Disturb, Critical Alerts, phone calls and texts. The `tel:` and `sms:` links open the phone's dialer or messages app if there is one |
 
-"How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json`, `exp3_summary.json` and `exp4_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
+"How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json`, `exp3_summary.json`, `exp4_summary.json`, `exp5_summary.json` and `exp6_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
 
 ## When Steady asks
 
@@ -90,6 +90,7 @@ The log in "Evidence and log" says which rule asked. A heads-up to a parent stil
 - **While Steady is off** nothing is asked or sent, an open question set is dropped (it does not count as skipped), and the week is left out of the count. A week counts only by the days the phone actually had data and Steady was on.
 - **Daily status** counts only days with real data, so the first few days after setup report "not enough data". If no status ever arrives, the parent app shows "Not connected" 26 hours after pairing.
 - **A "yes" to "Are you safe right now?"** holds the note, and the 988 screen stays up until the teen goes back.
+- **A flag from the self-harm model alone** (`check`) asks the same question, but no answer sends nothing and it is not counted by the 7-day or 14-day rules. Experiment 5b showed the model also flags people who are only helping someone else.
 - **The doctor suggestion** shows at once after a high score, and waits for the next weekly note after skipped asks or two flags.
 - **Asking anyway** every four weeks and the slow-moving range come from docs/concept.md. Sleep under six hours a night counts as outside for everyone.
 - **ALERTS SENT** is shown under the teen's phone frame, outside the phone, because the teen never sees that a note was sent. TEXT SENT: 0 BYTES is on the Type tab and in the caption.
@@ -181,7 +182,7 @@ The Connect screen shows what the phone kept, in words, with partial weeks marke
 ## Files
 
 ```
-src/engine/   pure TypeScript: types, config, rules, the ask model (askmodel.ts, ask_model.json), clock, transport, runner, scenarios, notes, tests
+src/engine/   pure TypeScript: types, config, rules, the ask model (askmodel.ts, ask_model.json), the self-harm check (selfharm.ts), clock, transport, runner, scenarios, notes, tests
 src/store/    the driver tab, cross-tab sync, tone model loading
 src/teen/     Pair, setup screen, questions, Home, the check-in card and chart, Type, Connect, Are you safe, Help, Settings, Import
 src/parent/   Pair (with the second adult, Do Not Disturb and "What Steady misses"), Home, Note, What to say, I can't reach her, other adults

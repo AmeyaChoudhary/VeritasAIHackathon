@@ -22,7 +22,7 @@ export interface ToneModel {
   coef: Float64Array;
 }
 
-interface ToneModelJson {
+export interface ToneModelJson {
   version: number;
   threshold: number;
   intercept: number;
@@ -43,7 +43,11 @@ function defaultUrl(): string {
 export async function loadToneModel(url?: string): Promise<ToneModel> {
   const res = await fetch(url ?? defaultUrl());
   if (!res.ok) throw new Error(`Could not load tone model (HTTP ${res.status})`);
-  const j = (await res.json()) as ToneModelJson;
+  return toneModelFromJson((await res.json()) as ToneModelJson);
+}
+
+/** Builds a model from the file's JSON. The self-harm model (risk.json) uses the same format. */
+export function toneModelFromJson(j: ToneModelJson): ToneModel {
   const n = j.vocab.length;
   if (j.idf.length !== n || j.coef.length !== n) throw new Error("Tone model file is malformed");
   const index = new Map<string, number>();

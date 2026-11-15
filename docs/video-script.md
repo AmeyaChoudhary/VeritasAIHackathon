@@ -1,10 +1,10 @@
 # Demo video script
 
-The demo video is [docs/video/steady-demo.mp4](video/steady-demo.mp4): 1 minute 53 seconds, inside the hackathon's two-minute limit. Its pictures are finished. Its voice is a computer placeholder, there so the timing can be judged, and it is meant to be replaced by yours.
+The demo video is [docs/video/steady-demo.mp4](video/steady-demo.mp4): 1 minute 59 seconds, just inside the hackathon's two-minute limit. Its pictures are finished. Its voice is a computer placeholder, there so the timing can be judged, and it is meant to be replaced by yours.
 
 ## The script
 
-305 words in ten cards. The times are where each card starts with the placeholder voice.
+326 words in ten cards. The times are where each card starts with the placeholder voice.
 
 | Card | Starts | What it is | On screen | Say |
 | --- | --- | --- | --- | --- |
@@ -15,9 +15,9 @@ The demo video is [docs/video/steady-demo.mp4](video/steady-demo.mp4): 1 minute 
 | 5 | 0:46 | The note | Week six she answers low again. Week eight her answers are high. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens. | "She still says she's fine. But at week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages." |
 | 6 | 1:00 | Her words stay on her phone | Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent. | "What Maya types never leaves her phone. A small model reads each message there, keeps one dot, and lets the words go." |
 | 7 | 1:08 | Does it work: the tone model | Two bars grow: tone model 50%, keyword list 24%. | "Does it work? On five thousand comments it had never seen, our tone model caught half of the low-mood ones. A keyword list caught a quarter." |
-| 8 | 1:17 | Does it work: when to ask | 213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%. | "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen." |
-| 9 | 1:34 | What's next | Three short lines with icons: who, not yet when; a real self-harm model; a clinician. | "It knows who to ask, not yet which week. And its self-harm check missed nine of fifteen test messages. That needs a real model and a clinician." |
-| 10 | 1:43 | Close | The Steady mark, 'knowing when to ask', and 'Prototype. Not medical advice.' | "Steady is a prototype, not medical advice. But asking at the right time could change who gets help." |
+| 8 | 1:17 | Does it work: when to ask | 213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%. Then: 113 teens, never seen, AUC 0.85. | "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen. And on a hundred thirteen teenagers it had never seen, it still held up." |
+| 9 | 1:38 | What it can't do yet | Three short lines with icons: who, not yet which week; a crisis or a friend helping; a clinician. | "It knows who to ask, not yet which week. Our self-harm model can't tell someone in crisis from a friend helping them. So on its own, it only asks, and it needs a clinician." |
+| 10 | 1:49 | Close | The Steady mark, 'knowing when to ask', and 'Prototype. Not medical advice.' | "Steady is a prototype, not medical advice. But asking at the right time could change who gets help." |
 
 Every number in the script is from [the write-up](../WRITEUP.md).
 
@@ -37,7 +37,7 @@ python3 tools/ingest_audio.py takes/your-recording.m4a
 npx remotion render src/index.ts Main out/steady-demo.mp4
 ```
 
-The first command transcribes the recording on this computer, picks the takes, cleans the sound, and rewrites the timing that every animation is cued from. It needs ffmpeg and `pip install openai-whisper`. If the read runs past 1:57 it tightens the pauses, then speeds up by at most 6%, and tells you if that is still not enough.
+The first command transcribes the recording on this computer, picks the takes, cleans the sound, and rewrites the timing that every animation is cued from. It needs ffmpeg and `pip install openai-whisper`. The placeholder read already fills almost the full two minutes, so read at a steady pace. If your read runs past 1:57 it tightens the pauses, then speeds up by at most 6%, and tells you if that is still not enough.
 
 ## Change the words
 

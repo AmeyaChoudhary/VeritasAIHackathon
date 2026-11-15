@@ -1,7 +1,7 @@
 // Steady's service worker: keeps the app's own files so it opens and runs with no network.
 // Nothing here sends data anywhere. It only answers requests for this app's files.
-const CACHE = "steady-v2";
-const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./models/tone.json"];
+const CACHE = "steady-v3";
+const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./models/tone.json", "./models/risk.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));

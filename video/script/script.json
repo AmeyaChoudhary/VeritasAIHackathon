@@ -44,14 +44,14 @@
  {
   "id": "timing",
   "label": "Does it work: when to ask",
-  "show": "213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%.",
-  "text": "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen."
+  "show": "213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%. Then: 113 teens, never seen, AUC 0.85.",
+  "text": "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen. And on a hundred thirteen teenagers it had never seen, it still held up."
  },
  {
   "id": "next",
-  "label": "What's next",
-  "show": "Three short lines with icons: who, not yet when; a real self-harm model; a clinician.",
-  "text": "It knows who to ask, not yet which week. And its self-harm check missed nine of fifteen test messages. That needs a real model and a clinician."
+  "label": "What it can't do yet",
+  "show": "Three short lines with icons: who, not yet which week; a crisis or a friend helping; a clinician.",
+  "text": "It knows who to ask, not yet which week. Our self-harm model can't tell someone in crisis from a friend helping them. So on its own, it only asks, and it needs a clinician."
  },
  {
   "id": "close",

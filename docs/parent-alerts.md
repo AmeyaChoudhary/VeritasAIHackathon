@@ -55,7 +55,8 @@ The questionnaire screens say: "Your answers stay on this phone. A high result c
 | Worth a check | A score of 3 or more on the two, or two more weeks outside | The other six questions, completing the eight | Nothing |
 | Heads-up | A score of 10 or more on the eight, at any time including setup; or two signals outside for four weeks with the last two asks skipped | A suggestion to see a doctor, with 988 on screen. After skipped asks, the suggestion waits for the next weekly note. Nothing says a note was sent | A heads-up |
 | Urgent | Words that state a plan or intent to end their life, or say they have just hurt themselves or taken something | 988 and 911 full screen, at once | An urgent note, at once |
-| Urgent after asking | Other words about self-harm, followed by "no" to "Are you safe right now?", no answer within 30 minutes, or a second flag within 7 days | The question, with 988 full screen | An urgent note |
+| Urgent after asking | Other words about self-harm on the phrase list, followed by "no" to "Are you safe right now?", no answer within 30 minutes, or a second flag within 7 days | The question, with 988 full screen | An urgent note |
+| Check | Words only the self-harm model flags, not the phrase list | "Are you safe right now?", with 988 full screen | Only if the teen answers "no": an urgent note at once. No answer sends nothing, and the flag does not count toward the 7-day or 14-day rules |
 
 The rules around the table:
 
@@ -72,7 +73,7 @@ The rules around the table:
 
 **Why most urgent flags ask first.** One flagged message could be a song lyric, a dark joke or a line from a book. Without a check, each one would reach a parent. Words that state a plan or intent to die, or say an injury or overdose has already happened, skip the question, because there a false alarm costs less than a delay. For other words, asking "Are you safe right now?" can delay a note by up to 30 minutes, and 988 stays on the student's screen the whole time. A "yes" holds the note, though a second flag within 7 days still sends it. A reassuring answer is weak evidence of safety, so a clinician should decide whether "yes" holds anything at all.
 
-**How self-harm words are found.** This is a separate check from the tone model. The tone model reads low mood, and its training labels are emotions, which say nothing about suicide risk. In the demo the check is a short phrase list, and it is not validated. Words typed in the browser extension go through the same check. A real product would need a model built and tested for this job, with missed cases counted as carefully as false alarms.
+**How self-harm words are found.** This is a separate check from the tone model. The tone model reads low mood, and its training labels are emotions, which say nothing about suicide risk. In the demo the check has two parts. First a short phrase list, which decides between concern and plan. If it finds nothing, a model trained for self-harm language (Experiment 5, below) reads the message. A flag from the model alone is the "Check" row in the table: the teen is asked "Are you safe right now?" with 988 on screen, and only a "no" reaches a parent. We made it this weak on purpose. On posts labelled by psychiatrists (Experiment 5b), the model flagged nearly every person in crisis, but also most people who were only helping someone else, so it cannot tell the two apart. Neither part is clinically validated. Words typed in the browser extension go through the same two parts.
 
 **The ninth question.** Steady uses the eight-question form because the ninth asks about thoughts of death, and the published eight-question version is meant for settings where nobody is present to respond. With a parent now in the loop, a clinician should decide whether Steady should ask it.
 
@@ -176,7 +177,7 @@ The teen connects each account on their own phone, by signing in themselves. A p
 | Steady keyboard (Android) | What the teen types, scored as they type and never stored: tone, the self-harm check, and typing rhythm (speed, pauses, corrections). The self-harm check also reads words typed and then deleted before sending | Daily: messages sent, typing speed, pauses, corrections, share that reads as low mood | Reaching out, tone, typing |
 | Data files: Instagram, TikTok, Snapchat, Discord, YouTube | The export file each app gives the teen, read on the phone. Only messages the teen sent and the teen's own activity times. Other people's messages are skipped unread | Weekly: messages sent, activity after midnight, share of own messages that reads as low mood | Reaching out, tone, late-night use |
 
-Emails and messages sent in the last 24 hours also go through the self-harm check, the same as typed words. Older ones count only toward the weekly numbers. Each source can be disconnected in settings, and disconnecting forgets everything Steady learned from it.
+Emails and messages sent in the last 24 hours also go through the self-harm phrase list, but not the model. Older ones count only toward the weekly numbers. Each source can be disconnected in settings, and disconnecting forgets everything Steady learned from it.
 
 **Why some sources are files.** Instagram, TikTok, Snapchat and Discord offer no way for an app to read a person's own activity or messages with their permission. Reading them automatically would mean using the teen's password or session, which breaks those apps' terms. Steady never asks for a password and never does this. YouTube no longer offers watch history through its API, so it is a file too.
 
@@ -199,9 +200,19 @@ Emails and messages sent in the last 24 hours also go through the self-harm chec
 
 **Experiment 4, the ask model.** This is the model that now decides when to ask sooner. On Dartmouth students it never saw, it scored an AUC of 0.89. At 12 asks per student per year, 44% of its asks landed on a week with a high mood score, against 13% for a fixed calendar. It missed 586 of 2,171 high weeks, and 2,012 of its asks landed on weeks that were not high. It finds who to ask more often and does not pick the week: random weeks from the same student and quarter reached 45%. A wrong ask costs the teen two questions. It never reaches a parent. [Full write-up](../results/exp4/results.md).
 
+**Experiment 6, teenagers.** The same model, unchanged, on 113 teens aged 12 to 17 (Corona Health, University of Wurzburg). On each teen's first follow-up it scored an AUC of 0.85, and asking the top 23% landed on a high score 74% of the time, against 41% at random. It missed 14 of 46 high answers and raised 11 false alarms. The survey had no check-in, so this tests only the earlier answers. [Full write-up](../results/exp6/results.md).
+
 **Experiment 2, words.** The tone model is tested as before. The self-harm phrase list gets its own small test: song lyrics, dark jokes and sarcasm we write, to count false flags, and messages we write that state real risk, to count misses.
 
 *Result.* The phrase list missed 9 of 15 risk messages written by someone who had not seen it, including 5 of 9 that state a plan or an act already done. It flagged 4 of 24 jokes, lyric-style lines and sarcasm, all as concern. Most misses were one word off a rule. The list shipped in the app is the one that was tested. [Full write-up](../results/exp2/results.md).
+
+**Experiment 5, a model for self-harm language.** Trained on 282,768 posts from two public Kaggle sets (r/SuicideWatch against r/teenagers, and a set with Depression, Anxiety, Stress and Suicidal labels). Depression, anxiety and stress posts count as not self-harm, so the model has to tell self-harm language apart from sadness. We wrote the rule for adding it to the app before we ran it.
+
+*Result.* On 28,277 posts it never saw, it found 92% of self-harm posts at 90% precision (989 missed, 1,316 false alarms). The phrase list found 52% at 92% (6,075 missed, 596 false alarms). On our 60 messages the phrase list plus the model found 13 of 15 risk messages, against 6 for the list alone, with 5 false alarms against 4: the same four dark jokes and one sad message. It passed the rule, so the app runs it. The cost: it flagged 32% of depression posts, against 20% for the list, so a sad teen will more often be asked if they are safe. A clinician has to review this before anyone relies on it. [Full write-up](../results/exp5/results.md).
+
+**Experiment 5b, the self-harm model on labels from psychiatrists.** Experiment 5's labels come from the forum a post was in, and one of its sets uses r/teenagers as the "not suicidal" side, so the model could have learned the forum instead of the risk. We tested it, unchanged, on 500 Reddit users whose posts four psychiatrists rated on the Columbia Suicide Severity Rating Scale ([Gaur et al., 2019](https://zenodo.org/records/4543776), CC BY 4.0). All of them posted in the same forums, so the forum cannot give the answer away.
+
+*Result.* It ranked the 293 users at risk (ideation, behavior or an attempt) above the rest at an AUC of 0.66. Counting a user as flagged when any of their posts is flagged, it flagged 99% of users at risk, but also 86% of users who were only supporting others and 91% of users with only indicators of risk. The phrase list flagged 70% of users at risk and 45% of supportive users. The model learned the language of suicide, not the risk: "please don't kill yourself" reads the same as a crisis. So a flag from the model alone now only asks the teen, as in the table above. [Full write-up](../results/exp5b/results.md).
 
 ## What this does not solve
 

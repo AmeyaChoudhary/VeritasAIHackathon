@@ -1,0 +1,23 @@
+{
+  "generated": "2026-11-15",
+  "headline": "On 113 teenagers aged 12 to 17 it never saw, the ask model from college students, unchanged, scored an AUC of 0.85 for their next PHQ-2 (0.78 to 0.92). Asking the top 23% by its score landed on a high answer 74% of the time, against 41% for asking at random. Over all 635 later answers it scored 0.90.",
+  "teens": 113,
+  "auc": 0.8520441271901363,
+  "auc_ci": [
+    0.7769573996265173,
+    0.9151096316905141
+  ],
+  "hit_rate": 0.7441860465116279,
+  "base_rate": 0.40707964601769914,
+  "all_answers_auc": 0.9031867154922422,
+  "groups": {
+    "Boys": 0.9289838770153731,
+    "Girls": 0.863366218946868
+  },
+  "caveats": [
+    "Only 113 teens answered again, mostly German-speaking, during the pandemic. The interval is wide.",
+    "The answers are not weekly: the median gap was 4 days before the first follow-up. Teens chose when to answer, and the ones who came back may differ from the ones who did not.",
+    "There is no check-in in this survey, so this tests only the earlier-answers part of the model.",
+    "The PHQ-2 here uses the adolescent wording, which adds \"irritable\". It is a screening score, not a diagnosis."
+  ]
+}

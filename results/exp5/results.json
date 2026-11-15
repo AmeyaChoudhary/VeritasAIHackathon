@@ -1,0 +1,821 @@
+{
+  "generated": "2026-11-15",
+  "data": {
+    "raw": 285117,
+    "empty": 415,
+    "conflicting_texts": 28,
+    "duplicates": 1844,
+    "posts": 282768,
+    "train": 226214,
+    "validation": 28277,
+    "test": 28277,
+    "self_harm_share": 0.44777697617835116,
+    "median_words": 60.0
+  },
+  "grid": [
+    {
+      "vocab": 20000,
+      "tf": "sublinear",
+      "C": 1.0,
+      "val_ap": 0.9583,
+      "val_best_f1": 0.9033,
+      "val_threshold": 0.415
+    },
+    {
+      "vocab": 20000,
+      "tf": "sublinear",
+      "C": 4.0,
+      "val_ap": 0.9584,
+      "val_best_f1": 0.9019,
+      "val_threshold": 0.415
+    },
+    {
+      "vocab": 40000,
+      "tf": "sublinear",
+      "C": 1.0,
+      "val_ap": 0.9596,
+      "val_best_f1": 0.9043,
+      "val_threshold": 0.44
+    },
+    {
+      "vocab": 40000,
+      "tf": "sublinear",
+      "C": 4.0,
+      "val_ap": 0.9603,
+      "val_best_f1": 0.9034,
+      "val_threshold": 0.415
+    }
+  ],
+  "chosen": {
+    "vocab": 40000,
+    "tf": "sublinear",
+    "C": 4.0,
+    "val_ap": 0.9603,
+    "val_best_f1": 0.9034,
+    "val_threshold": 0.415,
+    "threshold": 0.415
+  },
+  "test": {
+    "posts": 28277,
+    "self_harm_posts": 12662,
+    "phrase_list": {
+      "n": 28277,
+      "positives": 12662,
+      "flagged": 7183,
+      "tp": 6587,
+      "fp": 596,
+      "fn": 6075,
+      "tn": 15019,
+      "precision": 0.9170263121258527,
+      "recall": 0.520217975043437,
+      "f1": 0.6638447971781304,
+      "missed": 6075,
+      "false_alarms": 596
+    },
+    "model": {
+      "n": 28277,
+      "positives": 12662,
+      "flagged": 12989,
+      "tp": 11673,
+      "fp": 1316,
+      "fn": 989,
+      "tn": 14299,
+      "precision": 0.8986835014242821,
+      "recall": 0.9218922761017216,
+      "f1": 0.9101399555572881,
+      "missed": 989,
+      "false_alarms": 1316
+    },
+    "either": {
+      "n": 28277,
+      "positives": 12662,
+      "flagged": 13334,
+      "tp": 11776,
+      "fp": 1558,
+      "fn": 886,
+      "tn": 14057,
+      "precision": 0.8831558422078896,
+      "recall": 0.9300268519981045,
+      "f1": 0.905985536236344,
+      "missed": 886,
+      "false_alarms": 1558
+    },
+    "model_ap": 0.9645242825412824,
+    "model_auc": 0.9715882710820251,
+    "model_ci": {
+      "precision_95ci": [
+        0.8935,
+        0.904
+      ],
+      "recall_95ci": [
+        0.9171,
+        0.9264
+      ]
+    },
+    "phrase_ci": {
+      "precision_95ci": [
+        0.9103,
+        0.9235
+      ],
+      "recall_95ci": [
+        0.5116,
+        0.5284
+      ]
+    }
+  },
+  "by_group": [
+    {
+      "group": "Anxiety",
+      "posts": 366,
+      "self_harm": false,
+      "model_flagged": 0.09836065573770492,
+      "phrase_flagged": 0.030054644808743168
+    },
+    {
+      "group": "Bipolar",
+      "posts": 263,
+      "self_harm": false,
+      "model_flagged": 0.2509505703422053,
+      "phrase_flagged": 0.12547528517110265
+    },
+    {
+      "group": "Depression",
+      "posts": 1492,
+      "self_harm": false,
+      "model_flagged": 0.3190348525469169,
+      "phrase_flagged": 0.20442359249329758
+    },
+    {
+      "group": "Normal",
+      "posts": 1562,
+      "self_harm": false,
+      "model_flagged": 0.03585147247119078,
+      "phrase_flagged": 0.0019206145966709346
+    },
+    {
+      "group": "Personality disorder",
+      "posts": 109,
+      "self_harm": false,
+      "model_flagged": 0.3211009174311927,
+      "phrase_flagged": 0.05504587155963303
+    },
+    {
+      "group": "Stress",
+      "posts": 238,
+      "self_harm": false,
+      "model_flagged": 0.22268907563025211,
+      "phrase_flagged": 0.01680672268907563
+    },
+    {
+      "group": "Suicidal",
+      "posts": 1062,
+      "self_harm": true,
+      "model_flagged": 0.7853107344632768,
+      "phrase_flagged": 0.4661016949152542
+    },
+    {
+      "group": "r/SuicideWatch",
+      "posts": 11600,
+      "self_harm": true,
+      "model_flagged": 0.9343965517241379,
+      "phrase_flagged": 0.5251724137931034
+    },
+    {
+      "group": "r/teenagers",
+      "posts": 11585,
+      "self_harm": false,
+      "model_flagged": 0.051273198100992665,
+      "phrase_flagged": 0.020198532585239536
+    }
+  ],
+  "ours": {
+    "messages": 60,
+    "self_harm": 15,
+    "phrase": {
+      "found": 6,
+      "false_alarms": 4
+    },
+    "model": {
+      "found": 12,
+      "false_alarms": 3
+    },
+    "either": {
+      "found": 13,
+      "false_alarms": 5
+    },
+    "slices": [
+      {
+        "slice": "everyday",
+        "messages": 10,
+        "self_harm": 0,
+        "phrase_found": 0,
+        "model_found": 0,
+        "either_found": 0,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 0,
+        "either_false_alarms": 0
+      },
+      {
+        "slice": "low_mood",
+        "messages": 11,
+        "self_harm": 0,
+        "phrase_found": 0,
+        "model_found": 0,
+        "either_found": 0,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 1,
+        "either_false_alarms": 1
+      },
+      {
+        "slice": "lyric_style",
+        "messages": 8,
+        "self_harm": 0,
+        "phrase_found": 0,
+        "model_found": 0,
+        "either_found": 0,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 0,
+        "either_false_alarms": 0
+      },
+      {
+        "slice": "dark_joke",
+        "messages": 8,
+        "self_harm": 0,
+        "phrase_found": 0,
+        "model_found": 0,
+        "either_found": 0,
+        "phrase_false_alarms": 4,
+        "model_false_alarms": 2,
+        "either_false_alarms": 4
+      },
+      {
+        "slice": "sarcasm",
+        "messages": 8,
+        "self_harm": 0,
+        "phrase_found": 0,
+        "model_found": 0,
+        "either_found": 0,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 0,
+        "either_false_alarms": 0
+      },
+      {
+        "slice": "risk_concern",
+        "messages": 6,
+        "self_harm": 6,
+        "phrase_found": 2,
+        "model_found": 5,
+        "either_found": 5,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 0,
+        "either_false_alarms": 0
+      },
+      {
+        "slice": "risk_plan",
+        "messages": 9,
+        "self_harm": 9,
+        "phrase_found": 4,
+        "model_found": 7,
+        "either_found": 8,
+        "phrase_false_alarms": 0,
+        "model_false_alarms": 0,
+        "either_false_alarms": 0
+      }
+    ],
+    "examples": [
+      {
+        "id": "m01",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.006,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m02",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.016,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m03",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.005,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m04",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.001,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m05",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.017,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m06",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.025,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m07",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.001,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m08",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.023,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m09",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.001,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m10",
+        "slice": "everyday",
+        "self_harm": "none",
+        "score": 0.012,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m13",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.465,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m14",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.189,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m15",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.178,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m16",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.022,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m17",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.13,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m18",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.129,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m19",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.142,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m20",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.072,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m21",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.258,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m22",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.089,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m23",
+        "slice": "low_mood",
+        "self_harm": "none",
+        "score": 0.01,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m25",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.354,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m26",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.317,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m27",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.038,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m28",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.061,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m29",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.02,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m30",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.168,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m31",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.021,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m32",
+        "slice": "lyric_style",
+        "self_harm": "none",
+        "score": 0.052,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m33",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.019,
+        "model": false,
+        "phrase": true
+      },
+      {
+        "id": "m34",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.74,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m35",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.11,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m36",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.985,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m37",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.055,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m38",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.041,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m39",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.137,
+        "model": false,
+        "phrase": true
+      },
+      {
+        "id": "m40",
+        "slice": "dark_joke",
+        "self_harm": "none",
+        "score": 0.012,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m41",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.038,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m42",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.055,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m43",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.012,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m44",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.007,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m45",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.033,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m46",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.011,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m47",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.017,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m48",
+        "slice": "sarcasm",
+        "self_harm": "none",
+        "score": 0.414,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m49",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.923,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m50",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.967,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m51",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.383,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m52",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.937,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m53",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.886,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m54",
+        "slice": "risk_concern",
+        "self_harm": "concern",
+        "score": 0.466,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m55",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.998,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m56",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.203,
+        "model": false,
+        "phrase": false
+      },
+      {
+        "id": "m57",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.962,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m58",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.491,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "m59",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.896,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "m60",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.984,
+        "model": true,
+        "phrase": false
+      },
+      {
+        "id": "x01",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.078,
+        "model": false,
+        "phrase": true
+      },
+      {
+        "id": "x02",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.751,
+        "model": true,
+        "phrase": true
+      },
+      {
+        "id": "x03",
+        "slice": "risk_plan",
+        "self_harm": "plan",
+        "score": 0.792,
+        "model": true,
+        "phrase": false
+      }
+    ]
+  },
+  "rule": {
+    "test_either_beats_phrase": true,
+    "ours_either_beats_phrase_with_at_most_one_more_false_alarm": true,
+    "ship": true
+  },
+  "model_bytes": 1043819,
+  "top_terms": {
+    "toward": [
+      "suicidal",
+      "suicide",
+      "kill",
+      "pills",
+      "life",
+      "https t",
+      "mei",
+      "helpi",
+      "sw",
+      "iti",
+      "anymorei",
+      "myself",
+      "die",
+      "myselfi",
+      "killing",
+      "kill yourself",
+      "meim",
+      "method",
+      "attempt",
+      "od"
+    ],
+    "away": [
+      "wa",
+      "avpd",
+      "tw",
+      "teenagers",
+      "i wa",
+      "health anxiety",
+      "minecraft",
+      "rant",
+      "horny",
+      "can t",
+      "crush",
+      "bruh",
+      "ha",
+      "i m",
+      "nn",
+      "it s",
+      "mania",
+      "do not",
+      "bp",
+      "boys"
+    ]
+  },
+  "runtime_seconds": 162.0
+}

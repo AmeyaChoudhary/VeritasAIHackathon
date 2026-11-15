@@ -52,7 +52,7 @@ fi
 # script carries on and Experiment 1b leaves that dataset out of its report.
 fetch_optional() {  # url, output file
   echo "get   $2"
-  if curl -sS -L --fail --retry 3 -o "$2" "$1"; then return 0; fi
+  if curl -sS -L --fail --retry 3 -A "Mozilla/5.0" -o "$2" "$1"; then return 0; fi
   rm -f "$2"
   echo "skip  $2: the download failed, so Experiment 1b will run without it"
   return 0
@@ -60,9 +60,11 @@ fetch_optional() {  # url, output file
 
 # Depresjon (Simula): cite Garcia-Ceja et al., MMSys 2018. About 5 MB.
 # On November 15, 2026 its server did not send a full certificate chain, and curl
-# refused it on one of our machines. We did not turn certificate checks off.
+# refused it on one of our machines. We did not turn certificate checks off; the Kaggle copy below is used instead.
 mkdir -p data/depresjon
 [ -s data/depresjon/depresjon.zip ] || fetch_optional "https://datasets.simula.no/downloads/depresjon.zip" data/depresjon/depresjon.zip
+# Fallback: Kaggle hosts a CC0 copy with the same layout (data/condition, data/control, data/scores.csv).
+[ -s data/depresjon/depresjon.zip ] || fetch_optional "https://www.kaggle.com/api/v1/datasets/download/arashnic/the-depression-dataset" data/depresjon/depresjon.zip
 if [ -s data/depresjon/depresjon.zip ] && [ ! -d data/depresjon/data ]; then
   unzip -q -o data/depresjon/depresjon.zip -d data/depresjon
 fi
@@ -73,5 +75,29 @@ mkdir -p data/studentlife
 if [ -s data/studentlife/dataset_rds.zip ] && [ ! -d data/studentlife/dataset_rds ]; then
   unzip -q -o data/studentlife/dataset_rds.zip -d data/studentlife
 fi
+
+# Experiment 5 (self-harm language), both from Kaggle's public download endpoint.
+# Suicide and Depression Detection (Komati), CC BY-SA 4.0; cite Komati et al., "Suicide Ideation
+# Detection in Social Media Forums". About 64 MB zipped, 167 MB unzipped.
+mkdir -p data/suicide_watch
+if [ ! -s data/suicide_watch/Suicide_Detection.csv ]; then
+  fetch_optional "https://www.kaggle.com/api/v1/datasets/download/nikhileswarkomati/suicide-watch/Suicide_Detection.csv" data/suicide_watch/Suicide_Detection.zip
+  if [ -s data/suicide_watch/Suicide_Detection.zip ]; then
+    unzip -q -o data/suicide_watch/Suicide_Detection.zip -d data/suicide_watch && rm -f data/suicide_watch/Suicide_Detection.zip
+  fi
+fi
+# Sentiment Analysis for Mental Health, combined (Sze Gee Lim), ODbL. About 31 MB.
+mkdir -p data/mental_health_combined
+[ -s "data/mental_health_combined/Combined Data.csv" ] || fetch_optional "https://www.kaggle.com/api/v1/datasets/download/szegeelim/mental-health/Combined%20Data.csv" "data/mental_health_combined/Combined Data.csv"
+
+# Experiment 5b: Reddit C-SSRS, 500 users labelled by psychiatrists (Gaur et al., WWW 2019), CC BY 4.0. About 4 MB.
+mkdir -p data/reddit_cssrs
+[ -s data/reddit_cssrs/500_users.csv ] || fetch_optional "https://zenodo.org/records/4543776/files/500_anonymized_Reddit_users_posts_labels%20-%20500_anonymized_Reddit_users_posts_labels.csv?download=1" data/reddit_cssrs/500_users.csv
+
+# Experiment 6: Corona Health, Mental Health of Adolescents during COVID-19 (University of Wurzburg), CC BY 4.0. Under 1 MB.
+mkdir -p data/corona_health_ado
+for f in ch_ado.xlsx RKI_ado_baseline.csv RKI_ado_followUp.csv; do
+  [ -s "data/corona_health_ado/$f" ] || fetch_optional "https://zenodo.org/records/15101756/files/$f?download=1" "data/corona_health_ado/$f"
+done
 
 echo "Done."

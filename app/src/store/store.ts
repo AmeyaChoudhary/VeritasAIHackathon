@@ -12,6 +12,7 @@ import { BroadcastTransport, type SentRecord, type Wire } from "../engine/transp
 import type { Reply, ReplyChoice } from "../engine/parent";
 import type { Pronoun, SteadyEvent } from "../engine/types";
 import { isLowMood, loadToneModel, scoreTone, type ToneModel } from "../engine/tone";
+import { setRiskModel } from "../engine/selfharm";
 import { clearAccounts, getAccounts } from "../integrations/accounts";
 import { clearLedger } from "../integrations/ledger";
 import { liveWeekFrom } from "../integrations/live";
@@ -191,6 +192,10 @@ class Store {
         this.tone = "failed";
         this.emit();
       });
+    // Without this file the app falls back to the phrase list alone.
+    loadToneModel("./models/risk.json")
+      .then((m) => setRiskModel(m))
+      .catch(() => setRiskModel(null));
   }
 
   private claimDriver() {

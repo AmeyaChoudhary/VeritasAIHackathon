@@ -23,7 +23,7 @@ import {
   type WeekRecord,
 } from "./types";
 
-export type FlagLevel = "none" | "concern" | "plan";
+export type FlagLevel = "none" | "check" | "concern" | "plan";
 
 export type Input =
   | { kind: "pair"; people?: Partial<People> }
@@ -713,6 +713,16 @@ function flag(ctx: Ctx, f: FlagInput) {
   if (f.via === "keyboard") s.keyboardDays[dayAt(s, now)] = true;
   if (f.level === "none") return;
   const what = SOURCE_WORDS[f.source ?? (f.via === "keyboard" ? "keyboard" : "email")] ?? `A message from ${f.source}`;
+  // Only the model read self-harm language. Ask, but silence sends nothing and it does not count
+  // toward the second-flag rules: the model also flags people supporting a friend (Experiment 5b).
+  if (f.level === "check") {
+    if (s.safety.screen === "ask" || s.safety.screen === "emergency") return;
+    s.safety.screen = "ask";
+    s.safety.soft = true;
+    trace(ctx, `${what} reads like self-harm language to the model, not the phrase list. Asked "Are you safe right now?" with 988 on screen. No answer sends nothing; "No" sends the urgent note.`);
+    return;
+  }
+  s.safety.soft = false;
   if (f.via === "item") {
     if (now - f.at > cfg.itemFlagMaxAgeMs || f.at - now > cfg.itemFlagFutureMs) {
       trace(ctx, `${what} with words about self-harm is not from the last 24 hours. It counts only toward weekly numbers.`);
@@ -775,6 +785,13 @@ function flag(ctx: Ctx, f: FlagInput) {
 
 function safe(ctx: Ctx, ans: "yes" | "no") {
   const { s, now } = ctx;
+  if (s.safety.soft) {
+    s.safety.soft = false;
+    s.safety.screen = "help";
+    if (ans === "no") emitUrgent(ctx, now, '"No" to "Are you safe right now?" after the model flagged a message.');
+    else trace(ctx, '"Yes" to "Are you safe right now?" after the model flagged a message. Nothing is sent.');
+    return;
+  }
   if (s.safety.deadline == null) {
     s.safety.screen = "help";
     return;
@@ -972,7 +989,10 @@ export function step(state: TeenState, input: Input, now: number, cfg: Config = 
       break;
     case "dismiss":
       if (input.what === "doctor") s.doctor.show = false;
-      else if (s.safety.deadline == null) s.safety.screen = "none";
+      else if (s.safety.deadline == null) {
+        s.safety.screen = "none";
+        s.safety.soft = false;
+      }
       break;
     case "setTrusted":
       s.people.trusted = input.name && input.name.trim() ? input.name.trim() : undefined;

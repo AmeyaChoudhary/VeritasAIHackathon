@@ -16,6 +16,7 @@ export const Evidence: React.FC = () => {
   const askAt = p("Does it work"), fiveAt = p("On five thousand"), toneAt = p("our tone model"), keyAt = p("A keyword list");
   const thenAt = t("Then we tested"), studAt = t("two hundred thirteen"), failAt = t("our first idea failed"), chanceAt = t("no better than chance");
   const workedAt = t("So we rebuilt"), modelAt = t("Its model"), calAt = t("A calendar");
+  const teenAt = t("And on a hundred");
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);
 
@@ -75,7 +76,12 @@ export const Evidence: React.FC = () => {
           <Bar at={modelAt + 4} label="Steady's ask model" sub="trained on students' own answers" value={numbers.timing.askModel} max={60} color={C.sage} width={1320} strong />
           <Bar at={calAt - 2} label="A fixed calendar" sub="the simple baseline" value={numbers.timing.calendar} max={60} color={C.grey} width={1320} />
         </div>
-        <Mono size={18} style={{ position: "absolute", left: 152, top: 860, opacity: ramp(frame, modelAt + 10, 14) }}>Share of asks that land on a hard week, at 12 asks a year, on students the model never saw. AUC {numbers.timing.askModelAuc}.</Mono>
+        <div style={{ position: "absolute", left: 152, top: 770, display: "flex", alignItems: "baseline", gap: 22, ...enter(frame, teenAt - 2, 22, 16) }}>
+          <span style={{ width: 16, height: 16, borderRadius: 10, background: C.sage, alignSelf: "center" }} />
+          <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 64, letterSpacing: -2.2, color: C.ink }}>{numbers.teens.count} teenagers, never seen</span>
+          <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 44, letterSpacing: -1.2, color: C.inkSoft }}>AUC {numbers.teens.auc.toFixed(2)}</span>
+        </div>
+        <Mono size={18} style={{ position: "absolute", left: 152, top: 900, opacity: ramp(frame, modelAt + 10, 14) }}>Share of asks that land on a hard week, at 12 asks a year, on students the model never saw. AUC {numbers.timing.askModelAuc}.</Mono>
       </AbsoluteFill>
     </AbsoluteFill>
   );

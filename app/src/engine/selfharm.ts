@@ -12,8 +12,22 @@
 // normalization with Python's re module and checks that both give the same answers.
 
 import phrases from "./selfharm_phrases.json";
+import { scoreTone, type ToneModel } from "./tone";
 
-export type SelfHarmLevel = "none" | "concern" | "plan";
+// Experiment 5: a model for self-harm language (public/models/risk.json), in the tone model's
+// format. It runs only when the phrase list finds nothing, and it can only add a "check",
+// never a "plan". It passed the rule written before the experiment ran; see
+// results/exp5/results.md. It is not clinically validated.
+let RISK: ToneModel | null = null;
+export function setRiskModel(m: ToneModel | null): void {
+  RISK = m;
+}
+
+// "check"   = only the model (Experiment 5) read self-harm language. The app asks "Are you safe
+//             right now?" with 988, but no answer sends nothing: on posts labelled by
+//             psychiatrists (Experiment 5b) it could not tell a person at risk from a person
+//             supporting someone else. "No" still sends the urgent note.
+export type SelfHarmLevel = "none" | "check" | "concern" | "plan";
 
 interface PhraseRule {
   id: string;
@@ -69,5 +83,6 @@ export function checkSelfHarm(text: string): { level: SelfHarmLevel; ruleId?: st
   for (const r of CONCERN) {
     if (r.re.test(s)) return { level: "concern", ruleId: r.id };
   }
+  if (RISK && scoreTone(RISK, text) >= RISK.threshold) return { level: "check", ruleId: "model" };
   return { level: "none" };
 }
