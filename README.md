@@ -8,14 +8,18 @@ Steady is a concept for an app on a teenager's phone. It learns the student's ow
 
 **Start with [the one-page write-up](WRITEUP.md).** It covers the problem, what we built, the results against a baseline, and where it fails.
 
+**Try [the live demo](https://ameyachoudhary.github.io/VeritasAIHackathon/).** It runs in a browser with nothing to install. Pick "Maya's 12 weeks" and press Play.
+
 ![Week 8 of the demo: Maya's phone suggests a doctor, and her mom's phone gets the note](docs/img/week8-both-phones.png)
 
 ## Status
 
-Both experiments have run, and the app works end to end on sample data. No clinician has reviewed any of it.
+The experiments have run, and the app works end to end on sample data. No clinician has reviewed any of it.
 
 - **Timing (Experiment 1).** On 213 Dartmouth students, the drift rule picked weeks to ask no better than random weeks from the same student and season. A heads-up from phone signals alone did no better than a calendar. The questionnaire does the real work. [Results](results/exp1/results.md).
 - **Deeper check (Experiment 1b).** Using only phone data recorded before the answer, models picked out high PHQ-2 weeks in students they never saw at AUC 0.57 to 0.60. A single check-in from the week before (mood picture, stress, time with others) reached 0.69, and every earlier check-in together 0.74 to 0.78. With every questionnaire input at least 14 days old, earlier PHQ-2 answers plus check-ins reached 0.89, mostly from students who stay high. Adding phone data to the answer history added nothing reliable. Versions built to cheat on purpose reached 0.98. These are cross-validation estimates for each model, checked by an outside review. [Results](results/exp1b/results.md).
+- **Asking (Experiment 3).** Every way of picking the week, scored the same way at 12 asks per student-year. 24% of the asks chosen from one short check-in landed on a high week, against 13% for a fixed calendar and 18% for a phone model. Random weeks from the same student and quarter reached 23%, so the check-in finds which students and which term to ask in, and the exact week adds about one point. The app's rules have not been changed to match yet. [Results](results/exp3/results.md).
+- **Groups (Experiment 3).** The check-in model ranked weeks better for men (AUC 0.75) than for women (0.66). Phone data was near chance for every gender and race group with at least 20 students.
 - **Words (Experiment 2).** The tone model found 55% of low-mood Reddit comments at 52% precision, against 24% for a keyword list. The self-harm phrase list missed 9 of 15 risk messages written blind. [Results](results/exp2/results.md).
 - **The app.** A teen phone and a parent phone side by side, playing the rules in [Parent alerts](docs/parent-alerts.md) with made-up data and a simulated clock. Events move between browser tabs; there is no server yet.
 - **Connected accounts.** The teen can connect Gmail, Google Calendar, Last.fm and screen time. Each one works with sample data now. Real sign-in needs two keys the team has to create (see [app/README.md](app/README.md)), and has not been tested end to end.
@@ -36,8 +40,9 @@ Both experiments have run, and the app works end to end on sample data. No clini
 | [experiments/exp1_timing.py](experiments/exp1_timing.py) | Experiment 1: does the drift rule pick better weeks to ask, and to alert a parent, than a calendar? |
 | [experiments/exp1b_deeper.py](experiments/exp1b_deeper.py) | Experiment 1b: the best honest numbers across five framings, with leakage checks, deliberate leaks for comparison, and two outside datasets (Depresjon, StudentLife) |
 | [experiments/exp2_words.py](experiments/exp2_words.py) | Experiment 2: the tone model and the self-harm phrase check, with [our 60 test messages](experiments/exp2_words/test_messages.csv) |
-| [notebooks/](notebooks/) | Both experiments as executed notebooks with charts |
-| [results/](results/) | Write-ups and every number for both experiments |
+| [experiments/exp3_asking.py](experiments/exp3_asking.py) | Experiment 3: the drift rule, a phone model, check-in models and a follow-up rule at the same number of asks, and the same numbers by gender and race |
+| [notebooks/](notebooks/) | The experiments as executed notebooks with charts |
+| [results/](results/) | Write-ups and every number for each experiment |
 | [scripts/get_data.sh](scripts/get_data.sh) | Downloads the open data into `data/` |
 | [audit/audit_reddit_dataset.py](audit/audit_reddit_dataset.py) | The audit of a dataset we decided not to train on |
 | [audit/results.txt](audit/results.txt) | The output of that audit |
@@ -63,9 +68,10 @@ pip install -r requirements.txt
 python experiments/exp1_timing.py
 python experiments/exp1b_deeper.py
 python experiments/exp2_words.py
+python experiments/exp3_asking.py
 ```
 
-Experiment 1 takes about a minute, Experiment 1b about four, and Experiment 2 about ten seconds. Depresjon asks for a citation of Garcia-Ceja et al., MMSys 2018, and StudentLife (CC BY 4.0) of Wang et al., UbiComp 2014. Experiment 2 also writes the tone model the app loads.
+Experiment 1 takes about a minute, Experiment 1b about five, Experiment 2 about ten seconds and Experiment 3 about two minutes. Experiment 3 reads the tables the first two build. We re-ran Experiments 1, 1b and 2 from the raw data on a second computer: Experiments 1 and 2 gave the same numbers, and Experiment 1b's AUCs matched to within 0.001. The data script carries on if Depresjon or StudentLife fails to download, and Experiment 1b then leaves that dataset out. Depresjon asks for a citation of Garcia-Ceja et al., MMSys 2018, and StudentLife (CC BY 4.0) of Wang et al., UbiComp 2014. Experiment 2 also writes the tone model the app loads.
 
 ## The dataset audit
 

@@ -1,0 +1,1341 @@
+{
+  "generated": "2026-11-15",
+  "dataset": "College Experience Study (Dartmouth), CC BY-NC-SA 4.0, academic use only",
+  "label": "PHQ-2 of 3 or more, the answer nearest the end of the week (as in Experiment 1)",
+  "settings": {
+    "seed": 20261114,
+    "folds": 5,
+    "min_group_students": 20,
+    "model": "Experiment 1b's logistic regression (quantile scaling, missing-value flags, C = 0.05)",
+    "n_random_draws": 1000,
+    "n_bootstrap": 1000
+  },
+  "data": {
+    "students": 213,
+    "monitored_weeks": 22688,
+    "labelled_weeks": 16886,
+    "base_rate": 0.128568,
+    "share_weeks_with_a_checkin_last_week": 0.801657,
+    "share_weeks_with_an_earlier_answer": 1.0
+  },
+  "methods": [
+    {
+      "key": "phone",
+      "label": "Phone model",
+      "kind": "model",
+      "uses": "Phone data from the week itself (every daily measure, as in Experiment 1b's same-week framing)",
+      "decides": "end of the week",
+      "needs": "Nothing from the student",
+      "reference": false
+    },
+    {
+      "key": "checkin_one",
+      "label": "One check-in from last week",
+      "kind": "model",
+      "uses": "The latest mood picture, stress and time-with-others answer from the previous calendar week",
+      "decides": "Monday",
+      "needs": "A short check-in each week",
+      "reference": false
+    },
+    {
+      "key": "checkin_history",
+      "label": "Check-in history",
+      "kind": "model",
+      "uses": "Last week's check-ins, the average of every earlier check-in, and the change between them",
+      "decides": "Monday",
+      "needs": "A short check-in each week",
+      "reference": false
+    },
+    {
+      "key": "answers",
+      "label": "Check-ins plus earlier PHQ-2 answers (reference)",
+      "kind": "model",
+      "uses": "Check-in history plus the student's earlier PHQ-2 answers, all dated before Monday",
+      "decides": "Monday",
+      "needs": "A PHQ-2 answer nearly every week (reference only)",
+      "reference": true
+    },
+    {
+      "key": "followup",
+      "label": "Follow-up rule, no model (reference)",
+      "kind": "rule",
+      "uses": "The most recent PHQ-2 answer before Monday: ask again where the last answer was highest",
+      "decides": "Monday",
+      "needs": "A PHQ-2 answer nearly every week (reference only)",
+      "reference": true
+    }
+  ],
+  "feature_counts": {
+    "phone": 686,
+    "checkin_one": 6,
+    "checkin_history": 19,
+    "answers": 23
+  },
+  "auc": {
+    "phone": {
+      "auc": 0.570942,
+      "auc_ci": [
+        0.512599,
+        0.628037
+      ],
+      "within_student_auc": 0.571797,
+      "n_rows": 16886,
+      "n_students": 213
+    },
+    "checkin_one": {
+      "auc": 0.690284,
+      "auc_ci": [
+        0.657142,
+        0.724188
+      ],
+      "within_student_auc": 0.610013,
+      "n_rows": 16886,
+      "n_students": 213
+    },
+    "checkin_history": {
+      "auc": 0.780669,
+      "auc_ci": [
+        0.735622,
+        0.8233
+      ],
+      "within_student_auc": 0.635018,
+      "n_rows": 16886,
+      "n_students": 213
+    },
+    "answers": {
+      "auc": 0.899174,
+      "auc_ci": [
+        0.877615,
+        0.918554
+      ],
+      "within_student_auc": 0.720304,
+      "n_rows": 16886,
+      "n_students": 213
+    },
+    "followup": {
+      "auc": 0.877274,
+      "auc_ci": [
+        0.854075,
+        0.898217
+      ],
+      "within_student_auc": 0.738513,
+      "n_rows": 16886,
+      "n_students": 213
+    }
+  },
+  "by_budget": {
+    "rule": {
+      "asks_per_student_year": 21.422955,
+      "label": "the drift rule's own budget",
+      "methods": {
+        "drift_rule": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.146451,
+          "lift": 1.139097,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1007,
+          "high_weeks_missed": 1164,
+          "false_alarms": 5869,
+          "false_alarms_per_student_year": 13.451516,
+          "low_periods": 451,
+          "low_periods_missed": 201,
+          "share_low_periods_reached": 0.554324,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.128547,
+          "random_ci": [
+            0.12248,
+            0.134401
+          ],
+          "matched_random_hit_rate": 0.148739,
+          "matched_random_ci": [
+            0.145386,
+            0.152008
+          ],
+          "share_matched_draws_at_or_above": 0.909,
+          "minus_calendar": 0.017815,
+          "minus_calendar_ci": [
+            0.000187,
+            0.036967
+          ],
+          "share_asks_in_full_quarters": 0.278164,
+          "hit_rate_outside_full_quarters": 0.135922,
+          "chance_outside_full_quarters": 0.137905
+        },
+        "phone": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.157477,
+          "lift": 1.224852,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1051,
+          "high_weeks_missed": 1120,
+          "false_alarms": 5623,
+          "false_alarms_per_student_year": 12.887694,
+          "low_periods": 451,
+          "low_periods_missed": 144,
+          "share_low_periods_reached": 0.68071,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.128554,
+          "random_ci": [
+            0.122834,
+            0.134318
+          ],
+          "matched_random_hit_rate": 0.157039,
+          "matched_random_ci": [
+            0.15343,
+            0.160469
+          ],
+          "share_matched_draws_at_or_above": 0.408,
+          "minus_calendar": 0.02884,
+          "minus_calendar_ci": [
+            0.007003,
+            0.049069
+          ],
+          "share_asks_in_full_quarters": 0.240077,
+          "hit_rate_outside_full_quarters": 0.147222,
+          "chance_outside_full_quarters": 0.145891
+        },
+        "checkin_one": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.20552,
+          "lift": 1.598531,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1318,
+          "high_weeks_missed": 853,
+          "false_alarms": 5095,
+          "false_alarms_per_student_year": 11.677539,
+          "low_periods": 451,
+          "low_periods_missed": 65,
+          "share_low_periods_reached": 0.855876,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.128626,
+          "random_ci": [
+            0.122504,
+            0.134428
+          ],
+          "matched_random_hit_rate": 0.201443,
+          "matched_random_ci": [
+            0.197007,
+            0.206173
+          ],
+          "share_matched_draws_at_or_above": 0.042,
+          "minus_calendar": 0.076883,
+          "minus_calendar_ci": [
+            0.05648,
+            0.098799
+          ],
+          "share_asks_in_full_quarters": 0.054456,
+          "hit_rate_outside_full_quarters": 0.186099,
+          "chance_outside_full_quarters": 0.180128
+        },
+        "checkin_history": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.238388,
+          "lift": 1.854176,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1591,
+          "high_weeks_missed": 580,
+          "false_alarms": 5083,
+          "false_alarms_per_student_year": 11.650035,
+          "low_periods": 451,
+          "low_periods_missed": 81,
+          "share_low_periods_reached": 0.820399,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.128608,
+          "random_ci": [
+            0.122254,
+            0.134659
+          ],
+          "matched_random_hit_rate": 0.238697,
+          "matched_random_ci": [
+            0.235965,
+            0.24141
+          ],
+          "share_matched_draws_at_or_above": 0.573,
+          "minus_calendar": 0.109751,
+          "minus_calendar_ci": [
+            0.07739,
+            0.142558
+          ],
+          "share_asks_in_full_quarters": 0.513106,
+          "hit_rate_outside_full_quarters": 0.141011,
+          "chance_outside_full_quarters": 0.139989
+        },
+        "answers": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.301674,
+          "lift": 2.346417,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1982,
+          "high_weeks_missed": 189,
+          "false_alarms": 4588,
+          "false_alarms_per_student_year": 10.515515,
+          "low_periods": 451,
+          "low_periods_missed": 8,
+          "share_low_periods_reached": 0.982262,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.128583,
+          "random_ci": [
+            0.1228,
+            0.134832
+          ],
+          "matched_random_hit_rate": 0.294711,
+          "matched_random_ci": [
+            0.292062,
+            0.297482
+          ],
+          "share_matched_draws_at_or_above": 0.0,
+          "minus_calendar": 0.173037,
+          "minus_calendar_ci": [
+            0.144843,
+            0.202915
+          ],
+          "share_asks_in_full_quarters": 0.518134,
+          "hit_rate_outside_full_quarters": 0.148612,
+          "chance_outside_full_quarters": 0.135864
+        },
+        "followup": {
+          "asks_per_student_year": 21.422955,
+          "hit_rate": 0.289108,
+          "lift": 2.248677,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1935,
+          "high_weeks_missed": 236,
+          "false_alarms": 4758,
+          "false_alarms_per_student_year": 10.905148,
+          "low_periods": 451,
+          "low_periods_missed": 6,
+          "share_low_periods_reached": 0.986696,
+          "calendar_hit_rate": 0.128626,
+          "calendar_high_weeks_missed": 1277.0,
+          "calendar_false_alarms": 6055.8,
+          "calendar_share_low_periods_reached": 0.876718,
+          "random_hit_rate": 0.12854,
+          "random_ci": [
+            0.122155,
+            0.134576
+          ],
+          "matched_random_hit_rate": 0.280561,
+          "matched_random_ci": [
+            0.27704,
+            0.284137
+          ],
+          "share_matched_draws_at_or_above": 0.0,
+          "minus_calendar": 0.160471,
+          "minus_calendar_ci": [
+            0.132292,
+            0.184851
+          ],
+          "share_asks_in_full_quarters": 0.343426,
+          "hit_rate_outside_full_quarters": 0.167981,
+          "chance_outside_full_quarters": 0.153947
+        }
+      }
+    },
+    "monthly": {
+      "asks_per_student_year": 12.0,
+      "label": "12 asks a year (monthly)",
+      "methods": {
+        "phone": {
+          "asks_per_student_year": 12.000705,
+          "hit_rate": 0.18306,
+          "lift": 1.423838,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 670,
+          "high_weeks_missed": 1501,
+          "false_alarms": 2990,
+          "false_alarms_per_student_year": 6.852962,
+          "low_periods": 451,
+          "low_periods_missed": 230,
+          "share_low_periods_reached": 0.490022,
+          "calendar_hit_rate": 0.128638,
+          "calendar_high_weeks_missed": 1670.4,
+          "calendar_false_alarms": 3390.7,
+          "calendar_share_low_periods_reached": 0.611086,
+          "random_hit_rate": 0.128373,
+          "random_ci": [
+            0.119609,
+            0.136772
+          ],
+          "matched_random_hit_rate": 0.178316,
+          "matched_random_ci": [
+            0.172479,
+            0.183801
+          ],
+          "share_matched_draws_at_or_above": 0.048,
+          "minus_calendar": 0.054414,
+          "minus_calendar_ci": [
+            0.02506,
+            0.085702
+          ],
+          "share_asks_in_full_quarters": 0.127578,
+          "hit_rate_outside_full_quarters": 0.172467,
+          "chance_outside_full_quarters": 0.167179
+        },
+        "checkin_one": {
+          "asks_per_student_year": 12.000705,
+          "hit_rate": 0.235118,
+          "lift": 1.828746,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 944,
+          "high_weeks_missed": 1227,
+          "false_alarms": 3071,
+          "false_alarms_per_student_year": 7.038611,
+          "low_periods": 451,
+          "low_periods_missed": 119,
+          "share_low_periods_reached": 0.736142,
+          "calendar_hit_rate": 0.128638,
+          "calendar_high_weeks_missed": 1670.4,
+          "calendar_false_alarms": 3390.7,
+          "calendar_share_low_periods_reached": 0.611086,
+          "random_hit_rate": 0.128674,
+          "random_ci": [
+            0.119593,
+            0.137427
+          ],
+          "matched_random_hit_rate": 0.226495,
+          "matched_random_ci": [
+            0.219428,
+            0.233311
+          ],
+          "share_matched_draws_at_or_above": 0.008,
+          "minus_calendar": 0.106472,
+          "minus_calendar_ci": [
+            0.073781,
+            0.140629
+          ],
+          "share_asks_in_full_quarters": 0.004584,
+          "hit_rate_outside_full_quarters": 0.234309,
+          "chance_outside_full_quarters": 0.222508
+        },
+        "checkin_history": {
+          "asks_per_student_year": 12.000705,
+          "hit_rate": 0.316237,
+          "lift": 2.459686,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1190,
+          "high_weeks_missed": 981,
+          "false_alarms": 2573,
+          "false_alarms_per_student_year": 5.897214,
+          "low_periods": 451,
+          "low_periods_missed": 157,
+          "share_low_periods_reached": 0.651885,
+          "calendar_hit_rate": 0.128638,
+          "calendar_high_weeks_missed": 1670.4,
+          "calendar_false_alarms": 3390.7,
+          "calendar_share_low_periods_reached": 0.611086,
+          "random_hit_rate": 0.128604,
+          "random_ci": [
+            0.119059,
+            0.138276
+          ],
+          "matched_random_hit_rate": 0.318899,
+          "matched_random_ci": [
+            0.314043,
+            0.323796
+          ],
+          "share_matched_draws_at_or_above": 0.871,
+          "minus_calendar": 0.187591,
+          "minus_calendar_ci": [
+            0.13307,
+            0.242267
+          ],
+          "share_asks_in_full_quarters": 0.438694,
+          "hit_rate_outside_full_quarters": 0.218592,
+          "chance_outside_full_quarters": 0.221769
+        },
+        "answers": {
+          "asks_per_student_year": 12.000705,
+          "hit_rate": 0.45215,
+          "lift": 3.516813,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1630,
+          "high_weeks_missed": 541,
+          "false_alarms": 1975,
+          "false_alarms_per_student_year": 4.526622,
+          "low_periods": 451,
+          "low_periods_missed": 54,
+          "share_low_periods_reached": 0.880266,
+          "calendar_hit_rate": 0.128638,
+          "calendar_high_weeks_missed": 1670.4,
+          "calendar_false_alarms": 3390.7,
+          "calendar_share_low_periods_reached": 0.611086,
+          "random_hit_rate": 0.128457,
+          "random_ci": [
+            0.119337,
+            0.13712
+          ],
+          "matched_random_hit_rate": 0.444325,
+          "matched_random_ci": [
+            0.438929,
+            0.449572
+          ],
+          "share_matched_draws_at_or_above": 0.002,
+          "minus_calendar": 0.323504,
+          "minus_calendar_ci": [
+            0.274981,
+            0.372133
+          ],
+          "share_asks_in_full_quarters": 0.534186,
+          "hit_rate_outside_full_quarters": 0.273911,
+          "chance_outside_full_quarters": 0.260867
+        },
+        "followup": {
+          "asks_per_student_year": 12.000705,
+          "hit_rate": 0.418236,
+          "lift": 3.253029,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1555,
+          "high_weeks_missed": 616,
+          "false_alarms": 2163,
+          "false_alarms_per_student_year": 4.957511,
+          "low_periods": 451,
+          "low_periods_missed": 24,
+          "share_low_periods_reached": 0.946785,
+          "calendar_hit_rate": 0.128638,
+          "calendar_high_weeks_missed": 1670.4,
+          "calendar_false_alarms": 3390.7,
+          "calendar_share_low_periods_reached": 0.611086,
+          "random_hit_rate": 0.128819,
+          "random_ci": [
+            0.119781,
+            0.137896
+          ],
+          "matched_random_hit_rate": 0.407665,
+          "matched_random_ci": [
+            0.399893,
+            0.414903
+          ],
+          "share_matched_draws_at_or_above": 0.006,
+          "minus_calendar": 0.28959,
+          "minus_calendar_ci": [
+            0.239991,
+            0.330258
+          ],
+          "share_asks_in_full_quarters": 0.157563,
+          "hit_rate_outside_full_quarters": 0.329625,
+          "chance_outside_full_quarters": 0.316637
+        }
+      }
+    },
+    "two_monthly": {
+      "asks_per_student_year": 6.0,
+      "label": "6 asks a year (every two months)",
+      "methods": {
+        "phone": {
+          "asks_per_student_year": 6.000353,
+          "hit_rate": 0.205214,
+          "lift": 1.596147,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 370,
+          "high_weeks_missed": 1801,
+          "false_alarms": 1433,
+          "false_alarms_per_student_year": 3.284379,
+          "low_periods": 451,
+          "low_periods_missed": 325,
+          "share_low_periods_reached": 0.279379,
+          "calendar_hit_rate": 0.129031,
+          "calendar_high_weeks_missed": 1920.3,
+          "calendar_false_alarms": 1691.7,
+          "calendar_share_low_periods_reached": 0.340133,
+          "random_hit_rate": 0.128582,
+          "random_ci": [
+            0.113988,
+            0.142792
+          ],
+          "matched_random_hit_rate": 0.200707,
+          "matched_random_ci": [
+            0.190708,
+            0.210615
+          ],
+          "share_matched_draws_at_or_above": 0.196,
+          "minus_calendar": 0.076146,
+          "minus_calendar_ci": [
+            0.030062,
+            0.122634
+          ],
+          "share_asks_in_full_quarters": 0.090145,
+          "hit_rate_outside_full_quarters": 0.194411,
+          "chance_outside_full_quarters": 0.187644
+        },
+        "checkin_one": {
+          "asks_per_student_year": 6.000353,
+          "hit_rate": 0.285075,
+          "lift": 2.217305,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 573,
+          "high_weeks_missed": 1598,
+          "false_alarms": 1437,
+          "false_alarms_per_student_year": 3.293547,
+          "low_periods": 451,
+          "low_periods_missed": 216,
+          "share_low_periods_reached": 0.521064,
+          "calendar_hit_rate": 0.129031,
+          "calendar_high_weeks_missed": 1920.3,
+          "calendar_false_alarms": 1691.7,
+          "calendar_share_low_periods_reached": 0.340133,
+          "random_hit_rate": 0.128306,
+          "random_ci": [
+            0.114413,
+            0.142423
+          ],
+          "matched_random_hit_rate": 0.277983,
+          "matched_random_ci": [
+            0.265877,
+            0.289834
+          ],
+          "share_matched_draws_at_or_above": 0.12,
+          "minus_calendar": 0.156007,
+          "minus_calendar_ci": [
+            0.100285,
+            0.214847
+          ],
+          "share_asks_in_full_quarters": 0.006112,
+          "hit_rate_outside_full_quarters": 0.284142,
+          "chance_outside_full_quarters": 0.273306
+        },
+        "checkin_history": {
+          "asks_per_student_year": 6.000353,
+          "hit_rate": 0.40021,
+          "lift": 3.112827,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 762,
+          "high_weeks_missed": 1409,
+          "false_alarms": 1142,
+          "false_alarms_per_student_year": 2.617419,
+          "low_periods": 451,
+          "low_periods_missed": 233,
+          "share_low_periods_reached": 0.48337,
+          "calendar_hit_rate": 0.129031,
+          "calendar_high_weeks_missed": 1920.3,
+          "calendar_false_alarms": 1691.7,
+          "calendar_share_low_periods_reached": 0.340133,
+          "random_hit_rate": 0.128679,
+          "random_ci": [
+            0.114685,
+            0.143156
+          ],
+          "matched_random_hit_rate": 0.394187,
+          "matched_random_ci": [
+            0.38554,
+            0.402947
+          ],
+          "share_matched_draws_at_or_above": 0.1,
+          "minus_calendar": 0.271143,
+          "minus_calendar_ci": [
+            0.192146,
+            0.35576
+          ],
+          "share_asks_in_full_quarters": 0.262796,
+          "hit_rate_outside_full_quarters": 0.345288,
+          "chance_outside_full_quarters": 0.331286
+        },
+        "answers": {
+          "asks_per_student_year": 6.000353,
+          "hit_rate": 0.602145,
+          "lift": 4.683471,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1123,
+          "high_weeks_missed": 1048,
+          "false_alarms": 742,
+          "false_alarms_per_student_year": 1.700635,
+          "low_periods": 451,
+          "low_periods_missed": 154,
+          "share_low_periods_reached": 0.658537,
+          "calendar_hit_rate": 0.129031,
+          "calendar_high_weeks_missed": 1920.3,
+          "calendar_false_alarms": 1691.7,
+          "calendar_share_low_periods_reached": 0.340133,
+          "random_hit_rate": 0.12838,
+          "random_ci": [
+            0.114692,
+            0.142485
+          ],
+          "matched_random_hit_rate": 0.594494,
+          "matched_random_ci": [
+            0.585964,
+            0.603532
+          ],
+          "share_matched_draws_at_or_above": 0.051,
+          "minus_calendar": 0.473078,
+          "minus_calendar_ci": [
+            0.39899,
+            0.55069
+          ],
+          "share_asks_in_full_quarters": 0.453782,
+          "hit_rate_outside_full_quarters": 0.457935,
+          "chance_outside_full_quarters": 0.443737
+        },
+        "followup": {
+          "asks_per_student_year": 6.000353,
+          "hit_rate": 0.627844,
+          "lift": 4.88336,
+          "base_rate": 0.128568,
+          "high_weeks": 2171,
+          "high_weeks_asked": 1159,
+          "high_weeks_missed": 1012,
+          "false_alarms": 687,
+          "false_alarms_per_student_year": 1.574577,
+          "low_periods": 451,
+          "low_periods_missed": 66,
+          "share_low_periods_reached": 0.853659,
+          "calendar_hit_rate": 0.129031,
+          "calendar_high_weeks_missed": 1920.3,
+          "calendar_false_alarms": 1691.7,
+          "calendar_share_low_periods_reached": 0.340133,
+          "random_hit_rate": 0.128412,
+          "random_ci": [
+            0.114924,
+            0.142347
+          ],
+          "matched_random_hit_rate": 0.607758,
+          "matched_random_ci": [
+            0.59345,
+            0.621492
+          ],
+          "share_matched_draws_at_or_above": 0.004,
+          "minus_calendar": 0.498777,
+          "minus_calendar_ci": [
+            0.440362,
+            0.546923
+          ],
+          "share_asks_in_full_quarters": 0.171887,
+          "hit_rate_outside_full_quarters": 0.554319,
+          "chance_outside_full_quarters": 0.532888
+        }
+      }
+    }
+  },
+  "by_group": {
+    "gender": {
+      "Women": {
+        "students": 142,
+        "labelled_weeks": 11613,
+        "base_rate": 0.117627,
+        "drift_rule": {
+          "asks_per_student_year": 20.117249,
+          "hit_rate": 0.131022,
+          "lift": 1.113879,
+          "base_rate": 0.117627,
+          "high_weeks": 1366,
+          "high_weeks_asked": 582,
+          "high_weeks_missed": 784,
+          "false_alarms": 3860,
+          "false_alarms_per_student_year": 12.818188,
+          "low_periods": 289,
+          "low_periods_missed": 144,
+          "share_low_periods_reached": 0.50173,
+          "calendar_hit_rate": 0.117768,
+          "calendar_high_weeks_missed": 837.7,
+          "calendar_false_alarms": 3958.1,
+          "calendar_share_low_periods_reached": 0.848789,
+          "random_hit_rate": 0.117456,
+          "random_ci": [
+            0.110181,
+            0.124835
+          ],
+          "matched_random_hit_rate": 0.134525,
+          "matched_random_ci": [
+            0.13014,
+            0.138683
+          ],
+          "share_matched_draws_at_or_above": 0.942,
+          "minus_calendar": 0.013266,
+          "minus_calendar_ci": [
+            -0.004681,
+            0.034377
+          ],
+          "share_asks_in_full_quarters": 0.284913,
+          "hit_rate_outside_full_quarters": 0.125712,
+          "chance_outside_full_quarters": 0.130567
+        },
+        "checkin_one_monthly": {
+          "asks_per_student_year": 12.403091,
+          "hit_rate": 0.196187,
+          "lift": 1.667878,
+          "base_rate": 0.117627,
+          "high_weeks": 1366,
+          "high_weeks_asked": 566,
+          "high_weeks_missed": 800,
+          "false_alarms": 2319,
+          "false_alarms_per_student_year": 7.700875,
+          "low_periods": 289,
+          "low_periods_missed": 80,
+          "share_low_periods_reached": 0.723183,
+          "calendar_hit_rate": 0.117658,
+          "calendar_high_weeks_missed": 1041.4,
+          "calendar_false_alarms": 2434.2,
+          "calendar_share_low_periods_reached": 0.612457,
+          "random_hit_rate": 0.117775,
+          "random_ci": [
+            0.107002,
+            0.128271
+          ],
+          "matched_random_hit_rate": 0.18845,
+          "matched_random_ci": [
+            0.179984,
+            0.196431
+          ],
+          "share_matched_draws_at_or_above": 0.029,
+          "minus_calendar": 0.078527,
+          "minus_calendar_ci": [
+            0.052692,
+            0.109272
+          ],
+          "share_asks_in_full_quarters": 0.005087,
+          "hit_rate_outside_full_quarters": 0.195962,
+          "chance_outside_full_quarters": 0.184551
+        },
+        "auc": {
+          "phone": {
+            "auc": 0.574401,
+            "auc_ci": [
+              0.510331,
+              0.636073
+            ]
+          },
+          "checkin_one": {
+            "auc": 0.660173,
+            "auc_ci": [
+              0.623504,
+              0.691996
+            ]
+          },
+          "checkin_history": {
+            "auc": 0.728904,
+            "auc_ci": [
+              0.665287,
+              0.779165
+            ]
+          },
+          "answers": {
+            "auc": 0.883482,
+            "auc_ci": [
+              0.858249,
+              0.90247
+            ]
+          },
+          "followup": {
+            "auc": 0.858692,
+            "auc_ci": [
+              0.83181,
+              0.880304
+            ]
+          }
+        }
+      },
+      "Men": {
+        "students": 68,
+        "labelled_weeks": 5064,
+        "base_rate": 0.152646,
+        "drift_rule": {
+          "asks_per_student_year": 24.466954,
+          "hit_rate": 0.175267,
+          "lift": 1.148188,
+          "base_rate": 0.152646,
+          "high_weeks": 773,
+          "high_weeks_asked": 411,
+          "high_weeks_missed": 362,
+          "false_alarms": 1934,
+          "false_alarms_per_student_year": 14.936581,
+          "low_periods": 157,
+          "low_periods_missed": 54,
+          "share_low_periods_reached": 0.656051,
+          "calendar_hit_rate": 0.153342,
+          "calendar_high_weeks_missed": 408.0,
+          "calendar_false_alarms": 2015.3,
+          "calendar_share_low_periods_reached": 0.948408,
+          "random_hit_rate": 0.152824,
+          "random_ci": [
+            0.142314,
+            0.16331
+          ],
+          "matched_random_hit_rate": 0.175574,
+          "matched_random_ci": [
+            0.170149,
+            0.180621
+          ],
+          "share_matched_draws_at_or_above": 0.552,
+          "minus_calendar": 0.021925,
+          "minus_calendar_ci": [
+            -0.010634,
+            0.059459
+          ],
+          "share_asks_in_full_quarters": 0.27178,
+          "hit_rate_outside_full_quarters": 0.152989,
+          "chance_outside_full_quarters": 0.149622
+        },
+        "checkin_one_monthly": {
+          "asks_per_student_year": 11.159958,
+          "hit_rate": 0.334555,
+          "lift": 2.191706,
+          "base_rate": 0.152646,
+          "high_weeks": 773,
+          "high_weeks_asked": 365,
+          "high_weeks_missed": 408,
+          "false_alarms": 726,
+          "false_alarms_per_student_year": 5.60701,
+          "low_periods": 157,
+          "low_periods_missed": 37,
+          "share_low_periods_reached": 0.764331,
+          "calendar_hit_rate": 0.152375,
+          "calendar_high_weeks_missed": 607.7,
+          "calendar_false_alarms": 919.2,
+          "calendar_share_low_periods_reached": 0.603822,
+          "random_hit_rate": 0.152897,
+          "random_ci": [
+            0.133516,
+            0.171832
+          ],
+          "matched_random_hit_rate": 0.324755,
+          "matched_random_ci": [
+            0.310402,
+            0.339326
+          ],
+          "share_matched_draws_at_or_above": 0.093,
+          "minus_calendar": 0.182135,
+          "minus_calendar_ci": [
+            0.088997,
+            0.254522
+          ],
+          "share_asks_in_full_quarters": 0.00346,
+          "hit_rate_outside_full_quarters": 0.332107,
+          "chance_outside_full_quarters": 0.32081
+        },
+        "auc": {
+          "phone": {
+            "auc": 0.561203,
+            "auc_ci": [
+              0.431384,
+              0.671197
+            ]
+          },
+          "checkin_one": {
+            "auc": 0.749422,
+            "auc_ci": [
+              0.685712,
+              0.805442
+            ]
+          },
+          "checkin_history": {
+            "auc": 0.877761,
+            "auc_ci": [
+              0.808589,
+              0.921083
+            ]
+          },
+          "answers": {
+            "auc": 0.92777,
+            "auc_ci": [
+              0.88124,
+              0.953124
+            ]
+          },
+          "followup": {
+            "auc": 0.911121,
+            "auc_ci": [
+              0.86106,
+              0.939171
+            ]
+          }
+        }
+      }
+    },
+    "race": {
+      "Asian": {
+        "students": 51,
+        "labelled_weeks": 3922,
+        "base_rate": 0.115247,
+        "drift_rule": {
+          "asks_per_student_year": 24.665883,
+          "hit_rate": 0.123733,
+          "lift": 1.073633,
+          "base_rate": 0.115247,
+          "high_weeks": 452,
+          "high_weeks_asked": 232,
+          "high_weeks_missed": 220,
+          "false_alarms": 1643,
+          "false_alarms_per_student_year": 16.732472,
+          "low_periods": 97,
+          "low_periods_missed": 42,
+          "share_low_periods_reached": 0.56701,
+          "calendar_hit_rate": 0.114282,
+          "calendar_high_weeks_missed": 239.8,
+          "calendar_false_alarms": 1644.4,
+          "calendar_share_low_periods_reached": 0.926804,
+          "random_hit_rate": 0.115334,
+          "random_ci": [
+            0.105146,
+            0.125335
+          ],
+          "matched_random_hit_rate": 0.129416,
+          "matched_random_ci": [
+            0.123672,
+            0.135472
+          ],
+          "share_matched_draws_at_or_above": 0.974,
+          "minus_calendar": 0.009438,
+          "minus_calendar_ci": [
+            -0.011665,
+            0.035569
+          ],
+          "share_asks_in_full_quarters": 0.343518,
+          "hit_rate_outside_full_quarters": 0.117792,
+          "chance_outside_full_quarters": 0.124084
+        },
+        "checkin_one_monthly": {
+          "asks_per_student_year": 12.791226,
+          "hit_rate": 0.207605,
+          "lift": 1.80139,
+          "base_rate": 0.115247,
+          "high_weeks": 452,
+          "high_weeks_asked": 202,
+          "high_weeks_missed": 250,
+          "false_alarms": 771,
+          "false_alarms_per_student_year": 7.851939,
+          "low_periods": 97,
+          "low_periods_missed": 19,
+          "share_low_periods_reached": 0.804124,
+          "calendar_hit_rate": 0.114718,
+          "calendar_high_weeks_missed": 341.7,
+          "calendar_false_alarms": 851.4,
+          "calendar_share_low_periods_reached": 0.613402,
+          "random_hit_rate": 0.11481,
+          "random_ci": [
+            0.097998,
+            0.132795
+          ],
+          "matched_random_hit_rate": 0.200343,
+          "matched_random_ci": [
+            0.18564,
+            0.213564
+          ],
+          "share_matched_draws_at_or_above": 0.173,
+          "minus_calendar": 0.092913,
+          "minus_calendar_ci": [
+            0.053942,
+            0.131225
+          ],
+          "share_asks_in_full_quarters": 0.004777,
+          "hit_rate_outside_full_quarters": 0.206398,
+          "chance_outside_full_quarters": 0.195669
+        },
+        "auc": {
+          "phone": {
+            "auc": 0.576565,
+            "auc_ci": [
+              0.451167,
+              0.69445
+            ]
+          },
+          "checkin_one": {
+            "auc": 0.688891,
+            "auc_ci": [
+              0.634154,
+              0.737245
+            ]
+          },
+          "checkin_history": {
+            "auc": 0.781484,
+            "auc_ci": [
+              0.707053,
+              0.837972
+            ]
+          },
+          "answers": {
+            "auc": 0.873942,
+            "auc_ci": [
+              0.818768,
+              0.908399
+            ]
+          },
+          "followup": {
+            "auc": 0.847122,
+            "auc_ci": [
+              0.788764,
+              0.885577
+            ]
+          }
+        }
+      },
+      "White": {
+        "students": 133,
+        "labelled_weeks": 10596,
+        "base_rate": 0.140525,
+        "drift_rule": {
+          "asks_per_student_year": 20.422928,
+          "hit_rate": 0.169858,
+          "lift": 1.208743,
+          "base_rate": 0.140525,
+          "high_weeks": 1489,
+          "high_weeks_asked": 683,
+          "high_weeks_missed": 806,
+          "false_alarms": 3338,
+          "false_alarms_per_student_year": 11.987293,
+          "low_periods": 311,
+          "low_periods_missed": 139,
+          "share_low_periods_reached": 0.553055,
+          "calendar_hit_rate": 0.140808,
+          "calendar_high_weeks_missed": 904.0,
+          "calendar_false_alarms": 3570.0,
+          "calendar_share_low_periods_reached": 0.866881,
+          "random_hit_rate": 0.140638,
+          "random_ci": [
+            0.132881,
+            0.148077
+          ],
+          "matched_random_hit_rate": 0.17107,
+          "matched_random_ci": [
+            0.166293,
+            0.1758
+          ],
+          "share_matched_draws_at_or_above": 0.696,
+          "minus_calendar": 0.029064,
+          "minus_calendar_ci": [
+            0.002821,
+            0.059711
+          ],
+          "share_asks_in_full_quarters": 0.252506,
+          "hit_rate_outside_full_quarters": 0.148332,
+          "chance_outside_full_quarters": 0.147944
+        },
+        "checkin_one_monthly": {
+          "asks_per_student_year": 11.98011,
+          "hit_rate": 0.259404,
+          "lift": 1.84597,
+          "base_rate": 0.140525,
+          "high_weeks": 1489,
+          "high_weeks_asked": 662,
+          "high_weeks_missed": 827,
+          "false_alarms": 1890,
+          "false_alarms_per_student_year": 6.787293,
+          "low_periods": 311,
+          "low_periods_missed": 83,
+          "share_low_periods_reached": 0.733119,
+          "calendar_hit_rate": 0.141146,
+          "calendar_high_weeks_missed": 1145.5,
+          "calendar_false_alarms": 2090.4,
+          "calendar_share_low_periods_reached": 0.623794,
+          "random_hit_rate": 0.140635,
+          "random_ci": [
+            0.128691,
+            0.152414
+          ],
+          "matched_random_hit_rate": 0.250058,
+          "matched_random_ci": [
+            0.242088,
+            0.258856
+          ],
+          "share_matched_draws_at_or_above": 0.02,
+          "minus_calendar": 0.118273,
+          "minus_calendar_ci": [
+            0.069548,
+            0.162898
+          ],
+          "share_asks_in_full_quarters": 0.004796,
+          "hit_rate_outside_full_quarters": 0.25856,
+          "chance_outside_full_quarters": 0.244487
+        },
+        "auc": {
+          "phone": {
+            "auc": 0.564595,
+            "auc_ci": [
+              0.490535,
+              0.632089
+            ]
+          },
+          "checkin_one": {
+            "auc": 0.698213,
+            "auc_ci": [
+              0.655426,
+              0.745052
+            ]
+          },
+          "checkin_history": {
+            "auc": 0.790901,
+            "auc_ci": [
+              0.719761,
+              0.845052
+            ]
+          },
+          "answers": {
+            "auc": 0.909051,
+            "auc_ci": [
+              0.880884,
+              0.93097
+            ]
+          },
+          "followup": {
+            "auc": 0.891761,
+            "auc_ci": [
+              0.862111,
+              0.914953
+            ]
+          }
+        }
+      },
+      "All other groups together": {
+        "students": 27,
+        "labelled_weeks": 2309,
+        "base_rate": 0.089649,
+        "drift_rule": {
+          "asks_per_student_year": 21.06087,
+          "hit_rate": 0.08601,
+          "lift": 0.95941,
+          "base_rate": 0.089649,
+          "high_weeks": 207,
+          "high_weeks_asked": 83,
+          "high_weeks_missed": 124,
+          "false_alarms": 882,
+          "false_alarms_per_student_year": 15.33913,
+          "low_periods": 39,
+          "low_periods_missed": 18,
+          "share_low_periods_reached": 0.538462,
+          "calendar_hit_rate": 0.089633,
+          "calendar_high_weeks_missed": 123.2,
+          "calendar_false_alarms": 850.8,
+          "calendar_share_low_periods_reached": 0.830769,
+          "random_hit_rate": 0.089639,
+          "random_ci": [
+            0.076023,
+            0.104079
+          ],
+          "matched_random_hit_rate": 0.088076,
+          "matched_random_ci": [
+            0.079786,
+            0.096845
+          ],
+          "share_matched_draws_at_or_above": 0.67,
+          "minus_calendar": -0.003654,
+          "minus_calendar_ci": [
+            -0.025564,
+            0.025659
+          ],
+          "share_asks_in_full_quarters": 0.274154,
+          "hit_rate_outside_full_quarters": 0.103198,
+          "chance_outside_full_quarters": 0.110193
+        },
+        "checkin_one_monthly": {
+          "asks_per_student_year": 10.626087,
+          "hit_rate": 0.145299,
+          "lift": 1.620752,
+          "base_rate": 0.089649,
+          "high_weeks": 207,
+          "high_weeks_asked": 68,
+          "high_weeks_missed": 139,
+          "false_alarms": 400,
+          "false_alarms_per_student_year": 6.956522,
+          "low_periods": 39,
+          "low_periods_missed": 16,
+          "share_low_periods_reached": 0.589744,
+          "calendar_hit_rate": 0.089644,
+          "calendar_high_weeks_missed": 164.7,
+          "calendar_false_alarms": 429.0,
+          "calendar_share_low_periods_reached": 0.523077,
+          "random_hit_rate": 0.090331,
+          "random_ci": [
+            0.06931,
+            0.113215
+          ],
+          "matched_random_hit_rate": 0.149202,
+          "matched_random_ci": [
+            0.130606,
+            0.166675
+          ],
+          "share_matched_draws_at_or_above": 0.653,
+          "minus_calendar": 0.055547,
+          "minus_calendar_ci": [
+            -0.003212,
+            0.118583
+          ],
+          "share_asks_in_full_quarters": 0.003273,
+          "hit_rate_outside_full_quarters": 0.14561,
+          "chance_outside_full_quarters": 0.149771
+        },
+        "auc": {
+          "phone": {
+            "auc": 0.603437,
+            "auc_ci": [
+              0.436536,
+              0.713299
+            ]
+          },
+          "checkin_one": {
+            "auc": 0.625413,
+            "auc_ci": [
+              0.523632,
+              0.684447
+            ]
+          },
+          "checkin_history": {
+            "auc": 0.71639,
+            "auc_ci": [
+              0.543961,
+              0.813808
+            ]
+          },
+          "answers": {
+            "auc": 0.883486,
+            "auc_ci": [
+              0.788104,
+              0.931258
+            ]
+          },
+          "followup": {
+            "auc": 0.837235,
+            "auc_ci": [
+              0.729587,
+              0.90308
+            ]
+          }
+        }
+      }
+    }
+  },
+  "groups_not_shown": {
+    "gender": 3,
+    "race": 2
+  },
+  "runtime_seconds": 114.9,
+  "headline": "At 12 asks per student-year, 24% of the asks chosen from one check-in landed on a week with a high PHQ-2, against 13% for a fixed calendar and 18% for a phone model; random weeks from the same student and quarter reached 23%, so nearly all of the gain comes from finding which students and which term to ask in, and the choice of week adds about one point.",
+  "caveats": [
+    "These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.",
+    "The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.",
+    "In this study the check-in questions came in the same survey as the PHQ-2. We cannot tell whether students would answer a short check-in more often than two screening questions.",
+    "80% of monitored weeks had a check-in in the week before. The other weeks are scored from a missing-value flag.",
+    "The two reference rows use the student's earlier PHQ-2 answers, and 100% of monitored weeks had one because the study asked every week. An app held to 12 asks a year would not have those answers, so these rows show how long high answers last and are not a design.",
+    "The asks are the highest-scoring weeks among students the model never saw. A real app would have to set its threshold in advance, so its number of asks would vary from the budget.",
+    "The phone model sees the week itself, up to its last day. The check-in models and the follow-up rule only see answers from before Monday, so the comparison favours the phone model.",
+    "The group rows describe how each method behaved in this sample. Men and the smaller race groups have few students, so their intervals are wide.",
+    "Gender and race are self-reported in the study's own categories. Groups with fewer than 20 students are not shown."
+  ]
+}

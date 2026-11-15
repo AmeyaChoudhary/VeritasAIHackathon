@@ -59,7 +59,7 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 | Connect, then Import a file, parses a Spotify history file or a sleep and steps CSV in the browser, and uploads nothing | Pairing. "Scan the code" reads the code from the teen phone on the same page |
 | The parent app's timing: urgent notes repeat every 5 minutes, reach the other adults after 15, reminders after 2 days, "Not connected" after 26 hours, heads-ups held quietly for six weeks after "Booked a doctor" | Do Not Disturb, Critical Alerts, phone calls and texts. The `tel:` and `sms:` links open the phone's dialer or messages app if there is one |
 
-"How we know" reads `public/data/exp1_summary.json` and `exp2_summary.json` at runtime and shows "Results pending" if either is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
+"How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json` and `exp3_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
 
 ## Choices the doc leaves open
 

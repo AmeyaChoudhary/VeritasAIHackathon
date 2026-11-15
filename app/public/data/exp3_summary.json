@@ -1,0 +1,108 @@
+{
+  "generated": "2026-11-15",
+  "dataset": "College Experience Study (Dartmouth), CC BY-NC-SA 4.0, academic use only",
+  "students": 213,
+  "budget_asks_per_student_year": 12.0,
+  "methods": {
+    "phone": {
+      "hit_rate": 0.18306,
+      "calendar_hit_rate": 0.128638,
+      "matched_random_hit_rate": 0.178316,
+      "high_weeks_missed": 1501,
+      "high_weeks": 2171,
+      "false_alarms": 2990,
+      "share_low_periods_reached": 0.490022
+    },
+    "checkin_one": {
+      "hit_rate": 0.235118,
+      "calendar_hit_rate": 0.128638,
+      "matched_random_hit_rate": 0.226495,
+      "high_weeks_missed": 1227,
+      "high_weeks": 2171,
+      "false_alarms": 3071,
+      "share_low_periods_reached": 0.736142
+    },
+    "checkin_history": {
+      "hit_rate": 0.316237,
+      "calendar_hit_rate": 0.128638,
+      "matched_random_hit_rate": 0.318899,
+      "high_weeks_missed": 981,
+      "high_weeks": 2171,
+      "false_alarms": 2573,
+      "share_low_periods_reached": 0.651885
+    },
+    "answers": {
+      "hit_rate": 0.45215,
+      "calendar_hit_rate": 0.128638,
+      "matched_random_hit_rate": 0.444325,
+      "high_weeks_missed": 541,
+      "high_weeks": 2171,
+      "false_alarms": 1975,
+      "share_low_periods_reached": 0.880266
+    },
+    "followup": {
+      "hit_rate": 0.418236,
+      "calendar_hit_rate": 0.128638,
+      "matched_random_hit_rate": 0.407665,
+      "high_weeks_missed": 616,
+      "high_weeks": 2171,
+      "false_alarms": 2163,
+      "share_low_periods_reached": 0.946785
+    }
+  },
+  "auc": {
+    "phone": 0.570942,
+    "checkin_one": 0.690284,
+    "checkin_history": 0.780669,
+    "answers": 0.899174,
+    "followup": 0.877274
+  },
+  "groups": {
+    "gender": {
+      "Women": {
+        "students": 142,
+        "base_rate": 0.117627,
+        "checkin_auc": 0.660173,
+        "phone_auc": 0.574401
+      },
+      "Men": {
+        "students": 68,
+        "base_rate": 0.152646,
+        "checkin_auc": 0.749422,
+        "phone_auc": 0.561203
+      }
+    },
+    "race": {
+      "Asian": {
+        "students": 51,
+        "base_rate": 0.115247,
+        "checkin_auc": 0.688891,
+        "phone_auc": 0.576565
+      },
+      "White": {
+        "students": 133,
+        "base_rate": 0.140525,
+        "checkin_auc": 0.698213,
+        "phone_auc": 0.564595
+      },
+      "All other groups together": {
+        "students": 27,
+        "base_rate": 0.089649,
+        "checkin_auc": 0.625413,
+        "phone_auc": 0.603437
+      }
+    }
+  },
+  "headline": "At 12 asks per student-year, 24% of the asks chosen from one check-in landed on a week with a high PHQ-2, against 13% for a fixed calendar and 18% for a phone model; random weeks from the same student and quarter reached 23%, so nearly all of the gain comes from finding which students and which term to ask in, and the choice of week adds about one point.",
+  "caveats": [
+    "These are Dartmouth college students from 2017 to 2022. Steady is meant for high school students.",
+    "The label is a weekly PHQ-2 answered on the phone. It is a screening score, and a doctor makes the diagnosis.",
+    "In this study the check-in questions came in the same survey as the PHQ-2. We cannot tell whether students would answer a short check-in more often than two screening questions.",
+    "80% of monitored weeks had a check-in in the week before. The other weeks are scored from a missing-value flag.",
+    "The two reference rows use the student's earlier PHQ-2 answers, and 100% of monitored weeks had one because the study asked every week. An app held to 12 asks a year would not have those answers, so these rows show how long high answers last and are not a design.",
+    "The asks are the highest-scoring weeks among students the model never saw. A real app would have to set its threshold in advance, so its number of asks would vary from the budget.",
+    "The phone model sees the week itself, up to its last day. The check-in models and the follow-up rule only see answers from before Monday, so the comparison favours the phone model.",
+    "The group rows describe how each method behaved in this sample. Men and the smaller race groups have few students, so their intervals are wide.",
+    "Gender and race are self-reported in the study's own categories. Groups with fewer than 20 students are not shown."
+  ]
+}

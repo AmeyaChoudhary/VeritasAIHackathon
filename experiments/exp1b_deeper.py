@@ -1994,10 +1994,17 @@ def make_markdown(res: dict) -> str:
     if flags:
         w(f"- **Results above 0.90.** {_n(len(flags))} honest rows came out above 0.90. Every one uses the "
           "student's earlier PHQ answers. Their explanation is in \"Rows above 0.90\" below.")
-    w(f"- **External data.** Depresjon (55 adults, wrist actigraphy, patients against healthy controls): "
-      f"{_by_model(h['dep'])}; {_a(h['dep_nested'])} with the model chosen inside each training part. StudentLife "
-      f"2013 (38 students, 7 with an end-of-term PHQ-9 of 10 or more): {_by_model(h['sl'])}; "
-      f"{_a(h['sl_nested'])} with nested choice.")
+    # Either outside dataset may be missing from data/ (see scripts/get_data.sh); its rows are then left out.
+    dep_ok = all(r is not None for r in h["dep"] + [h["dep_nested"], h["dep_zero"]])
+    sl_ok = all(r is not None for r in h["sl"] + [h["sl_nested"]])
+    dep_txt = (f"Depresjon (55 adults, wrist actigraphy, patients against healthy controls): "
+               f"{_by_model(h['dep'])}; {_a(h['dep_nested'])} with the model chosen inside each training part."
+               if dep_ok else "Depresjon was not in `data/` for this run, so it was skipped.")
+    sl_txt = (f"StudentLife "
+              f"2013 (38 students, 7 with an end-of-term PHQ-9 of 10 or more): {_by_model(h['sl'])}; "
+              f"{_a(h['sl_nested'])} with nested choice."
+              if sl_ok else "StudentLife was not in `data/` for this run, so it was skipped.")
+    w(f"- **External data.** {dep_txt} {sl_txt}")
     w("")
     w("All AUCs are exploratory, model-specific cross-validation estimates. Every model's result is listed, and the "
       "intervals do not include the step of choosing among models.")
@@ -2029,12 +2036,14 @@ def make_markdown(res: dict) -> str:
       "Nested model choice added. |")
     w(f"| Change detection | {fv['change']['auc']:.2f} (logistic) | {_span(h['change'])} | Phone data now from before "
       "the answer. |")
-    w(f"| Depresjon | {fv['depresjon']['auc']:.2f} (random forest) | {_span(h['dep'])}; nested "
-      f"{_f(h['dep_nested']['auc'])}; {_f(h['dep_zero']['auc'])} without all-zero days | Nested choice and a "
-      "watch-off check added. |")
-    w(f"| StudentLife | {fv['studentlife']['auc']:.2f} (logistic) | {_span(h['sl'])}; nested "
-      f"{_f(h['sl_nested']['auc'])} | Calls and texts were logger records, many empty. Calls are now real call events "
-      "and texts are dropped. |")
+    if dep_ok:
+        w(f"| Depresjon | {fv['depresjon']['auc']:.2f} (random forest) | {_span(h['dep'])}; nested "
+          f"{_f(h['dep_nested']['auc'])}; {_f(h['dep_zero']['auc'])} without all-zero days | Nested choice and a "
+          "watch-off check added. |")
+    if sl_ok:
+        w(f"| StudentLife | {fv['studentlife']['auc']:.2f} (logistic) | {_span(h['sl'])}; nested "
+          f"{_f(h['sl_nested']['auc'])} | Calls and texts were logger records, many empty. Calls are now real call events "
+          "and texts are dropped. |")
     w("")
     w("## What we tested")
     w("")
@@ -2252,13 +2261,14 @@ def make_markdown(res: dict) -> str:
       "The StudentLife PHQ-9 table has no answer dates, so we cannot check that the phone data came before the "
       "answers.")
     w("")
-    w(f"**Depresjon.** A case-control sample: adults with a depression diagnosis against healthy people. Telling those "
-      f"groups apart is far easier than spotting a bad week in a student. In "
-      f"{dep_i.get('people_with_all_zero_days', 0)} people's recordings some days had no activity at all, which may "
-      f"mean the watch was off. Removing those "
-      f"{dep_i.get('all_zero_days_removed', 0)} days gave {_a(h['dep_zero'])} with a random forest. Its day-level "
-      "rows also show the random-split leak in a second dataset.")
-    w("")
+    if dep_ok:
+        w(f"**Depresjon.** A case-control sample: adults with a depression diagnosis against healthy people. Telling those "
+          f"groups apart is far easier than spotting a bad week in a student. In "
+          f"{dep_i.get('people_with_all_zero_days', 0)} people's recordings some days had no activity at all, which may "
+          f"mean the watch was off. Removing those "
+          f"{dep_i.get('all_zero_days_removed', 0)} days gave {_a(h['dep_zero'])} with a random forest. Its day-level "
+          "rows also show the random-split leak in a second dataset.")
+        w("")
     if h["sl_old"]:
         w(f"**StudentLife correction.** The first version counted logger records as texts and calls. Most call-log "
           "records are empty polls, and the text table has no message events at all. Calls are now unique call "

@@ -45,10 +45,11 @@ function Caveats({ v }: { v: unknown }) {
   );
 }
 
-/** Headlines from the two experiments, read at runtime from public/data. */
+/** Headlines from the experiments, read at runtime from public/data. */
 export function HowWeKnow() {
   const e1 = useJson("./data/exp1_summary.json");
   const e2 = useJson("./data/exp2_summary.json");
+  const e3 = useJson("./data/exp3_summary.json");
   return (
     <div>
       <section className="card" style={{ margin: "0 0 10px" }}>
@@ -89,6 +90,37 @@ export function HowWeKnow() {
               </dd>
             </dl>
             <Caveats v={e1.data.caveats} />
+          </>
+        )}
+      </section>
+      <section className="card" style={{ margin: "0 0 10px" }}>
+        <p className="label" style={{ margin: 0 }}>
+          Experiment 3 · Asking
+        </p>
+        {e3.state === "loading" ? (
+          <p className="small muted">Loading.</p>
+        ) : !e3.data ? (
+          <p className="small muted">Results pending.</p>
+        ) : (
+          <>
+            {typeof e3.data.headline === "string" && <p style={{ margin: "6px 0" }}>{e3.data.headline}</p>}
+            <dl className="kv">
+              <dt>Asks per student-year</dt>
+              <dd>{num(get(e3.data, "budget_asks_per_student_year"), 0)}</dd>
+              <dt>Hit rate: fixed calendar</dt>
+              <dd>{pct(get(e3.data, "methods.checkin_one.calendar_hit_rate"))}</dd>
+              <dt>Hit rate: phone model</dt>
+              <dd>{pct(get(e3.data, "methods.phone.hit_rate"))}</dd>
+              <dt>Hit rate: one check-in</dt>
+              <dd>{pct(get(e3.data, "methods.checkin_one.hit_rate"))}</dd>
+              <dt>Random weeks, same student and quarter</dt>
+              <dd>{pct(get(e3.data, "methods.checkin_one.matched_random_hit_rate"))}</dd>
+              <dt>One check-in AUC: women / men</dt>
+              <dd>
+                {num(get(e3.data, "groups.gender.Women.checkin_auc"))} / {num(get(e3.data, "groups.gender.Men.checkin_auc"))}
+              </dd>
+            </dl>
+            <Caveats v={e3.data.caveats} />
           </>
         )}
       </section>
