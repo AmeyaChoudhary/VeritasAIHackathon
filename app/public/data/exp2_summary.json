@@ -1,0 +1,82 @@
+{
+  "generated": "2026-11-14",
+  "dataset": "GoEmotions (Google), Apache-2.0",
+  "low_mood_labels": [
+    "sadness",
+    "grief",
+    "disappointment",
+    "remorse"
+  ],
+  "test_size": 5427,
+  "model": {
+    "precision": 0.5178,
+    "recall": 0.5478,
+    "missed": 156,
+    "false_alarms": 176,
+    "threshold": 0.595
+  },
+  "baseline_keyword": {
+    "precision": 0.4795,
+    "recall": 0.2377,
+    "missed": 263,
+    "false_alarms": 89
+  },
+  "model_size_kb": 496,
+  "parity_max_diff": 3.33e-16,
+  "messages": {
+    "n": 60,
+    "by_slice": {
+      "everyday": {
+        "n": 10,
+        "flagged_low_mood": 1,
+        "labelled_low_mood": 0
+      },
+      "low_mood": {
+        "n": 11,
+        "flagged_low_mood": 6,
+        "labelled_low_mood": 11
+      },
+      "lyric_style": {
+        "n": 8,
+        "flagged_low_mood": 0,
+        "labelled_low_mood": 4
+      },
+      "dark_joke": {
+        "n": 8,
+        "flagged_low_mood": 1,
+        "labelled_low_mood": 0
+      },
+      "sarcasm": {
+        "n": 8,
+        "flagged_low_mood": 0,
+        "labelled_low_mood": 3
+      },
+      "risk_concern": {
+        "n": 6,
+        "flagged_low_mood": 2,
+        "labelled_low_mood": 6
+      },
+      "risk_plan": {
+        "n": 9,
+        "flagged_low_mood": 3,
+        "labelled_low_mood": 9
+      }
+    }
+  },
+  "selfharm": {
+    "false_flags": 4,
+    "false_flag_pool": 24,
+    "missed": 9,
+    "risk_pool": 15,
+    "plan_as_concern": 0
+  },
+  "headline": "On 5,427 Reddit comments it never saw, the tone model found 55% of low-mood comments against 24% for a keyword list, and the self-harm phrase list missed 9 of the 15 risk messages we wrote.",
+  "caveats": [
+    "GoEmotions is Reddit comments, mostly by adults. It holds no teen texts, so the test numbers may not carry over to a teen's phone.",
+    "Low mood means a comment was labelled sadness, grief, disappointment or remorse. These are emotion labels and say nothing about depression or suicide risk.",
+    "The model scores one message at a time. Steady uses the weekly share of low-mood messages against the student's own normal, which this test does not measure.",
+    "The word 'sorry' pushes a message hard toward low mood, so 'sorry im late' scores as low mood.",
+    "The self-harm check is a short phrase list and it is not validated. No clinician has reviewed it, and it missed 9 of the 15 risk messages we wrote.",
+    "The 60 messages were written by a Claude session, not by teens, and labelled by that one writer. 60 messages are too few for reliable rates."
+  ]
+}

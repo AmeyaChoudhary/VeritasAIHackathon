@@ -6,6 +6,10 @@ Steady is a concept for an app on a teenager's phone. It learns the student's ow
 
 **This project is a prototype and is not medical advice.**
 
+**Start with [the one-page write-up](WRITEUP.md).** It covers the problem, what we built, the results against a baseline, and where it fails.
+
+![Week 8 of the demo: Maya's phone suggests a doctor, and her mom's phone gets the note](docs/img/week8-both-phones.png)
+
 ## Status
 
 Both experiments have run, and the app works end to end on sample data. No clinician has reviewed any of it.
@@ -21,6 +25,8 @@ Both experiments have run, and the app works end to end on sample data. No clini
 
 | Path | What it is |
 | --- | --- |
+| [WRITEUP.md](WRITEUP.md) | The one-page write-up in the hackathon's template |
+| [docs/video-script.md](docs/video-script.md) | The script and click path for the two-minute demo video |
 | [docs/concept.md](docs/concept.md) | The concept: the problem, what people need, what Steady is, how it decides, how we will build it, and the hard questions |
 | [docs/parent-alerts.md](docs/parent-alerts.md) | When a parent is told, what each note says, what leaves the phone, and what this does not solve |
 | [docs/signals-and-model-ideas.md](docs/signals-and-model-ideas.md) | Every signal we considered, how music fits, nine ideas for the model, and what a phone can and cannot see |
@@ -85,7 +91,7 @@ pip install pandas==3.1.1 numpy==2.5.4 scikit-learn==1.9.1
 python audit/audit_reddit_dataset.py path/to/depression_dataset_reddit_cleaned.csv
 ```
 
-`requirements.txt` also lists the packages for the experiments we have planned.
+The experiments need everything in `requirements.txt`; the audit needs only these three.
 
 ## Credits
 

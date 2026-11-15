@@ -1,0 +1,112 @@
+{
+  "generated": "2026-11-14",
+  "dataset": "College Experience Study (Dartmouth), CC BY-NC-SA 4.0",
+  "label": "PHQ-2 >= 3 (PHQ-4 items 3 and 4)",
+  "students": 213,
+  "student_weeks_with_label": 16886,
+  "base_rate": 0.1286,
+  "signals": [
+    {
+      "key": "sleep",
+      "label": "Sleep",
+      "feature": "sleep_duration",
+      "worse": "lower"
+    },
+    {
+      "key": "bedtime",
+      "label": "Bedtime regularity",
+      "feature": "sleep_start (weekly SD)",
+      "worse": "higher"
+    },
+    {
+      "key": "night_phone",
+      "label": "Phone use after midnight",
+      "feature": "unlock_duration_hr_0..hr_4",
+      "worse": "higher"
+    },
+    {
+      "key": "time_with_others",
+      "label": "Time with others",
+      "feature": "loc_social_dur + loc_other_dorm_dur",
+      "worse": "lower"
+    },
+    {
+      "key": "places",
+      "label": "Places visited",
+      "feature": "loc_visit_num_ep_0",
+      "worse": "lower"
+    },
+    {
+      "key": "movement",
+      "label": "Distance travelled",
+      "feature": "loc_dist_ep_0 (log scale)",
+      "worse": "lower"
+    }
+  ],
+  "ask_comparison": {
+    "budget_asks_per_student_year": 21.42,
+    "steady_rule": {
+      "hit_rate": 0.1465,
+      "episodes_reached": 0.5543
+    },
+    "logistic": {
+      "hit_rate": 0.1118,
+      "auc": 0.4821,
+      "auc_ci": [
+        0.4279,
+        0.5371
+      ]
+    },
+    "fixed_calendar": {
+      "hit_rate": 0.1286,
+      "episodes_reached": 0.8767
+    },
+    "random": {
+      "hit_rate": 0.1285,
+      "ci": [
+        0.1225,
+        0.1344
+      ]
+    }
+  },
+  "heads_up": {
+    "weeks_out": 6,
+    "cooldown_weeks": 3,
+    "alerts_per_student_year": 2.81,
+    "hit_rate": 0.1585,
+    "calendar_hit_rate": 0.1552
+  },
+  "door_check": {
+    "students_high_at_start": 37,
+    "missed_by_drift_rule": 11
+  },
+  "logistic_weights": {
+    "intercept": -2.0153,
+    "coef": {
+      "z_sleep": 0.0234,
+      "z_bedtime": -0.0192,
+      "z_night_phone": 0.1102,
+      "z_time_with_others": 0.0555,
+      "z_places": 0.0212,
+      "z_movement": 0.014,
+      "z_sleep_last_week": -0.0418,
+      "z_bedtime_last_week": -0.0339,
+      "z_night_phone_last_week": 0.0928,
+      "z_time_with_others_last_week": 0.0077,
+      "z_places_last_week": -0.0275,
+      "z_movement_last_week": -0.0313,
+      "signals_out": 0.0528
+    }
+  },
+  "headline": "At 21 asks per student-year, 14.6% of the drift rule's asks landed on weeks with a high mood score against 12.9% for a fixed calendar, but random weeks from the same student in the same three months did as well (14.9%), so the rule found harder stretches and did no better than chance at picking the week.",
+  "caveats": [
+    "Mood scores stand in for a note being right. They cannot show whether a note helped a family.",
+    "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Steady is meant for high school students.",
+    "The label is two PHQ-4 items answered on the phone, counted as high at 3 or more. Only 74% of monitored weeks have one.",
+    "The phone signals are the study's own features. Steady would record different ones, and typing, tone and music were not available.",
+    "The personal range is learned in each student's first four valid weeks and then frozen, so it drifts: the rule asked in 26% of weeks in year one and 61% in year three.",
+    "At k = 1.0 the rule asks in 41% of monitored weeks, far more often than a real app should.",
+    "The logistic regression and heads-up numbers come from the test half of one fixed split of students. The spread over five splits is in results.json.",
+    "Nothing here shows that phone signals detect depression."
+  ]
+}
