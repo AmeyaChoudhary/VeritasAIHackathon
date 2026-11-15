@@ -14,7 +14,7 @@ const BASE = "http://127.0.0.1:5231/";
 const FFMPEG = process.env.FFMPEG ?? "ffmpeg";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 mkdirSync(outDir, { recursive: true });
-const watchdog = setTimeout(() => { console.error('watchdog: stuck for 4 minutes, giving up'); process.exit(3); }, 240000);
+const watchdog = setTimeout(() => { console.error('watchdog: stuck for 5 minutes, giving up'); process.exit(3); }, 300000);
 
 const browser = await puppeteer.launch({
   executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -108,18 +108,41 @@ const answer = async (prefix, answers) => {
   return n;
 };
 
+/** The two-tap check-in on Maya's Home: stress, then time with people, each 1 to 5. */
+const checkin = async (n, stress, people) => {
+  mark("ci" + n);
+  const tap = (row, v) => teen.evaluate((row, v) => {
+    const dots = document.querySelectorAll(".checkin .ci-row")[row]?.querySelectorAll(".ci-dot");
+    if (!dots || !dots[v - 1]) throw new Error("no check-in card on the page");
+    dots[v - 1].click();
+  }, row, v);
+  await sleep(500);
+  await tap(0, stress);
+  await sleep(750);
+  await tap(1, people);
+  await sleep(1100);
+};
+
 await sleep(1600);
 await week(2, 1700);
-await week(3, 1700);
-await week(4, 2600);
-await week(5, 2600);
-await scripted(false);               // from here Maya answers on her own phone, on camera
-await week(6, 2600);
-const n1 = await answer("ask1", [0, 1]);          // low: not at all, several days
-await sleep(2400);
-await week(7, 2600);
-await week(8, 2600);
-const n2 = await answer("ask2", [3, 2]);          // high on the two, then "more than half the days" on the rest
+await week(3, 1900);
+await scripted(false);               // from here Maya checks in and answers on her own phone, on camera
+await sleep(700);
+await checkin(4, 2, 4);
+await week(4, 2600);                 // the monthly ask
+const n1 = await answer("ask1", [1, 1]);          // "several days" on both: a total of 2, under the cutoff
+await sleep(1500);
+await checkin(5, 4, 3);
+await week(5, 2600);                 // finals: signals drift
+await checkin(6, 4, 2);
+await week(6, 2800);                 // the ask model asks again, two weeks early
+const n2 = await answer("ask2", [1, 1]);
+await sleep(1500);
+await checkin(7, 4, 2);
+await week(7, 2400);
+await checkin(8, 5, 1);
+await week(8, 2800);
+const n3 = await answer("ask3", [2, 2, 2, 1, 2, 1, 1, 1]);   // high on the two, then the six more
 mark("doctor");
 await sleep(600);
 mark("note");
@@ -151,10 +174,10 @@ await recParent.stop();
 const state = await teen.evaluate(() => document.body.innerText.slice(0, 300));
 await browser.close();
 
-writeFileSync(recJson, JSON.stringify({ ready: true, parentOffset: +parentOffset.toFixed(2), questions: [n1, n2], marks }, null, 1) + "\n");
+writeFileSync(recJson, JSON.stringify({ ready: true, parentOffset: +parentOffset.toFixed(2), questions: [n1, n2, n3], marks }, null, 1) + "\n");
 for (const name of ["teen", "parent"]) {
   execFileSync(FFMPEG, ["-y", "-v", "error", "-i", `${outDir}/${name}.webm`, "-vf", "scale=trunc(iw/2)*2:trunc(ih/2)*2", "-c:v", "libx264", "-crf", "22", "-preset", "slow", "-pix_fmt", "yuv420p", "-r", "30", "-g", "15", "-an", "-movflags", "+faststart", `${outDir}/${name}.mp4`]);
 }
-console.log("questions answered:", n1, n2, "| marks:", JSON.stringify(marks));
+console.log("questions answered:", n1, n2, n3, "| marks:", JSON.stringify(marks));
 clearTimeout(watchdog);
 console.log("teen page at the end:", state.replace(/\s+/g, " ").slice(0, 160));

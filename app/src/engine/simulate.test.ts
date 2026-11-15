@@ -5,6 +5,7 @@ import { weekEndAt } from "./rules";
 import { checkSelfHarm } from "./selfharm";
 import { SCENARIOS, SCENARIO_ORDER, at, type ScenarioId } from "./simulate";
 import { parseBodyCsv, parseSpotify } from "./importers";
+import { ASK_THRESHOLD } from "./askmodel";
 
 function play(id: ScenarioId, stopAtStops = false): { world: World; emitted: Emitted[]; stops: string[] } {
   const scn = SCENARIOS[id];
@@ -39,9 +40,20 @@ describe("scenarios", () => {
     expect(n).toHaveLength(1);
     expect(n[0].event).toEqual({ type: "heads_up", areas: ["sleep", "reaching_out"], weeks: 4, sent_at: "2026-12-27T21:30:00Z" });
     expect(n[0].at).toBe(weekEndAt(world.teen, 8) + 30 * MINUTE);
-    // week 6: the two were low and taken at her word
-    const week6 = world.teen.asks.find((a) => a.week === 6);
-    expect(week6?.result).toBe("low");
+    // Week 4 is the monthly ask: a total of 2, under the cutoff, taken at her word.
+    // Her check-ins then get more stressed, the ask model's score crosses its threshold, and it
+    // asks again in week 6 instead of waiting for week 8. From then on the model does the asking.
+    // Her phone signals are outside the range from week 5 but never ask: she is checking in.
+    expect(world.teen.asks.filter((a) => a.kind === "check").map((a) => [a.week, a.reason, a.result])).toEqual([
+      [4, "anyway", "low"],
+      [6, "model", "low"],
+      [8, "model", "high"],
+      [10, "model", "low"],
+      [12, "model", "low"],
+    ]);
+    const scores = world.teen.weeks.map((r) => r.askScore ?? 0);
+    expect(scores[3]).toBeLessThan(ASK_THRESHOLD); // week 4
+    expect(scores[5]).toBeGreaterThan(ASK_THRESHOLD); // week 6
     expect(world.teen.week).toBe(12);
     // status went out once a day
     expect(emitted.filter((x) => x.event.type === "status").length).toBeGreaterThanOrEqual(83);
@@ -53,7 +65,8 @@ describe("scenarios", () => {
     const st = emitted.filter((x) => x.event.type === "status").map((x) => x.event as { enough_data: boolean; keyboard_used: boolean });
     expect(st.some((s) => !s.enough_data)).toBe(true);
     expect(st.some((s) => !s.keyboard_used)).toBe(true);
-    expect(world.teen.asks.filter((a) => a.kind === "check")).toHaveLength(1);
+    // the two questions once a month: weeks 4, 8 and 12, all answered low
+    expect(world.teen.asks.filter((a) => a.kind === "check").map((a) => [a.week, a.result])).toEqual([[4, "low"], [8, "low"], [12, "low"]]);
   });
 
   it("Skips the questions: the four-week rule sends a heads-up, and a second one waits three weeks", () => {

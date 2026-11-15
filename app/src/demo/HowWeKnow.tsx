@@ -50,6 +50,7 @@ export function HowWeKnow() {
   const e1 = useJson("./data/exp1_summary.json");
   const e2 = useJson("./data/exp2_summary.json");
   const e3 = useJson("./data/exp3_summary.json");
+  const e4 = useJson("./data/exp4_summary.json");
   return (
     <div>
       <section className="card" style={{ margin: "0 0 10px" }}>
@@ -121,6 +122,43 @@ export function HowWeKnow() {
               </dd>
             </dl>
             <Caveats v={e3.data.caveats} />
+          </>
+        )}
+      </section>
+      <section className="card" style={{ margin: "0 0 10px" }}>
+        <p className="label" style={{ margin: 0 }}>
+          Experiment 4 · The ask model this app runs
+        </p>
+        {e4.state === "loading" ? (
+          <p className="small muted">Loading.</p>
+        ) : !e4.data ? (
+          <p className="small muted">Results pending.</p>
+        ) : (
+          <>
+            {typeof e4.data.headline === "string" && <p style={{ margin: "6px 0" }}>{e4.data.headline}</p>}
+            <dl className="kv">
+              <dt>Students</dt>
+              <dd>{num(get(e4.data, "students"), 0)}</dd>
+              <dt>AUC, students never seen</dt>
+              <dd>{num(get(e4.data, "auc"))}</dd>
+              <dt>Hit rate: ask model</dt>
+              <dd>{pct(get(e4.data, "hit_rate"))}</dd>
+              <dt>Hit rate: fixed calendar</dt>
+              <dd>{pct(get(e4.data, "calendar_hit_rate"))}</dd>
+              <dt>Random weeks, same student and quarter</dt>
+              <dd>{pct(get(e4.data, "matched_random_hit_rate"))}</dd>
+              <dt>High weeks missed</dt>
+              <dd>
+                {num(get(e4.data, "high_weeks_missed"), 0)} of {num(get(e4.data, "high_weeks"), 0)}
+              </dd>
+              <dt>False alarms</dt>
+              <dd>{num(get(e4.data, "false_alarms"), 0)}</dd>
+              <dt>Check-in alone / answers alone AUC</dt>
+              <dd>
+                {num(get(e4.data, "checkin_only_auc"))} / {num(get(e4.data, "answers_only_auc"))}
+              </dd>
+            </dl>
+            <Caveats v={e4.data.caveats} />
           </>
         )}
       </section>

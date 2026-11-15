@@ -16,7 +16,7 @@ export function Settings({ onOpenConnect }: { onOpenConnect: (source: SourceId) 
       <p className="label">Settings</p>
       <h1 className="title">Linked to {p.parent}'s phone.</h1>
       <p>
-        {p.parent} gets a short note if something stays off for a few weeks or your check-in answers are high, and an urgent note if
+        {p.parent} gets a short note if something stays off for a few weeks or your answers to its questions are high, and an urgent note if
         you type something that sounds like you might hurt yourself.
       </p>
       {p.second && <p>Urgent notes also go to {p.second} if {p.parent} doesn't answer.</p>}

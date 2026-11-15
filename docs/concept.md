@@ -25,9 +25,9 @@ Today's tools miss all three. Monitoring apps read everything and alert a parent
 
 Steady is an app on the student's phone that answers one question: is now the time to ask? It asks the student first. When the signs keep pointing the same way, it asks their parent to check in.
 
-1. **It learns your normal.** For four weeks it learns the student's own range for sleep, contact with friends, activity and the tone of what they type.
-2. **It notices a lasting shift.** One bad night changes nothing. Two weeks outside the student's own range is what counts.
-3. **It asks.** Two screening questions come first. If the answers are high, six more complete the eight-question form. They come from the questionnaire doctors use.
+1. **It learns your normal.** For four weeks it learns the student's own range for sleep, contact with friends, activity and the tone of what they type. One bad night changes nothing. Two weeks outside the range is what counts, and the student can see it on their own chart.
+2. **It checks in.** Once a week the student taps two answers: how stressed they are, and how much time they have spent with other people. It takes a few seconds and stays on the phone.
+3. **It asks.** Two screening questions come up once a month. A small model reads the check-ins and the earlier answers, and asks sooner when its score is high. If the answers are high, six more complete the eight-question form. They come from the questionnaire doctors use.
 4. **It asks a parent to check in.** After a high score, or a shift that lasts while the questions are skipped, Steady sends the linked parent a short note: what changed, for how long, and how to start the conversation. It suggests a doctor to the student.
 
 Four rules make it safe to keep switched on:
@@ -41,7 +41,7 @@ When the parent is told, what each note says and what leaves the phone are set o
 
 ## How it decides
 
-Steady does not hunt for alarming messages. It compares a few everyday signals with the student's own normal, and acts only on a change that lasts. The questionnaire and words about self-harm have their own triggers, set out in [Parent alerts](parent-alerts.md).
+Steady does not hunt for alarming messages. It asks the student, and it compares a few everyday signals with the student's own normal. Our first design let those signals decide when to ask. Our own test showed they could not (see "What we found"), so the student's answers now decide, and the signals are context. The questionnaire and words about self-harm have their own triggers, set out in [Parent alerts](parent-alerts.md).
 
 | Signal | What is measured each week | Symptom it stands for |
 | --- | --- | --- |
@@ -56,14 +56,16 @@ Steady does not hunt for alarming messages. It compares a few everyday signals w
 1. **Learn the normal.** For four weeks, Steady records each signal's typical value and how much it usually varies.
 2. **Score each week.** Each signal gets a distance from normal in the worse direction, measured in the student's usual spread. If Maya usually sleeps 7.5 hours give or take 0.4, a week at 5.8 hours is about four spreads out.
 3. **Require persistence.** A signal counts only after two weeks outside the range.
-4. **Ask.** When two signals count, or tone plus one other, Steady asks the two questions. A score of 3 or more, or two more weeks outside, leads to the eight. A score of 10 or more on the eight sends the parent a heads-up and suggests a doctor to the student. A low score pauses asking for two weeks. If two signals stay outside for four weeks and the last two asks were skipped, the parent gets a heads-up anyway.
-5. **Learn the weights.** The rule above is our baseline. A logistic regression trained on one group of Dartmouth students learns how much each signal matters, and is tested on the other group.
+4. **Check in.** Each week the student can answer two taps: stress, from 1 (not at all) to 5 (extremely), and time alone or with others, from 1 (almost always alone) to 5 (almost always with others). The answers stay on the phone and never send a parent anything.
+5. **Decide when to ask.** Everyone gets the two questions once a month. At the end of each week the ask model scores six numbers: this week's check-in, the student's usual check-in, their most recent PHQ-2 score and their average PHQ-2 score. If the score reaches its threshold, and the last ask was at least two weeks ago, Steady asks then and does not wait for the month. The model is a logistic regression trained on 213 Dartmouth students ([Experiment 4](../results/exp4/results.md)).
+6. **Act on the answers.** A score of 3 or more on the two questions leads to the eight. A score of 10 or more on the eight sends the parent a heads-up and suggests a doctor to the student. A low score pauses asking for two weeks.
+7. **Keep the signals as a backstop.** If the student has not checked in for two weeks, the signals decide when to ask, as in our first design: two signals counting, or tone plus one other. If two signals stay outside for four weeks and the last two asks were skipped, the parent gets a heads-up anyway. The signals also name what changed in a parent's note.
 
 **If a student is already low when they start.** A range learned during a low period would treat low as normal. Steady guards against that four ways:
 
 - **A check at the door.** Setup begins with the eight questions. A high score skips the learning weeks, sends the parent a heads-up and suggests a doctor. The eight questions then come back every two weeks, and the range starts learning once two in a row score under 10. Two skipped check-ins in a row send another heads-up.
 - **Fixed limits as well as a personal range.** Some limits apply to everyone, such as averaging under six hours of sleep on school nights. The CDC's survey of high schoolers sets them.
-- **Asking anyway.** The two questions come up every two months, even when nothing has shifted.
+- **Asking anyway.** The two questions come up every month, even when nothing has shifted.
 - **Slow to accept worse.** The range moves quickly toward better weeks and slowly toward worse ones, and it freezes while signals are outside it. A slide over months cannot quietly become the new normal.
 
 We will test this directly. Some Dartmouth students scored high in their first weeks, so we can count how many the drift rule alone misses and how many these safeguards catch.
@@ -101,13 +103,15 @@ Every model is tested on data it never saw, against a simple baseline, with miss
 - **A deeper check (Experiment 1b).** With 686 phone features and three kinds of model, using only phone data recorded before the answer, AUC was 0.57 to 0.60 on students the models never saw. A single check-in from the week before (a mood picture, stress, time with others) reached 0.69 with no phone data, and every earlier check-in together 0.74 to 0.78. With every questionnaire input at least 14 days old, earlier PHQ-2 answers plus check-ins reached 0.89, mostly because students who score high tend to stay high. Given the same answer history, adding phone data added nothing reliable. In our own data, 7% of answer pairs one to three days apart flip between high and not high, so no model can be near perfect against this label. Versions built to cheat on purpose reached 0.98. [Full write-up](../results/exp1b/results.md).
 - **Words (Experiment 2).** On 5,427 Reddit comments it never saw, the tone model found 50% of low-mood comments at 59% precision. A keyword list found 24% at 48%. On our own teen-style messages it found 12 of 33. The self-harm phrase list missed 9 of 15 risk messages written blind, and flagged 4 of 24 jokes, lyric-style lines and sarcasm.
 - **Asking (Experiment 3).** With every method given 12 asks per student per year, 24% of the asks chosen from one short check-in landed on a high week, against 13% for a fixed calendar and 18% for a model with every phone measure. Random weeks from the same student and quarter reached 23%, so a check-in tells Steady whom to ask and in which term, and adds about one point for the exact week. The check-in model ranked weeks better for men (AUC 0.75) than for women (0.66). [Full write-up](../results/exp3/results.md).
-- **What this means for the design.** In this data the phone signals do not pick the right week, and the questionnaire carries the weight. That points to a one-tap check-in each week and the two questions on a regular schedule, with the signals as context on the chart and the heads-up resting on the answers. We have not changed the rules yet. These are college students, not high schoolers, and the label is a weekly PHQ-2.
+- **The ask model (Experiment 4).** We turned that finding into the model the app now runs. On students it never saw it scored an AUC of 0.89. At 12 asks per student per year, 44% of its asks landed on a high week, against 13% for a fixed calendar. It missed 586 of 2,171 high weeks, and 2,012 of its asks landed on weeks that were not high. It finds who to ask more often and does not pick the week: random weeks from the same student and quarter reached 45%. Most of its skill comes from earlier PHQ-2 answers. The check-in alone scored 0.78. The earlier answers it saw were at least 11 days old, as they would be in the app. With last week's answers the same model scored 0.91, and we report the lower number. [Full write-up](../results/exp4/results.md).
+- **A fine-tuned tone model (Experiment 2b).** A small language model fine-tuned on the same comments found 62% of low-mood comments at 63% precision, against 50% at 59% for the model in the app. On our teen-style messages it found 13 of 33 with 8 false alarms, against 12 with 2, because it flags dark jokes. It is 91 MB against 698 KB, so it is not in the app. [Full write-up](../results/exp2b/results.md).
+- **What this means for the design.** In this data the phone signals do not pick the right week, and the questionnaire carries the weight. So we changed the rules: a two-tap check-in each week, the two questions every month, the ask model to ask sooner, the signals as context on the chart, and the heads-up resting on the answers. These are college students, not high schoolers, and the label is a weekly PHQ-2.
 
 ## The hard questions
 
 | Question | Our answer today |
 | --- | --- |
-| Will it work? | Not on phone signals alone, so far. In the Dartmouth data the drift rule picked weeks no better than chance, and the questionnaire does the real work. See "What we found" |
+| Will it work? | Not on phone signals alone. In the Dartmouth data the drift rule picked weeks no better than chance, so Steady now asks first. The ask model finds who to ask more often (44% of its asks land on a high week, against 13% for a calendar), but it does not pick the week. See "What we found" |
 | Can a phone see depression? | Only some signs: sleep, contact, activity and tone. The questionnaire covers the rest |
 | What about false alarms? | A false alarm now reaches a parent, so the bar is higher: a score of 10 or more on the eight, or four weeks of shift with the asks skipped. At most one heads-up goes out every three weeks, and it asks for a check-in and makes no diagnosis. Urgent notes are never held back |
 | Will students keep it on? | We do not know. They know from setup that a parent is linked, and the parent never sees messages, answers or scores. We will show the setup screen to classmates and ask |

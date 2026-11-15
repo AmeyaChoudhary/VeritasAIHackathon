@@ -64,7 +64,10 @@ export const CONFIG = {
   phq2Cutoff: 3,
   phq8Cutoff: 10,
   lowAnswerPauseWeeks: 2, // a low answer pauses asking this long
-  askAnywayWeeks: 8, // the two questions come up every two months anyway
+  askAnywayWeeks: 4, // the two questions come up every month anyway
+  // The ask model (Experiment 4) decides when to ask sooner. Its threshold is in ask_model.json.
+  askModelGapWeeks: 2, // it waits at least this long after any ask
+  checkinFallbackWeeks: 2, // with no check-in for this many weeks, phone signals decide when to ask
 
   // Heads-up
   skipRuleWeeks: 4, // two signals outside this long...

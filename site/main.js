@@ -4,15 +4,25 @@ const DATA = {
   // "What we found": asks that landed on a week with a high PHQ-2, at this many asks per student-year
   budget: 12,
   students: 213,
+  // askModel is the model the app runs (Experiment 4); the other three rows are from Experiment 3
+  askModel: {
+    hit: 44, // % of its asks that landed on a high week
+    matchedRandom: 45, // % for random weeks, same student and term
+    auc: "0.89", // on students it never saw
+    missed: "586", // high weeks that got no ask
+    highWeeks: "2,171",
+    falseAlarms: "2,012", // asks that landed on weeks that were not high
+  },
   asks: [
     { label: "Fixed calendar", value: 13 },
     { label: "Phone model", value: 18 },
-    { label: "One short check-in", value: 24, lead: true },
+    { label: "One short check-in", value: 24 },
   ],
-  asksScaleMax: 30,
-  matchedRandom: 23, // random weeks, same student and term
+  asksScaleMax: 50,
   // the tone model against a keyword list, on comments it had never seen
   tone: { model: 50, keyword: 24, commentsText: "5,427", scaleMax: 70 },
+  // a fine-tuned language model we tested and did not ship (Experiment 2b)
+  fineTuned: { found: 62, sizeMB: 91 },
   limits: { selfHarmMissed: 9, selfHarmTotal: 15, aucMen: "0.75", aucWomen: "0.66" },
   // "The problem" (NIMH, 2021)
   problem: { one: 1, oneIn: 5, untreatedIn10: 6, treatedPct: "40.6" },
@@ -36,22 +46,26 @@ const DATA = {
   const lookup = (path) => path.split(".").reduce((o, k) => (o == null ? o : o[k]), DATA);
   $$("[data-bind]").forEach((el) => { const v = lookup(el.dataset.bind); if (v != null) el.textContent = String(v); });
 
-  function buildBars(host, rows, scaleMax, mark) {
+  // a row may carry `mark`: the same method's score on random weeks, drawn as a dashed line
+  function buildBars(host, rows, scaleMax) {
     host.innerHTML = rows.map((r, i) => `
       <div class="bar-row${r.lead ? " lead" : ""}">
         <span class="bar-label">${r.label}</span>
         <div class="bar-track">
           <i class="bar-fill" style="--w:${((r.value / scaleMax) * 100).toFixed(2)}%;--i:${i}"></i>
-          ${mark != null ? `<i class="bar-mark" data-tag="${mark}% at random" style="--x:${((mark / scaleMax) * 100).toFixed(2)}%"></i>` : ""}
+          ${r.mark != null ? `<i class="bar-mark" data-tag="${r.mark}% at random" style="--x:${((r.mark / scaleMax) * 100).toFixed(2)}%"></i>` : ""}
         </div>
         <span class="bar-val"><b data-count="${r.value}">0</b>%</span>
       </div>`).join("");
   }
-  buildBars($("#askBars"), DATA.asks, DATA.asksScaleMax, DATA.matchedRandom);
+  buildBars($("#askBars"), [
+    ...DATA.asks,
+    { label: "The ask model in the app", value: DATA.askModel.hit, mark: DATA.askModel.matchedRandom, lead: true },
+  ], DATA.asksScaleMax);
   buildBars($("#toneBars"), [
     { label: "Our tone model", value: DATA.tone.model, lead: true },
     { label: "Keyword list", value: DATA.tone.keyword },
-  ], DATA.tone.scaleMax, null);
+  ], DATA.tone.scaleMax);
 
   /* ---------- words that rise ---------- */
   $$("[data-split]").forEach((el) => {

@@ -99,7 +99,8 @@ describe("two-week rule and asking", () => {
     h.week(OUT2);
     ids.push(h.s.ask!.id);
     expect(new Set(ids).size).toBe(3);
-    expect(h.s.asks.filter((a) => a.kind === "check").map((a) => a.result)).toEqual(["skipped", "skipped"]);
+    // the monthly ask at week 4, then weeks 6 and 7
+    expect(h.s.asks.filter((a) => a.kind === "check").map((a) => a.result)).toEqual(["skipped", "skipped", "skipped"]);
   });
 
   it("an unfinished set counts as skipped when the next week ends", () => {

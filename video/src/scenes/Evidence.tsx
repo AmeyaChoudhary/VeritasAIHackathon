@@ -15,7 +15,7 @@ export const Evidence: React.FC = () => {
   const t = (ph: string) => L(cue("timing", ph));
   const askAt = p("Does it work"), fiveAt = p("On five thousand"), toneAt = p("our tone model"), keyAt = p("A keyword list");
   const thenAt = t("Then we tested"), studAt = t("two hundred thirteen"), failAt = t("our first idea failed"), chanceAt = t("no better than chance");
-  const workedAt = t("What worked was asking"), oneAt = t("One short check-in");
+  const workedAt = t("So we rebuilt"), modelAt = t("Its model"), calAt = t("A calendar");
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);
 
@@ -65,18 +65,17 @@ export const Evidence: React.FC = () => {
         </div>
       </AbsoluteFill>
 
-      {/* what worked */}
+      {/* what we did about it */}
       <AbsoluteFill style={{ opacity: chartIn }}>
         <div style={{ position: "absolute", left: 150, top: 130, transform: `translateY(${(1 - chartIn) * 24}px)` }}>
-          <Mono size={20}>What worked</Mono>
-          <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 132, letterSpacing: -5.5, color: C.ink, lineHeight: 1, marginTop: 18 }}>Asking beat watching.</div>
+          <Mono size={20}>So we rebuilt it</Mono>
+          <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 132, letterSpacing: -5.5, color: C.ink, lineHeight: 1, marginTop: 18 }}>Steady asks first.</div>
         </div>
-        <div style={{ position: "absolute", left: 150, top: 420, display: "flex", flexDirection: "column", gap: 40 }}>
-          <Bar at={workedAt + 6} label="A fixed calendar" value={numbers.timing.calendar} max={30} color={C.grey} width={1320} />
-          <Bar at={workedAt + 14} label="A model with every phone signal" value={numbers.timing.phone} max={30} color={C.grey} width={1320} />
-          <Bar at={oneAt - 2} label="One short check-in" sub="from the student" value={numbers.timing.checkin} max={30} color={C.sage} width={1320} strong />
+        <div style={{ position: "absolute", left: 150, top: 440, display: "flex", flexDirection: "column", gap: 54 }}>
+          <Bar at={modelAt + 4} label="Steady's ask model" sub="trained on students' own answers" value={numbers.timing.askModel} max={60} color={C.sage} width={1320} strong />
+          <Bar at={calAt - 2} label="A fixed calendar" sub="the simple baseline" value={numbers.timing.calendar} max={60} color={C.grey} width={1320} />
         </div>
-        <Mono size={18} style={{ position: "absolute", left: 152, top: 880, opacity: ramp(frame, workedAt + 10, 14) }}>Share of asks that land on a hard week, at 12 asks a year. Every model scored on students it never saw.</Mono>
+        <Mono size={18} style={{ position: "absolute", left: 152, top: 860, opacity: ramp(frame, modelAt + 10, 14) }}>Share of asks that land on a hard week, at 12 asks a year, on students the model never saw. AUC {numbers.timing.askModelAuc}.</Mono>
       </AbsoluteFill>
     </AbsoluteFill>
   );

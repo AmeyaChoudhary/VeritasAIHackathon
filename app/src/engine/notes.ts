@@ -128,7 +128,7 @@ export function setupScreenText(people: People): { title: string; paragraphs: st
     secondLine: people.second ? `If ${parent} doesn't answer an urgent note, it also goes to ${people.second}.` : undefined,
     paragraphs: [
       "Steady learns what's normal for you: sleep, activity, how often you message people, and the tone of what you type. Your messages never leave this phone.",
-      `If something stays off for a few weeks, or your check-in answers are high, Steady sends ${parent} a short note asking ${pp.obj} to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Steady can send ${parent} an urgent note right away.`,
+      `If something stays off for a few weeks, or your answers to its questions are high, Steady sends ${parent} a short note asking ${pp.obj} to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Steady can send ${parent} an urgent note right away.`,
       `Notes never include your messages, your answers or your scores. Steady won't tell you when it sends one. ${parent} can also see whether Steady is on and whether its keyboard is in use.`,
       "If you want, name a trusted adult outside your home. Urgent notes go to them too.",
       "You can also connect Gmail, Google Calendar, Last.fm and screen time. Steady reads them on this phone. From Gmail it reads only emails you send: how quickly you reply and their tone. Nothing you wrote leaves this phone.",

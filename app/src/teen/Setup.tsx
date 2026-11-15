@@ -20,7 +20,7 @@ export function Disclosure() {
     {
       icon: "bell",
       head: `${parent} can get a short note`,
-      text: `If something stays off for a few weeks, or your check-in answers are high, it asks ${obj} to check in with you. Steady won't tell you when it sends one.`,
+      text: `If something stays off for a few weeks, or your answers to its questions are high, it asks ${obj} to check in with you. Steady won't tell you when it sends one.`,
     },
     {
       icon: "alert",

@@ -1,0 +1,334 @@
+{
+ "name": "steady-ask",
+ "created": "2026-11-15",
+ "task": "Chance that the student's next PHQ-2 would be 3 or more; used only to decide when to ask the two questions",
+ "trained_on": "College Experience Study (Dartmouth), 213 students, labelled monitored weeks. CC BY-NC-SA 4.0, academic use.",
+ "note": "Earlier PHQ-2 answers used in training were at least 11 days older than the week scored (median 2.1 weeks).",
+ "inputs": [
+  {
+   "name": "stress",
+   "what": "This week's check-in: stressed (1 not at all to 5 extremely)"
+  },
+  {
+   "name": "with_others",
+   "what": "This week's check-in: time with others (1 almost always alone to 5 almost always with others)"
+  },
+  {
+   "name": "stress_usual",
+   "what": "Average of the student's earlier stress answers"
+  },
+  {
+   "name": "with_others_usual",
+   "what": "Average of the student's earlier time-with-others answers"
+  },
+  {
+   "name": "last_phq2",
+   "what": "Most recent PHQ-2 score (0 to 6), at least two weeks old"
+  },
+  {
+   "name": "mean_phq2",
+   "what": "Average of all the student's PHQ-2 scores up to then"
+  }
+ ],
+ "mean": {
+  "stress": 2.50446,
+  "with_others": 3.185575,
+  "stress_usual": 2.41067,
+  "with_others_usual": 3.227269,
+  "last_phq2": 1.084626,
+  "mean_phq2": 0.899386
+ },
+ "scale": {
+  "stress": 1.100308,
+  "with_others": 1.268949,
+  "stress_usual": 0.527918,
+  "with_others_usual": 0.512184,
+  "last_phq2": 1.457846,
+  "mean_phq2": 0.904434
+ },
+ "weights": {
+  "stress": 0.396003,
+  "with_others": -0.074019,
+  "stress_usual": 0.112694,
+  "with_others_usual": -0.047726,
+  "last_phq2": 0.737006,
+  "mean_phq2": 0.808234
+ },
+ "missing": {
+  "stress": 0.122545,
+  "with_others": 0.122545,
+  "stress_usual": 0.0,
+  "with_others_usual": 0.0,
+  "last_phq2": 0.0,
+  "mean_phq2": 0.0
+ },
+ "intercept": -2.795288,
+ "threshold": 0.163374,
+ "asks_per_year_at_threshold": 12.0,
+ "cases": [
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 2.0,
+    "stress_usual": 2.5385,
+    "with_others_usual": 3.2769,
+    "last_phq2": 2.0,
+    "mean_phq2": 2.0317
+   },
+   "score": 0.259132
+  },
+  {
+   "inputs": {
+    "stress": 4.0,
+    "with_others": 3.0,
+    "stress_usual": 3.0161,
+    "with_others_usual": 3.3871,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.0339
+   },
+   "score": 0.030661
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 2.0,
+    "stress_usual": 2.145,
+    "with_others_usual": 2.3282,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.0238
+   },
+   "score": 0.020806
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 2.0,
+    "stress_usual": 2.9143,
+    "with_others_usual": 3.1429,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.4563
+   },
+   "score": 0.033032
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 2.656,
+    "with_others_usual": 3.464,
+    "last_phq2": 2.0,
+    "mean_phq2": 1.1613
+   },
+   "score": 0.139066
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 1.0,
+    "stress_usual": 2.9641,
+    "with_others_usual": 2.9461,
+    "last_phq2": 5.0,
+    "mean_phq2": 3.0723
+   },
+   "score": 0.828648
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 2.4091,
+    "with_others_usual": 2.8409,
+    "last_phq2": 1.0,
+    "mean_phq2": 0.7955
+   },
+   "score": 0.06598
+  },
+  {
+   "inputs": {
+    "stress": 1.0,
+    "with_others": 3.0,
+    "stress_usual": 2.0879,
+    "with_others_usual": 2.8462,
+    "last_phq2": 4.0,
+    "mean_phq2": 1.8182
+   },
+   "score": 0.256474
+  },
+  {
+   "inputs": {
+    "stress": 1.0,
+    "with_others": 1.0,
+    "stress_usual": 3.25,
+    "with_others_usual": 3.0,
+    "last_phq2": 3.0,
+    "mean_phq2": 1.6667
+   },
+   "score": 0.205069
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 2.3875,
+    "with_others_usual": 3.1875,
+    "last_phq2": 1.0,
+    "mean_phq2": 1.2579
+   },
+   "score": 0.093313
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 3.0,
+    "stress_usual": 3.0,
+    "with_others_usual": 3.5,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.0
+   },
+   "score": 0.020678
+  },
+  {
+   "inputs": {
+    "stress": 1.0,
+    "with_others": 5.0,
+    "stress_usual": 1.7692,
+    "with_others_usual": 3.5,
+    "last_phq2": 1.0,
+    "mean_phq2": 0.44
+   },
+   "score": 0.016986
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 5.0,
+    "stress_usual": 2.137,
+    "with_others_usual": 3.589,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.2254
+   },
+   "score": 0.018605
+  },
+  {
+   "inputs": {
+    "stress": 1.0,
+    "with_others": 5.0,
+    "stress_usual": 2.122,
+    "with_others_usual": 2.878,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.7105
+   },
+   "score": 0.014938
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 2.0,
+    "stress_usual": 2.8873,
+    "with_others_usual": 3.9859,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.6957
+   },
+   "score": 0.037432
+  },
+  {
+   "inputs": {
+    "stress": 4.0,
+    "with_others": 5.0,
+    "stress_usual": 2.129,
+    "with_others_usual": 3.8065,
+    "last_phq2": 2.0,
+    "mean_phq2": 0.8966
+   },
+   "score": 0.11746
+  },
+  {
+   "inputs": {
+    "stress": 2.0,
+    "with_others": 2.0,
+    "stress_usual": 2.7065,
+    "with_others_usual": 3.2283,
+    "last_phq2": 2.0,
+    "mean_phq2": 1.5556
+   },
+   "score": 0.142405
+  },
+  {
+   "inputs": {
+    "stress": 2.0,
+    "with_others": 3.0,
+    "stress_usual": 1.5785,
+    "with_others_usual": 3.1736,
+    "last_phq2": 1.0,
+    "mean_phq2": 0.4202
+   },
+   "score": 0.026348
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 2.3663,
+    "with_others_usual": 3.1089,
+    "last_phq2": 4.0,
+    "mean_phq2": 1.8515
+   },
+   "score": 0.444246
+  },
+  {
+   "inputs": {
+    "stress": 2.0,
+    "with_others": 2.0,
+    "stress_usual": 2.7248,
+    "with_others_usual": 3.5688,
+    "last_phq2": 2.0,
+    "mean_phq2": 2.2222
+   },
+   "score": 0.226605
+  },
+  {
+   "inputs": {
+    "stress": 2.0,
+    "with_others": 2.0,
+    "stress_usual": 1.9915,
+    "with_others_usual": 2.8814,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.1565
+   },
+   "score": 0.015111
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 2.3514,
+    "with_others_usual": 3.1622,
+    "last_phq2": 1.0,
+    "mean_phq2": 1.7838
+   },
+   "score": 0.140732
+  },
+  {
+   "inputs": {
+    "stress": 3.0,
+    "with_others": 4.0,
+    "stress_usual": 1.92,
+    "with_others_usual": 3.36,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.2297
+   },
+   "score": 0.019297
+  },
+  {
+   "inputs": {
+    "stress": null,
+    "with_others": null,
+    "stress_usual": 1.9444,
+    "with_others_usual": 3.7381,
+    "last_phq2": 0.0,
+    "mean_phq2": 0.0565
+   },
+   "score": 0.018006
+  }
+ ]
+}

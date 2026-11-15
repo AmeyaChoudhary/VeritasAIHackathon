@@ -11,7 +11,10 @@ nbformat==5.11.1
 nbconvert==7.17.2
 ipykernel==7.4.0
 
-# Not used yet. Uncomment for a sentence-embedding tone model.
-# torch==2.15.0
+# Only for the fine-tuning test (experiments/exp2b_finetune.py)
+torch==2.15.0
+transformers==5.23.0
+
+# Not used.
 # sentence-transformers==6.3.0
 # datasets==5.2.0

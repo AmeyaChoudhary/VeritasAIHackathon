@@ -7,6 +7,7 @@ import { CONFIG } from "../engine/config";
 import type { TeenState } from "../engine/types";
 import { DoctorCard } from "./Doctor";
 import { Icon } from "../ui/icons";
+import { CheckIn } from "./CheckIn";
 
 /** The two to five words in the middle of the ring. The full sentence from the rules is still
  *  on the page for screen readers; this is the glanceable form of the same state. */
@@ -20,7 +21,9 @@ function ringWords(s: TeenState): { status: string; sub?: string } {
   const stillLearning = (!s.range.sleep || last.learning.length > 0) && !s.episode;
   if (stillLearning) {
     const n = Math.min(CONFIG.baselineWeeks, learnedWeeks);
-    return { status: "Learning your normal", sub: n >= CONFIG.baselineWeeks ? "A new source" : `${n} of ${CONFIG.baselineWeeks} weeks` };
+    // "A new source" only when something else is already learned and one late source is catching up.
+    const someLearned = Object.keys(last.ranges).some((k) => !last.learning.includes(k as (typeof last.learning)[number]));
+    return { status: "Learning your normal", sub: someLearned ? "A new source" : `${n} of ${CONFIG.baselineWeeks} weeks` };
   }
   if (!last.valid) return { status: "Not enough data", sub: "This week is left out" };
   if (s.episode) {
@@ -71,6 +74,7 @@ export function Home({ onStart }: { onStart: () => void }) {
           </div>
         </section>
       )}
+      {!ask && <CheckIn />}
       <SignalRows weeks={teen.weeks} total={Math.max(12, scn.weeks.length)} signals={signals} />
       {sum.note && <p className="home-note">{sum.note}</p>}
       {pattern && (

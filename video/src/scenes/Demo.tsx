@@ -5,12 +5,13 @@ import { clamp, ease, enter, ramp, settle } from "../components/anim";
 import { Callout, Icon, Mark, Mono } from "../components/ui";
 import { Phone, PHONE_H, PHONE_W, Seg, Track } from "../components/Phone";
 import rec from "../rec.json";
+import numbers from "../numbers.json";
 
 const M = rec.marks as Record<string, number>;
 const TOP = 92;
 
 /** One signal named beside the phone; it lights up when it is spoken. */
-const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone"; label: string; base: number }> = ({ at, icon, label, base }) => {
+const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone" | "tap"; label: string; base: number }> = ({ at, icon, label, base }) => {
   const frame = useCurrentFrame();
   const vis = ramp(frame, base, 14);
   const on = ramp(frame, at - 3, 12);
@@ -37,6 +38,39 @@ const Chip: React.FC<{ at: number; children: React.ReactNode }> = ({ at, childre
   );
 };
 
+/** The ask model's score for Maya, on a track with the line it has to cross. Real numbers from her scenario. */
+const ScoreMeter: React.FC<{ at: number; crossAt: number }> = ({ at, crossAt }) => {
+  const frame = useCurrentFrame();
+  const sc = numbers.maya.scores as Record<string, number>;
+  const thr = numbers.maya.threshold;
+  const MAX = 0.3, W = 520;
+  const v = interpolate(frame, [at + 8, crossAt - 6, crossAt + 10], [sc["4"], sc["5"], sc["6"]], { ...clamp, easing: ease });
+  const over = v >= thr;
+  const col = over ? C.amber : C.sage;
+  return (
+    <div style={{ width: W, ...enter(frame, at, 26, 16) }}>
+      <Mono size={20}>The model's score for Maya</Mono>
+      <div style={{ display: "flex", alignItems: "baseline", gap: 18, marginTop: 10 }}>
+        <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 170, lineHeight: 1, letterSpacing: -7, color: C.ink, fontVariantNumeric: "tabular-nums" }}>{v.toFixed(2)}</span>
+        <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 44, letterSpacing: -1.2, color: C.inkSoft }}>{frame < crossAt - 6 ? (v < 0.1 ? "week 4" : "week 5") : "week 6"}</span>
+      </div>
+      <div style={{ position: "relative", height: 64, marginTop: 26 }}>
+        <div style={{ position: "absolute", left: 0, right: 0, top: 22, height: 14, borderRadius: 8, background: "rgba(21,23,26,0.08)" }} />
+        <div style={{ position: "absolute", left: 0, top: 22, height: 14, borderRadius: 8, width: (v / MAX) * W, background: col }} />
+        <div style={{ position: "absolute", left: (v / MAX) * W - 15, top: 14, width: 30, height: 30, borderRadius: 20, background: col, boxShadow: over ? "0 0 26px rgba(242,163,58,0.6)" : "none" }} />
+        <div style={{ position: "absolute", left: (thr / MAX) * W - 1.5, top: 4, width: 3, height: 50, borderRadius: 2, background: C.ink }} />
+      </div>
+      <div style={{ position: "relative", height: 30 }}>
+        <Mono size={17} style={{ position: "absolute", left: (thr / MAX) * W - 90, width: 180, textAlign: "center" }}>asks at {thr.toFixed(2)}</Mono>
+      </div>
+      <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 18, ...enter(frame, crossAt + 6, 20, 16) }}>
+        <span style={{ width: 16, height: 16, borderRadius: 10, background: C.amber }} />
+        <span style={{ fontFamily: F.display, fontWeight: 600, fontSize: 40, letterSpacing: -1.1, color: C.ink }}>Asks two weeks early</span>
+      </div>
+    </div>
+  );
+};
+
 /** The walkthrough: Steady appears, then Maya's twelve weeks on her phone and her mom's. */
 export const Demo: React.FC = () => {
   const frame = useCurrentFrame();
@@ -48,10 +82,11 @@ export const Demo: React.FC = () => {
 
   // cues
   const builtAt = G(q("steady", "So we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
-  const learnAt = G(q("learn", "For four weeks")), sleepAt = G(q("learn", "her sleep")), reachAt = G(q("learn", "how often")), moveAt = G(q("learn", "how much")), toneAt = G(q("learn", "the tone"));
-  const driftAt = G(q("drift", "During finals")), asksAt = G(q("drift", "So Steady asks")), okayAt = G(q("drift", "She says")), wordAt = G(q("drift", "takes her at"));
-  const passAt = G(q("note", "But it doesn't")), w8At = G(q("note", "At week eight")), nudgeAt = G(q("note", "Maya sees")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "what changed")), longAt = G(q("note", "for how long")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
-  const privAt = G(q("private", "What Maya types")), modelAt = G(q("private", "A small model")), dotAt = G(q("private", "keeps one dot"));
+  const learnAt = G(q("learn", "For four weeks")), sleepAt = G(q("learn", "her sleep")), reachAt = G(q("learn", "how often")), moveAt = G(q("learn", "how much")), toneAt = G(q("learn", "the tone")), onceAt = G(q("learn", "Once a week"));
+  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks two questions")), wordAt = G(q("drift", "takes her at"));
+  const finalsAt = G(q("drift", "Then finals")), modelAt = G(q("drift", "and our model")), againAt = G(q("drift", "It asks again"));
+  const passAt = G(q("note", "But at week eight")), nudgeAt = G(q("note", "Maya sees")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "what changed")), longAt = G(q("note", "for how long")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
+  const privAt = G(q("private", "What Maya types")), smallAt = G(q("private", "A small model")), dotAt = G(q("private", "keeps one dot"));
 
   // brand: big in the centre, then tucked into the corner for the rest of the walkthrough
   const draw = ramp(frame, builtAt - 2, 30);
@@ -78,16 +113,19 @@ export const Demo: React.FC = () => {
   const off = (rec as { parentOffset?: number }).parentOffset ?? 0;   // the parent recording started this much later
   const W = (id: string, from: string, until: string | number) => [q(id, from), typeof until === "number" ? until : q(id, until)] as const;
   const seg = (from: number, to: number, win: readonly [number, number], lead = 0.1): Seg => ({ clip: "teen", from, to, at: S(win[0]) - lead, rate: fit(from, to, win[0] - lead, win[1]) });
-  const learnSeg = seg(M.w2 - 0.25, M.w4 + 1.9, W("learn", "For four weeks", "her sleep"));
+  const learnSeg = seg(M.w2 - 0.25, M.w3 + 1.7, W("learn", "For four weeks", "her sleep"));
   const teenSegs: Seg[] = rec.ready ? [
     { clip: "teen", from: 0.5, to: 1.3, at: 0 },
     learnSeg,
-    seg(M.w5 - 0.25, M.ask1_open - 0.2, W("drift", "During finals", "So Steady asks")),
-    seg(M.ask1_open - 0.2, M.ask1_a1 - 0.1, W("drift", "So Steady asks", "She says"), 0.2),
-    seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.3, W("drift", "She says", sec("drift").end + 0.25), 0.15),
-    seg(M.w7 - 0.25, M.w8 + 2.2, W("note", "But it doesn't", "her answers")),
-    seg(M.ask2_open - 0.15, M.ask2_a1 + 3.0, W("note", "her answers", "Maya sees"), 0.1),
-    { clip: "teen", from: M.ask2_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya sees")) - 0.15 },
+    seg(M.ci4 - 0.1, M.w4 - 0.15, W("learn", "Once a week", sec("learn").end + 0.2)),                 // the two taps
+    seg(M.w4 - 0.2, M.ask1_a1 - 0.1, W("drift", "Every month", "Maya says")),                         // week 4: the monthly ask
+    seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.0, W("drift", "Maya says", "Then finals"), 0.15),          // she answers low
+    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "Then finals", "and our model")),                        // finals: amber, a tense check-in
+    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "and our model", "It asks again")),                 // week 6: the model asks
+    seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "It asks again", q("note", "But at week eight")), 0.1),   // still under the cutoff
+    seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "But at week eight", "her answers")),
+    seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "her answers", "Maya sees"), 0.1),
+    { clip: "teen", from: M.ask3_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya sees")) - 0.15 },
     seg(M.type_open - 0.2, M.type1_start - 0.1, W("private", "What Maya types", "A small model"), 0.2),
     seg(M.type1_start - 0.1, M.type1_send + 2.7, W("private", "A small model", sec("private").end + 0.4), 0.4),
   ] : [];
@@ -103,7 +141,7 @@ export const Demo: React.FC = () => {
 
   // the week counter follows the recording: week k shows once the clip passes that tap
   const clipT = learnSeg.from + Math.max(0, frame / 30 - learnSeg.at) * (learnSeg.rate ?? 1);
-  const weekN = clipT >= M.w4 + 0.25 ? 4 : clipT >= M.w3 + 0.25 ? 3 : clipT >= M.w2 + 0.25 ? 2 : 1;
+  const weekN = clipT >= M.w3 + 0.25 ? 3 : clipT >= M.w2 + 0.25 ? 2 : 1;
 
   return (
     <AbsoluteFill style={{ opacity: sceneOut }}>
@@ -140,27 +178,37 @@ export const Demo: React.FC = () => {
       {/* 01 learn */}
       <Callout at={learnAt} until={driftAt - 2} tag="01 · Learn" title={<>Learns<br />her normal</>} style={{ position: "absolute", left: 130, top: 190, width: 580 }} size={88} />
       {frame >= learnAt && frame < driftAt ? (
-        <div style={{ position: "absolute", left: 130, top: 480, display: "flex", flexDirection: "column", gap: 24, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
+        <div style={{ position: "absolute", left: 130, top: 470, display: "flex", flexDirection: "column", gap: 20, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
           <SignalRow base={learnAt + 8} at={sleepAt} icon="moon" label="Sleep" />
           <SignalRow base={learnAt + 11} at={reachAt} icon="chat" label="Reaching out" />
           <SignalRow base={learnAt + 14} at={moveAt} icon="move" label="Activity" />
           <SignalRow base={learnAt + 17} at={toneAt} icon="tone" label="Tone" />
+          {frame >= onceAt - 6 ? <SignalRow base={onceAt - 4} at={onceAt + 2} icon="tap" label="A two-tap check-in" /> : null}
         </div>
       ) : null}
-      {frame >= learnAt && frame < driftAt ? (
-        <div style={{ position: "absolute", left: 1270, top: 300, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
+      {frame >= learnAt && frame < onceAt + 2 ? (
+        <div style={{ position: "absolute", left: 1270, top: 300, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [onceAt - 8, onceAt], [1, 0], clamp) }}>
           <Mono size={20}>Week</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 330, lineHeight: 0.9, letterSpacing: -14, color: C.ink, fontVariantNumeric: "tabular-nums" }}>{weekN}<span style={{ fontSize: 92, letterSpacing: -3, color: C.inkSoft, fontWeight: 500 }}> of 4</span></div>
           <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 20, maxWidth: 480, lineHeight: 1.36 }}>Her own range, not an average of everyone.</div>
         </div>
       ) : null}
+      {frame >= onceAt - 2 && frame < driftAt ? (
+        <div style={{ position: "absolute", left: 1270, top: 300, width: 540, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
+          <div style={enter(frame, onceAt, 26, 16)}>
+            <Mono size={20}>Once a week</Mono>
+            <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 150, lineHeight: 0.96, letterSpacing: -6.5, color: C.ink, marginTop: 14 }}>Two<br />taps</div>
+            <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 22, maxWidth: 480, lineHeight: 1.36 }}>How stressed, and how much time with people. It stays on her phone.</div>
+          </div>
+        </div>
+      ) : null}
 
-      {/* 02 notice, then ask */}
-      <Callout at={driftAt} until={passAt - 2} tag="02 · Notice" title={<>A lasting<br />shift</>} body="Two weeks outside her own range. One bad night changes nothing." style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
-      {frame >= asksAt - 2 && frame < passAt ? (
-        <div style={{ position: "absolute", left: 1270, top: 280, width: 540, opacity: interpolate(frame, [passAt - 10, passAt - 2], [1, 0], clamp) }}>
+      {/* 02 it asks, every month */}
+      <Callout at={driftAt} until={finalsAt - 2} tag="02 · Ask" title={<>Asks,<br />every month</>} body="Everyone gets the same two questions, whatever their phone shows." style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
+      {frame >= asksAt - 2 && frame < finalsAt ? (
+        <div style={{ position: "absolute", left: 1270, top: 280, width: 540, opacity: interpolate(frame, [finalsAt - 10, finalsAt - 2], [1, 0], clamp) }}>
           <div style={enter(frame, asksAt, 26, 16)}>
-            <Mono size={20}>Then it asks</Mono>
+            <Mono size={20}>Week 4</Mono>
             <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 104, lineHeight: 1, letterSpacing: -4.2, color: C.ink, marginTop: 14 }}>Two<br />questions</div>
             <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 18, lineHeight: 1.36 }}>The ones doctors use.</div>
           </div>
@@ -171,8 +219,16 @@ export const Demo: React.FC = () => {
         </div>
       ) : null}
 
-      {/* 03 it doesn't pass */}
-      <Callout at={passAt} until={momAt - 8} tag="03 · Week 8" title={<>It doesn't<br />pass</>} body="Four weeks outside her range, and now her answers are high." style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
+      {/* 03 the model does not wait */}
+      <Callout at={finalsAt} until={passAt - 2} tag="03 · The model" title={<>Doesn't wait<br />a month</>} body={`Trained on ${numbers.students} students' own answers. It scores Maya every week.`} style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
+      {frame >= modelAt - 4 && frame < passAt ? (
+        <div style={{ position: "absolute", left: 1270, top: 250, opacity: interpolate(frame, [passAt - 10, passAt - 2], [1, 0], clamp) }}>
+          <ScoreMeter at={modelAt - 2} crossAt={againAt} />
+        </div>
+      ) : null}
+
+      {/* 04 it doesn't pass */}
+      <Callout at={passAt} until={momAt - 8} tag="04 · Week 8" title={<>It doesn't<br />pass</>} body="Four weeks outside her range, and now her answers are high." style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
       {frame >= nudgeAt - 2 && frame < momAt - 6 ? (
         <div style={{ position: "absolute", left: 1270, top: 330, width: 540, ...enter(frame, nudgeAt, 26, 16) }}>
           <div style={{ width: 96, height: 96, borderRadius: 30, background: C.card, boxShadow: "0 0 0 1px rgba(21,23,26,0.07), 0 10px 26px rgba(21,23,26,0.07)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name="doctor" size={50} /></div>
@@ -184,7 +240,7 @@ export const Demo: React.FC = () => {
       {frame >= momAt + 4 && frame < momAt + 30 ? (
         <div style={{ position: "absolute", left: flyX - 15, top: flyY - 15, width: 30, height: 30, borderRadius: 20, background: C.amber, boxShadow: "0 0 34px rgba(242,163,58,0.75)", opacity: Math.sin(fly * Math.PI) * 0.9 + 0.1 }} />
       ) : null}
-      <Callout at={momAt + 2} until={privAt - 14} tag="04 · A parent" title={<>The<br />note</>} style={{ position: "absolute", left: 110, top: 250, width: 300 }} size={84} />
+      <Callout at={momAt + 2} until={privAt - 14} tag="05 · A parent" title={<>The<br />note</>} style={{ position: "absolute", left: 110, top: 250, width: 300 }} size={84} />
       {frame >= whatAt - 4 && frame < privAt ? (
         <div style={{ position: "absolute", left: 1530, top: 250, display: "flex", flexDirection: "column", gap: 22, alignItems: "flex-start", opacity: interpolate(frame, [privAt - 24, privAt - 15], [1, 0], clamp) }}>
           <Chip at={whatAt - 2}>What changed</Chip>
@@ -199,8 +255,8 @@ export const Demo: React.FC = () => {
 
       {/* private by design */}
       <Callout at={privAt + 2} tag="Private by design" title={<>Her words<br />stay on<br />her phone</>} style={{ position: "absolute", left: 130, top: 230, width: 580 }} size={88} />
-      {frame >= modelAt - 4 ? (
-        <div style={{ position: "absolute", left: 1270, top: 290, width: 540, ...enter(frame, modelAt - 2, 26, 16) }}>
+      {frame >= smallAt - 4 ? (
+        <div style={{ position: "absolute", left: 1270, top: 290, width: 540, ...enter(frame, smallAt - 2, 26, 16) }}>
           <Mono size={20}>Text sent</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 330, lineHeight: 0.9, letterSpacing: -14, color: C.ink }}>0<span style={{ fontSize: 84, letterSpacing: -3, color: C.inkSoft, fontWeight: 500 }}> bytes</span></div>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 30, opacity: ramp(frame, dotAt - 2, 14) }}>

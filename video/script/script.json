@@ -14,20 +14,20 @@
  {
   "id": "learn",
   "label": "It learns her normal",
-  "show": "Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named.",
-  "text": "For four weeks, Steady learns what's normal for her: her sleep, how often she reaches out, how much she moves, and the tone of what she types."
+  "show": "Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named. Then she taps the two-dot check-in.",
+  "text": "For four weeks, Steady learns what's normal for her: her sleep, how often she reaches out, how much she moves, and the tone of what she types. Once a week, she checks in with two taps."
  },
  {
   "id": "drift",
-  "label": "A lasting shift",
-  "show": "Weeks five and six. Two parts of the ring turn amber. The two questions come up and she answers low.",
-  "text": "During finals, her sleep and messaging slip out of her range. So Steady asks her two questions, the ones doctors use. She says she's okay, and Steady takes her at her word."
+  "label": "It asks",
+  "show": "Week four: the two questions come up and she answers low. Weeks five and six: the ring turns amber, her check-ins climb, the model's score crosses its line, and the questions come up again.",
+  "text": "Every month, Steady asks two questions, the ones doctors use. Maya says she's mostly okay, and Steady takes her at her word. Then finals hit. Her check-ins get tense, and our model doesn't wait a month. It asks again."
  },
  {
   "id": "note",
   "label": "The note",
-  "show": "Week eight. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens.",
-  "text": "But it doesn't pass. At week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages."
+  "show": "Week six she answers low again. Week eight her answers are high. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens.",
+  "text": "She still says she's fine. But at week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages."
  },
  {
   "id": "private",
@@ -44,14 +44,14 @@
  {
   "id": "timing",
   "label": "Does it work: when to ask",
-  "show": "213 dots. 'Our first idea failed.' Then three bars: calendar 13%, phone 18%, one check-in 24%.",
-  "text": "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. What worked was asking. One short check-in beat everything the phone recorded."
+  "show": "213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%.",
+  "text": "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen."
  },
  {
   "id": "next",
   "label": "What's next",
-  "show": "Three short lines with icons: ask first, a real self-harm model, a clinician.",
-  "text": "So the next Steady asks first: one tap, every week. Its self-harm check missed nine of fifteen test messages, so it needs a real model and a clinician."
+  "show": "Three short lines with icons: who, not yet when; a real self-harm model; a clinician.",
+  "text": "It knows who to ask, not yet which week. And its self-harm check missed nine of fifteen test messages. That needs a real model and a clinician."
  },
  {
   "id": "close",

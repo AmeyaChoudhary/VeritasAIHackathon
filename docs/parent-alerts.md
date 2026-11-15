@@ -4,6 +4,8 @@ Steady tells a parent directly when it sees a change that lasts. The student is 
 
 **What changed.** Earlier drafts, including [the PDF](Steady-product-concept.pdf), let the student decide whether an adult heard anything. That design accepted that a student in real danger might never tap send. We now tell the parent directly. The signals, the personal range and the two-week rule are unchanged.
 
+**What changed after the experiments.** Our tests showed that phone signals do not pick the right week to ask (see "What the experiments now measure"). So Steady now asks first. The teen answers a two-tap check-in each week, the two questions come up once a month, and a small model asks sooner when the teen's own answers point that way. The signals are still shown to the teen and still name what changed in a note. When the parent is told has not changed.
+
 ## Setup
 
 1. **The parent links their phone.** The parent installs the parent app and scans a code shown on the teen's phone. Setup asks them to name a second adult for urgent notes and explains why; they can skip it. It also asks them to let urgent notes sound through Do Not Disturb (Critical Alerts on iPhone, a Do Not Disturb override on Android).
@@ -17,7 +19,7 @@ The teen's setup screen says:
 >
 > Steady learns what's normal for you: sleep, activity, how often you message people, and the tone of what you type. Your messages never leave this phone.
 >
-> If something stays off for a few weeks, or your check-in answers are high, Steady sends Mom a short note asking her to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Steady can send Mom an urgent note right away.
+> If something stays off for a few weeks, or your answers to its questions are high, Steady sends Mom a short note asking her to check in with you. The note can say which areas changed, like sleep, and for how long. If you type something that sounds like you might hurt yourself, Steady can send Mom an urgent note right away.
 >
 > Notes never include your messages, your answers or your scores. Steady won't tell you when it sends one. Mom can also see whether Steady is on and whether its keyboard is in use.
 >
@@ -37,12 +39,19 @@ On Android, Steady keeps a notification and its own icon visible while it runs, 
 
 The questionnaire screens say: "Your answers stay on this phone. A high result can send Mom a note to check in." They never call the answers private.
 
+## When Steady asks
+
+- **The weekly check-in.** The teen's Home screen has two rows of five dots: how stressed they feel (1 not at all, to 5 extremely) and how much time they have spent alone or with others (1 almost always alone, to 5 almost always with others). Two taps. The answers stay on the phone. A check-in never sends a parent anything.
+- **Once a month.** Everyone gets the two questions every four weeks, whatever the signals and check-ins show.
+- **Sooner, when the ask model says so.** At the end of each week a small model scores six numbers: this week's check-in, the teen's usual check-in, their most recent score on the two questions and their average score. If the score reaches its threshold and the last ask was at least two weeks ago, the two questions come up then. The model only decides when to ask. It never sends a note.
+- **Signals as a backstop.** While the teen is checking in, signals outside the range do not bring up the questions. If the teen has not checked in for two weeks, they do, as in the first design: once a week while two signals stay outside, or tone plus one other.
+
 ## When the parent is told
 
 | State | What triggers it | What the teen sees | What the parent gets |
 | --- | --- | --- | --- |
 | In range | Nothing has stayed outside the student's range | A weekly note | Nothing |
-| Outside range | Two signals outside the range for two weeks, or tone plus one other | What shifted, and the two questions | Nothing |
+| Outside range | Two signals outside the range for two weeks, or tone plus one other | What shifted. The two questions too, if the teen has stopped checking in (see "When Steady asks") | Nothing |
 | Worth a check | A score of 3 or more on the two, or two more weeks outside | The other six questions, completing the eight | Nothing |
 | Heads-up | A score of 10 or more on the eight, at any time including setup; or two signals outside for four weeks with the last two asks skipped | A suggestion to see a doctor, with 988 on screen. After skipped asks, the suggestion waits for the next weekly note. Nothing says a note was sent | A heads-up |
 | Urgent | Words that state a plan or intent to end their life, or say they have just hurt themselves or taken something | 988 and 911 full screen, at once | An urgent note, at once |
@@ -50,7 +59,7 @@ The questionnaire screens say: "Your answers stay on this phone. A high result c
 
 The rules around the table:
 
-- **How the weeks are counted.** While signals stay outside, Steady asks once a week. A question set left unfinished counts as skipped. The four weeks start when the second of the two signals leaves its range. A low answer is not a skip, and it restarts the four weeks.
+- **How the weeks are counted.** While signals stay outside and the teen is not checking in, Steady asks once a week. A question set left unfinished counts as skipped, whichever rule asked it. The four weeks start when the second of the two signals leaves its range. A low answer is not a skip, and it restarts the four weeks.
 - **A low answer is taken at its word.** As before, a low score pauses asking for two weeks, and Steady keeps watching. Pauses in asking never pause the urgent path.
 - **At most one heads-up every three weeks.** Evidence that arrives during those weeks is held. When they end, Steady checks again and sends a second heads-up if the student is still outside with asks skipped, or has had a new high score. Urgent notes are never held back.
 - **Flags answered "yes" still count.** Two flags in 14 days send a heads-up, even when each was answered "yes".
@@ -179,7 +188,7 @@ Emails and messages sent in the last 24 hours also go through the self-harm chec
 
 - **Scene 3** keeps its counter, TEXT SENT: 0 BYTES, and adds a second line, ALERTS SENT, with the size of each event.
 - **Scene 5** shows two phones. Maya's screen shows the doctor suggestion and nothing else. The amber light crosses to her mother's phone, where the heads-up appears word by word.
-- **Maya's story changes at setup and from week 8.** Her mother scans the code, and Maya reads the setup screen and answers the eight questions alone. At the end of week 8 her two answers are high and her score on the eight is 10 or more. She never writes a letter. Her mother gets the heads-up that night, starts the conversation on a drive, and taps "Booked a doctor". Weeks 9 to 12 stay as they were: they see the pediatrician, and Maya shows the doctor her chart.
+- **Maya's story changes at setup and from week 4.** Her mother scans the code, and Maya reads the setup screen and answers the eight questions alone. She checks in every week. At the monthly ask in week 4 her two answers total 2, under the cut-off of 3, and she is taken at her word. During finals her check-ins get more stressed. In week 6 the ask model's score reaches its threshold, so Steady asks again and does not wait for week 8. Her answers are still under the cut-off. At the end of week 8 it asks again, her two answers are high and her score on the eight is 10 or more. She never writes a letter. Her mother gets the heads-up that night, starts the conversation on a drive, and taps "Booked a doctor". Weeks 9 to 12 stay as they were: they see the pediatrician, and Maya shows the doctor her chart.
 - **The app screens change.** The letter screen goes. The parent app has three screens: the note, what to say, and the reply buttons. The teen's help screen is as described above.
 
 ## What the experiments now measure
@@ -187,6 +196,8 @@ Emails and messages sent in the last 24 hours also go through the self-harm chec
 **Experiment 1, timing.** A false alarm now reaches a parent, so it costs more than the ten seconds it used to. At the heads-up threshold we will report alerts per student per year, the share of alerts that land in weeks with high mood scores, and low periods that get no alert. Each is compared with alerts sent on a fixed calendar at the same count. The four-week rule for skipped asks is tested on its own, using phone data only, because it will have the most false alarms. The four-week and three-week numbers are chosen on the training group of students and frozen before the test group is scored. High mood scores stand in for a note being right. They cannot show whether a note helped a family.
 
 *Result.* Training students picked six weeks outside and a three-week cooldown. On the test students that gave 2.8 heads-ups a year, and 15.8% landed on a week with a high mood score, against 15.5% for a calendar sending the same number. The difference was within chance in all five splits, and 198 of 225 low periods got no heads-up. A heads-up from skipped questions has no evidence behind it yet. [Full write-up](../results/exp1/results.md).
+
+**Experiment 4, the ask model.** This is the model that now decides when to ask sooner. On Dartmouth students it never saw, it scored an AUC of 0.89. At 12 asks per student per year, 44% of its asks landed on a week with a high mood score, against 13% for a fixed calendar. It missed 586 of 2,171 high weeks, and 2,012 of its asks landed on weeks that were not high. It finds who to ask more often and does not pick the week: random weeks from the same student and quarter reached 45%. A wrong ask costs the teen two questions. It never reaches a parent. [Full write-up](../results/exp4/results.md).
 
 **Experiment 2, words.** The tone model is tested as before. The self-harm phrase list gets its own small test: song lyrics, dark jokes and sarcasm we write, to count false flags, and messages we write that state real risk, to count misses.
 

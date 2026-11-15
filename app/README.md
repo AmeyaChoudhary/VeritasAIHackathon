@@ -11,7 +11,7 @@ You need Node 22 or newer.
 ```
 cd app
 npm install
-npm test          # the rules engine tests
+npm test          # 206 tests of the rules engine, the ask model and the readers
 npm run dev -- --port 5210
 ```
 
@@ -41,9 +41,9 @@ Pick one in the control bar. **Next week** plays to just after the next week end
 
 | Scenario | What happens |
 | --- | --- |
-| Maya's 12 weeks | Weeks 1 to 4 learn her range (week 3 has one four-hour night, and nothing happens). Finals in weeks 5 and 6: sleep, messaging and activity leave the range, she gets the two questions and answers low, and Steady takes her at her word. Weeks 7 and 8: sleep and messaging stay low. At the end of week 8 her two answers are high, the other six follow, and her score on the eight is 10 or more. Her phone shows the doctor suggestion; Mom gets the heads-up ("For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often.") and taps "Booked a doctor" the next evening. Weeks 9 to 12 come back into range |
-| Steady week to week | Everything stays in range. The two questions come up once anyway, at week 8. Week 10 has two days of data, so Mom's app shows "On, but not enough data" for a few days. Week 11 has days without the Steady keyboard. No notes |
-| Skips the questions | From week 5 sleep and messaging drop and stay down. Every question set is skipped. At the end of week 8 (four weeks outside, last two asks skipped) Mom gets a heads-up. The evidence keeps coming and is held; three weeks later a second heads-up goes out. Maya's doctor suggestion waits for the next weekly note |
+| Maya's 12 weeks | She checks in every week. Weeks 1 to 4 learn her range (week 3 has one four-hour night, and nothing happens). At the end of week 4 the monthly two questions come up: her answers total 2, under the cut-off of 3, and Steady takes her at her word. Finals in weeks 5 and 6: sleep, messaging and activity leave the range and her check-ins get more stressed. At the end of week 6 the ask model's score reaches its threshold, so the two questions come up two weeks early. Her answers are still under the cut-off. Weeks 7 and 8: sleep and messaging stay low. At the end of week 8 the model asks again, her two answers are high, the other six follow, and her score on the eight is 10 or more. Her phone shows the doctor suggestion; Mom gets the heads-up ("For the past 4 weeks, Maya has been sleeping less than usual and messaging people less often.") and taps "Booked a doctor" the next evening. Weeks 9 to 12 come back into range, and the model asks again at weeks 10 and 12; both answers are low |
+| Steady week to week | Everything stays in range. The two questions come up once a month anyway, at weeks 4, 8 and 12, and every answer is low. Week 10 has two days of data, so Mom's app shows "On, but not enough data" for a few days. Week 11 has days without the Steady keyboard. No notes |
+| Skips the questions | She answers the monthly ask in week 4, then stops: no check-ins. From week 5 sleep and messaging drop and stay down. With no check-ins, her phone signals decide when to ask, once a week from week 6, and every set is skipped. At the end of week 8 (four weeks outside, last two asks skipped) Mom gets a heads-up. The evidence keeps coming and is held; three weeks later a second heads-up goes out. Maya's doctor suggestion waits for the next weekly note |
 | Urgent: plan words | Late on a Wednesday in week 3 a message states a plan. 988 and 911 fill her screen and Mom gets an urgent note at once |
 | Urgent: concern, no answer | In week 3 a message has self-harm words without a plan. "Are you safe right now?" appears with 988 behind it. Nobody answers, so 30 minutes later Mom gets an urgent note. Nobody replies, so it sounds again every 5 minutes, and after 15 minutes it shows on Dad's phone and Ms. Patel's phone (the trusted adult Maya named) |
 
@@ -56,6 +56,7 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 | Real | Simulated |
 | --- | --- |
 | The rules: every rule in docs/parent-alerts.md is in `src/engine/rules.ts`, with all numbers in `src/engine/config.ts` | Maya and all weekly data. The weekly numbers are made up in `src/engine/simulate.ts` |
+| The ask model decides when the two questions come up (`src/engine/askmodel.ts`, weights and 24 test cases in `src/engine/ask_model.json`, from Experiment 4). `askmodel.test.ts` checks that the app's arithmetic gives the same scores as the training script | The check-in answers in the scripted scenarios. Turn "Scripted answers and replies" off and tap the two rows on Maya's Home screen yourself |
 | The tone model runs in the browser on what you type (`src/engine/tone.ts`, weights in `public/models/tone.json`, from Experiment 2) | Sleep, steps and messaging counts. A real app would read them from the phone |
 | The self-harm phrase check runs on what you type (`src/engine/selfharm.ts`). It is a short list and is not validated | The keyboard. The Type tab stands in for the Steady keyboard |
 | Typed text is scored and dropped. It is never stored, and TEXT SENT stays at 0 BYTES | Time. The clock is simulated, so a week passes in a click |
@@ -63,7 +64,19 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 | Connect, then Import a file, parses a Spotify history file or a sleep and steps CSV in the browser, and uploads nothing | Pairing. "Scan the code" reads the code from the teen phone on the same page |
 | The parent app's timing: urgent notes repeat every 5 minutes, reach the other adults after 15, reminders after 2 days, "Not connected" after 26 hours, heads-ups held quietly for six weeks after "Booked a doctor" | Do Not Disturb, Critical Alerts, phone calls and texts. The `tel:` and `sms:` links open the phone's dialer or messages app if there is one |
 
-"How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json` and `exp3_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
+"How we know" reads `public/data/exp1_summary.json`, `exp2_summary.json`, `exp3_summary.json` and `exp4_summary.json` at runtime and shows "Results pending" for any that is missing. If `models/tone.json` fails to load, the Type tab says "Tone model not loaded" and the self-harm check still runs.
+
+## When Steady asks
+
+The teen's Home screen has a **check-in** card: two rows of five dots, for stress and for time alone or with others. Two taps store one check-in for the week. It stays on the phone and never sends a note.
+
+At the end of each week the rules decide whether to bring up the two questions, in this order (`weekEnd` in `src/engine/rules.ts`, numbers in `src/engine/config.ts`):
+
+1. **The ask model.** It scores this week's check-in, the usual check-in, the last PHQ-2 score and the average PHQ-2 score. If the score is at or over the threshold in `ask_model.json` and the last ask was at least two weeks ago (`askModelGapWeeks`), it asks.
+2. **Phone signals, as a backstop.** If there has been no check-in for two weeks (`checkinFallbackWeeks`) and two signals count, or tone plus one other, it asks.
+3. **The month.** Otherwise the two questions come up every four weeks (`askAnywayWeeks`).
+
+The log in "Evidence and log" says which rule asked. A heads-up to a parent still rests only on the questionnaire score or the skipped-asks rule.
 
 ## Choices the doc leaves open
 
@@ -78,7 +91,7 @@ You can also do it by hand: pair with "Scan the code" on Mom's phone, read the s
 - **Daily status** counts only days with real data, so the first few days after setup report "not enough data". If no status ever arrives, the parent app shows "Not connected" 26 hours after pairing.
 - **A "yes" to "Are you safe right now?"** holds the note, and the 988 screen stays up until the teen goes back.
 - **The doctor suggestion** shows at once after a high score, and waits for the next weekly note after skipped asks or two flags.
-- **Asking anyway** every eight weeks and the slow-moving range come from docs/concept.md. Sleep under six hours a night counts as outside for everyone.
+- **Asking anyway** every four weeks and the slow-moving range come from docs/concept.md. Sleep under six hours a night counts as outside for everyone.
 - **ALERTS SENT** is shown under the teen's phone frame, outside the phone, because the teen never sees that a note was sent. TEXT SENT: 0 BYTES is on the Type tab and in the caption.
 - **Receipts.** When the parent taps a reply to an urgent note, the parent app sends a small receipt to the relay so the other adults' apps know whether to show the note. It never reaches the teen's phone. The log shows it.
 
@@ -168,9 +181,9 @@ The Connect screen shows what the phone kept, in words, with partial weeks marke
 ## Files
 
 ```
-src/engine/   pure TypeScript: types, config, rules, clock, transport, runner, scenarios, notes, tests
+src/engine/   pure TypeScript: types, config, rules, the ask model (askmodel.ts, ask_model.json), clock, transport, runner, scenarios, notes, tests
 src/store/    the driver tab, cross-tab sync, tone model loading
-src/teen/     Pair, setup screen, questions, Home and chart, Type, Connect, Are you safe, Help, Settings, Import
+src/teen/     Pair, setup screen, questions, Home, the check-in card and chart, Type, Connect, Are you safe, Help, Settings, Import
 src/parent/   Pair (with the second adult, Do Not Disturb and "What Steady misses"), Home, Note, What to say, I can't reach her, other adults
 src/demo/     the demo shell, control bar, evidence drawer, event log, How we know
 src/integrations/  readers for every source, Google, Microsoft and Fitbit sign-in, the zip reader, fixtures, sample data

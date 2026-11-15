@@ -158,7 +158,12 @@ export function advance(
         w = apply(w, { kind: "dayEnd", day: c.day, ...info }, t, emitted, cfg);
         break;
       }
-      case "week":
+      case "week": {
+        // Scripted: she taps this week's check-in before the week closes.
+        const ci = scn.checkins?.[w.teen.week];
+        if (w.scripted && ci && !w.teen.checkins?.[w.teen.week + 1]) {
+          w = apply(w, { kind: "checkin", stress: ci[0], withOthers: ci[1] }, t, emitted, cfg);
+        }
         w = apply(
           w,
           { kind: "weekEnd", data: scn.weeks[w.teen.week], live: opts.live?.(weekOfEngine(w.teen, w.teen.week + 1)) },
@@ -167,6 +172,7 @@ export function advance(
           cfg,
         );
         break;
+      }
       case "answer": {
         const ans = scn.answers[c.week];
         w = { ...w, done: [...w.done, `ans-${c.askId}`] };

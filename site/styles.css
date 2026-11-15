@@ -283,7 +283,8 @@ img, svg, video, canvas { display: block; }
 .bar-row.lead .bar-fill { background: var(--ink); }
 .in .bar-fill { clip-path: inset(0 calc(100% - var(--w)) 0 0 round 12px); }
 .bar-mark { position: absolute; top: -7px; bottom: -7px; left: var(--x); width: 0; border-left: 1.5px dashed var(--amber); }
-.bar-row:first-child .bar-mark::after { content: attr(data-tag); position: absolute; bottom: 100%; left: 6px; white-space: nowrap; font: 500 10px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: #B4761D; padding-bottom: 5px; }
+.bar-mark::after { content: attr(data-tag); position: absolute; top: 100%; right: 0; white-space: nowrap; font: 500 10px/1 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: #B4761D; padding-top: 5px; }
+.bars:has(.bar-mark) { margin-bottom: clamp(30px, 4.4vh, 40px); }
 .bar-val { font-size: clamp(22px, 2.2vw, 34px); font-weight: 600; letter-spacing: -0.03em; text-align: right; font-variant-numeric: tabular-nums; color: #6B6F76; }
 .bar-row.lead .bar-val { color: var(--ink); }
 .chart.tone .bar-row { grid-template-columns: minmax(0, 1fr) 4.4ch; }

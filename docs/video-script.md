@@ -1,23 +1,23 @@
 # Demo video script
 
-The demo video is [docs/video/steady-demo.mp4](video/steady-demo.mp4): 1 minute 45 seconds, inside the hackathon's two-minute limit. Its pictures are finished. Its voice is a computer placeholder, there so the timing can be judged, and it is meant to be replaced by yours.
+The demo video is [docs/video/steady-demo.mp4](video/steady-demo.mp4): 1 minute 53 seconds, inside the hackathon's two-minute limit. Its pictures are finished. Its voice is a computer placeholder, there so the timing can be judged, and it is meant to be replaced by yours.
 
 ## The script
 
-278 words in ten cards. The times are where each card starts with the placeholder voice.
+305 words in ten cards. The times are where each card starts with the placeholder voice.
 
 | Card | Starts | What it is | On screen | Say |
 | --- | --- | --- | --- | --- |
 | 1 | 0:00 | The problem | Five dots, one turns amber. A bar: 4 in 10 get treatment. Then a thin line that slips down over weeks and fades. | "One in five American teenagers goes through depression in a year, and most get no treatment. It builds slowly: a little less sleep, fewer texts, dropped plans. So nobody sees it." |
 | 2 | 0:13 | What we built | The Steady mark draws itself. Two phones slide in: Maya's and her mom's. | "So we built Steady. It lives on a teenager's phone, linked to a parent's. Meet Maya." |
-| 3 | 0:19 | It learns her normal | Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named. | "For four weeks, Steady learns what's normal for her: her sleep, how often she reaches out, how much she moves, and the tone of what she types." |
-| 4 | 0:28 | A lasting shift | Weeks five and six. Two parts of the ring turn amber. The two questions come up and she answers low. | "During finals, her sleep and messaging slip out of her range. So Steady asks her two questions, the ones doctors use. She says she's okay, and Steady takes her at her word." |
-| 5 | 0:40 | The note | Week eight. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens. | "But it doesn't pass. At week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages." |
-| 6 | 0:54 | Her words stay on her phone | Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent. | "What Maya types never leaves her phone. A small model reads each message there, keeps one dot, and lets the words go." |
-| 7 | 1:02 | Does it work: the tone model | Two bars grow: tone model 50%, keyword list 24%. | "Does it work? On five thousand comments it had never seen, our tone model caught half of the low-mood ones. A keyword list caught a quarter." |
-| 8 | 1:10 | Does it work: when to ask | 213 dots. 'Our first idea failed.' Then three bars: calendar 13%, phone 18%, one check-in 24%. | "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. What worked was asking. One short check-in beat everything the phone recorded." |
-| 9 | 1:24 | What's next | Three short lines with icons: ask first, a real self-harm model, a clinician. | "So the next Steady asks first: one tap, every week. Its self-harm check missed nine of fifteen test messages, so it needs a real model and a clinician." |
-| 10 | 1:34 | Close | The Steady mark, 'knowing when to ask', and 'Prototype. Not medical advice.' | "Steady is a prototype, not medical advice. But asking at the right time could change who gets help." |
+| 3 | 0:19 | It learns her normal | Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named. Then she taps the two-dot check-in. | "For four weeks, Steady learns what's normal for her: her sleep, how often she reaches out, how much she moves, and the tone of what she types. Once a week, she checks in with two taps." |
+| 4 | 0:31 | It asks | Week four: the two questions come up and she answers low. Weeks five and six: the ring turns amber, her check-ins climb, the model's score crosses its line, and the questions come up again. | "Every month, Steady asks two questions, the ones doctors use. Maya says she's mostly okay, and Steady takes her at her word. Then finals hit. Her check-ins get tense, and our model doesn't wait a month. It asks again." |
+| 5 | 0:46 | The note | Week six she answers low again. Week eight her answers are high. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens. | "She still says she's fine. But at week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages." |
+| 6 | 1:00 | Her words stay on her phone | Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent. | "What Maya types never leaves her phone. A small model reads each message there, keeps one dot, and lets the words go." |
+| 7 | 1:08 | Does it work: the tone model | Two bars grow: tone model 50%, keyword list 24%. | "Does it work? On five thousand comments it had never seen, our tone model caught half of the low-mood ones. A keyword list caught a quarter." |
+| 8 | 1:17 | Does it work: when to ask | 213 dots. 'Our first idea failed.' Then two bars: the ask model 44%, a fixed calendar 13%. | "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. So we rebuilt Steady to ask first. Its model put forty-four percent of its asks on a hard week. A calendar: thirteen." |
+| 9 | 1:34 | What's next | Three short lines with icons: who, not yet when; a real self-harm model; a clinician. | "It knows who to ask, not yet which week. And its self-harm check missed nine of fifteen test messages. That needs a real model and a clinician." |
+| 10 | 1:43 | Close | The Steady mark, 'knowing when to ask', and 'Prototype. Not medical advice.' | "Steady is a prototype, not medical advice. But asking at the right time could change who gets help." |
 
 Every number in the script is from [the write-up](../WRITEUP.md).
 
@@ -45,7 +45,7 @@ Edit `video/script/script.json`, then run `python3 tools/tts_placeholder.py` for
 
 ## How it is made
 
-- **The phones are the real app.** `video/public/rec/` holds recordings of Maya's phone and her mom's phone, made by driving the app's own screens through Maya's twelve weeks. Nothing on the phones is drawn for the video.
+- **The phones are the real app.** `video/public/rec/` holds recordings of Maya's phone and her mom's phone, made by driving the app's own screens through Maya's twelve weeks: her two-tap check-ins, the monthly ask in week 4, the ask model's early ask in week 6, and the high answers in week 8. Nothing on the phones is drawn for the video.
 - **The rest is drawn in code** with Remotion, in `video/src/scenes/`. Each beat starts on a spoken word, read from `video/src/timing.json`.
 - **The music** is synthesized by `video/tools/music.py`, so there is nothing to license.
 - **AI tools:** the script, scenes and tools were written with Claude (Anthropic). The placeholder voice is Microsoft's `en-US-AvaNeural` through `edge-tts`.

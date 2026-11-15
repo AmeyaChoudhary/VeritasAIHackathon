@@ -3,6 +3,7 @@
 // that would leave the teen's phone. Nothing here sees typed text: the keyboard passes only
 // the self-harm level, and the tone share arrives as a weekly number.
 
+import { ASK_THRESHOLD, askInputs, askScore, checkedInLately } from "./askmodel";
 import { CONFIG, DAY, HOUR, WEEK, type Config } from "./config";
 import { activeSignals, combine, configuredMix, CONTEXT_SOURCES, signalsOfSource, weekParts } from "./sources";
 import {
@@ -30,6 +31,8 @@ export type Input =
   | { kind: "acknowledge"; trusted?: string }
   | { kind: "answer"; value: number }
   | { kind: "skipAsk" }
+  /** The weekly two-tap check-in. stress and withOthers are 1 to 5. */
+  | { kind: "checkin"; stress: number; withOthers: number }
   | { kind: "dayEnd"; day: number; hasData: boolean; keyboardUsed: boolean }
   | { kind: "weekEnd"; data: WeekData; live?: LiveWeek }
   /** A flag from an email, a message in a data file, or the Android phone file. source names
@@ -124,6 +127,8 @@ export function createTeen(opts: { startAt: number; code: string; people?: Parti
     skipRuns: emptySignals(() => 0),
     skipSince: emptySignals<number | null>(() => null),
     episode: null,
+    checkins: {},
+    phq2s: [],
     ask: null,
     asks: [],
     lastAskWeek: 0,
@@ -344,7 +349,7 @@ function headsUp(ctx: Ctx, reason: HeldReason, why: string, deferDoctor: boolean
 
 // ---------------------------------------------------------------- asks
 
-function issueAsk(ctx: Ctx, kind: AskKind, reason: "signals" | "anyway" | "recheck") {
+function issueAsk(ctx: Ctx, kind: AskKind, reason: "signals" | "anyway" | "recheck" | "model") {
   const { s, now } = ctx;
   s.ask = {
     id: `${kind}-w${s.week}`,
@@ -360,8 +365,10 @@ function issueAsk(ctx: Ctx, kind: AskKind, reason: "signals" | "anyway" | "reche
     kind === "recheck"
       ? "Asked the eight questions again (every two weeks after a high setup score)."
       : reason === "anyway"
-        ? "Asked the two questions (they come up every two months anyway)."
-        : "Asked the two questions.";
+        ? "Asked the two questions (they come up every month anyway)."
+        : reason === "model"
+          ? "Asked the two questions (the ask model's score reached its threshold)."
+          : "Asked the two questions.";
   trace(ctx, what);
 }
 
@@ -369,7 +376,7 @@ function closeAsk(ctx: Ctx, result: AskResult, total?: number) {
   const { s, cfg, now } = ctx;
   const a = s.ask;
   if (!a) return;
-  s.asks.push({ id: a.id, kind: a.kind, week: a.week, issuedAt: a.issuedAt, closedAt: now, result, total });
+  s.asks.push({ id: a.id, kind: a.kind, week: a.week, issuedAt: a.issuedAt, closedAt: now, result, reason: a.reason, total });
   s.ask = null;
   if (a.kind === "recheck") {
     const sh = s.setupHigh;
@@ -404,6 +411,8 @@ function answer(ctx: Ctx, raw: number) {
   a.answers.push(value);
   const n = a.answers.length;
   const sum = a.answers.reduce((x, y) => x + y, 0);
+  // The first two answers of any set are a PHQ-2 score. The ask model reads them later.
+  if (n === 2) (s.phq2s ??= []).push({ week: a.kind === "setup" ? 0 : a.week, score: sum });
 
   if (a.kind === "check" && n === 2 && !a.six) {
     const byWeeks = s.episode != null && s.episode.validWeeks >= 1 + cfg.extraWeeksForEight;
@@ -658,7 +667,15 @@ function weekEnd(ctx: Ctx, input: WeekData, live?: LiveWeek) {
     headsUp(ctx, "skipRule", `Two signals outside for ${skipWeeks(s)} weeks with the last two asks skipped.`, true);
   }
 
-  if (cond && !s.ask && w >= s.pauseUntilWeek) issueAsk(ctx, "check", "signals");
+  // When to ask. The ask model goes first: it reads the check-in and the earlier answers.
+  // Phone signals decide only when the teen has stopped checking in, as a backstop:
+  // Experiment 1 found they pick weeks no better than chance. Otherwise they are context.
+  const score = askScore(askInputs(s, w));
+  rec.askScore = Math.round(score * 1000) / 1000;
+  const canAsk = !s.ask && w >= s.pauseUntilWeek;
+  const usesCheckins = checkedInLately(s, w, cfg.checkinFallbackWeeks);
+  if (canAsk && score >= ASK_THRESHOLD && w - s.lastAskWeek >= cfg.askModelGapWeeks) issueAsk(ctx, "check", "model");
+  else if (canAsk && cond && !usesCheckins) issueAsk(ctx, "check", "signals");
   else routineAsk(ctx);
 }
 
@@ -822,6 +839,12 @@ export function step(state: TeenState, input: Input, now: number, cfg: Config = 
       s.people = { ...s.people, ...input.people };
       trace(ctx, `Paired with ${s.people.parent}'s phone.`);
       break;
+    case "checkin": {
+      if (!s.setupDone || s.off) break;
+      const lvl = (v: number) => Math.max(1, Math.min(5, Math.round(v)));
+      (s.checkins ??= {})[s.week + 1] = { stress: lvl(input.stress), withOthers: lvl(input.withOthers) };
+      break;
+    }
     case "rename":
       s.people = { ...s.people, ...input.people };
       break;

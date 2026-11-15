@@ -157,6 +157,8 @@ export interface WeekRecord {
   learning: SignalId[];
   /** Snapshot of each range used this week, for the chart. */
   ranges: Partial<Record<SignalId, Range>>;
+  /** The ask model's score at this week's end, 0 to 1. */
+  askScore?: number;
 }
 
 // ---- Events that leave the teen's phone (docs/parent-alerts.md, "What leaves the phone")
@@ -221,7 +223,15 @@ export interface PendingAsk {
   answers: number[];
   /** true once the other six follow (always true for setup and recheck). */
   six: boolean;
-  reason: "setup" | "signals" | "anyway" | "recheck";
+  /** model: the ask model's score reached its threshold (Experiment 4). */
+  reason: "setup" | "signals" | "anyway" | "recheck" | "model";
+}
+
+/** The weekly check-in, in the study's own scales: stress 1 (not at all) to 5 (extremely),
+ *  withOthers 1 (almost always alone) to 5 (almost always with others). */
+export interface Checkin {
+  stress: number;
+  withOthers: number;
 }
 
 export type AskResult = "skipped" | "low" | "high";
@@ -233,6 +243,8 @@ export interface AskRecord {
   issuedAt: number;
   closedAt: number;
   result: AskResult;
+  /** Why it was asked: the monthly ask, the ask model, or phone signals as the backstop. */
+  reason?: PendingAsk["reason"];
   /** Kept on the phone only. Never in a note. */
   total?: number;
 }
@@ -281,6 +293,11 @@ export interface TeenState {
   skipSince: Record<SignalId, number | null>;
   /** The "outside range" state. validWeeks counts the start week as 1. */
   episode: { start: number; validWeeks: number } | null;
+
+  /** The weekly two-tap check-in, by the week it was given in. Kept on the phone only. */
+  checkins?: Record<number, Checkin>;
+  /** Every PHQ-2 score so far (the first two answers of a set), with its week. Kept on the phone only. */
+  phq2s?: { week: number; score: number }[];
 
   ask: PendingAsk | null;
   asks: AskRecord[];

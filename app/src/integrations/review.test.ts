@@ -204,7 +204,8 @@ describe("4. disconnecting forgets everything derived from the account", () => {
     h.do({ kind: "disconnect", source: "lastfm" }, h.weekEnd - 1000);
     expect(h.s.ask).toBeNull();
     expect(h.s.episode).toBeNull();
-    expect(h.s.asks.filter((a) => a.result === "skipped")).toHaveLength(0);
+    // only the monthly ask at week 4 counts as skipped; the set asked because of the account was dropped
+    expect(h.s.asks.filter((a) => a.result === "skipped").map((a) => a.id)).toEqual(["check-w4"]);
   });
 
   it("safety handling that already happened stays", () => {

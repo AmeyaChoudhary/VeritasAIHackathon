@@ -40,6 +40,9 @@ export interface Scenario {
   /** Answers for the set asked at the end of that week: the two, then the six if asked.
    *  "skip" taps Not now. A missing week leaves the set unfinished. */
   answers: Record<number, number[] | "skip">;
+  /** The two-tap check-in for each week, in order: [stress, time with others], each 1 to 5.
+   *  null, or no list at all, means she did not check in. */
+  checkins?: ([number, number] | null)[];
   messages: ScriptMessage[];
   stops: ScriptStop[];
   replies: ScriptReply[];
@@ -166,7 +169,7 @@ const maya: Scenario = {
   id: "maya",
   title: "Maya's 12 weeks",
   blurb:
-    "Finals in weeks 5 and 6. Her two answers are low and taken at her word. Sleep and messaging stay low through week 8, when her answers are high and Mom gets a heads-up.",
+    "She checks in each week. At the monthly ask in week 4 her answers are just under the cutoff and taken at her word. Finals come, her check-ins get more stressed, and the ask model asks again in week 6 instead of waiting a month. In week 8 her answers are high and Mom gets a heads-up.",
   startAt: T0,
   people: DEMO_PEOPLE,
   setupAnswers: [1, 0, 1, 1, 0, 0, 1, 0],
@@ -202,9 +205,14 @@ const maya: Scenario = {
     },
   }),
   answers: {
-    6: [1, 1], // "It's just finals."
+    4: [1, 1], // the monthly ask: "several days" on both, a total of 2, under the cutoff of 3
+    6: [1, 1], // the ask model asked two weeks early; still under the cutoff
     8: [2, 2, 2, 1, 2, 1, 1, 1],
+    10: [1, 1],
+    12: [0, 1],
   },
+  // Stress climbs and time with others falls through finals, then both ease.
+  checkins: [[2, 4], [2, 4], [3, 4], [2, 4], [4, 3], [4, 2], [4, 2], [5, 1], [3, 3], [3, 3], [2, 4], [2, 4]],
   messages: [],
   stops: [],
   replies: [{ id: "r-booked", at: at(9, 0, 18, 10), choice: "booked" }],
@@ -215,7 +223,7 @@ const steady: Scenario = {
   id: "steady",
   title: "Steady week to week",
   blurb:
-    "Everything stays in range. The two questions come up once anyway. Week 10 has too little data and week 11 has days without the Steady keyboard. No notes.",
+    "Everything stays in range. The two questions come up once a month anyway. Week 10 has too little data and week 11 has days without the Steady keyboard. No notes.",
   startAt: T0,
   people: { ...DEMO_PEOPLE, teen: "Maya" },
   setupAnswers: [0, 0, 1, 0, 0, 0, 0, 0],
@@ -233,7 +241,8 @@ const steady: Scenario = {
     wk(7.25, 9, 7650, 0.115, { keyboardDays: 3 }),
     wk(7.15, 10, 7500, 0.12),
   ]),
-  answers: { 8: [0, 1] },
+  answers: { 4: [0, 0], 8: [0, 1], 12: [0, 0] },
+  checkins: [[2, 4], [2, 3], [1, 4], [2, 4], [2, 4], [3, 4], [2, 3], [2, 4], [2, 4], [2, 4], [1, 4], [2, 4]],
   messages: [],
   stops: [],
   replies: [],
@@ -244,10 +253,10 @@ const skips: Scenario = {
   id: "skips",
   title: "Skips the questions",
   blurb:
-    "From week 5 sleep and messaging drop and stay down. Every set of questions is skipped. After four weeks outside with the last two asks skipped, Mom gets a heads-up. A second one waits for the three-week limit.",
+    "She answers the monthly ask in week 4, then stops checking in. From week 5 sleep and messaging drop and stay down, so her phone signals decide when to ask, and every set is skipped. After four weeks outside with the last two asks skipped, Mom gets a heads-up. A second one waits for the three-week limit.",
   startAt: T0,
   people: DEMO_PEOPLE,
-  setupAnswers: [1, 1, 1, 1, 0, 0, 0, 0],
+  setupAnswers: [1, 0, 1, 1, 1, 0, 0, 0],
   weeks: withConnected([
     wk(7.6, 10, 8000, 0.1),
     wk(7.2, 11, 8400, 0.09),
@@ -262,7 +271,9 @@ const skips: Scenario = {
     wk(6.5, 7, 7800, 0.11),
     wk(6.4, 7.5, 7900, 0.12),
   ]),
-  answers: { 6: "skip", 7: "skip", 8: "skip", 9: "skip", 10: "skip", 11: "skip", 12: "skip" },
+  // She answers the monthly ask in week 4, then stops: no check-ins, and every set skipped.
+  // With no check-ins, Steady falls back to her phone signals to decide when to ask.
+  answers: { 4: [0, 1], 6: "skip", 7: "skip", 8: "skip", 9: "skip", 10: "skip", 11: "skip", 12: "skip" },
   messages: [],
   stops: [],
   replies: [],

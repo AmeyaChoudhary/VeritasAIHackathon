@@ -1,6 +1,6 @@
 // Steady's service worker: keeps the app's own files so it opens and runs with no network.
 // Nothing here sends data anywhere. It only answers requests for this app's files.
-const CACHE = "steady-v1";
+const CACHE = "steady-v2";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./models/tone.json"];
 
 self.addEventListener("install", (event) => {

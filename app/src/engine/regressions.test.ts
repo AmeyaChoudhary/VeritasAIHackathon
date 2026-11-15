@@ -40,7 +40,8 @@ describe("review fixes", () => {
     const h = new Harness().learn().weeks(2, OUT2); // ask at week 6
     h.do({ kind: "setOff", off: true }, h.weekEnd - 5 * DAY);
     h.weeks(4, OUT2);
-    expect(h.s.asks.filter((a) => a.result === "skipped")).toHaveLength(0);
+    // The monthly ask at week 4 went unanswered. The open week-6 set was dropped, not skipped.
+    expect(h.s.asks.filter((a) => a.result === "skipped").map((a) => a.id)).toEqual(["check-w4"]);
     expect(h.headsUps()).toHaveLength(0);
     expect(h.s.ask).toBeNull();
   });

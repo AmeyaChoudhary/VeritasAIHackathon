@@ -10,6 +10,17 @@
   "matchedRandom": 14.9,
   "calendar": 13,
   "phone": 18,
-  "checkin": 24
+  "checkin": 24,
+  "askModel": 44,
+  "askModelAuc": 0.89,
+  "sameStudentRandom": 45
+ },
+ "maya": {
+  "threshold": 0.16,
+  "scores": {
+   "4": 0.05,
+   "5": 0.21,
+   "6": 0.23
+  }
  }
 }
