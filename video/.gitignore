@@ -1,0 +1,8 @@
+node_modules/
+out/
+public/voice/parts/
+public/voice/*.wav
+public/music/*.wav
+public/rec/*.webm
+takes/
+.DS_Store

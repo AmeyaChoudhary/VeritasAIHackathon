@@ -12,14 +12,15 @@ import { Settings } from "./Settings";
 import { Connect } from "./Connect";
 import type { SourceId } from "../engine/types";
 import { TeenTop } from "./Top";
+import { Icon, type IconName } from "../ui/icons";
 
 type Tab = "home" | "type" | "connect" | "settings";
 
-const TABS: { id: Tab; label: string }[] = [
-  { id: "home", label: "Home" },
-  { id: "type", label: "Type" },
-  { id: "connect", label: "Connect" },
-  { id: "settings", label: "Settings" },
+const TABS: { id: Tab; label: string; icon: IconName }[] = [
+  { id: "home", label: "Home", icon: "home" },
+  { id: "type", label: "Type", icon: "keyboard" },
+  { id: "connect", label: "Connect", icon: "link" },
+  { id: "settings", label: "Settings", icon: "gear" },
 ];
 
 export function TeenPhone() {
@@ -88,7 +89,8 @@ export function TeenPhone() {
                 setTab(t.id);
               }}
             >
-              {t.label}
+              <Icon name={t.icon} size={20} />
+              <span>{t.label}</span>
             </button>
           ))}
         </nav>

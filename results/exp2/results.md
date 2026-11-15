@@ -1,6 +1,6 @@
 # Experiment 2: words
 
-Run on 2026-11-14 with `.venv/bin/python experiments/exp2_words.py` (about 8 seconds). Every number here is written by that script into `results/exp2/results.json`. The notebook `notebooks/02_words_model.ipynb` shows the same results with charts.
+Run on 2026-11-14 with `.venv/bin/python experiments/exp2_words.py` (about 14 seconds). Every number here is written by that script into `results/exp2/results.json`. The notebook `notebooks/02_words_model.ipynb` shows the same results with charts.
 
 This experiment tests the two checks that read what a student types. Both run on the phone, and the text is discarded after scoring.
 
@@ -17,15 +17,24 @@ A comment counts as **low mood** if it carries any of sadness, grief, disappoint
 
 Low mood is rare: 6.9% of training comments, 6.6% of validation comments and 6.4% of test comments (345 of 5,427).
 
+### Soft labels
+
+GoEmotions also publishes a rater-level file: 3.7 raters read each comment on average. The "simplified" labels keep an emotion only when two raters agree, so a comment that one rater in three found sad is labelled plain "not sad". For training we used the share of a comment's raters who marked any of the four low-mood emotions. That gives 47,158 training comments: the 43,410 in the training split and 3,748 that "simplified" dropped for having no agreed label. 18.4% of them got at least one low-mood vote. No validation or test comment is in this pool, and validation and test are still scored against the agreed labels.
+
 ### Model
 
-The tokenizer is simple so that the browser can copy it exactly. It lowercases A to Z, deletes apostrophes ("don't" becomes "dont"), squashes a letter repeated three or more times to two ("sooo" becomes "soo"), and keeps runs of letters and digits. The features are single words and pairs of neighboring words, weighted by TF-IDF. A logistic regression with balanced class weights turns them into a score.
+The tokenizer is simple so that the browser can copy it exactly. It lowercases A to Z, deletes apostrophes ("don't" becomes "dont"), squashes a letter repeated three or more times to two ("sooo" becomes "soo"), and keeps runs of letters and digits. The features are single words and pairs of neighboring words, weighted by TF-IDF. A logistic regression turns them into a score.
 
-We tried 36 settings on the validation split only: vocabulary of 10,000, 15,000 or 20,000 terms, raw or log word counts, and six values of C from 0.25 to 8. We kept the one with the best average precision on validation: 20,000 terms, raw counts, C = 0.5 (validation average precision 0.561). The 20,000-term models scored only a little better than the 10,000-term ones.
+We tried 52 settings on the validation split only, in two recipes.
 
-The threshold is the one with the best F1 on validation: **0.595**. At that threshold validation precision was 50.6% and recall was 55.3%. The score comes from a class-balanced model, so it ranks messages well. It is not a calibrated chance.
+- **Hard labels** (36 settings): the agreed labels with balanced class weights, a vocabulary of 10,000, 15,000 or 20,000 terms, raw or log word counts, and six values of C from 0.25 to 8. Its best setting reached a validation average precision of 0.561 (20,000 terms, raw counts, C = 0.5). This was the model we shipped first.
+- **Soft labels** (16 settings): the rater shares above with no class weights, every term found in at least 4 or 5 training comments, raw or log word counts, and four values of C from 1 to 8. A cut of 3 comments would put the file at the 1 MB cap, so it was left out.
 
-We rounded every weight to 4 decimals and evaluated the rounded model, since that is the file the app loads. Rounding moved test scores by at most 2.3e-05.
+We kept the setting with the best average precision on validation: soft labels from every rater, 27,599 terms, raw counts, C = 2.0 (validation average precision 0.592).
+
+The threshold is the one with the best F1 on validation: **0.19**. At that threshold validation precision was 61.0% and recall was 53.3%. The score estimates the share of raters who would call a message low mood, which is why the threshold sits well under 0.5. It ranks messages well. It is not a calibrated chance that the writer is low.
+
+We rounded every weight to 4 decimals and evaluated the rounded model, since that is the file the app loads. Rounding moved test scores by at most 2.8e-05.
 
 ### Test results
 
@@ -35,31 +44,34 @@ All three methods were scored once on the same 5,427 test comments, of which 345
 | --- | --- | --- | --- | --- | --- |
 | Always "not low mood" | 0 | n/a (flags nothing) | 0.0% | 345 | 0 |
 | Keyword list (32 words) | 171 | 48.0% | 23.8% | 263 | 89 |
-| Tone model, threshold 0.595 | 365 | 51.8% | 54.8% | 156 | 176 |
-| Tone model, threshold 0.5 (for reference only) | 577 | 38.3% | 64.1% | 124 | 356 |
+| Tone model, threshold 0.19 | 297 | 58.6% | 50.4% | 171 | 123 |
+| Tone model, threshold 0.5 (for reference only) | 106 | 80.2% | 24.6% | 260 | 21 |
+| Earlier tone model (hard labels), threshold 0.595 | 365 | 51.8% | 54.8% | 156 | 176 |
 
-Bootstrap 95% ranges (2,000 resamples of the test set): model precision 46.7% to 57.2%, recall 49.4% to 60.0%; keyword precision 40.7% to 55.6%, recall 19.6% to 28.4%. The model's average precision is 0.521 and its ROC AUC is 0.878.
+The earlier model is the best setting of the hard-label recipe, with its own validation threshold. Its F1 on the test comments was 0.532 and its average precision 0.521; the model we ship now scores 0.542 and 0.541. The gain comes from the training labels. The words, the features and the code that runs on the phone are the same.
 
-The model finds 189 low-mood comments where the keyword list finds 82, at similar precision. It still misses 156 of 345, and 176 of its 365 flags are wrong. The keyword list reads only the words on its list, so it misses most comments that never say "sad" or "miss".
+Bootstrap 95% ranges (2,000 resamples of the test set): model precision 52.9% to 64.3%, recall 45.3% to 55.8%; keyword precision 40.7% to 55.6%, recall 19.6% to 28.4%. The model's average precision is 0.541 and its ROC AUC is 0.892.
+
+The model finds 174 low-mood comments where the keyword list finds 82, at higher precision. It still misses 171 of 345, and 123 of its 297 flags are wrong. The keyword list reads only the words on its list, so it misses most comments that never say "sad" or "miss".
 
 Recall by label (a comment can carry more than one):
 
 | Label | Test comments | Model recall | Keyword recall |
 | --- | --- | --- | --- |
-| sadness | 156 | 65.4% | 38.5% |
-| grief | 6 | 83.3% | 16.7% |
-| disappointment | 151 | 31.1% | 17.2% |
+| sadness | 156 | 62.2% | 38.5% |
+| grief | 6 | 50.0% | 16.7% |
+| disappointment | 151 | 23.8% | 17.2% |
 | remorse | 56 | 91.1% | 7.1% |
 
-Disappointment is the hardest label: the model misses 104 of 151. Reading the missed ones, many are plain complaints such as "Your TLDR sucks", and several also carry the annoyance label.
+Disappointment is the hardest label: the model misses 115 of 151. Reading the missed ones, many are plain complaints such as "Your TLDR sucks", and several also carry the annoyance label.
 
-The words that push hardest toward low mood are "sorry", "sad", "sadly", "bad", "poor", "hurts", "unfortunately", "disappointing", "disappointed", "miss", "regret", "hurt". "sorry" is far ahead of the rest, because Reddit comments labelled remorse or sadness often say "sorry". Teens say sorry for small things, and "sorry im late lol" scores as low mood. In Steady the signal is a change against the student's own normal, so a steady habit of saying sorry matters less than a sudden rise.
+The words that push hardest toward low mood are "sorry", "sad", "sadly", "disappointed", "disappointing", "hurts", "poor", "regret", "painful", "unfortunately", "miss", "bad". "sorry" is among them, because Reddit comments labelled remorse or sadness often say "sorry". Teens say sorry for small things, and "sorry im late lol" scores as low mood. In Steady the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.
 
 ### Size and browser check
 
-`app/public/models/tone.json` is 507,430 bytes (496 KB) with 20,000 features, under the 1 MB cap.
+`app/public/models/tone.json` is 714,271 bytes (698 KB) with 27,599 features, under the 1 MB cap.
 
-We ran `app/src/engine/tone.ts` under Node v25.9.0 on 5,487 texts (all 5,427 test comments and our 60 messages) and compared it with sklearn's `predict_proba`. The largest difference was 3.3e-16, far inside the 1e-4 target, and the two agreed on the low-mood decision for every text (0 differences). Outside Vite the default model address is `/models/tone.json`.
+We ran `app/src/engine/tone.ts` under Node v22.18.0 on 5,487 texts (all 5,427 test comments and our 60 messages) and compared it with sklearn's `predict_proba`. The largest difference was 6.7e-16, far inside the 1e-4 target, and the two agreed on the low-mood decision for every text (0 differences). Outside Vite the default model address is `/models/tone.json`.
 
 ## Part B: the self-harm check
 
@@ -88,15 +100,15 @@ A message is labelled low mood when its own words express sadness, grief, disapp
 | Slice | Messages | Labelled low mood | Model flagged | Model missed | Model false alarms | Keyword flagged |
 | --- | --- | --- | --- | --- | --- | --- |
 | everyday | 10 | 0 | 1 | 0 | 1 | 1 |
-| low_mood | 11 | 11 | 6 | 5 | 0 | 4 |
+| low_mood | 11 | 11 | 7 | 4 | 0 | 4 |
 | lyric_style | 8 | 4 | 0 | 4 | 0 | 0 |
 | dark_joke | 8 | 0 | 1 | 0 | 1 | 0 |
 | sarcasm | 8 | 3 | 0 | 3 | 0 | 0 |
 | risk_concern | 6 | 6 | 2 | 4 | 0 | 0 |
 | risk_plan | 9 | 9 | 3 | 6 | 0 | 1 |
-| **all** | 60 | 33 | 13 | 22 | 2 | 6 |
+| **all** | 60 | 33 | 14 | 21 | 2 | 6 |
 
-Across the 60, the model's precision is 84.6% (11 of 13) and its recall is 33.3% (11 of 33). The keyword list finds 5 of 33. Recall here is well below the 54.8% on Reddit comments. Teen texts are short and use different words, and the model learned from Reddit.
+Across the 60, the model's precision is 85.7% (12 of 14) and its recall is 36.4% (12 of 33). The keyword list finds 5 of 33. Recall here is well below the 50.4% on Reddit comments. Teen texts are short and use different words, and the model learned from Reddit.
 
 The model flagged 0 of the 4 sad lyric lines and 0 of the 3 sarcastic messages labelled low mood. Counted against the labels these are misses. For lyrics that may be the better outcome, since a student quoting a sad song is weak evidence of low mood. For sarcasm it means the model reads the surface words and misses the meaning. It flagged 5 of the 15 risk messages, which is one reason the self-harm check has to stay separate.
 

@@ -8,9 +8,9 @@
 // beyond loading that file. No imports, so it also runs under Node for the
 // parity test.
 //
-// The score comes from a class-balanced model, so it ranks messages well but
-// is not a calibrated chance. Use isLowMood(), which applies the threshold
-// chosen on the validation split.
+// The score ranks messages well but is not a calibrated chance, and its scale
+// depends on how the model was trained. Use isLowMood(), which applies the
+// threshold chosen on the validation split and stored in the model file.
 
 export interface ToneModel {
   version: number;

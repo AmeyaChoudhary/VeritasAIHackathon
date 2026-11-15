@@ -3,8 +3,9 @@ import { useSnap, useStore } from "../store/hooks";
 import { PHQ8, PHQ_STEM, PHQ_STOPS } from "../engine/phq";
 import { questionnaireLine } from "../engine/notes";
 import { DoctorCard } from "./Doctor";
+import { Icon } from "../ui/icons";
 
-/** One question per screen. The answer is a dot placed on a four-stop line. */
+/** One question per screen, four large answers, a row of dots for progress. */
 export function Questions({ mode, onDone }: { mode: "setup" | "check"; onDone: () => void }) {
   const snap = useSnap();
   const store = useStore();
@@ -21,15 +22,18 @@ export function Questions({ mode, onDone }: { mode: "setup" | "check"; onDone: (
 
   if (!started) {
     return (
-      <div className="q-wrap fade-in">
+      <div className="q-wrap rise">
+        <span className="badge badge-lg">
+          <Icon name="chat" size={26} />
+        </span>
         <p className="label">Setup</p>
-        <h1 className="title">Eight questions, on your own.</h1>
-        <p className="lede">They are the questions doctors use. Take them alone, with nobody watching.</p>
-        <p className="q-note">{questionnaireLine(teen.people)}</p>
+        <h1 className="display">Eight questions, on your own.</h1>
+        <p className="lede">The ones doctors use. Take them alone, with nobody watching.</p>
         <div className="q-foot">
-          <button className="btn btn-primary btn-block" onClick={() => setStarted(true)}>
+          <button className="btn btn-primary btn-lg btn-block" onClick={() => setStarted(true)}>
             Start
           </button>
+          <p className="q-note">{questionnaireLine(teen.people)}</p>
         </div>
       </div>
     );
@@ -39,21 +43,26 @@ export function Questions({ mode, onDone }: { mode: "setup" | "check"; onDone: (
     const rec = teen.asks.find((a) => a.id === askId);
     if (rec?.result === "high") {
       return (
-        <div className="fade-in">
+        <div className="rise">
           <DoctorCard />
-          <button className="btn btn-block" onClick={onDone}>
+          <button className="btn btn-lg btn-block" onClick={onDone}>
             Done
           </button>
         </div>
       );
     }
     return (
-      <div className="fade-in">
-        <h1 className="sentence">{rec?.result === "skipped" ? "This set has closed." : "Thanks for answering."}</h1>
+      <div className="q-wrap rise">
+        <span className="badge badge-lg">
+          <Icon name="check" size={26} />
+        </span>
+        <h1 className="display">{rec?.result === "skipped" ? "This set has closed." : "Thanks for answering."}</h1>
         <p className="lede">{rec?.result === "skipped" ? "Steady will ask again another week." : "That's all for now."}</p>
-        <button className="btn btn-primary btn-block" onClick={onDone} style={{ marginTop: 20 }}>
-          Done
-        </button>
+        <div className="q-foot">
+          <button className="btn btn-primary btn-lg btn-block" onClick={onDone}>
+            Done
+          </button>
+        </div>
       </div>
     );
   }
@@ -74,38 +83,41 @@ export function Questions({ mode, onDone }: { mode: "setup" | "check"; onDone: (
 
   return (
     <div className="q-wrap" key={index}>
+      <div className="q-progress" aria-hidden="true">
+        {Array.from({ length: total }, (_, i) => (
+          <span key={i} className={i < index ? "done" : i === index ? "now" : ""} />
+        ))}
+      </div>
       <p className="label">
         {index >= 2 && live.kind === "check" ? "A few more · " : ""}
         {index + 1} of {total}
       </p>
       <p className="q-stem">{PHQ_STEM}</p>
-      <h1 className={`q-item fade-in${item.length > 70 ? " long" : ""}`} id={`q-${index}`}>
+      <h1 className={`q-item rise${item.length > 70 ? " long" : ""}`} id={`q-${index}`}>
         {item}
       </h1>
-      <div className="scale" role="radiogroup" aria-labelledby={`q-${index}`} onKeyDown={onKey}>
-        <div className="scale-line" aria-hidden="true" />
-        {pick != null && <div className="scale-dot" aria-hidden="true" style={{ left: `${12.5 + pick * 25}%` }} />}
-        <div className="scale-stops">
-          {PHQ_STOPS.map((s, i) => (
-            <button
-              key={s}
-              ref={(el) => {
-                stopRefs.current[i] = el;
-              }}
-              role="radio"
-              aria-checked={pick === i}
-              tabIndex={pick === i || (pick == null && i === 0) ? 0 : -1}
-              className="scale-stop"
-              onClick={() => choose(i)}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
+      <div className="q-pills" role="radiogroup" aria-labelledby={`q-${index}`} onKeyDown={onKey}>
+        {PHQ_STOPS.map((s, i) => (
+          <button
+            key={s}
+            ref={(el) => {
+              stopRefs.current[i] = el;
+            }}
+            role="radio"
+            aria-checked={pick === i}
+            tabIndex={pick === i || (pick == null && i === 0) ? 0 : -1}
+            className="q-pill"
+            style={{ animationDelay: `${80 + i * 55}ms` }}
+            onClick={() => choose(i)}
+          >
+            <span className="q-pill-mark" aria-hidden="true" />
+            {s}
+          </button>
+        ))}
       </div>
       <div className="q-foot">
         <button
-          className="btn btn-primary btn-block"
+          className="btn btn-primary btn-lg btn-block"
           disabled={pick == null}
           onClick={() => {
             if (pick == null) return;

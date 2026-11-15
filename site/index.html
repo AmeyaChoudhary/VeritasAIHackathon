@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Steady: knowing when to ask</title>
+<meta name="description" content="Steady notices when a teenager has drifted from their own normal, and asks. A prototype, not medical advice.">
+<meta name="theme-color" content="#0E1114">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1114'/%3E%3Cpath d='M5 18 C 11 18, 12 12, 16 12 S 22 18, 27 14' fill='none' stroke='%23F4F2EC' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal,.rise{opacity:1;transform:none;filter:none}.scrub{height:auto}.sticky{position:relative;height:auto}.beat{position:relative;opacity:1;padding:72px var(--pad)}.step,.note,.tag-chip,.slip-tag{opacity:1;transform:none}.note{position:static}.step-notes{height:auto}</style></noscript>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="brand" href="#top" aria-label="Steady, back to top">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 18 C 10.5 18, 11.5 11, 16 11 S 22 18, 28 13.5"/></svg>
+    <span>Steady</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#how">How it works</a>
+    <a href="#found">What we found</a>
+    <a href="#watch">Video</a>
+    <a class="pill" href="./app/">Live demo</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- 1. Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <canvas id="signals" aria-hidden="true"></canvas>
+    <ul class="sig-labels mono" aria-hidden="true">
+      <li>Sleep</li><li>Reaching out</li><li>Activity</li><li>Tone</li>
+    </ul>
+    <p class="corner tr mono" aria-hidden="true">Four signals <span class="sep">/</span> one student</p>
+    <div class="hero-copy">
+      <h1 id="hero-title" class="split" data-split>Knowing when to ask.</h1>
+      <div class="hero-side">
+        <p class="lede rise" style="--i:5">Steady notices when a teenager has drifted from their own normal, and asks.</p>
+        <div class="cta rise" style="--i:6">
+          <a class="btn solid" href="./app/">Try the live demo</a>
+          <a class="btn ghost" href="#watch">Watch the two-minute video</a>
+        </div>
+        <p class="chip mono rise" style="--i:7">Prototype. Not medical advice.</p>
+      </div>
+    </div>
+    <p class="corner bl mono scroll-cue" aria-hidden="true">Scroll</p>
+  </section>
+
+  <!-- 2. The problem -->
+  <section class="scrub" id="problem" data-scrub="problem" style="--len:4.6" aria-label="The problem">
+    <div class="sticky">
+      <p class="corner tl mono">01 <span class="sep">/</span> The problem</p>
+
+      <div class="beat beat-a" data-beat="a">
+        <div class="beat-grid">
+          <div>
+            <p class="giant"><span data-bind="problem.one">1</span><span class="thin"> in </span><span data-bind="problem.oneIn">5</span></p>
+            <p class="cap">US teenagers has a major depressive episode in a year.</p>
+            <p class="mono src">NIMH, 2021</p>
+          </div>
+          <svg class="five" viewBox="0 0 520 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="34"/><circle cx="160" cy="60" r="34"/>
+            <circle class="one" cx="260" cy="60" r="34"/>
+            <circle cx="360" cy="60" r="34"/><circle cx="460" cy="60" r="34"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="beat beat-b" data-beat="b">
+        <div class="beat-grid">
+          <div>
+            <p class="giant"><span data-bind="problem.untreatedIn10">6</span><span class="thin"> in </span>10</p>
+            <p class="cap">get no treatment.</p>
+            <p class="mono src"><span data-bind="problem.treatedPct">40.6</span>% received treatment <span class="sep">/</span> NIMH, 2021</p>
+          </div>
+          <div class="ten" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat beat-c" data-beat="c">
+        <h2 class="headline">It builds slowly.</h2>
+        <div class="slip-wrap" aria-hidden="true">
+          <svg class="slip" viewBox="0 0 1200 360" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="slipGrad" x1="0" x2="1200" y1="0" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#F4F2EC"/><stop offset="0.47" stop-color="#F4F2EC"/>
+                <stop offset="0.54" stop-color="#F2A33A"/><stop offset="1" stop-color="#F2A33A"/>
+              </linearGradient>
+              <clipPath id="slipClip"><rect id="slipClipRect" x="0" y="0" width="0" height="360"/></clipPath>
+            </defs>
+            <rect class="band" x="0" y="70" width="1200" height="96" rx="10"/>
+            <path class="slip-line" id="slipLine" clip-path="url(#slipClip)" d=""/>
+          </svg>
+          <span class="slip-tag mono" data-at="0.36" style="--x:31%;--y:52%">Sleep</span>
+          <span class="slip-tag mono" data-at="0.60" style="--x:55%;--y:69%">Texts</span>
+          <span class="slip-tag mono" data-at="0.84" style="--x:79%;--y:89%">Plans</span>
+          <span class="band-tag mono">Her usual range</span>
+        </div>
+      </div>
+
+      <div class="beat beat-d" data-beat="d">
+        <h2 class="headline">So nobody sees it.</h2>
+      </div>
+
+      <p class="corner br mono" aria-hidden="true">One student <span class="sep">/</span> twelve weeks</p>
+    </div>
+  </section>
+
+  <!-- 3. What Steady does -->
+  <section class="scrub" id="how" data-scrub="how" style="--len:5" aria-label="What Steady does">
+    <div class="sticky how">
+      <p class="corner tl mono">02 <span class="sep">/</span> What Steady does</p>
+      <div class="how-copy">
+        <ol class="steps">
+          <li class="step" data-step="0"><span class="mono">01</span><h3>Learns her normal</h3></li>
+          <li class="step" data-step="1"><span class="mono">02</span><h3>Notices a lasting shift</h3></li>
+          <li class="step" data-step="2"><span class="mono">03</span><h3>Asks</h3></li>
+          <li class="step" data-step="3"><span class="mono">04</span><h3>Brings in a parent</h3></li>
+        </ol>
+        <div class="step-notes">
+          <p class="note" data-step="0">Four weeks of sleep, reaching out, activity and tone.</p>
+          <p class="note" data-step="1">Two weeks outside her own range. Never one bad night.</p>
+          <p class="note" data-step="2">Two screening questions, the ones doctors use.</p>
+          <p class="note" data-step="3">A short note: what changed, for how long, how to start the conversation. Never her messages, answers or scores.</p>
+        </div>
+      </div>
+      <div class="how-phone">
+        <svg class="mini-lines" viewBox="0 0 220 520" preserveAspectRatio="none" aria-hidden="true">
+          <path class="ml" d="M0 60 C 40 52, 70 68, 110 58 S 180 66, 220 60"/>
+          <path class="ml slipA" d="M0 190 C 40 182, 70 198, 110 188 S 180 196, 220 190"/>
+          <path class="ml" d="M0 320 C 40 312, 70 328, 110 318 S 180 326, 220 320"/>
+          <path class="ml slipB" d="M0 450 C 40 442, 70 458, 110 448 S 180 456, 220 450"/>
+        </svg>
+        <div class="phone">
+          <div class="screen">
+            <div class="shot" data-step="0" data-media="assets/screens/teen-learn.mp4" data-label="Maya's phone / learning"></div>
+            <div class="shot" data-step="1" data-media="assets/screens/teen-drift.mp4" data-label="Maya's phone / a lasting shift"></div>
+            <div class="shot" data-step="2" data-media="assets/screens/teen-ask.mp4" data-label="Maya's phone / two questions"></div>
+            <div class="shot" data-step="3" data-media="assets/screens/teen-doctor.png" data-label="Maya's phone / worth a check"></div>
+          </div>
+        </div>
+        <p class="phone-tag mono">Maya's phone</p>
+      </div>
+      <div class="rail" aria-hidden="true"><i></i></div>
+    </div>
+  </section>
+
+  <!-- 4. Privacy -->
+  <section class="scrub" id="privacy" data-scrub="privacy" style="--len:3.2" aria-label="Privacy">
+    <div class="sticky privacy">
+      <p class="corner tl mono">03 <span class="sep">/</span> Privacy</p>
+      <div class="priv-copy">
+        <h2 class="headline">Her words never leave her phone.</h2>
+        <p class="body">A small model reads each message on the phone. The words are discarded.</p>
+        <div class="tone-demo" aria-hidden="true">
+          <div class="bubble" id="bubble"><span id="typed"></span></div>
+          <div class="tone-line"><i class="d d1"></i><i class="d d2 open"></i><i class="d d3 open"></i><i class="d d4" id="newDot"></i></div>
+          <p class="mono tone-cap">Each dot is one message. The words are gone.</p>
+        </div>
+        <p class="bytes mono"><b>0</b> bytes sent</p>
+      </div>
+      <div class="priv-phone">
+        <div class="phone">
+          <div class="screen">
+            <div class="shot on" data-media="assets/screens/teen-type.mp4" data-label="Maya's phone / typing"></div>
+          </div>
+        </div>
+        <p class="phone-tag mono">Scored on the device</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. The note -->
+  <section class="scrub" id="note" data-scrub="note" style="--len:3" aria-label="The note">
+    <div class="sticky notes">
+      <p class="corner tl mono">04 <span class="sep">/</span> The note</p>
+      <div class="note-copy">
+        <h2 class="headline">Then her mom gets a note.</h2>
+        <p class="body">Maya is told at setup that a parent is linked.</p>
+      </div>
+      <div class="note-stage">
+        <i class="courier" aria-hidden="true"></i>
+        <div class="phone">
+          <div class="screen">
+            <div class="shot on" data-note="home" data-media="assets/screens/parent-home.png" data-label="Mom's phone / no notes"></div>
+            <div class="shot" data-note="note" data-media="assets/screens/parent-note.png" data-label="Mom's phone / the note"></div>
+          </div>
+        </div>
+        <p class="phone-tag mono">Mom's phone</p>
+        <span class="tag-chip c1" data-chip="0">What changed</span>
+        <span class="tag-chip c2" data-chip="1">For how long</span>
+        <span class="tag-chip c3" data-chip="2">How to start</span>
+      </div>
+      <p class="corner br mono" aria-hidden="true">Never messages, answers or scores</p>
+    </div>
+  </section>
+
+  <!-- 6. What we found -->
+  <section class="flow" id="found" aria-labelledby="found-title">
+    <p class="mono label reveal">05 <span class="sep">/</span> What we found, honestly</p>
+    <h2 id="found-title" class="headline xl split" data-split>Our first idea failed.</h2>
+    <div class="found-grid">
+      <p class="body reveal">Phone signals picked the week to ask no better than chance. So we gave every method the same <span data-bind="budget">12</span> asks a year and counted how many landed on a hard week.</p>
+
+      <figure class="chart reveal" aria-labelledby="asks-cap">
+        <figcaption id="asks-cap" class="mono">Asks that landed on a high week</figcaption>
+        <div class="bars" id="askBars"></div>
+        <p class="chart-note">Random weeks from the same student and term reached <b><span data-bind="matchedRandom">23</span>%</b>, so a check-in finds who to ask, not which week.</p>
+        <p class="mono foot"><span data-bind="students">213</span> Dartmouth students <span class="sep">/</span> every model scored on students it never saw</p>
+      </figure>
+
+      <figure class="chart tone reveal" aria-labelledby="tone-cap">
+        <figcaption id="tone-cap" class="mono">Low-mood comments found</figcaption>
+        <div class="bars" id="toneBars"></div>
+        <p class="mono foot"><span data-bind="tone.commentsText">5,427</span> comments the model had never seen</p>
+      </figure>
+
+      <div class="limits reveal">
+        <p class="mono">Limits</p>
+        <ul>
+          <li>The self-harm phrase list missed <b><span data-bind="limits.selfHarmMissed">9</span> of <span data-bind="limits.selfHarmTotal">15</span></b> test messages.</li>
+          <li>The check-in model worked better for men (AUC <span data-bind="limits.aucMen">0.75</span>) than for women (<span data-bind="limits.aucWomen">0.66</span>).</li>
+          <li>Every student was in college, not high school.</li>
+        </ul>
+        <p class="links">
+          <a class="text-link" href="https://github.com/AmeyaChoudhary/VeritasAIHackathon/tree/main/results">Read the full results</a>
+          <a class="text-link" href="https://github.com/AmeyaChoudhary/VeritasAIHackathon/blob/main/WRITEUP.md">The one-page write-up</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Watch -->
+  <section class="flow" id="watch" aria-labelledby="watch-title">
+    <p class="mono label reveal">06 <span class="sep">/</span> Watch</p>
+    <h2 id="watch-title" class="headline split" data-split>Two minutes, start to finish.</h2>
+    <div class="player reveal">
+      <video id="demoVideo" controls preload="metadata" playsinline poster="assets/video-poster.jpg" src="assets/steady-demo.mp4"></video>
+      <p class="player-empty mono">The demo video goes here</p>
+    </div>
+  </section>
+
+  <!-- 8. Get the app -->
+  <section class="flow" id="get" aria-labelledby="get-title">
+    <p class="mono label reveal">07 <span class="sep">/</span> Get the app</p>
+    <div class="get-grid">
+      <div>
+        <h2 id="get-title" class="headline split" data-split>Put Steady on your phone.</h2>
+        <p class="body reveal">Steady is a prototype that runs on sample data. Nothing you type leaves your device.</p>
+        <p class="reveal"><a class="btn solid ink" href="./app/">Open Steady</a></p>
+      </div>
+      <div class="qr-card reveal">
+        <img src="assets/qr-app.svg" width="220" height="220" alt="QR code for ameyachoudhary.github.io/VeritasAIHackathon/app/">
+        <p class="mono">Scan with your phone</p>
+      </div>
+      <div class="install reveal">
+        <div>
+          <p class="mono">iPhone</p>
+          <ol><li>Open the link in Safari.</li><li>Tap Share.</li><li>Tap Add to Home Screen.</li></ol>
+        </div>
+        <div>
+          <p class="mono">Android</p>
+          <ol><li>Open the link in Chrome.</li><li>Tap the menu.</li><li>Tap Install app.</li></ol>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 9. Footer -->
+<footer class="foot-wrap">
+  <p class="help">If you or someone you know needs help now, call or text <a href="tel:988">988</a> (US).</p>
+  <div class="foot-grid">
+    <p>This project is a prototype and is not medical advice.</p>
+    <p>Built for the Veritas AI International High School Hackathon 2026, AI + Health. Researched and built with Claude (Anthropic).</p>
+    <p class="foot-links">
+      <a class="text-link" href="https://github.com/AmeyaChoudhary/VeritasAIHackathon">GitHub</a>
+      <a class="text-link" href="https://github.com/AmeyaChoudhary/VeritasAIHackathon/blob/main/WRITEUP.md">Write-up</a>
+      <a class="text-link" href="https://github.com/AmeyaChoudhary/VeritasAIHackathon/tree/main/results">Results</a>
+    </p>
+  </div>
+  <p class="mono foot-mark">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 18 C 10.5 18, 11.5 11, 16 11 S 22 18, 28 13.5"/></svg>
+    Steady <span class="sep">/</span> knowing when to ask
+  </p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

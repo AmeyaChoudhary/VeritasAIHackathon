@@ -4,6 +4,7 @@ import { ControlRail } from "./demo/ControlRail";
 import { TeenPhone } from "./teen/TeenPhone";
 import { ParentPhone } from "./parent/ParentPhone";
 import { OtherPhones } from "./parent/Others";
+import { InstallHint } from "./ui/Install";
 
 type Route = "demo" | "teen" | "parent";
 
@@ -65,6 +66,7 @@ function Mobile() {
           </div>
         )}
       </div>
+      <InstallHint />
       <nav className="switch" aria-label="Show">
         {(["teen", "parent", "demo"] as Route[]).map((k) => (
           <button key={k} aria-pressed={v === k} onClick={() => setV(k)}>

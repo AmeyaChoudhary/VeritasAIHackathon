@@ -45,8 +45,8 @@ export function QR({ text, size = 148, label }: { text: string; size?: number; l
   }, [text]);
   return (
     <svg role="img" aria-label={label} viewBox={`-2 -2 ${n + 4} ${n + 4}`} width={size} height={size} shapeRendering="crispEdges">
-      <rect x={-2} y={-2} width={n + 4} height={n + 4} fill="#FBFBFC" />
-      <path d={d} fill="#2A2E33" />
+      <rect x={-2} y={-2} width={n + 4} height={n + 4} fill="#FFFFFF" />
+      <path d={d} fill="#15171A" />
     </svg>
   );
 }

@@ -73,7 +73,7 @@ A small 988 key sits above the letters at all times.
 **At the end of a message**, in this order:
 
 1. **The self-harm check, on the main thread.** A port of `app/src/engine/selfharm.ts` with the same `selfharm_phrases.json`. It checks the final text and the longest version of it. On a match it opens the help screen first and turns the keyboard's 988 key red, then saves a flag: a random id, the time, the level, and later the answer. If Android blocks the screen from opening, the red 988 key opens it with one tap.
-2. **Tone, on a background thread.** A port of `app/src/engine/tone.ts`, using the web app's own `tone.json`. A message reads as low mood when its score is at or over the model's threshold, 0.595.
+2. **Tone, on a background thread.** A port of `app/src/engine/tone.ts`, using the web app's own `tone.json`. A message reads as low mood when its score is at or over the threshold stored in the model file (0.19 in the current model).
 3. **Typing rhythm.** Only character keys and delete count. Shift and page keys do not.
    - *Characters a minute* counts characters typed within 2 seconds of the key before, over the time those gaps took.
    - *Pause share* is the share of gaps between keys longer than 2 seconds.

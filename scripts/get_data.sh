@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Downloads the open data the experiments use into data/ (which git ignores).
 #   College Experience Study (Dartmouth), CC BY-NC-SA 4.0, about 560 MB of the 2.76 GB release.
-#   GoEmotions (Google), Apache-2.0, about 3.5 MB.
+#   GoEmotions (Google), Apache-2.0, about 3.5 MB, plus its rater-level file, about 25 MB.
 # By downloading the College Experience Study you agree to its terms of use:
 # academic, research or educational use only, and no attempt to re-identify anyone.
 # https://www.kaggle.com/datasets/subigyanepal/college-experience-dataset
@@ -39,6 +39,14 @@ for s in train validation test; do
   echo "get   $out"
   curl -sS -L --fail --retry 3 -o "$out" "$HF/$s-00000-of-00001.parquet"
 done
+
+# GoEmotions, rater-level file ("raw" config, one row per rater, about 25 MB, Apache-2.0).
+# Experiment 2 trains the tone model on the share of raters who marked a low-mood emotion.
+mkdir -p data/goemotions_raw
+if [ ! -s data/goemotions_raw/raw.parquet ]; then
+  echo "get   data/goemotions_raw/raw.parquet"
+  curl -sS -L --fail --retry 3 -o data/goemotions_raw/raw.parquet "https://huggingface.co/datasets/google-research-datasets/go_emotions/resolve/main/raw/train-00000-of-00001.parquet"
+fi
 
 # External checks for Experiment 1b. Both are optional: if a download fails, the
 # script carries on and Experiment 1b leaves that dataset out of its report.

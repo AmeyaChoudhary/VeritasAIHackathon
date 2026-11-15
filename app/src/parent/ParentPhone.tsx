@@ -8,20 +8,18 @@ import { NoteScreen } from "./Note";
 import { WhatToSay } from "./WhatToSay";
 import { CantReach } from "./CantReach";
 import type { Pronoun } from "../engine/types";
+import { Icon } from "../ui/icons";
+import { Wordmark } from "../teen/Top";
 
 type View = { k: "home" } | { k: "note"; id: string; fresh: boolean } | { k: "say" } | { k: "cant"; id: string };
 
 function ParentTop({ onBack }: { onBack?: () => void }) {
   return (
     <div className="phone-top">
-      <span className="wordmark">
-        <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true">
-          <path d="M1 8 C 5 8, 6 3, 9 3 S 13 8, 17 5" fill="none" stroke="currentColor" strokeWidth="1.2" />
-        </svg>
-        Steady for parents
-      </span>
+      <Wordmark>Steady for parents</Wordmark>
       {onBack && (
-        <button className="btn btn-sm" onClick={onBack}>
+        <button className="btn btn-sm btn-top" onClick={onBack}>
+          <Icon name="back" size={16} />
           Back
         </button>
       )}
@@ -53,11 +51,12 @@ function PairFlow() {
       store.dispatch({ a: "teen", input: { kind: "pair", people: { parent, parentPronoun: pron } } });
     };
     return (
-      <div className="fade-in">
+      <div className="rise">
         <p className="label">Step 1 of 3</p>
-        <h1 className="title">Link to your teen's phone.</h1>
+        <h1 className="display">Link to your teen's phone.</h1>
         <p className="lede">Scan the code on their Steady screen, or type it in.</p>
-        <button className="btn btn-block" onClick={() => setCode(teen.code)} disabled={teen.paired}>
+        <button className="btn btn-lg btn-block" onClick={() => setCode(teen.code)} disabled={teen.paired}>
+          <Icon name="phone" size={18} />
           Scan the code
         </button>
         <p className="small muted">In this demo, scanning reads the code from the teen phone on this screen.</p>
@@ -82,7 +81,7 @@ function PairFlow() {
             {err}
           </p>
         )}
-        <button className="btn btn-primary btn-block" onClick={link} disabled={!code.trim()}>
+        <button className="btn btn-primary btn-lg btn-block" onClick={link} disabled={!code.trim()}>
           Link
         </button>
         <p className="small muted" style={{ marginTop: 14 }}>
@@ -98,9 +97,9 @@ function PairFlow() {
       store.dispatch({ a: "teen", input: { kind: "rename", people: { second: v } } });
     };
     return (
-      <div className="fade-in">
+      <div className="rise">
         <p className="label">Step 2 of 3</p>
-        <h1 className="title">Name a second adult for urgent notes.</h1>
+        <h1 className="display">Name a second adult for urgent notes.</h1>
         <p>
           If you don't reply to an urgent note within 15 minutes, or you tap "I can't reach {p}", it also goes to them. Pick someone who
           could get to {people.teen} quickly, like another parent or a relative. They never get heads-ups.
@@ -124,9 +123,9 @@ function PairFlow() {
   if (ps.step === "dnd") {
     const set = (v: boolean) => store.updateParent((s) => ({ ...s, step: "misses", dnd: v }));
     return (
-      <div className="fade-in">
+      <div className="rise">
         <p className="label">Step 3 of 3</p>
-        <h1 className="title">Let urgent notes sound through Do Not Disturb.</h1>
+        <h1 className="display">Let urgent notes sound through Do Not Disturb.</h1>
         <p>On iPhone this uses Critical Alerts. On Android it is a Do Not Disturb override. Heads-ups stay quiet.</p>
         <p className="small muted">In this demo, nothing on your device changes.</p>
         <div className="btn-col">
@@ -142,11 +141,14 @@ function PairFlow() {
   }
 
   return (
-    <div className="fade-in">
+    <div className="rise">
       <p className="label">Before you start</p>
-      <h1 className="title">What Steady misses</h1>
+      <span className="badge badge-lg">
+        <Icon name="alert" size={26} />
+      </span>
+      <h1 className="display">What Steady misses</h1>
       <p className="lede">{missesText(people)}</p>
-      <button className="btn btn-primary btn-block" style={{ marginTop: 18 }} onClick={() => store.updateParent((s) => ({ ...s, step: "done" }))}>
+      <button className="btn btn-primary btn-lg btn-block" style={{ marginTop: 18 }} onClick={() => store.updateParent((s) => ({ ...s, step: "done" }))}>
         I understand
       </button>
     </div>
@@ -214,20 +216,35 @@ export function ParentPhone() {
     const shown = [...notes].reverse();
     const loud = shown.filter((n) => n.event.type === "urgent" || !headsUpView(n, notes, ps.replies, now).quiet);
     const quiet = shown.filter((n) => n.event.type === "heads_up" && headsUpView(n, notes, ps.replies, now).quiet);
+    const allGood = conn.state === "on" && !conn.lowData && !conn.noKeyboard;
     body = (
-      <div>
+      <div className="p-home">
         <p className="label">Linked to {people.teen}'s phone</p>
-        <h1 className="sentence" style={{ fontSize: 22 }}>
-          <span className={`status-dot${conn.state === "on" ? "" : " off"}`} aria-hidden="true" />
-          {status.head}
-        </h1>
-        {status.sub && <p className="small">{status.sub}</p>}
-        {conn.lastAt != null && <p className="small muted">Last heard from {fmtTime(conn.lastAt)}.</p>}
+        <section className="card hero" aria-label="Status">
+          <span className="avatar" aria-hidden="true">
+            {people.teen.charAt(0).toUpperCase()}
+          </span>
+          <h1 className="display hero-name">{people.teen}</h1>
+          <p className="hero-status">
+            <i className={`pulse-dot${conn.state === "on" ? "" : " idle"}`} aria-hidden="true" />
+            {allGood ? "Steady is on" : status.head}
+          </p>
+          {status.sub && <p className="small muted">{status.sub}</p>}
+          {conn.lastAt != null && <p className="hero-last">Last heard {fmtTime(conn.lastAt)}</p>}
+        </section>
 
-        <h2 className="label" style={{ marginTop: 22 }}>
-          Notes
-        </h2>
-        {loud.length === 0 && <p className="muted">No notes. No note does not mean {people.teen} is fine.</p>}
+        <h2 className="label section-label">Notes</h2>
+        {loud.length === 0 && (
+          <div className="empty">
+            <span className="badge">
+              <Icon name="bell" />
+            </span>
+            <p>
+              <b>No notes</b>
+              <span className="row-text">No note does not mean {people.teen} is fine.</span>
+            </p>
+          </div>
+        )}
         {loud.map((n) => {
           const isU = n.event.type === "urgent";
           const hv = !isU ? headsUpView(n, notes, ps.replies, now) : null;
@@ -235,33 +252,45 @@ export function ParentPhone() {
           const reply = isU ? uv?.firstReply : hv?.lastReply;
           const remind = hv?.reminderAt != null && now >= hv.reminderAt;
           return (
-            <button key={n.id} className="list-note" onClick={() => setView({ k: "note", id: n.id, fresh: false })}>
-              <span className="label">{isU ? "Urgent" : "Heads-up"} · {fmtTime(n.at)}</span>
-              <span style={{ display: "block", fontWeight: 500, margin: "4px 0" }}>{noteTitle(n, people)}</span>
-              <span className="small muted">
-                {reply ? `You replied: ${replyLabel(reply.choice, people.teenPronoun)}` : isU ? `No reply yet. ${soundedTimes(1 + (uv?.repeatCount ?? 0))}` : "No reply yet."}
-                {remind ? " Reminder: worth checking in." : ""}
+            <button key={n.id} className={`list-note note-item${isU ? " urgent" : ""}`} onClick={() => setView({ k: "note", id: n.id, fresh: false })}>
+              <span className="badge">
+                <Icon name={isU ? "alert" : "bell"} />
+              </span>
+              <span className="ln-body">
+                <span className="label">
+                  {isU ? "Urgent" : "Heads-up"} · {fmtTime(n.at)}
+                </span>
+                <span className="ln-title">{noteTitle(n, people)}</span>
+                <span className="small muted">
+                  {reply ? `You replied: ${replyLabel(reply.choice, people.teenPronoun)}` : isU ? `No reply yet. ${soundedTimes(1 + (uv?.repeatCount ?? 0))}` : "No reply yet."}
+                  {remind ? " Reminder: worth checking in." : ""}
+                </span>
               </span>
             </button>
           );
         })}
         {quiet.length > 0 && (
           <>
-            <h2 className="label" style={{ marginTop: 18 }}>
-              History, held quietly after "Booked a doctor"
-            </h2>
+            <h2 className="label section-label">History, held quietly after "Booked a doctor"</h2>
             {quiet.map((n) => (
-              <button key={n.id} className="list-note card-soft" onClick={() => setView({ k: "note", id: n.id, fresh: false })}>
-                <span className="label">Heads-up · {fmtTime(n.at)}</span>
-                <span style={{ display: "block", margin: "4px 0" }}>{noteTitle(n, people)}</span>
+              <button key={n.id} className="list-note note-item quiet" onClick={() => setView({ k: "note", id: n.id, fresh: false })}>
+                <span className="badge">
+                  <Icon name="bell" />
+                </span>
+                <span className="ln-body">
+                  <span className="label">Heads-up · {fmtTime(n.at)}</span>
+                  <span className="ln-title">{noteTitle(n, people)}</span>
+                </span>
               </button>
             ))}
           </>
         )}
-        <button className="btn btn-block" style={{ marginTop: 16 }} onClick={() => setView({ k: "say" })}>
+        <button className="btn btn-block" style={{ marginTop: 14 }} onClick={() => setView({ k: "say" })}>
+          <Icon name="chat" size={18} />
           What to say
         </button>
-        <p className="small muted" style={{ marginTop: 16 }}>
+        <p className="small muted foot-line">
+          <Icon name="lock" size={14} />
           Notes never include {people.teen}'s messages, answers or scores. Your replies stay on this phone.
         </p>
       </div>

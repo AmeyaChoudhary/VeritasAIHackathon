@@ -1,0 +1,62 @@
+[
+ {
+  "id": "hook",
+  "label": "The problem",
+  "show": "Five dots, one turns amber. A bar: 4 in 10 get treatment. Then a thin line that slips down over weeks and fades.",
+  "text": "One in five American teenagers goes through depression in a year, and most get no treatment. It builds slowly: a little less sleep, fewer texts, dropped plans. So nobody sees it."
+ },
+ {
+  "id": "steady",
+  "label": "What we built",
+  "show": "The Steady mark draws itself. Two phones slide in: Maya's and her mom's.",
+  "text": "So we built Steady. It lives on a teenager's phone, linked to a parent's. Meet Maya."
+ },
+ {
+  "id": "learn",
+  "label": "It learns her normal",
+  "show": "Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named.",
+  "text": "For four weeks, Steady learns what's normal for her: her sleep, how often she reaches out, how much she moves, and the tone of what she types."
+ },
+ {
+  "id": "drift",
+  "label": "A lasting shift",
+  "show": "Weeks five and six. Two parts of the ring turn amber. The two questions come up and she answers low.",
+  "text": "During finals, her sleep and messaging slip out of her range. So Steady asks her two questions, the ones doctors use. She says she's okay, and Steady takes her at her word."
+ },
+ {
+  "id": "note",
+  "label": "The note",
+  "show": "Week eight. Mom's phone slides in. An amber dot crosses from Maya's phone to hers and the note opens.",
+  "text": "But it doesn't pass. At week eight, her answers come back high. Maya sees a nudge to see a doctor, and her mom gets a note: what changed, for how long, and how to start the conversation. Never her messages."
+ },
+ {
+  "id": "private",
+  "label": "Her words stay on her phone",
+  "show": "Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent.",
+  "text": "What Maya types never leaves her phone. A small model reads each message there, keeps one dot, and lets the words go."
+ },
+ {
+  "id": "proof",
+  "label": "Does it work: the tone model",
+  "show": "Two bars grow: tone model 50%, keyword list 24%.",
+  "text": "Does it work? On five thousand comments it had never seen, our tone model caught half of the low-mood ones. A keyword list caught a quarter."
+ },
+ {
+  "id": "timing",
+  "label": "Does it work: when to ask",
+  "show": "213 dots. 'Our first idea failed.' Then three bars: calendar 13%, phone 18%, one check-in 24%.",
+  "text": "Then we tested timing on phone data from two hundred thirteen students, and our first idea failed. Phone signals picked the week no better than chance. What worked was asking. One short check-in beat everything the phone recorded."
+ },
+ {
+  "id": "next",
+  "label": "What's next",
+  "show": "Three short lines with icons: ask first, a real self-harm model, a clinician.",
+  "text": "So the next Steady asks first: one tap, every week. Its self-harm check missed nine of fifteen test messages, so it needs a real model and a clinician."
+ },
+ {
+  "id": "close",
+  "label": "Close",
+  "show": "The Steady mark, 'knowing when to ask', and 'Prototype. Not medical advice.'",
+  "text": "Steady is a prototype, not medical advice. But asking at the right time could change who gets help."
+ }
+]

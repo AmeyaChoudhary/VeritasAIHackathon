@@ -11,6 +11,13 @@ import { App, routeOf } from "./App";
 
 initRole(routeOf(window.location.hash));
 
+// In a built copy, keep the app's own files so it installs to a home screen and opens offline.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => undefined);
+  });
+}
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <App />

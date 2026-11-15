@@ -1,12 +1,13 @@
-# Builds the demo app and publishes it to GitHub Pages, so the demo opens from a link.
-# Runs when anything under app/ changes on main, or by hand from the Actions tab.
-name: Deploy the demo to GitHub Pages
+# Publishes the Steady site to GitHub Pages: the landing page (site/) at the root
+# and the app (app/) under /app/. Runs when either changes on main, or by hand.
+name: Deploy the site to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - "app/**"
+      - "site/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -22,9 +23,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,12 +30,21 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: app/package-lock.json
-      - run: npm ci
-      - run: npm test
-      - run: npm run build
+      - name: Install, test and build the app
+        working-directory: app
+        run: |
+          npm ci
+          npm test
+          npm run build
+      - name: Put the landing page at the root and the app under /app/
+        run: |
+          mkdir -p _site/app
+          cp -R site/. _site/
+          cp -R app/dist/. _site/app/
+          touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: app/dist
+          path: _site
 
   deploy:
     needs: build

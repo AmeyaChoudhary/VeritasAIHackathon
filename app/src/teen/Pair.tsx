@@ -10,17 +10,16 @@ export function TeenPair() {
     store.dispatch({ a: "teen", input: { kind: "rename", people } });
 
   return (
-    <div className="fade-in">
+    <div className="rise">
       <p className="label">Link a parent's phone</p>
-      <h1 className="title">Show this code to your parent.</h1>
-      <p className="lede">They scan it with the Steady parent app, or type it in.</p>
-      <div style={{ display: "flex", justifyContent: "center", margin: "18px 0 6px" }}>
-        <QR text={`steady://pair/${teen.code}`} label={`Pairing code ${teen.code}`} />
+      <h1 className="display">Show this code to your parent.</h1>
+      <div className="card qr-card">
+        <QR text={`steady://pair/${teen.code}`} label={`Pairing code ${teen.code}`} size={156} />
+        <p className="code" aria-label={`Code ${teen.code.split("").join(" ")}`}>
+          {teen.code}
+        </p>
+        <p className="small muted">They scan it with the Steady parent app, or type it in.</p>
       </div>
-      <p className="mono" style={{ textAlign: "center", fontSize: 26, margin: "6px 0 18px" }} aria-label={`Code ${teen.code.split("").join(" ")}`}>
-        {teen.code}
-      </p>
-      <hr className="hair" />
       <label className="field">
         <span className="label">Your first name</span>
         <input
@@ -37,7 +36,10 @@ export function TeenPair() {
           <option value="they">they / them</option>
         </select>
       </label>
-      <p className="muted small">Waiting for a parent's phone.</p>
+      <p className="waiting">
+        <i className="pulse-dot idle" aria-hidden="true" />
+        Waiting for a parent's phone.
+      </p>
     </div>
   );
 }

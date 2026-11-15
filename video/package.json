@@ -1,0 +1,21 @@
+{
+  "name": "steady-demo-video",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Main out/steady-demo.mp4",
+    "capture": "node tools/capture.mjs public/rec src/rec.json"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.539",
+    "@remotion/media-utils": "^4.0.539",
+    "@types/react": "^18.3.31",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.539",
+    "typescript": "^7.0.2"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.17.0"
+  }
+}

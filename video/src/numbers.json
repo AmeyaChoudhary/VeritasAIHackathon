@@ -1,0 +1,15 @@
+{
+ "students": 213,
+ "tone": {
+  "model": 50,
+  "keyword": 24,
+  "testComments": "5,427"
+ },
+ "timing": {
+  "driftRule": 14.6,
+  "matchedRandom": 14.9,
+  "calendar": 13,
+  "phone": 18,
+  "checkin": 24
+ }
+}

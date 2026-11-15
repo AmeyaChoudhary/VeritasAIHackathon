@@ -8,11 +8,11 @@ Steady is a concept for an app on a teenager's phone. It learns the student's ow
 
 **Start with [the one-page write-up](WRITEUP.md).** It covers the problem, what we built, the results against a baseline, and where it fails.
 
-**Try [the live demo](https://ameyachoudhary.github.io/VeritasAIHackathon/).** It runs in a browser with nothing to install. Pick "Maya's 12 weeks" and press Play.
+- **[The Steady site](https://ameyachoudhary.github.io/VeritasAIHackathon/)** tells the whole idea as you scroll, with the video and a link to the app.
+- **[The app](https://ameyachoudhary.github.io/VeritasAIHackathon/app/)** runs in a browser with nothing to install. On a laptop it shows Maya's phone and her mom's side by side: pick "Maya's 12 weeks" and press Play. On a phone it can be added to the home screen and opens offline.
+- **[The demo video](docs/video/steady-demo.mp4)** is 1 minute 45 seconds.
 
-**Watch [the two-minute demo video](docs/video/steady-demo.mp4)** (captions only), or [the narrated version](docs/video/steady-demo-narrated.mp4).
-
-![Weeks 1 to 8 of the demo, sped up: Maya's signals drift, and at week 8 her mom's phone gets the note](docs/img/demo-weeks-1-to-8.gif)
+![Week 8 in the app: Maya's phone suggests a doctor, and her mom's phone gets the note](docs/img/week8-both-phones.png)
 
 ## Status
 
@@ -22,8 +22,8 @@ The experiments have run, and the app works end to end on sample data. No clinic
 - **Deeper check (Experiment 1b).** Using only phone data recorded before the answer, models picked out high PHQ-2 weeks in students they never saw at AUC 0.57 to 0.60. A single check-in from the week before (mood picture, stress, time with others) reached 0.69, and every earlier check-in together 0.74 to 0.78. With every questionnaire input at least 14 days old, earlier PHQ-2 answers plus check-ins reached 0.89, mostly from students who stay high. Adding phone data to the answer history added nothing reliable. Versions built to cheat on purpose reached 0.98. These are cross-validation estimates for each model, checked by an outside review. [Results](results/exp1b/results.md).
 - **Asking (Experiment 3).** Every way of picking the week, scored the same way at 12 asks per student-year. 24% of the asks chosen from one short check-in landed on a high week, against 13% for a fixed calendar and 18% for a phone model. Random weeks from the same student and quarter reached 23%, so the check-in finds which students and which term to ask in, and the exact week adds about one point. The app's rules have not been changed to match yet. [Results](results/exp3/results.md).
 - **Groups (Experiment 3).** The check-in model ranked weeks better for men (AUC 0.75) than for women (0.66). Phone data was near chance for every gender and race group with at least 20 students.
-- **Words (Experiment 2).** The tone model found 55% of low-mood Reddit comments at 52% precision, against 24% for a keyword list. The self-harm phrase list missed 9 of 15 risk messages written blind. [Results](results/exp2/results.md).
-- **The app.** A teen phone and a parent phone side by side, playing the rules in [Parent alerts](docs/parent-alerts.md) with made-up data and a simulated clock. Events move between browser tabs; there is no server yet.
+- **Words (Experiment 2).** The tone model found 50% of low-mood Reddit comments at 59% precision, against 24% at 48% for a keyword list. It was retrained on how many raters marked each comment; the earlier version found 55% at 52% precision. The self-harm phrase list missed 9 of 15 risk messages written blind. [Results](results/exp2/results.md).
+- **The app.** A teen phone and a parent phone side by side, playing the rules in [Parent alerts](docs/parent-alerts.md) with made-up data and a simulated clock. Events move between browser tabs; there is no server yet. It installs to a phone's home screen and opens offline.
 - **Connected accounts.** The teen can connect Gmail, Google Calendar, Last.fm and screen time. Each one works with sample data now. Real sign-in needs two keys the team has to create (see [app/README.md](app/README.md)), and has not been tested end to end.
 - **Screen time.** The Android app in [native/android](native/android/) builds and runs in an emulator. The iPhone version in [native/ios](native/ios/) builds with no warnings in Xcode 27 and runs in the Simulator up to the Screen Time permission, which the Simulator cannot grant. Reading real screen time needs a real iPhone and an Apple developer team.
 
@@ -32,12 +32,14 @@ The experiments have run, and the app works end to end on sample data. No clinic
 | Path | What it is |
 | --- | --- |
 | [WRITEUP.md](WRITEUP.md) | The one-page write-up in the hackathon's template |
-| [docs/video-script.md](docs/video-script.md) | The script and click path for the two-minute demo video |
+| [docs/video-script.md](docs/video-script.md) | The demo video's script, and how to record your own voice over it |
 | [docs/concept.md](docs/concept.md) | The concept: the problem, what people need, what Steady is, how it decides, how we will build it, and the hard questions |
 | [docs/parent-alerts.md](docs/parent-alerts.md) | When a parent is told, what each note says, what leaves the phone, and what this does not solve |
 | [docs/signals-and-model-ideas.md](docs/signals-and-model-ideas.md) | Every signal we considered, how music fits, nine ideas for the model, and what a phone can and cannot see |
 | [docs/Steady-product-concept.pdf](docs/Steady-product-concept.pdf) | An earlier, longer version of the concept (17 pages). It describes our first design, where the student decided whether an adult was told. [Parent alerts](docs/parent-alerts.md) replaces that part. Where the PDF and these docs differ, the docs are current |
 | [app/](app/) | The working prototype: teen phone, parent phone and demo controls. See [app/README.md](app/README.md) |
+| [site/](site/) | The landing page: a static, scroll-driven page with no build step |
+| [video/](video/) | The demo video's source: script, teleprompter, scenes, and the tools that time every animation to the voice. See [docs/video-script.md](docs/video-script.md) |
 | [native/](native/) | Screen-time collectors: an Android app and an iPhone app with two Screen Time extensions, both building |
 | [experiments/exp1_timing.py](experiments/exp1_timing.py) | Experiment 1: does the drift rule pick better weeks to ask, and to alert a parent, than a calendar? |
 | [experiments/exp1b_deeper.py](experiments/exp1b_deeper.py) | Experiment 1b: the best honest numbers across five framings, with leakage checks, deliberate leaks for comparison, and two outside datasets (Depresjon, StudentLife) |
@@ -59,7 +61,17 @@ npm install
 npm run dev -- --port 5210
 ```
 
-Then open http://localhost:5210. Pick "Maya's 12 weeks" and press Next week. `npm test` runs the rule tests. Everything runs in the browser and works offline once loaded.
+Then open http://localhost:5210. Pick "Maya's 12 weeks" and press Next week or Play. `npm test` runs the rule tests. Everything runs in the browser and works offline once loaded.
+
+**The site** has no build step. From the repo root, run `python3 -m http.server 8000` and open http://localhost:8000/site/. Its links to the app work once the site is deployed, where the app sits at `/app/`.
+
+**The video** needs Node 22 and ffmpeg:
+
+```
+cd video
+npm install
+npx remotion render src/index.ts Main out/steady-demo.mp4
+```
 
 **The experiments** need Python 3.13. The College Experience Study has its own terms: academic or educational use only, and no attempt to re-identify anyone. Downloading it means you accept them.
 

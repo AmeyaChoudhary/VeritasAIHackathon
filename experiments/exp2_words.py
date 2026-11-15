@@ -4,6 +4,10 @@ Part A. A tone model that reads low mood in short messages and runs in the brows
   TF-IDF over word unigrams and bigrams (our own tokenizer, copied exactly in
   app/src/engine/tone.ts) and logistic regression with class_weight="balanced",
   trained on GoEmotions. Low mood = any of sadness, grief, disappointment, remorse.
+  A second recipe (added 2026-11-15) trains on soft labels: for every comment outside
+  validation and test, the share of its raters who marked a low-mood emotion, taken
+  from GoEmotions' rater-level file. Both recipes are scored on validation and the
+  better one is shipped; the other is kept in the results as a comparison row.
   Vocabulary size, tf scaling, C and the decision threshold are chosen on the
   validation split only. Results are reported on the test split, next to two
   baselines: always "not low mood", and a fixed keyword list.
@@ -16,7 +20,9 @@ Part C. 60 messages we wrote (experiments/exp2_words/test_messages.csv), scored 
   slice: tone flags, self-harm false flags and misses.
 
 Data: data/goemotions/{train,validation,test}.parquet, the "simplified" config of
-https://huggingface.co/datasets/google-research-datasets/go_emotions (Apache-2.0).
+https://huggingface.co/datasets/google-research-datasets/go_emotions (Apache-2.0), and
+data/goemotions_raw/raw.parquet, the "raw" config of the same dataset (one row per
+rater). scripts/get_data.sh downloads both.
 
 Usage: .venv/bin/python experiments/exp2_words.py
 Writes: app/public/models/tone.json, app/public/data/exp2_summary.json,
@@ -79,6 +85,12 @@ KEYWORDS = [
 VOCAB_SIZES = [10000, 15000, 20000]
 TF_MODES = ["raw", "sublinear"]
 C_GRID = [0.25, 0.5, 1.0, 2.0, 4.0, 8.0]
+# Second recipe: soft labels from the rater-level file, no class weights. The vocabulary is
+# every term in at least SOFT_MIN_DF training comments; a cut of 3 gives a file at the 1 MB cap.
+RAW = ROOT / "data" / "goemotions_raw" / "raw.parquet"
+SOFT_MIN_DF = [5, 4]
+SOFT_C_GRID = [1.0, 2.0, 4.0, 8.0]
+RECIPE_LABEL = {"hard": "hard labels, balanced class weights", "soft": "soft labels from every rater"}
 THRESHOLDS = np.round(np.arange(0.05, 0.9501, 0.005), 4)
 MAX_JSON_BYTES = 1_000_000
 SLICES = ["everyday", "low_mood", "lyric_style", "dark_joke", "sarcasm", "risk_concern", "risk_plan"]
@@ -146,6 +158,24 @@ def check_selfharm(text, rules):
         if rx.search(s):
             return {"level": "concern", "ruleId": rid}
     return {"level": "none"}
+
+
+# ---------------------------------------------------------------- soft labels (Part A)
+def load_soft_pool(held_ids):
+    """Every GoEmotions comment outside validation and test, with a soft label: the share
+    of its raters who marked any low-mood emotion. The "simplified" labels keep an emotion
+    only when two raters agree, so they turn a 1-in-3 vote into a plain "no". The rater
+    file also holds the comments that "simplified" dropped for having no agreed label.
+    Only the text, id and the four emotion columns are read."""
+    if not RAW.exists():
+        raise SystemExit(f"{RAW} is missing. Run scripts/get_data.sh first.")
+    raw = pd.read_parquet(RAW, columns=["text", "id"] + LOW_MOOD)
+    raw["low"] = (raw[LOW_MOOD].sum(axis=1) > 0).astype(float)
+    g = raw.groupby("id", sort=True).agg(text=("text", "first"), q=("low", "mean"), raters=("low", "size")).reset_index()
+    g = g[~g["id"].isin(held_ids)].reset_index(drop=True)
+    assert not (set(g["id"]) & set(held_ids)), "a validation or test comment is in the soft-label pool"
+    g["text"] = g["text"].astype(str)
+    return g
 
 
 # ---------------------------------------------------------------- metrics
@@ -270,6 +300,14 @@ def main():
     data_info["train_label_counts"] = per_label
     print("data:", {s: data_info[s] for s in splits})
 
+    # ---- soft-label pool: train comments plus the ones "simplified" dropped; never validation or test
+    soft = load_soft_pool(set(va["id"]) | set(te["id"]))
+    data_info["soft_pool"] = {"n": int(len(soft)), "in_simplified_train": int(soft["id"].isin(set(tr["id"])).sum()),
+                              "extra_comments": int((~soft["id"].isin(set(tr["id"]))).sum()),
+                              "mean_soft_label": r4(soft["q"].mean()), "share_with_any_low_mood_vote": r4((soft["q"] > 0).mean()),
+                              "mean_raters_per_comment": r4(soft["raters"].mean())}
+    print("soft pool:", data_info["soft_pool"])
+
     # ---- Part A: search on validation
     grid = []
     fitted = {}
@@ -284,14 +322,45 @@ def main():
                 pva = lr.predict_proba(Xva)[:, 1]
                 ap = average_precision_score(va["y"], pva)
                 t_best, m_best = best_threshold(va["y"].values, pva)
-                grid.append({"vocab": V, "tf": tf, "C": C, "val_ap": r4(ap), "val_best_f1": r4(m_best["f1"]),
+                grid.append({"recipe": "hard", "vocab": V, "tf": tf, "C": C, "val_ap": r4(ap), "val_best_f1": r4(m_best["f1"]),
                              "val_best_threshold": t_best})
-                fitted[(V, tf, C)] = (vec, lr)
-                print(f"  vocab {V:5d} tf {tf:9s} C {C:5.2f}  val AP {ap:.4f}  best F1 {m_best['f1']:.4f} at {t_best}")
+                fitted[("hard", V, tf, C)] = (vec, lr)
+                print(f"  hard  vocab {V:5d} tf {tf:9s} C {C:5.2f}  val AP {ap:.4f}  best F1 {m_best['f1']:.4f} at {t_best}")
+    # second recipe: each pool comment appears twice, as a positive weighted by its soft label q
+    # and as a negative weighted by 1 - q, which is logistic regression on the soft label itself
+    n_soft = len(soft); q = soft["q"].values
+    rows2 = np.r_[np.arange(n_soft), np.arange(n_soft)]
+    y2 = np.r_[np.ones(n_soft), np.zeros(n_soft)].astype(int); w2 = np.r_[q, 1 - q]
+    keep2 = w2 > 0
+    rows2, y2, w2 = rows2[keep2], y2[keep2], w2[keep2]
+    for min_df in SOFT_MIN_DF:
+        for tf in TF_MODES:
+            vec = TfidfVectorizer(analyzer=analyzer, min_df=min_df, sublinear_tf=(tf == "sublinear"),
+                                  norm="l2", smooth_idf=True, dtype=np.float64)
+            Xs = vec.fit_transform(soft["text"])[rows2]; Xva = vec.transform(va["text"])
+            V = len(vec.vocabulary_)
+            for C in SOFT_C_GRID:
+                lr = LogisticRegression(C=C, max_iter=5000)
+                lr.fit(Xs, y2, sample_weight=w2)
+                pva = lr.predict_proba(Xva)[:, 1]
+                ap = average_precision_score(va["y"], pva)
+                t_best, m_best = best_threshold(va["y"].values, pva)
+                grid.append({"recipe": "soft", "vocab": V, "min_df": min_df, "tf": tf, "C": C, "val_ap": r4(ap),
+                             "val_best_f1": r4(m_best["f1"]), "val_best_threshold": t_best})
+                fitted[("soft", V, tf, C)] = (vec, lr)
+                print(f"  soft  vocab {V:5d} tf {tf:9s} C {C:5.2f}  val AP {ap:.4f}  best F1 {m_best['f1']:.4f} at {t_best}")
     # pick the best validation AP; ties go to the smaller vocabulary, then smaller C
-    best = max(grid, key=lambda g: (g["val_ap"], -g["vocab"], -g["C"]))
-    vec, lr = fitted[(best["vocab"], best["tf"], best["C"])]
+    rank = lambda g: (g["val_ap"], -g["vocab"], -g["C"])
+    best = max(grid, key=rank)
+    prev = max([g for g in grid if g["recipe"] == "hard"], key=rank)  # the recipe shipped before 2026-11-15
+    vec, lr = fitted[(best["recipe"], best["vocab"], best["tf"], best["C"])]
+    vec_prev, lr_prev = fitted[(prev["recipe"], prev["vocab"], prev["tf"], prev["C"])]
+    # the comparison model keeps its own validation threshold; scored before any rounding below
+    p_va_prev = lr_prev.predict_proba(vec_prev.transform(va["text"]))[:, 1]
+    th_prev, _ = best_threshold(va["y"].values, p_va_prev)
+    prev_proba = lambda texts: lr_prev.predict_proba(vec_prev.transform(list(texts)))[:, 1]
     print("chosen:", best)
+    print("best of the hard-label recipe:", prev)
 
     # ---- round the weights; the rounded model is the one we ship and evaluate
     raw_idf = vec.idf_.copy(); raw_coef = lr.coef_.copy(); raw_int = lr.intercept_.copy()
@@ -314,7 +383,10 @@ def main():
         "name": "steady-tone",
         "created": GENERATED,
         "task": "low mood in a short message (any of: " + ", ".join(LOW_MOOD) + ")",
-        "trained_on": "GoEmotions simplified train split (Google, Apache-2.0); Reddit comments",
+        "trained_on": ("GoEmotions simplified train split (Google, Apache-2.0); Reddit comments" if best["recipe"] == "hard" else
+                       "GoEmotions (Google, Apache-2.0), every comment outside validation and test, with the share of "
+                       "raters who marked a low-mood emotion as a soft label; Reddit comments"),
+        "recipe": RECIPE_LABEL[best["recipe"]],
         "tokenizer": TOKENIZER_DESCRIPTION,
         "ngram_range": [1, 2],
         "tf": best["tf"],
@@ -347,6 +419,11 @@ def main():
         "baseline_always_no": confusion(y_te, pred_none),
         "unrounded_vs_shipped_max_abs_diff": float(np.max(np.abs(p_te - p_te_unrounded))),
     }
+    if best["recipe"] != "hard":
+        p_te_prev = prev_proba(te["text"])
+        test["previous_model"] = {**confusion(y_te, (p_te_prev >= th_prev).astype(int)), "threshold": th_prev,
+                                  "average_precision": r4(average_precision_score(y_te, p_te_prev)),
+                                  "roc_auc": r4(roc_auc_score(y_te, p_te_prev)), "settings": prev}
     # recall on each low-mood label separately (a test row can carry more than one)
     test["model"]["recall_by_label"] = {}
     test["baseline_keyword"]["recall_by_label"] = {}
@@ -358,6 +435,10 @@ def main():
         m = test[k]
         print(f"test {k:20s} P {m['precision']}  R {m['recall']}  missed {m['missed']}  false alarms {m['false_alarms']}")
 
+    PROBES = ["sorry im late lol", "i miss how things used to be, nothing feels fun anymore", "omw, save me a seat at lunch"]
+    probe_p = proba(PROBES)
+    probes = [{"text": t, "score": round(float(s_), 4), "low_mood": bool(s_ >= threshold)} for t, s_ in zip(PROBES, probe_p)]
+    print("probes:", probes)
     order = np.argsort(coef_r)
     top = {"low_mood": [[vocab[i], float(coef_r[i])] for i in order[::-1][:25]],
            "not_low_mood": [[vocab[i], float(coef_r[i])] for i in order[:25]]}
@@ -427,6 +508,8 @@ def main():
                        "keyword_false_alarms": ck["false_alarms"],
                        "selfharm": {"none": lv.get("none", 0), "concern": lv.get("concern", 0), "plan": lv.get("plan", 0)}}
     msgs_all = {"model": confusion(m_y, m_pred), "keyword": confusion(m_y, m_kw)}
+    if best["recipe"] != "hard":
+        msgs_all["previous_model"] = confusion(m_y, (prev_proba(m_text) >= th_prev).astype(int))
 
     def pool(slices):
         return [i for i, m in enumerate(msgs) if m["slice"] in slices]
@@ -462,11 +545,12 @@ def main():
         "low_mood_label_ids": LOW_MOOD_IDS,
         "data": data_info,
         "keywords": KEYWORDS,
-        "search": {"grid": grid, "chosen": best, "criterion": "validation average precision",
+        "search": {"grid": grid, "chosen": best, "previous_recipe_best": prev, "criterion": "validation average precision",
                    "threshold_criterion": "best F1 on validation, grid 0.05 to 0.95 step 0.005"},
         "validation_at_threshold": m_val,
         "test": test,
         "top_features": top,
+        "probe_messages": probes,
         "model_file": {"path": "app/public/models/tone.json", "bytes": size_bytes,
                        "kb": int(round(size_bytes / 1024)), "n_features": len(vocab)},
         "parity": parity,
@@ -571,18 +655,43 @@ def render_md(res, msgs):
     w(f"Low mood is rare: {pct(d['train']['share'])} of training comments, {pct(d['validation']['share'])} of validation comments and "
       f"{pct(d['test']['share'])} of test comments ({d['test']['low_mood']} of {d['test']['n']:,}).")
     w("")
+    soft_chosen = ch.get("recipe") == "soft"
+    pv = res["search"].get("previous_recipe_best"); sp = d.get("soft_pool")
+    grid = res["search"]["grid"]
+    n_hard = sum(1 for g in grid if g.get("recipe", "hard") == "hard"); n_soft = len(grid) - n_hard
+    if soft_chosen and sp:
+        w("### Soft labels")
+        w("")
+        w(f"GoEmotions also publishes a rater-level file: {sp['mean_raters_per_comment']:.1f} raters read each comment on average. The \"simplified\" labels keep an emotion only when "
+          "two raters agree, so a comment that one rater in three found sad is labelled plain \"not sad\". For training we used the share of a comment's raters who marked "
+          f"any of the four low-mood emotions. That gives {sp['n']:,} training comments: the {sp['in_simplified_train']:,} in the training split and {sp['extra_comments']:,} "
+          f"that \"simplified\" dropped for having no agreed label. {pct(sp['share_with_any_low_mood_vote'])} of them got at least one low-mood vote. "
+          "No validation or test comment is in this pool, and validation and test are still scored against the agreed labels.")
+        w("")
     w("### Model")
     w("")
     w("The tokenizer is simple so that the browser can copy it exactly. It lowercases A to Z, deletes apostrophes (\"don't\" becomes \"dont\"), "
       "squashes a letter repeated three or more times to two (\"sooo\" becomes \"soo\"), and keeps runs of letters and digits. "
-      "The features are single words and pairs of neighboring words, weighted by TF-IDF. A logistic regression with balanced class weights turns them into a score.")
+      "The features are single words and pairs of neighboring words, weighted by TF-IDF. A logistic regression turns them into a score.")
     w("")
-    w(f"We tried {len(res['search']['grid'])} settings on the validation split only: vocabulary of 10,000, 15,000 or 20,000 terms, raw or log word counts, "
-      f"and six values of C from 0.25 to 8. We kept the one with the best average precision on validation: {ch['vocab']:,} terms, {ch['tf']} counts, C = {ch['C']} "
-      f"(validation average precision {ch['val_ap']:.3f}). The 20,000-term models scored only a little better than the 10,000-term ones.")
+    w(f"We tried {len(grid)} settings on the validation split only, in two recipes.")
     w("")
-    w(f"The threshold is the one with the best F1 on validation: **{m['threshold']}**. At that threshold validation precision was {pct(v['precision'])} "
-      f"and recall was {pct(v['recall'])}. The score comes from a class-balanced model, so it ranks messages well. It is not a calibrated chance.")
+    w(f"- **Hard labels** ({n_hard} settings): the agreed labels with balanced class weights, a vocabulary of 10,000, 15,000 or 20,000 terms, raw or log word counts, "
+      "and six values of C from 0.25 to 8." + (f" Its best setting reached a validation average precision of {pv['val_ap']:.3f} "
+      f"({pv['vocab']:,} terms, {pv['tf']} counts, C = {pv['C']}). This was the model we shipped first." if pv else ""))
+    w(f"- **Soft labels** ({n_soft} settings): the rater shares above with no class weights, every term found in at least 4 or 5 training comments, raw or log word counts, "
+      "and four values of C from 1 to 8. A cut of 3 comments would put the file at the 1 MB cap, so it was left out.")
+    w("")
+    w(f"We kept the setting with the best average precision on validation: {RECIPE_LABEL[ch.get('recipe', 'hard')]}, {ch['vocab']:,} terms, {ch['tf']} counts, "
+      f"C = {ch['C']} (validation average precision {ch['val_ap']:.3f}).")
+    w("")
+    if soft_chosen:
+        w(f"The threshold is the one with the best F1 on validation: **{m['threshold']}**. At that threshold validation precision was {pct(v['precision'])} "
+          f"and recall was {pct(v['recall'])}. The score estimates the share of raters who would call a message low mood, which is why the threshold sits well under 0.5. "
+          "It ranks messages well. It is not a calibrated chance that the writer is low.")
+    else:
+        w(f"The threshold is the one with the best F1 on validation: **{m['threshold']}**. At that threshold validation precision was {pct(v['precision'])} "
+          f"and recall was {pct(v['recall'])}. The score comes from a class-balanced model, so it ranks messages well. It is not a calibrated chance.")
     w("")
     w(f"We rounded every weight to 4 decimals and evaluated the rounded model, since that is the file the app loads. "
       f"Rounding moved test scores by at most {T['unrounded_vs_shipped_max_abs_diff']:.1e}.")
@@ -597,12 +706,21 @@ def render_md(res, msgs):
     w(f"| Keyword list ({len(res['keywords'])} words) | {k['flagged']} | {pct(k['precision'])} | {pct(k['recall'])} | {k['missed']} | {k['false_alarms']} |")
     w(f"| Tone model, threshold {m['threshold']} | {m['flagged']} | {pct(m['precision'])} | {pct(m['recall'])} | {m['missed']} | {m['false_alarms']} |")
     w(f"| Tone model, threshold 0.5 (for reference only) | {h['flagged']} | {pct(h['precision'])} | {pct(h['recall'])} | {h['missed']} | {h['false_alarms']} |")
+    pmodel = T.get("previous_model")
+    if pmodel:
+        w(f"| Earlier tone model (hard labels), threshold {pmodel['threshold']} | {pmodel['flagged']} | {pct(pmodel['precision'])} | {pct(pmodel['recall'])} | {pmodel['missed']} | {pmodel['false_alarms']} |")
     w("")
+    if pmodel:
+        w(f"The earlier model is the best setting of the hard-label recipe, with its own validation threshold. Its F1 on the test comments was {pmodel['f1']:.3f} "
+          f"and its average precision {pmodel['average_precision']:.3f}; the model we ship now scores {m['f1']:.3f} and {m['average_precision']:.3f}. "
+          "The gain comes from the training labels. The words, the features and the code that runs on the phone are the same.")
+        w("")
     w(f"Bootstrap 95% ranges (2,000 resamples of the test set): model precision {pct(m['precision_95ci'][0])} to {pct(m['precision_95ci'][1])}, "
       f"recall {pct(m['recall_95ci'][0])} to {pct(m['recall_95ci'][1])}; keyword precision {pct(k['precision_95ci'][0])} to {pct(k['precision_95ci'][1])}, "
       f"recall {pct(k['recall_95ci'][0])} to {pct(k['recall_95ci'][1])}. The model's average precision is {m['average_precision']:.3f} and its ROC AUC is {m['roc_auc']:.3f}.")
     w("")
-    w(f"The model finds {m['tp']} low-mood comments where the keyword list finds {k['tp']}, at similar precision. "
+    w(f"The model finds {m['tp']} low-mood comments where the keyword list finds {k['tp']}, at "
+      + ("similar" if abs(m['precision'] - k['precision']) < 0.05 else ("higher" if m['precision'] > k['precision'] else "lower")) + " precision. "
       f"It still misses {m['missed']} of {m['positives']}, and {m['false_alarms']} of its {m['flagged']} flags are wrong. "
       "The keyword list reads only the words on its list, so it misses most comments that never say \"sad\" or \"miss\".")
     w("")
@@ -613,13 +731,19 @@ def render_md(res, msgs):
     for n in res["low_mood_labels"]:
         w(f"| {n} | {rbl[n]['n']} | {pct(rbl[n]['recall'])} | {pct(krbl[n]['recall'])} |")
     w("")
-    w(f"Disappointment is the hardest label: the model misses {round(rbl['disappointment']['n'] * (1 - rbl['disappointment']['recall']))} of {rbl['disappointment']['n']}. "
-      "Reading the missed ones, many are plain complaints such as \"Your TLDR sucks\", and several also carry the annoyance label.")
+    hardest = min((n for n in res["low_mood_labels"] if rbl[n]["n"] >= 20), key=lambda n: rbl[n]["recall"])
+    w(f"{hardest.capitalize()} is the hardest label: the model misses {round(rbl[hardest]['n'] * (1 - rbl[hardest]['recall']))} of {rbl[hardest]['n']}."
+      + (" Reading the missed ones, many are plain complaints such as \"Your TLDR sucks\", and several also carry the annoyance label." if hardest == "disappointment" else ""))
     w("")
-    top = ", ".join(f"\"{t}\"" for t, _ in res["top_features"]["low_mood"][:12])
-    w(f"The words that push hardest toward low mood are {top}. \"sorry\" is far ahead of the rest, because Reddit comments labelled remorse or sadness "
-      "often say \"sorry\". Teens say sorry for small things, and \"sorry im late lol\" scores as low mood. In Steady the signal is a change against "
-      "the student's own normal, so a steady habit of saying sorry matters less than a sudden rise.")
+    tf_ = res["top_features"]["low_mood"]
+    top = ", ".join(f"\"{t}\"" for t, _ in tf_[:12])
+    sorry = next((i for i, (t, _) in enumerate(tf_[:12]) if t == "sorry"), None)
+    late = next((x for x in res.get("probe_messages", []) if x["text"] == "sorry im late lol"), None)
+    w(f"The words that push hardest toward low mood are {top}."
+      + (" \"sorry\" is far ahead of the rest, because Reddit comments labelled remorse or sadness often say \"sorry\"." if sorry == 0 and tf_[0][1] > 1.25 * tf_[1][1]
+         else (" \"sorry\" is among them, because Reddit comments labelled remorse or sadness often say \"sorry\"." if sorry is not None else ""))
+      + (" Teens say sorry for small things, and \"sorry im late lol\" scores as low mood." if late and late["low_mood"] else "")
+      + " In Steady the signal is a change against the student's own normal, so a steady habit of using one of these words matters less than a sudden rise.")
     w("")
     w("### Size and browser check")
     w("")

@@ -47,10 +47,12 @@ export function OtherPhones() {
         }
         return (
           <div key={a.name} className={`strip${live ? " live" : ""}`} aria-live="polite">
-            <div className="label" style={{ marginBottom: 4 }}>
-              {a.name}'s phone · {a.role}
+            <div className="strip-head">
+              <i className={`pulse-dot ${live ? "urgent" : "idle"}`} aria-hidden="true" />
+              <b>{a.name}'s phone</b>
             </div>
-            <div>{line}</div>
+            <div className="label">{a.role}</div>
+            <div className="strip-line">{line}</div>
           </div>
         );
       })}

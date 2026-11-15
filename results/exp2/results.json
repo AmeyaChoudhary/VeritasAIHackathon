@@ -64,6 +64,14 @@
       "grief": 77,
       "disappointment": 1269,
       "remorse": 545
+    },
+    "soft_pool": {
+      "n": 47158,
+      "in_simplified_train": 43410,
+      "extra_comments": 3748,
+      "mean_soft_label": 0.0786,
+      "share_with_any_low_mood_vote": 0.1839,
+      "mean_raters_per_comment": 3.654
     }
   },
   "keywords": [
@@ -103,6 +111,7 @@
   "search": {
     "grid": [
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 0.25,
@@ -111,6 +120,7 @@
         "val_best_threshold": 0.6
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 0.5,
@@ -119,6 +129,7 @@
         "val_best_threshold": 0.635
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 1.0,
@@ -127,6 +138,7 @@
         "val_best_threshold": 0.755
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 2.0,
@@ -135,6 +147,7 @@
         "val_best_threshold": 0.79
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 4.0,
@@ -143,6 +156,7 @@
         "val_best_threshold": 0.785
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "raw",
         "C": 8.0,
@@ -151,6 +165,7 @@
         "val_best_threshold": 0.845
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 0.25,
@@ -159,6 +174,7 @@
         "val_best_threshold": 0.6
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 0.5,
@@ -167,6 +183,7 @@
         "val_best_threshold": 0.665
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 1.0,
@@ -175,6 +192,7 @@
         "val_best_threshold": 0.745
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 2.0,
@@ -183,6 +201,7 @@
         "val_best_threshold": 0.795
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 4.0,
@@ -191,6 +210,7 @@
         "val_best_threshold": 0.82
       },
       {
+        "recipe": "hard",
         "vocab": 10000,
         "tf": "sublinear",
         "C": 8.0,
@@ -199,6 +219,7 @@
         "val_best_threshold": 0.84
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 0.25,
@@ -207,6 +228,7 @@
         "val_best_threshold": 0.555
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 0.5,
@@ -215,6 +237,7 @@
         "val_best_threshold": 0.66
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 1.0,
@@ -223,6 +246,7 @@
         "val_best_threshold": 0.63
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 2.0,
@@ -231,6 +255,7 @@
         "val_best_threshold": 0.675
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 4.0,
@@ -239,6 +264,7 @@
         "val_best_threshold": 0.695
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "raw",
         "C": 8.0,
@@ -247,6 +273,7 @@
         "val_best_threshold": 0.715
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 0.25,
@@ -255,6 +282,7 @@
         "val_best_threshold": 0.64
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 0.5,
@@ -263,6 +291,7 @@
         "val_best_threshold": 0.67
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 1.0,
@@ -271,6 +300,7 @@
         "val_best_threshold": 0.7
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 2.0,
@@ -279,6 +309,7 @@
         "val_best_threshold": 0.675
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 4.0,
@@ -287,6 +318,7 @@
         "val_best_threshold": 0.685
       },
       {
+        "recipe": "hard",
         "vocab": 15000,
         "tf": "sublinear",
         "C": 8.0,
@@ -295,6 +327,7 @@
         "val_best_threshold": 0.765
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 0.25,
@@ -303,6 +336,7 @@
         "val_best_threshold": 0.57
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 0.5,
@@ -311,6 +345,7 @@
         "val_best_threshold": 0.595
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 1.0,
@@ -319,6 +354,7 @@
         "val_best_threshold": 0.615
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 2.0,
@@ -327,6 +363,7 @@
         "val_best_threshold": 0.64
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 4.0,
@@ -335,6 +372,7 @@
         "val_best_threshold": 0.625
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "raw",
         "C": 8.0,
@@ -343,6 +381,7 @@
         "val_best_threshold": 0.69
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 0.25,
@@ -351,6 +390,7 @@
         "val_best_threshold": 0.57
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 0.5,
@@ -359,6 +399,7 @@
         "val_best_threshold": 0.575
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 1.0,
@@ -367,6 +408,7 @@
         "val_best_threshold": 0.645
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 2.0,
@@ -375,6 +417,7 @@
         "val_best_threshold": 0.64
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 4.0,
@@ -383,15 +426,187 @@
         "val_best_threshold": 0.605
       },
       {
+        "recipe": "hard",
         "vocab": 20000,
         "tf": "sublinear",
         "C": 8.0,
         "val_ap": 0.5179,
         "val_best_f1": 0.514,
         "val_best_threshold": 0.675
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "raw",
+        "C": 1.0,
+        "val_ap": 0.5845,
+        "val_best_f1": 0.5607,
+        "val_best_threshold": 0.15
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "raw",
+        "C": 2.0,
+        "val_ap": 0.5879,
+        "val_best_f1": 0.5606,
+        "val_best_threshold": 0.19
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "raw",
+        "C": 4.0,
+        "val_ap": 0.5841,
+        "val_best_f1": 0.5579,
+        "val_best_threshold": 0.225
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "raw",
+        "C": 8.0,
+        "val_ap": 0.5746,
+        "val_best_f1": 0.5533,
+        "val_best_threshold": 0.21
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "sublinear",
+        "C": 1.0,
+        "val_ap": 0.5833,
+        "val_best_f1": 0.5599,
+        "val_best_threshold": 0.15
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "sublinear",
+        "C": 2.0,
+        "val_ap": 0.5909,
+        "val_best_f1": 0.5581,
+        "val_best_threshold": 0.185
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "sublinear",
+        "C": 4.0,
+        "val_ap": 0.5856,
+        "val_best_f1": 0.5596,
+        "val_best_threshold": 0.215
+      },
+      {
+        "recipe": "soft",
+        "vocab": 21723,
+        "min_df": 5,
+        "tf": "sublinear",
+        "C": 8.0,
+        "val_ap": 0.5742,
+        "val_best_f1": 0.5526,
+        "val_best_threshold": 0.245
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "raw",
+        "C": 1.0,
+        "val_ap": 0.5835,
+        "val_best_f1": 0.5603,
+        "val_best_threshold": 0.155
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "raw",
+        "C": 2.0,
+        "val_ap": 0.592,
+        "val_best_f1": 0.5689,
+        "val_best_threshold": 0.19
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "raw",
+        "C": 4.0,
+        "val_ap": 0.5899,
+        "val_best_f1": 0.5722,
+        "val_best_threshold": 0.18
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "raw",
+        "C": 8.0,
+        "val_ap": 0.579,
+        "val_best_f1": 0.5609,
+        "val_best_threshold": 0.2
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "sublinear",
+        "C": 1.0,
+        "val_ap": 0.5818,
+        "val_best_f1": 0.5532,
+        "val_best_threshold": 0.15
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "sublinear",
+        "C": 2.0,
+        "val_ap": 0.5852,
+        "val_best_f1": 0.5633,
+        "val_best_threshold": 0.2
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "sublinear",
+        "C": 4.0,
+        "val_ap": 0.5888,
+        "val_best_f1": 0.5698,
+        "val_best_threshold": 0.19
+      },
+      {
+        "recipe": "soft",
+        "vocab": 27599,
+        "min_df": 4,
+        "tf": "sublinear",
+        "C": 8.0,
+        "val_ap": 0.5793,
+        "val_best_f1": 0.5596,
+        "val_best_threshold": 0.21
       }
     ],
     "chosen": {
+      "recipe": "soft",
+      "vocab": 27599,
+      "min_df": 4,
+      "tf": "raw",
+      "C": 2.0,
+      "val_ap": 0.592,
+      "val_best_f1": 0.5689,
+      "val_best_threshold": 0.19
+    },
+    "previous_recipe_best": {
+      "recipe": "hard",
       "vocab": 20000,
       "tf": "raw",
       "C": 0.5,
@@ -405,54 +620,54 @@
   "validation_at_threshold": {
     "n": 5426,
     "positives": 360,
-    "flagged": 393,
-    "tp": 199,
-    "fp": 194,
-    "fn": 161,
-    "tn": 4872,
-    "precision": 0.5063613231552163,
-    "recall": 0.5527777777777778,
-    "f1": 0.5285524568393095,
-    "missed": 161,
-    "false_alarms": 194
+    "flagged": 315,
+    "tp": 192,
+    "fp": 123,
+    "fn": 168,
+    "tn": 4943,
+    "precision": 0.6095238095238096,
+    "recall": 0.5333333333333333,
+    "f1": 0.5688888888888889,
+    "missed": 168,
+    "false_alarms": 123
   },
   "test": {
     "model": {
       "n": 5427,
       "positives": 345,
-      "flagged": 365,
-      "tp": 189,
-      "fp": 176,
-      "fn": 156,
-      "tn": 4906,
-      "precision": 0.5178082191780822,
-      "recall": 0.5478260869565217,
-      "f1": 0.532394366197183,
-      "missed": 156,
-      "false_alarms": 176,
+      "flagged": 297,
+      "tp": 174,
+      "fp": 123,
+      "fn": 171,
+      "tn": 4959,
+      "precision": 0.5858585858585859,
+      "recall": 0.5043478260869565,
+      "f1": 0.5420560747663551,
+      "missed": 171,
+      "false_alarms": 123,
       "precision_95ci": [
-        0.4665,
-        0.5718
+        0.5294,
+        0.6434
       ],
       "recall_95ci": [
-        0.4944,
-        0.6
+        0.4526,
+        0.5579
       ],
-      "threshold": 0.595,
-      "average_precision": 0.5214,
-      "roc_auc": 0.8776,
+      "threshold": 0.19,
+      "average_precision": 0.541,
+      "roc_auc": 0.892,
       "recall_by_label": {
         "sadness": {
           "n": 156,
-          "recall": 0.6538
+          "recall": 0.6218
         },
         "grief": {
           "n": 6,
-          "recall": 0.8333
+          "recall": 0.5
         },
         "disappointment": {
           "n": 151,
-          "recall": 0.3113
+          "recall": 0.2384
         },
         "remorse": {
           "n": 56,
@@ -463,16 +678,16 @@
     "model_at_0_5": {
       "n": 5427,
       "positives": 345,
-      "flagged": 577,
-      "tp": 221,
-      "fp": 356,
-      "fn": 124,
-      "tn": 4726,
-      "precision": 0.3830155979202773,
-      "recall": 0.6405797101449275,
-      "f1": 0.47939262472885036,
-      "missed": 124,
-      "false_alarms": 356
+      "flagged": 106,
+      "tp": 85,
+      "fp": 21,
+      "fn": 260,
+      "tn": 5061,
+      "precision": 0.8018867924528302,
+      "recall": 0.2463768115942029,
+      "f1": 0.376940133037694,
+      "missed": 260,
+      "false_alarms": 21
     },
     "baseline_keyword": {
       "n": 5427,
@@ -528,226 +743,269 @@
       "missed": 345,
       "false_alarms": 0
     },
-    "unrounded_vs_shipped_max_abs_diff": 2.3287294026785865e-05
+    "unrounded_vs_shipped_max_abs_diff": 2.7708669071535574e-05,
+    "previous_model": {
+      "n": 5427,
+      "positives": 345,
+      "flagged": 365,
+      "tp": 189,
+      "fp": 176,
+      "fn": 156,
+      "tn": 4906,
+      "precision": 0.5178082191780822,
+      "recall": 0.5478260869565217,
+      "f1": 0.532394366197183,
+      "missed": 156,
+      "false_alarms": 176,
+      "threshold": 0.595,
+      "average_precision": 0.5214,
+      "roc_auc": 0.8776,
+      "settings": {
+        "recipe": "hard",
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 0.5,
+        "val_ap": 0.5606,
+        "val_best_f1": 0.5286,
+        "val_best_threshold": 0.595
+      }
+    }
   },
   "top_features": {
     "low_mood": [
       [
         "sorry",
-        15.3992
+        13.3317
       ],
       [
         "sad",
-        12.2808
+        11.5589
       ],
       [
         "sadly",
-        8.3841
-      ],
-      [
-        "bad",
-        6.7689
-      ],
-      [
-        "poor",
-        5.7993
-      ],
-      [
-        "hurts",
-        5.7315
-      ],
-      [
-        "unfortunately",
-        5.7268
-      ],
-      [
-        "disappointing",
-        5.488
+        8.4709
       ],
       [
         "disappointed",
-        5.4273
+        5.9458
       ],
       [
-        "miss",
-        5.3538
+        "disappointing",
+        5.8764
+      ],
+      [
+        "hurts",
+        5.699
+      ],
+      [
+        "poor",
+        5.5075
       ],
       [
         "regret",
-        5.3049
-      ],
-      [
-        "hurt",
-        5.2314
-      ],
-      [
-        "lost",
-        5.1159
-      ],
-      [
-        "crying",
-        5.0364
+        5.4011
       ],
       [
         "painful",
-        4.8099
+        5.255
+      ],
+      [
+        "unfortunately",
+        5.0987
+      ],
+      [
+        "miss",
+        5.0602
+      ],
+      [
+        "bad",
+        4.9727
       ],
       [
         "apologies",
-        4.5842
+        4.9421
       ],
       [
         "upset",
-        4.3298
+        4.7698
       ],
       [
-        "missed",
-        4.2027
+        "hurt",
+        4.676
       ],
       [
-        "depressing",
-        4.0167
-      ],
-      [
-        "rip",
-        3.9431
-      ],
-      [
-        "cry",
-        3.9099
+        "lost",
+        4.4032
       ],
       [
         "died",
-        3.8471
+        4.3346
+      ],
+      [
+        "crying",
+        4.1605
+      ],
+      [
+        "depressing",
+        3.9538
+      ],
+      [
+        "missed",
+        3.7784
+      ],
+      [
+        "rip",
+        3.771
+      ],
+      [
+        "cry",
+        3.7181
+      ],
+      [
+        "disappointment",
+        3.6488
       ],
       [
         "pain",
-        3.6204
+        3.4966
       ],
       [
-        "me",
-        3.5737
-      ],
-      [
-        "worse",
-        3.5666
+        "apologize",
+        3.4763
       ]
     ],
     "not_low_mood": [
       [
+        "thanks",
+        -3.5145
+      ],
+      [
         "love",
-        -4.2426
+        -3.3324
       ],
       [
         "lol",
-        -4.064
-      ],
-      [
-        "thanks",
-        -3.8447
+        -3.0613
       ],
       [
         "thank",
-        -2.8386
-      ],
-      [
-        "i like",
-        -2.706
+        -2.8017
       ],
       [
         "haha",
-        -2.5286
+        -2.3756
       ],
       [
-        "wow",
-        -2.5115
+        "i like",
+        -2.3371
       ],
       [
         "amazing",
-        -2.23
-      ],
-      [
-        "awesome",
-        -2.2235
-      ],
-      [
-        "thank you",
-        -2.2049
+        -2.1546
       ],
       [
         "glad",
-        -2.0034
+        -2.0834
       ],
       [
-        "great",
-        -1.9547
+        "wow",
+        -2.0394
       ],
       [
-        "i love",
-        -1.867
+        "thank you",
+        -2.0318
       ],
       [
-        "you",
-        -1.8339
-      ],
-      [
-        "best",
-        -1.8287
-      ],
-      [
-        "to me",
-        -1.7881
-      ],
-      [
-        "right",
-        -1.7743
+        "awesome",
+        -1.9932
       ],
       [
         "fun",
-        -1.7717
+        -1.948
       ],
       [
-        "nice",
-        -1.7699
+        "great",
+        -1.9447
       ],
       [
-        "start",
-        -1.7284
+        "i love",
+        -1.8878
+      ],
+      [
+        "cool",
+        -1.7868
+      ],
+      [
+        "to me",
+        -1.548
+      ],
+      [
+        "surprised",
+        -1.5282
       ],
       [
         "sure",
-        -1.6845
+        -1.5275
       ],
       [
-        "joke",
-        -1.6521
+        "not sorry",
+        -1.5252
       ],
       [
-        "sense",
-        -1.6517
+        "yes",
+        -1.493
       ],
       [
-        "hey",
-        -1.6436
+        "nice",
+        -1.4893
       ],
       [
-        "funny",
-        -1.565
+        "cute",
+        -1.479
+      ],
+      [
+        "curious",
+        -1.471
+      ],
+      [
+        "interesting",
+        -1.4626
+      ],
+      [
+        "good",
+        -1.4145
       ]
     ]
   },
+  "probe_messages": [
+    {
+      "text": "sorry im late lol",
+      "score": 0.7828,
+      "low_mood": true
+    },
+    {
+      "text": "i miss how things used to be, nothing feels fun anymore",
+      "score": 0.5543,
+      "low_mood": true
+    },
+    {
+      "text": "omw, save me a seat at lunch",
+      "score": 0.0569,
+      "low_mood": false
+    }
+  ],
   "model_file": {
     "path": "app/public/models/tone.json",
-    "bytes": 507430,
-    "kb": 496,
-    "n_features": 20000
+    "bytes": 714271,
+    "kb": 698,
+    "n_features": 27599
   },
   "parity": {
-    "node": "v25.9.0",
+    "node": "v22.18.0",
     "tone_n": 5487,
-    "tone_max_abs_diff": 3.3306690738754696e-16,
-    "tone_mean_abs_diff": 2.5466638497700705e-17,
-    "tone_max_abs_diff_vs_unrounded_sklearn": 2.3287294026841376e-05,
+    "tone_max_abs_diff": 6.661338147750939e-16,
+    "tone_mean_abs_diff": 1.3167395307264086e-17,
+    "tone_max_abs_diff_vs_unrounded_sklearn": 2.7708669071535574e-05,
     "tone_decision_mismatches": 0,
     "within_1e-4": true,
     "selfharm_n": 5487,
@@ -760,15 +1018,15 @@
       "model": {
         "n": 60,
         "positives": 33,
-        "flagged": 13,
-        "tp": 11,
+        "flagged": 14,
+        "tp": 12,
         "fp": 2,
-        "fn": 22,
+        "fn": 21,
         "tn": 25,
-        "precision": 0.8461538461538461,
-        "recall": 0.3333333333333333,
-        "f1": 0.47826086956521735,
-        "missed": 22,
+        "precision": 0.8571428571428571,
+        "recall": 0.36363636363636365,
+        "f1": 0.5106382978723404,
+        "missed": 21,
         "false_alarms": 2
       },
       "keyword": {
@@ -784,6 +1042,20 @@
         "f1": 0.25641025641025644,
         "missed": 28,
         "false_alarms": 1
+      },
+      "previous_model": {
+        "n": 60,
+        "positives": 33,
+        "flagged": 13,
+        "tp": 11,
+        "fp": 2,
+        "fn": 22,
+        "tn": 25,
+        "precision": 0.8461538461538461,
+        "recall": 0.3333333333333333,
+        "f1": 0.47826086956521735,
+        "missed": 22,
+        "false_alarms": 2
       }
     },
     "by_slice": {
@@ -808,12 +1080,12 @@
       "low_mood": {
         "n": 11,
         "labelled_low_mood": 11,
-        "flagged_low_mood": 6,
-        "tp": 6,
-        "missed": 5,
+        "flagged_low_mood": 7,
+        "tp": 7,
+        "missed": 4,
         "false_alarms": 0,
         "precision": 1.0,
-        "recall": 0.5455,
+        "recall": 0.6364,
         "keyword_flagged": 4,
         "keyword_missed": 7,
         "keyword_false_alarms": 0,
@@ -919,7 +1191,7 @@
         "id": "m01",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.2016,
+        "tone_score": 0.0313,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -930,7 +1202,7 @@
         "id": "m02",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.1614,
+        "tone_score": 0.0326,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -941,7 +1213,7 @@
         "id": "m03",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.133,
+        "tone_score": 0.0225,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -952,7 +1224,7 @@
         "id": "m04",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.367,
+        "tone_score": 0.0792,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -963,7 +1235,7 @@
         "id": "m05",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.7851,
+        "tone_score": 0.3808,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "none",
@@ -974,7 +1246,7 @@
         "id": "m06",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.2612,
+        "tone_score": 0.0413,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -985,7 +1257,7 @@
         "id": "m07",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.1563,
+        "tone_score": 0.028,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -996,7 +1268,7 @@
         "id": "m08",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.3537,
+        "tone_score": 0.0526,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1007,7 +1279,7 @@
         "id": "m09",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.3811,
+        "tone_score": 0.1235,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1018,7 +1290,7 @@
         "id": "m10",
         "slice": "everyday",
         "low_mood": 0,
-        "tone_score": 0.3256,
+        "tone_score": 0.0848,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1029,7 +1301,7 @@
         "id": "m13",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.8766,
+        "tone_score": 0.4489,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "none",
@@ -1040,7 +1312,7 @@
         "id": "m14",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.3751,
+        "tone_score": 0.0686,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1051,7 +1323,7 @@
         "id": "m15",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.6972,
+        "tone_score": 0.26,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1062,7 +1334,7 @@
         "id": "m16",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.8887,
+        "tone_score": 0.5121,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "none",
@@ -1073,7 +1345,7 @@
         "id": "m17",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.9165,
+        "tone_score": 0.5438,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "none",
@@ -1084,7 +1356,7 @@
         "id": "m18",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.325,
+        "tone_score": 0.1078,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1095,7 +1367,7 @@
         "id": "m19",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.7451,
+        "tone_score": 0.3368,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1106,7 +1378,7 @@
         "id": "m20",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.4209,
+        "tone_score": 0.1063,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1117,7 +1389,7 @@
         "id": "m21",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.5618,
+        "tone_score": 0.1259,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1128,7 +1400,7 @@
         "id": "m22",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.9281,
+        "tone_score": 0.6228,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "none",
@@ -1139,8 +1411,8 @@
         "id": "m23",
         "slice": "low_mood",
         "low_mood": 1,
-        "tone_score": 0.5533,
-        "tone_flag": 0,
+        "tone_score": 0.1974,
+        "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "none",
         "selfharm_level": "none",
@@ -1150,7 +1422,7 @@
         "id": "m25",
         "slice": "lyric_style",
         "low_mood": 1,
-        "tone_score": 0.4762,
+        "tone_score": 0.0952,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1161,7 +1433,7 @@
         "id": "m26",
         "slice": "lyric_style",
         "low_mood": 1,
-        "tone_score": 0.1818,
+        "tone_score": 0.0396,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1172,7 +1444,7 @@
         "id": "m27",
         "slice": "lyric_style",
         "low_mood": 1,
-        "tone_score": 0.4618,
+        "tone_score": 0.1121,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1183,7 +1455,7 @@
         "id": "m28",
         "slice": "lyric_style",
         "low_mood": 1,
-        "tone_score": 0.5018,
+        "tone_score": 0.1047,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1194,7 +1466,7 @@
         "id": "m29",
         "slice": "lyric_style",
         "low_mood": 0,
-        "tone_score": 0.4658,
+        "tone_score": 0.101,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1205,7 +1477,7 @@
         "id": "m30",
         "slice": "lyric_style",
         "low_mood": 0,
-        "tone_score": 0.3517,
+        "tone_score": 0.0461,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1216,7 +1488,7 @@
         "id": "m31",
         "slice": "lyric_style",
         "low_mood": 0,
-        "tone_score": 0.1071,
+        "tone_score": 0.0195,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1227,7 +1499,7 @@
         "id": "m32",
         "slice": "lyric_style",
         "low_mood": 0,
-        "tone_score": 0.3626,
+        "tone_score": 0.0685,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1238,7 +1510,7 @@
         "id": "m33",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.3205,
+        "tone_score": 0.0847,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1249,7 +1521,7 @@
         "id": "m34",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.4839,
+        "tone_score": 0.1421,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1260,7 +1532,7 @@
         "id": "m35",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.5167,
+        "tone_score": 0.1185,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1271,7 +1543,7 @@
         "id": "m36",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.143,
+        "tone_score": 0.0406,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1282,7 +1554,7 @@
         "id": "m37",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.2462,
+        "tone_score": 0.0551,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1293,7 +1565,7 @@
         "id": "m38",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.3164,
+        "tone_score": 0.0692,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1304,7 +1576,7 @@
         "id": "m39",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.5506,
+        "tone_score": 0.1263,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1315,7 +1587,7 @@
         "id": "m40",
         "slice": "dark_joke",
         "low_mood": 0,
-        "tone_score": 0.6734,
+        "tone_score": 0.2075,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1326,7 +1598,7 @@
         "id": "m41",
         "slice": "sarcasm",
         "low_mood": 1,
-        "tone_score": 0.2615,
+        "tone_score": 0.042,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1337,7 +1609,7 @@
         "id": "m42",
         "slice": "sarcasm",
         "low_mood": 0,
-        "tone_score": 0.1902,
+        "tone_score": 0.0556,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1348,7 +1620,7 @@
         "id": "m43",
         "slice": "sarcasm",
         "low_mood": 1,
-        "tone_score": 0.1286,
+        "tone_score": 0.0279,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1359,7 +1631,7 @@
         "id": "m44",
         "slice": "sarcasm",
         "low_mood": 0,
-        "tone_score": 0.3047,
+        "tone_score": 0.0519,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1370,7 +1642,7 @@
         "id": "m45",
         "slice": "sarcasm",
         "low_mood": 0,
-        "tone_score": 0.4514,
+        "tone_score": 0.1508,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1381,7 +1653,7 @@
         "id": "m46",
         "slice": "sarcasm",
         "low_mood": 1,
-        "tone_score": 0.2859,
+        "tone_score": 0.0451,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1392,7 +1664,7 @@
         "id": "m47",
         "slice": "sarcasm",
         "low_mood": 0,
-        "tone_score": 0.2818,
+        "tone_score": 0.063,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1403,7 +1675,7 @@
         "id": "m48",
         "slice": "sarcasm",
         "low_mood": 0,
-        "tone_score": 0.5424,
+        "tone_score": 0.1201,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "none",
@@ -1414,7 +1686,7 @@
         "id": "m49",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.2054,
+        "tone_score": 0.0414,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1425,7 +1697,7 @@
         "id": "m50",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.6419,
+        "tone_score": 0.2473,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1436,7 +1708,7 @@
         "id": "m51",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.8944,
+        "tone_score": 0.3044,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1447,7 +1719,7 @@
         "id": "m52",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.2558,
+        "tone_score": 0.0824,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1458,7 +1730,7 @@
         "id": "m53",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.3865,
+        "tone_score": 0.1408,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1469,7 +1741,7 @@
         "id": "m54",
         "slice": "risk_concern",
         "low_mood": 1,
-        "tone_score": 0.4234,
+        "tone_score": 0.0886,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "concern",
@@ -1480,7 +1752,7 @@
         "id": "m55",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.4413,
+        "tone_score": 0.0972,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1491,7 +1763,7 @@
         "id": "m56",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.2741,
+        "tone_score": 0.0484,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1502,7 +1774,7 @@
         "id": "m57",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.4982,
+        "tone_score": 0.1076,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1513,7 +1785,7 @@
         "id": "m58",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.6131,
+        "tone_score": 0.2208,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1524,7 +1796,7 @@
         "id": "m59",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.5883,
+        "tone_score": 0.1455,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1535,7 +1807,7 @@
         "id": "m60",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.3125,
+        "tone_score": 0.0656,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1546,7 +1818,7 @@
         "id": "x01",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.4185,
+        "tone_score": 0.0945,
         "tone_flag": 0,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1557,7 +1829,7 @@
         "id": "x02",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.7932,
+        "tone_score": 0.2666,
         "tone_flag": 1,
         "keyword_flag": 0,
         "selfharm_expected": "plan",
@@ -1568,7 +1840,7 @@
         "id": "x03",
         "slice": "risk_plan",
         "low_mood": 1,
-        "tone_score": 0.9871,
+        "tone_score": 0.9091,
         "tone_flag": 1,
         "keyword_flag": 1,
         "selfharm_expected": "plan",
@@ -1608,5 +1880,5 @@
       "negations": 3
     }
   },
-  "runtime_seconds": 7.8
+  "runtime_seconds": 13.9
 }

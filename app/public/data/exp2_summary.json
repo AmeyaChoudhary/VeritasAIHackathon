@@ -9,11 +9,11 @@
   ],
   "test_size": 5427,
   "model": {
-    "precision": 0.5178,
-    "recall": 0.5478,
-    "missed": 156,
-    "false_alarms": 176,
-    "threshold": 0.595
+    "precision": 0.5859,
+    "recall": 0.5043,
+    "missed": 171,
+    "false_alarms": 123,
+    "threshold": 0.19
   },
   "baseline_keyword": {
     "precision": 0.4795,
@@ -21,8 +21,8 @@
     "missed": 263,
     "false_alarms": 89
   },
-  "model_size_kb": 496,
-  "parity_max_diff": 3.33e-16,
+  "model_size_kb": 698,
+  "parity_max_diff": 6.66e-16,
   "messages": {
     "n": 60,
     "by_slice": {
@@ -33,7 +33,7 @@
       },
       "low_mood": {
         "n": 11,
-        "flagged_low_mood": 6,
+        "flagged_low_mood": 7,
         "labelled_low_mood": 11
       },
       "lyric_style": {
@@ -70,7 +70,7 @@
     "risk_pool": 15,
     "plan_as_concern": 0
   },
-  "headline": "On 5,427 Reddit comments it never saw, the tone model found 55% of low-mood comments against 24% for a keyword list, and the self-harm phrase list missed 9 of the 15 risk messages we wrote.",
+  "headline": "On 5,427 Reddit comments it never saw, the tone model found 50% of low-mood comments against 24% for a keyword list, and the self-harm phrase list missed 9 of the 15 risk messages we wrote.",
   "caveats": [
     "GoEmotions is Reddit comments, mostly by adults. It holds no teen texts, so the test numbers may not carry over to a teen's phone.",
     "Low mood means a comment was labelled sadness, grief, disappointment or remorse. These are emotion labels and say nothing about depression or suicide risk.",

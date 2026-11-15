@@ -1,6 +1,6 @@
 # Steady: the working prototype
 
-A web app that plays Steady on two phones: the teen's phone and the linked parent's phone, side by side, with a control rail for the demo. It follows [docs/parent-alerts.md](../docs/parent-alerts.md) and [docs/concept.md](../docs/concept.md), and uses their wording where they give it.
+A web app that plays Steady on two phones: the teen's phone and the linked parent's phone, side by side, with a control bar for the demo. It follows [docs/parent-alerts.md](../docs/parent-alerts.md) and [docs/concept.md](../docs/concept.md), and uses their wording where they give it.
 
 **Prototype. Not medical advice.** No clinician has reviewed the rules or the wording.
 
@@ -21,11 +21,15 @@ To build a static copy: `npm run build`. The output in `dist/` runs from any fol
 
 Everything works offline once the page has loaded. Fonts are bundled, there are no CDN links, and the only files fetched are the app's own (`models/tone.json` and `data/exp*_summary.json`). The demo can turn the laptop's Wi-Fi off on camera.
 
+## Put it on a phone
+
+A built copy is a web app that installs. Open it on a phone, and it offers to go on the home screen: Android and desktop Chrome show an Install button, and on an iPhone it is Share, then Add to Home Screen. Once installed it opens full screen and works with no network. `public/manifest.webmanifest` and `public/sw.js` do this; the service worker only keeps the app's own files and is not registered in the dev server.
+
 ## Three ways to open it
 
 | Address | What you get |
 | --- | --- |
-| `#/` on a wide screen | Both phones in device frames, the amber light between them, and the control rail: scenario, Next week, Play, Reset, the simulated clock, the event log and "How we know" |
+| `#/` on a wide screen | Both phones in device frames, and a control bar: scenario, a week timeline, Next week, Play, Reset and the simulated clock. "Evidence and log" opens a drawer with "How we know", the event log and the clock speeds |
 | `#/` under 768 px wide | One phone full screen, with a switch at the bottom: Teen, Parent, Demo |
 | `#/teen` and `#/parent` | One phone alone. Open them in two tabs of the same browser and they stay in sync through a BroadcastChannel and localStorage, with no network |
 
@@ -33,7 +37,7 @@ One tab runs the clock and the rules (the "driver", chosen with the Web Locks AP
 
 ## Scenarios
 
-Pick one in the control rail. **Next week** plays to just after the next week ends. **Play** steps a week every few seconds and stops at the interesting moments. **Scripted answers and replies** answers the questions and taps the parent's replies the way the story says; turn it off to answer on the phones yourself.
+Pick one in the control bar. **Next week** plays to just after the next week ends. **Play** steps a week every few seconds and stops at the interesting moments. **Scripted answers and replies** answers the questions and taps the parent's replies the way the story says; turn it off to answer on the phones yourself.
 
 | Scenario | What happens |
 | --- | --- |
@@ -168,7 +172,7 @@ src/engine/   pure TypeScript: types, config, rules, clock, transport, runner, s
 src/store/    the driver tab, cross-tab sync, tone model loading
 src/teen/     Pair, setup screen, questions, Home and chart, Type, Connect, Are you safe, Help, Settings, Import
 src/parent/   Pair (with the second adult, Do Not Disturb and "What Steady misses"), Home, Note, What to say, I can't reach her, other adults
-src/demo/     the demo shell, control rail, event log, How we know
+src/demo/     the demo shell, control bar, evidence drawer, event log, How we know
 src/integrations/  readers for every source, Google, Microsoft and Fitbit sign-in, the zip reader, fixtures, sample data
 src/auth/     the page sign-in windows return to (auth.html)
 ```

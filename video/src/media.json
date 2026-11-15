@@ -1,0 +1,6 @@
+{
+ "voiceSrc": "voice/voice.m4a",
+ "music": "music/score.m4a",
+ "musicVolume": 0.5,
+ "captions": true
+}

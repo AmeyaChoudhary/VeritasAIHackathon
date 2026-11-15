@@ -3,34 +3,66 @@ import { useSnap } from "../store/hooks";
 import { TeenPhone } from "../teen/TeenPhone";
 import { ParentPhone } from "../parent/ParentPhone";
 import { OtherPhones } from "../parent/Others";
-import { ControlRail } from "./ControlRail";
+import { ControlBar, EvidenceDrawer } from "./ControlRail";
 import { useReducedMotion } from "../ui/common";
+import { Icon } from "../ui/icons";
 
 export const DEVICE_W = 390;
 export const DEVICE_H = 820;
+const SIDE_BESIDE = 1240; // px: from here up, the side column sits beside the phones
 
+/** A phone: dark bezel, a status bar, then the app. */
 export function Device({ children, scale, label }: { children: React.ReactNode; scale: number; label: string }) {
   return (
     <div className="device-slot" style={{ width: DEVICE_W * scale, height: DEVICE_H * scale }} role="region" aria-label={label}>
       <div className="device" style={{ transform: `scale(${scale})` }}>
-        <div className="device-screen">{children}</div>
+        <div className="device-screen">
+          <div className="device-app">{children}</div>
+          <div className="statusbar" aria-hidden="true">
+            <span>9:41</span>
+            <span className="sb-icons">
+              <svg width="17" height="11" viewBox="0 0 17 11">
+                <rect x="0" y="7" width="3" height="4" rx="1" />
+                <rect x="4.6" y="5" width="3" height="6" rx="1" />
+                <rect x="9.2" y="2.5" width="3" height="8.5" rx="1" />
+                <rect x="13.8" y="0" width="3" height="11" rx="1" />
+              </svg>
+              <svg width="25" height="12" viewBox="0 0 25 12">
+                <rect x="0.5" y="0.5" width="21" height="11" rx="3.4" fill="none" stroke="currentColor" opacity="0.4" />
+                <rect x="2" y="2" width="18" height="8" rx="2" />
+                <rect x="23" y="4" width="1.6" height="4" rx="0.8" opacity="0.4" />
+              </svg>
+            </span>
+          </div>
+          <i className="island" aria-hidden="true" />
+        </div>
       </div>
     </div>
   );
 }
 
-function useScale(phones: number, railW: number): number {
+/** As large as the window allows: the bar's real height is measured, and on a wide window the
+ *  counters and the other adults' phones sit beside the phones, not under them. */
+function useScale(bar: React.RefObject<HTMLElement | null>): number {
   const calc = () => {
-    const h = (window.innerHeight - 170) / DEVICE_H;
-    const w = (window.innerWidth - railW - 60 - (phones - 1) * 72) / (phones * DEVICE_W);
-    return Math.max(0.5, Math.min(1, h, w));
+    const barH = bar.current?.offsetHeight ?? 110;
+    const side = window.innerWidth >= SIDE_BESIDE ? 300 : 0;
+    const h = (window.innerHeight - barH - 62) / DEVICE_H;
+    const w = (window.innerWidth - 64 - 64 - side) / (2 * DEVICE_W);
+    return Math.max(0.5, Math.min(1.1, h, w));
   };
   const [s, setS] = useState(calc);
   useEffect(() => {
     const f = () => setS(calc());
+    f();
     window.addEventListener("resize", f);
-    return () => window.removeEventListener("resize", f);
-  });
+    const ro = typeof ResizeObserver !== "undefined" && bar.current ? new ResizeObserver(f) : null;
+    if (ro && bar.current) ro.observe(bar.current);
+    return () => {
+      window.removeEventListener("resize", f);
+      ro?.disconnect();
+    };
+  }, []);
   return s;
 }
 
@@ -88,56 +120,57 @@ export function AlertsCaption() {
   const bytes = alerts.reduce((a, r) => a + r.bytes, 0);
   return (
     <div className="below-glass" aria-label="Demo counters, not shown on the teen's phone">
-      <div>TEXT SENT: 0 BYTES</div>
-      <div>
+      <div className="count-row">
+        <Icon name="lock" size={14} />
+        TEXT SENT: 0 BYTES
+      </div>
+      <div className="count-row">
+        <Icon name="bell" size={14} />
         ALERTS SENT: {alerts.length}
         {alerts.length ? ` (${alerts.map((a) => `${a.bytes} B`).join(", ")}; ${bytes} B in all)` : ""}
       </div>
-      <div className="muted" style={{ marginTop: 4 }}>
-        Demo view. {snap.sim.world.teen.people.teen}'s phone never shows this.
-      </div>
+      <div className="count-note">Demo view. {snap.sim.world.teen.people.teen}'s phone never shows this.</div>
     </div>
   );
 }
 
 export function DemoShell() {
   const snap = useSnap();
-  const scale = useScale(2, window.innerWidth <= 1180 ? 330 : 380);
+  const barRef = useRef<HTMLElement>(null);
+  const scale = useScale(barRef);
   const teenRef = useRef<HTMLDivElement>(null);
   const parentRef = useRef<HTMLDivElement>(null);
   const trigger = useNoteTrigger();
   const people = snap.sim.world.teen.people;
+  const [drawer, setDrawer] = useState(false);
 
   return (
     <div className="shell">
+      <header className="bar" ref={barRef} aria-label="Demo controls">
+        <ControlBar drawerOpen={drawer} onDrawer={() => setDrawer((d) => !d)} />
+      </header>
       <main className="stage">
-        <div className="stage-head">
-          <h1>
-            Steady <span className="muted">· a prototype for the Veritas AI Hackathon 2026, AI + Health</span>
-          </h1>
-          <span className="label">Prototype. Not medical advice.</span>
-        </div>
         <div className="phones">
           <div className="device-col" ref={teenRef}>
             <div className="device-caption">{people.teen}'s phone</div>
             <Device scale={scale} label={`${people.teen}'s phone`}>
               <TeenPhone />
             </Device>
-            <AlertsCaption />
           </div>
           <div className="device-col" ref={parentRef}>
             <div className="device-caption">{people.parent}'s phone</div>
             <Device scale={scale} label={`${people.parent}'s phone`}>
               <ParentPhone />
             </Device>
-            <OtherPhones />
           </div>
+          <aside className="side-col" aria-label="Outside the phones">
+            <AlertsCaption />
+            <OtherPhones />
+          </aside>
           <Light from={teenRef} to={parentRef} trigger={trigger} />
         </div>
       </main>
-      <aside className="rail" aria-label="Demo controls">
-        <ControlRail />
-      </aside>
+      <EvidenceDrawer open={drawer} onClose={() => setDrawer(false)} />
     </div>
   );
 }
