@@ -66,8 +66,9 @@ img, svg, video, canvas { display: block; }
 }
 .bar::before {
   content: ""; position: absolute; inset: 0 0 -20px 0; z-index: -1; pointer-events: none;
-  background: var(--bg); opacity: 0.86;
-  -webkit-mask-image: linear-gradient(#000 58%, transparent); mask-image: linear-gradient(#000 58%, transparent);
+  background: var(--bg);
+  /* solid behind the header itself, so text scrolling under it never shows through; it fades only below */
+  -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent);
 }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
 .mark { width: 26px; height: 26px; }
