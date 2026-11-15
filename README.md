@@ -10,7 +10,9 @@ Steady is a concept for an app on a teenager's phone. It learns the student's ow
 
 **Try [the live demo](https://ameyachoudhary.github.io/VeritasAIHackathon/).** It runs in a browser with nothing to install. Pick "Maya's 12 weeks" and press Play.
 
-![Week 8 of the demo: Maya's phone suggests a doctor, and her mom's phone gets the note](docs/img/week8-both-phones.png)
+**Watch [the two-minute demo video](docs/video/steady-demo.mp4)** (captions only), or [the narrated version](docs/video/steady-demo-narrated.mp4).
+
+![Weeks 1 to 8 of the demo, sped up: Maya's signals drift, and at week 8 her mom's phone gets the note](docs/img/demo-weeks-1-to-8.gif)
 
 ## Status
 
