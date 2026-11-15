@@ -1,0 +1,50 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "courses": [
+  {
+   "id": 101,
+   "name": "Biology"
+  }
+ ],
+ "submissions": {
+  "101": [
+   {
+    "assignment_id": 1,
+    "cached_due_date": "2026-10-21T06:59:59Z",
+    "late": true,
+    "missing": false,
+    "workflow_state": "graded",
+    "submitted_at": "2026-10-22T01:00:00Z"
+   },
+   {
+    "assignment_id": 2,
+    "cached_due_date": "2026-11-04T06:59:59Z",
+    "late": false,
+    "missing": true,
+    "workflow_state": "unsubmitted"
+   },
+   {
+    "assignment_id": 3,
+    "cached_due_date": "2026-11-05T06:59:59Z",
+    "late": false,
+    "missing": true,
+    "workflow_state": "unsubmitted"
+   }
+  ],
+  "101-p2": [
+   {
+    "assignment_id": 4,
+    "cached_due_date": "2026-11-20T06:59:59Z",
+    "late": false,
+    "missing": false,
+    "workflow_state": "unsubmitted"
+   },
+   {
+    "assignment_id": 5,
+    "cached_due_date": null,
+    "late": false,
+    "missing": false
+   }
+  ]
+ }
+}

@@ -1,0 +1,98 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "pages": [
+  {
+   "kind": "calendar#events",
+   "etag": "\"p33\"",
+   "summary": "maya.r@example.com",
+   "updated": "2026-11-14T17:00:00.000Z",
+   "timeZone": "America/Los_Angeles",
+   "accessRole": "owner",
+   "items": [
+    {
+     "kind": "calendar#event",
+     "id": "e1",
+     "status": "confirmed",
+     "summary": "Soccer practice",
+     "start": {
+      "dateTime": "2026-10-20T16:00:00-07:00"
+     },
+     "end": {
+      "dateTime": "2026-10-20T18:00:00-07:00"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e2",
+     "status": "confirmed",
+     "summary": "Chemistry midterm",
+     "start": {
+      "dateTime": "2026-11-18T09:00:00-08:00"
+     },
+     "end": {
+      "dateTime": "2026-11-18T10:00:00-08:00"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e3",
+     "status": "confirmed",
+     "summary": "Contest entry due",
+     "start": {
+      "date": "2026-11-04"
+     },
+     "end": {
+      "date": "2026-11-05"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e4",
+     "status": "confirmed",
+     "summary": "AP Bio unit test",
+     "start": {
+      "dateTime": "2026-11-25T10:00:00-08:00"
+     },
+     "end": {
+      "dateTime": "2026-11-25T11:00:00-08:00"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e5",
+     "status": "confirmed",
+     "summary": "ACT practice",
+     "start": {
+      "date": "2026-12-05"
+     },
+     "end": {
+      "date": "2026-12-06"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e6",
+     "status": "confirmed",
+     "summary": "Practice with the band",
+     "start": {
+      "dateTime": "2026-11-27T18:00:00-08:00"
+     },
+     "end": {
+      "dateTime": "2026-11-27T20:00:00-08:00"
+     }
+    },
+    {
+     "kind": "calendar#event",
+     "id": "e7",
+     "status": "confirmed",
+     "start": {
+      "dateTime": "2026-11-10T12:00:00-08:00"
+     },
+     "end": {
+      "dateTime": "2026-11-10T13:00:00-08:00"
+     }
+    }
+   ]
+  }
+ ]
+}

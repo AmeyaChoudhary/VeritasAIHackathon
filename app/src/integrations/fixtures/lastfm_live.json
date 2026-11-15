@@ -1,0 +1,599 @@
+{
+ "referenceTime": "2026-11-30T12:00:00Z",
+ "pages": [
+  {
+   "recenttracks": {
+    "track": [
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "Now",
+      "@attr": {
+       "nowplaying": "true"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "Z",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1796119200",
+       "#text": "01 Dec 2026, 10:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "N",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1796007600",
+       "#text": "30 Nov 2026, 03:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "M",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795541700",
+       "#text": "24 Nov 2026, 17:35"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "L",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795541400",
+       "#text": "24 Nov 2026, 17:30"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "K",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795541100",
+       "#text": "24 Nov 2026, 17:25"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "J",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795540800",
+       "#text": "24 Nov 2026, 17:20"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "I",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795540500",
+       "#text": "24 Nov 2026, 17:15"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "H",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795540200",
+       "#text": "24 Nov 2026, 17:10"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "G",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795539900",
+       "#text": "24 Nov 2026, 17:05"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "F",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1795539600",
+       "#text": "24 Nov 2026, 17:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "C",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794948300",
+       "#text": "17 Nov 2026, 20:45"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794948000",
+       "#text": "17 Nov 2026, 20:40"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794947700",
+       "#text": "17 Nov 2026, 20:35"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794947400",
+       "#text": "17 Nov 2026, 20:30"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794947100",
+       "#text": "17 Nov 2026, 20:25"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "C",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794878400",
+       "#text": "17 Nov 2026, 01:20"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794878100",
+       "#text": "17 Nov 2026, 01:15"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794877800",
+       "#text": "17 Nov 2026, 01:10"
+      }
+     }
+    ],
+    "@attr": {
+     "page": "1",
+     "totalPages": "2",
+     "perPage": "17",
+     "total": "33"
+    }
+   }
+  },
+  {
+   "recenttracks": {
+    "track": [
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794877800",
+       "#text": "17 Nov 2026, 01:10"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794877500",
+       "#text": "17 Nov 2026, 01:05"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794877200",
+       "#text": "17 Nov 2026, 01:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "E",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794339900",
+       "#text": "10 Nov 2026, 19:45"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "D",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794339600",
+       "#text": "10 Nov 2026, 19:40"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "C",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794339300",
+       "#text": "10 Nov 2026, 19:35"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794339000",
+       "#text": "10 Nov 2026, 19:30"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794338700",
+       "#text": "10 Nov 2026, 19:25"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "E",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794338400",
+       "#text": "10 Nov 2026, 19:20"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "D",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794338100",
+       "#text": "10 Nov 2026, 19:15"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "C",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794337800",
+       "#text": "10 Nov 2026, 19:10"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794272700",
+       "#text": "10 Nov 2026, 01:05"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794272400",
+       "#text": "10 Nov 2026, 01:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "C",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793729400",
+       "#text": "03 Nov 2026, 18:10"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "B",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793729100",
+       "#text": "03 Nov 2026, 18:05"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "A",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793728800",
+       "#text": "03 Nov 2026, 18:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fixture Band"
+      },
+      "name": "Y",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture)"
+      },
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793354400",
+       "#text": "30 Oct 2026, 10:00"
+      }
+     }
+    ],
+    "@attr": {
+     "page": "2",
+     "totalPages": "2",
+     "perPage": "17",
+     "total": "33"
+    }
+   }
+  }
+ ]
+}

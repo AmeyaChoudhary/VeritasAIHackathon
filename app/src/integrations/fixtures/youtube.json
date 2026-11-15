@@ -1,0 +1,66 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "entries": {
+  "Takeout/YouTube and YouTube Music/history/watch-history.json": [
+   {
+    "header": "YouTube",
+    "title": "Watched sad songs to cry to",
+    "titleUrl": "https://www.youtube.com/watch?v=a",
+    "subtitles": [
+     {
+      "name": "Some Channel",
+      "url": "https://www.youtube.com/channel/x"
+     }
+    ],
+    "time": "2026-11-11T01:15:00.000Z",
+    "products": [
+     "YouTube"
+    ],
+    "activityControls": [
+     "YouTube watch history"
+    ]
+   },
+   {
+    "header": "YouTube",
+    "title": "Watched study music",
+    "titleUrl": "https://www.youtube.com/watch?v=b",
+    "time": "2026-11-11T20:00:00.000Z",
+    "products": [
+     "YouTube"
+    ],
+    "activityControls": [
+     "YouTube watch history"
+    ]
+   },
+   {
+    "header": "YouTube",
+    "title": "Watched highlights",
+    "titleUrl": "https://www.youtube.com/watch?v=c",
+    "time": "2026-11-03T18:00:00.000Z",
+    "products": [
+     "YouTube"
+    ],
+    "activityControls": [
+     "YouTube watch history"
+    ]
+   }
+  ],
+  "Takeout/YouTube and YouTube Music/history/search-history.json": [
+   {
+    "header": "YouTube",
+    "title": "Searched for i want to die lyrics",
+    "titleUrl": "https://www.youtube.com/results?search_query=x",
+    "time": "2026-11-12T02:00:00.000Z",
+    "products": [
+     "YouTube"
+    ],
+    "activityControls": [
+     "YouTube search history"
+    ]
+   }
+  ]
+ },
+ "htmlNames": [
+  "Takeout/YouTube and YouTube Music/history/watch-history.html"
+ ]
+}

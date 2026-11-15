@@ -1,13 +1,17 @@
-# Used by the dataset audit
+# Used by the dataset audit and both experiments
 pandas==3.1.1
 numpy==2.5.4
 scikit-learn==1.9.1
+pyarrow==26.0.1
+pyreadr==0.5.9
 
-# For the planned experiments and notebooks
+# Charts and notebooks
 matplotlib==3.11.2
-torch==2.15.0
-sentence-transformers==6.3.0
-datasets==5.2.0
 nbformat==5.11.1
 nbconvert==7.17.2
 ipykernel==7.4.0
+
+# Not used yet. Uncomment for a sentence-embedding tone model.
+# torch==2.15.0
+# sentence-transformers==6.3.0
+# datasets==5.2.0

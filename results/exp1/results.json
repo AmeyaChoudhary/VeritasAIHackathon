@@ -1,0 +1,2452 @@
+{
+  "generated": "2026-11-14",
+  "dataset": "College Experience Study (Dartmouth), CC BY-NC-SA 4.0",
+  "label": "PHQ-2 >= 3 (PHQ-4 items 3 and 4)",
+  "settings": {
+    "quality_min_hours": 12,
+    "min_usable_days_per_week": 4,
+    "baseline_weeks": 4,
+    "spread_floor_fraction_of_population_sd": 0.25,
+    "k_default": 1.0,
+    "k_values": [
+      0.75,
+      1.0,
+      1.5
+    ],
+    "persist_weeks": 2,
+    "min_signals": 2,
+    "phq2_cutoff": 3,
+    "label_window_days": 3,
+    "adaptive_fast": 0.3,
+    "adaptive_slow": 0.05,
+    "seed": 20261114,
+    "random_draws": 1000,
+    "bootstrap_draws": 1000,
+    "student_splits": 5,
+    "calendar_start_offsets": 10,
+    "heads_up_W_grid": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "heads_up_C_grid": [
+      2,
+      3,
+      4
+    ],
+    "heads_up_max_alerts_per_student_year": 4.0,
+    "weeks_per_student_year": 52.0
+  },
+  "data": {
+    "phq2_answers": 35348,
+    "students_with_answers": 218,
+    "share_answers_positive": 0.121421,
+    "median_days_between_answers": 5.0,
+    "students_with_sensing": 220,
+    "calendar_student_weeks": 34285,
+    "valid_student_weeks": 23542,
+    "students_analysed": 213,
+    "monitored_student_weeks": 22688,
+    "monitored_student_years": 436.307692,
+    "student_weeks_with_label": 16886,
+    "share_monitored_weeks_labelled": 0.74427,
+    "base_rate": 0.128568,
+    "students_ios": 183,
+    "students_android": 30,
+    "labels_with_more_than_one_answer_in_window": 8048
+  },
+  "signals": [
+    {
+      "key": "sleep",
+      "label": "Sleep",
+      "feature": "sleep_duration",
+      "worse": "lower",
+      "note": "Mean nightly sleep (hours) from the study's sleep model. Nights scored 0 are treated as missing."
+    },
+    {
+      "key": "bedtime",
+      "label": "Bedtime regularity",
+      "feature": "sleep_start (weekly SD)",
+      "worse": "higher",
+      "note": "Standard deviation of sleep start time across the week's usable nights (hours). Needs 3 or more nights. A start coded exactly 0 (8 PM) is treated as missing."
+    },
+    {
+      "key": "night_phone",
+      "label": "Phone use after midnight",
+      "feature": "unlock_duration_hr_0..hr_4",
+      "worse": "higher",
+      "note": "Minutes the phone was unlocked between midnight and 5 AM, summed per day, averaged over the week."
+    },
+    {
+      "key": "time_with_others",
+      "label": "Time with others",
+      "feature": "loc_social_dur + loc_other_dorm_dur",
+      "worse": "lower",
+      "note": "Hours a day at social places plus other students' dorms. On campus only, so it falls to near zero during breaks."
+    },
+    {
+      "key": "places",
+      "label": "Places visited",
+      "feature": "loc_visit_num_ep_0",
+      "worse": "lower",
+      "note": "Number of distinct places visited per day."
+    },
+    {
+      "key": "movement",
+      "label": "Distance travelled",
+      "feature": "loc_dist_ep_0 (log scale)",
+      "worse": "lower",
+      "note": "log10(1 + km travelled per day), averaged over the week. The log stops one long trip from dominating."
+    }
+  ],
+  "personal_range": {
+    "population_sd": {
+      "sleep": 1.412575,
+      "bedtime": 1.114043,
+      "night_phone": 23.172241,
+      "time_with_others": 2.175082,
+      "places": 1.812986,
+      "movement": 0.498091
+    },
+    "spread_floor": {
+      "sleep": 0.353144,
+      "bedtime": 0.278511,
+      "night_phone": 5.79306,
+      "time_with_others": 0.543771,
+      "places": 0.453246,
+      "movement": 0.124523
+    },
+    "share_students_at_floor": {
+      "sleep": 0.158879,
+      "bedtime": 0.130841,
+      "night_phone": 0.383178,
+      "time_with_others": 0.420561,
+      "places": 0.219626,
+      "movement": 0.228972
+    }
+  },
+  "single_signal_auc": {
+    "sleep": {
+      "auc": 0.521203,
+      "weeks": 16886,
+      "share_weeks_out": 0.230072
+    },
+    "bedtime": {
+      "auc": 0.515988,
+      "weeks": 16861,
+      "share_weeks_out": 0.215468
+    },
+    "night_phone": {
+      "auc": 0.547555,
+      "weeks": 16886,
+      "share_weeks_out": 0.21426
+    },
+    "time_with_others": {
+      "auc": 0.505397,
+      "weeks": 16829,
+      "share_weeks_out": 0.382673
+    },
+    "places": {
+      "auc": 0.531601,
+      "weeks": 16886,
+      "share_weeks_out": 0.589897
+    },
+    "movement": {
+      "auc": 0.532406,
+      "weeks": 16886,
+      "share_weeks_out": 0.250681
+    }
+  },
+  "ask_comparison_by_k": {
+    "0.75": {
+      "budget_asks_per_student_year": 25.720381,
+      "asks_per_student_week": 0.494623,
+      "method": {
+        "asks": 11222,
+        "student_years": 436.307692,
+        "asks_per_student_year": 25.720381,
+        "scored_asks": 8237,
+        "share_asks_scored": 0.734005,
+        "hits": 1202,
+        "hit_rate": 0.145927,
+        "base_rate": 0.128568,
+        "lift": 1.135017,
+        "false_alarms": 7035,
+        "false_alarms_per_student_year": 16.123942,
+        "positive_weeks": 2171,
+        "positive_weeks_asked": 1202,
+        "positive_weeks_missed": 969,
+        "share_positive_weeks_asked": 0.553662,
+        "episodes": 451,
+        "episodes_reached": 296,
+        "episodes_missed": 155,
+        "share_episodes_reached": 0.656319
+      },
+      "fixed_calendar": {
+        "asks": 11210.9,
+        "asks_per_student_year": 25.69494,
+        "scored_asks": 8345.1,
+        "hits": 1073.3,
+        "hit_rate": 0.12861,
+        "lift": 1.000326,
+        "false_alarms": 7271.8,
+        "false_alarms_per_student_year": 16.666678,
+        "positive_weeks_asked": 1073.3,
+        "positive_weeks_missed": 1097.7,
+        "share_positive_weeks_asked": 0.49438,
+        "episodes_reached": 434.8,
+        "episodes_missed": 16.2,
+        "share_episodes_reached": 0.96408,
+        "hit_rate_range_over_start_weeks": [
+          0.125798,
+          0.130969
+        ],
+        "episodes": 451,
+        "base_rate": 0.128568,
+        "n_start_offsets": 10
+      },
+      "random": {
+        "draws": 1000,
+        "hit_rate": 0.128634,
+        "ci": [
+          0.12377,
+          0.134069
+        ],
+        "share_episodes_reached": 0.806601,
+        "episodes_ci": [
+          0.771619,
+          0.838137
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_students": {
+        "draws": 1000,
+        "hit_rate": 0.136672,
+        "ci": [
+          0.132571,
+          0.140633
+        ],
+        "share_episodes_reached": 0.798049,
+        "episodes_ci": [
+          0.764967,
+          0.827051
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_student_and_quarter": {
+        "draws": 1000,
+        "hit_rate": 0.148245,
+        "ci": [
+          0.145167,
+          0.151127
+        ],
+        "share_episodes_reached": 0.739687,
+        "episodes_ci": [
+          0.713969,
+          0.767184
+        ],
+        "share_draws_at_or_above_method": 0.932
+      },
+      "strata_check": {
+        "share_asks_in_full_quarters": 0.282926,
+        "hit_rate_outside_full_quarters": 0.131993,
+        "chance_outside_full_quarters": 0.133675
+      },
+      "method_minus_calendar": {
+        "difference": 0.017313,
+        "ci": [
+          0.002896,
+          0.03207
+        ]
+      }
+    },
+    "1.0": {
+      "budget_asks_per_student_year": 21.422955,
+      "asks_per_student_week": 0.41198,
+      "method": {
+        "asks": 9347,
+        "student_years": 436.307692,
+        "asks_per_student_year": 21.422955,
+        "scored_asks": 6876,
+        "share_asks_scored": 0.735637,
+        "hits": 1007,
+        "hit_rate": 0.146451,
+        "base_rate": 0.128568,
+        "lift": 1.139097,
+        "false_alarms": 5869,
+        "false_alarms_per_student_year": 13.451516,
+        "positive_weeks": 2171,
+        "positive_weeks_asked": 1007,
+        "positive_weeks_missed": 1164,
+        "share_positive_weeks_asked": 0.463842,
+        "episodes": 451,
+        "episodes_reached": 250,
+        "episodes_missed": 201,
+        "share_episodes_reached": 0.554324
+      },
+      "fixed_calendar": {
+        "asks": 9336.4,
+        "asks_per_student_year": 21.39866,
+        "scored_asks": 6949.8,
+        "hits": 894.0,
+        "hit_rate": 0.128626,
+        "lift": 1.000449,
+        "false_alarms": 6055.8,
+        "false_alarms_per_student_year": 13.879654,
+        "positive_weeks_asked": 894.0,
+        "positive_weeks_missed": 1277.0,
+        "share_positive_weeks_asked": 0.411792,
+        "episodes_reached": 395.4,
+        "episodes_missed": 55.6,
+        "share_episodes_reached": 0.876718,
+        "hit_rate_range_over_start_weeks": [
+          0.125903,
+          0.132973
+        ],
+        "episodes": 451,
+        "base_rate": 0.128568,
+        "n_start_offsets": 10
+      },
+      "random": {
+        "draws": 1000,
+        "hit_rate": 0.128547,
+        "ci": [
+          0.12248,
+          0.134401
+        ],
+        "share_episodes_reached": 0.731953,
+        "episodes_ci": [
+          0.693958,
+          0.771619
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_students": {
+        "draws": 1000,
+        "hit_rate": 0.135359,
+        "ci": [
+          0.130825,
+          0.14006
+        ],
+        "share_episodes_reached": 0.697051,
+        "episodes_ci": [
+          0.665188,
+          0.731707
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_student_and_quarter": {
+        "draws": 1000,
+        "hit_rate": 0.148739,
+        "ci": [
+          0.145386,
+          0.152008
+        ],
+        "share_episodes_reached": 0.638579,
+        "episodes_ci": [
+          0.611973,
+          0.665188
+        ],
+        "share_draws_at_or_above_method": 0.909
+      },
+      "strata_check": {
+        "share_asks_in_full_quarters": 0.278164,
+        "hit_rate_outside_full_quarters": 0.135922,
+        "chance_outside_full_quarters": 0.137905
+      },
+      "method_minus_calendar": {
+        "difference": 0.017815,
+        "ci": [
+          0.000187,
+          0.036967
+        ]
+      }
+    },
+    "1.5": {
+      "budget_asks_per_student_year": 14.116185,
+      "asks_per_student_week": 0.271465,
+      "method": {
+        "asks": 6159,
+        "student_years": 436.307692,
+        "asks_per_student_year": 14.116185,
+        "scored_asks": 4589,
+        "share_asks_scored": 0.745088,
+        "hits": 659,
+        "hit_rate": 0.143604,
+        "base_rate": 0.128568,
+        "lift": 1.116952,
+        "false_alarms": 3930,
+        "false_alarms_per_student_year": 9.007405,
+        "positive_weeks": 2171,
+        "positive_weeks_asked": 659,
+        "positive_weeks_missed": 1512,
+        "share_positive_weeks_asked": 0.303547,
+        "episodes": 451,
+        "episodes_reached": 163,
+        "episodes_missed": 288,
+        "share_episodes_reached": 0.361419
+      },
+      "fixed_calendar": {
+        "asks": 6150.0,
+        "asks_per_student_year": 14.095557,
+        "scored_asks": 4578.3,
+        "hits": 589.7,
+        "hit_rate": 0.128792,
+        "lift": 1.001742,
+        "false_alarms": 3988.6,
+        "false_alarms_per_student_year": 9.141714,
+        "positive_weeks_asked": 589.7,
+        "positive_weeks_missed": 1581.3,
+        "share_positive_weeks_asked": 0.271626,
+        "episodes_reached": 310.9,
+        "episodes_missed": 140.1,
+        "share_episodes_reached": 0.689357,
+        "hit_rate_range_over_start_weeks": [
+          0.123972,
+          0.131647
+        ],
+        "episodes": 451,
+        "base_rate": 0.128568,
+        "n_start_offsets": 10
+      },
+      "random": {
+        "draws": 1000,
+        "hit_rate": 0.128604,
+        "ci": [
+          0.119964,
+          0.137089
+        ],
+        "share_episodes_reached": 0.565049,
+        "episodes_ci": [
+          0.523226,
+          0.607539
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_students": {
+        "draws": 1000,
+        "hit_rate": 0.126499,
+        "ci": [
+          0.120772,
+          0.132307
+        ],
+        "share_episodes_reached": 0.464286,
+        "episodes_ci": [
+          0.432373,
+          0.496674
+        ],
+        "share_draws_at_or_above_method": 0.0
+      },
+      "random_same_student_and_quarter": {
+        "draws": 1000,
+        "hit_rate": 0.145076,
+        "ci": [
+          0.140768,
+          0.149348
+        ],
+        "share_episodes_reached": 0.422169,
+        "episodes_ci": [
+          0.399113,
+          0.445676
+        ],
+        "share_draws_at_or_above_method": 0.767
+      },
+      "strata_check": {
+        "share_asks_in_full_quarters": 0.283,
+        "hit_rate_outside_full_quarters": 0.138914,
+        "chance_outside_full_quarters": 0.139795
+      },
+      "method_minus_calendar": {
+        "difference": 0.014801,
+        "ci": [
+          -0.014063,
+          0.048642
+        ]
+      }
+    }
+  },
+  "rule_by_year_k1": [
+    {
+      "year": 1,
+      "monitored_weeks": 9247,
+      "students": 213,
+      "share_weeks_with_ask": 0.255218,
+      "asks_per_student_year": 13.271331,
+      "hit_rate": 0.0913,
+      "base_rate": 0.095297
+    },
+    {
+      "year": 2,
+      "monitored_weeks": 6476,
+      "students": 175,
+      "share_weeks_with_ask": 0.436998,
+      "asks_per_student_year": 22.723904,
+      "hit_rate": 0.166827,
+      "base_rate": 0.151586
+    },
+    {
+      "year": 3,
+      "monitored_weeks": 4791,
+      "students": 141,
+      "share_weeks_with_ask": 0.612816,
+      "asks_per_student_year": 31.866416,
+      "hit_rate": 0.165563,
+      "base_rate": 0.156131
+    },
+    {
+      "year": 4,
+      "monitored_weeks": 2174,
+      "students": 96,
+      "share_weeks_with_ask": 0.561638,
+      "asks_per_student_year": 29.205152,
+      "hit_rate": 0.170702,
+      "base_rate": 0.157605
+    }
+  ],
+  "adaptive_range_k1": {
+    "budget_asks_per_student_year": 43.85208,
+    "asks_per_student_week": 0.843309,
+    "method": {
+      "asks": 19133,
+      "student_years": 436.307692,
+      "asks_per_student_year": 43.85208,
+      "scored_asks": 14060,
+      "share_asks_scored": 0.734856,
+      "hits": 1934,
+      "hit_rate": 0.137553,
+      "base_rate": 0.128568,
+      "lift": 1.069887,
+      "false_alarms": 12126,
+      "false_alarms_per_student_year": 27.792313,
+      "positive_weeks": 2171,
+      "positive_weeks_asked": 1934,
+      "positive_weeks_missed": 237,
+      "share_positive_weeks_asked": 0.890834,
+      "episodes": 451,
+      "episodes_reached": 421,
+      "episodes_missed": 30,
+      "share_episodes_reached": 0.933481
+    },
+    "fixed_calendar": {
+      "asks": 19122.2,
+      "asks_per_student_year": 43.827327,
+      "scored_asks": 14231.4,
+      "hits": 1831.6,
+      "hit_rate": 0.128701,
+      "lift": 1.001035,
+      "false_alarms": 12399.8,
+      "false_alarms_per_student_year": 28.419852,
+      "positive_weeks_asked": 1831.6,
+      "positive_weeks_missed": 339.4,
+      "share_positive_weeks_asked": 0.843667,
+      "episodes_reached": 446.8,
+      "episodes_missed": 4.2,
+      "share_episodes_reached": 0.990687,
+      "hit_rate_range_over_start_weeks": [
+        0.126698,
+        0.130187
+      ],
+      "episodes": 451,
+      "base_rate": 0.128568,
+      "n_start_offsets": 10
+    },
+    "random": {
+      "draws": 1000,
+      "hit_rate": 0.128615,
+      "ci": [
+        0.126371,
+        0.130823
+      ],
+      "share_episodes_reached": 0.977379,
+      "episodes_ci": [
+        0.964523,
+        0.988914
+      ],
+      "share_draws_at_or_above_method": 0.0
+    },
+    "random_same_students": {
+      "draws": 1000,
+      "hit_rate": 0.130702,
+      "ci": [
+        0.128946,
+        0.132483
+      ],
+      "share_episodes_reached": 0.973616,
+      "episodes_ci": [
+        0.960089,
+        0.986696
+      ],
+      "share_draws_at_or_above_method": 0.0
+    },
+    "random_same_student_and_quarter": {
+      "draws": 1000,
+      "hit_rate": 0.137122,
+      "ci": [
+        0.135925,
+        0.138429
+      ],
+      "share_episodes_reached": 0.960545,
+      "episodes_ci": [
+        0.946785,
+        0.973392
+      ],
+      "share_draws_at_or_above_method": 0.245
+    },
+    "strata_check": {
+      "share_asks_in_full_quarters": 0.513563,
+      "hit_rate_outside_full_quarters": 0.123059,
+      "chance_outside_full_quarters": 0.12127
+    },
+    "method_minus_calendar": {
+      "difference": 0.008852,
+      "ci": [
+        0.004774,
+        0.013336
+      ]
+    }
+  },
+  "logistic": {
+    "features": [
+      "z_sleep",
+      "z_bedtime",
+      "z_night_phone",
+      "z_time_with_others",
+      "z_places",
+      "z_movement",
+      "z_sleep_last_week",
+      "z_bedtime_last_week",
+      "z_night_phone_last_week",
+      "z_time_with_others_last_week",
+      "z_places_last_week",
+      "z_movement_last_week",
+      "signals_out"
+    ],
+    "splits": [
+      {
+        "seed": 20261114,
+        "train_students": 106,
+        "test_students": 107,
+        "train_weeks": 8237,
+        "test_weeks": 8649,
+        "train_auc": 0.60918,
+        "test_auc": 0.482134,
+        "test_auc_ci": [
+          0.42788,
+          0.537082
+        ],
+        "test_auc_signals_out": 0.533921,
+        "test_auc_rule_count": 0.524839,
+        "test_within_student_auc": 0.517598,
+        "test_within_student_auc_signals_out": 0.543103,
+        "test_within_student_auc_rule_count": 0.537587,
+        "intercept": -2.015257,
+        "coef": {
+          "z_sleep": 0.023416,
+          "z_bedtime": -0.019181,
+          "z_night_phone": 0.110166,
+          "z_time_with_others": 0.0555,
+          "z_places": 0.021167,
+          "z_movement": 0.014016,
+          "z_sleep_last_week": -0.041821,
+          "z_bedtime_last_week": -0.033889,
+          "z_night_phone_last_week": 0.092758,
+          "z_time_with_others_last_week": 0.007749,
+          "z_places_last_week": -0.027463,
+          "z_movement_last_week": -0.031267,
+          "signals_out": 0.052757
+        },
+        "test_budget_asks_per_student_year": 20.635549,
+        "logistic_at_budget": {
+          "asks": 4693,
+          "student_years": 227.423077,
+          "asks_per_student_year": 20.635549,
+          "scored_asks": 3426,
+          "share_asks_scored": 0.730023,
+          "hits": 383,
+          "hit_rate": 0.111792,
+          "base_rate": 0.118395,
+          "lift": 0.944229,
+          "false_alarms": 3043,
+          "false_alarms_per_student_year": 13.380348,
+          "positive_weeks": 1024,
+          "positive_weeks_asked": 383,
+          "positive_weeks_missed": 641,
+          "share_positive_weeks_asked": 0.374023,
+          "episodes": 225,
+          "episodes_reached": 113,
+          "episodes_missed": 112,
+          "share_episodes_reached": 0.502222
+        },
+        "rule_on_test": {
+          "asks": 4693,
+          "student_years": 227.423077,
+          "asks_per_student_year": 20.635549,
+          "scored_asks": 3343,
+          "share_asks_scored": 0.712338,
+          "hits": 430,
+          "hit_rate": 0.128627,
+          "base_rate": 0.118395,
+          "lift": 1.086421,
+          "false_alarms": 2913,
+          "false_alarms_per_student_year": 12.808727,
+          "positive_weeks": 1024,
+          "positive_weeks_asked": 430,
+          "positive_weeks_missed": 594,
+          "share_positive_weeks_asked": 0.419922,
+          "episodes": 225,
+          "episodes_reached": 105,
+          "episodes_missed": 120,
+          "share_episodes_reached": 0.466667
+        },
+        "calendar_on_test": {
+          "asks": 4687.7,
+          "asks_per_student_year": 20.612244,
+          "scored_asks": 3428.3,
+          "hits": 406.5,
+          "hit_rate": 0.118583,
+          "lift": 1.001584,
+          "false_alarms": 3021.8,
+          "false_alarms_per_student_year": 13.28713,
+          "positive_weeks_asked": 406.5,
+          "positive_weeks_missed": 617.5,
+          "share_positive_weeks_asked": 0.396973,
+          "episodes_reached": 192.2,
+          "episodes_missed": 32.8,
+          "share_episodes_reached": 0.854222,
+          "hit_rate_range_over_start_weeks": [
+            0.113788,
+            0.122975
+          ],
+          "episodes": 225,
+          "base_rate": 0.118395,
+          "n_start_offsets": 10
+        },
+        "random_on_test": {
+          "draws": 1000,
+          "hit_rate": 0.118719,
+          "ci": [
+            0.10997,
+            0.126723
+          ],
+          "share_episodes_reached": 0.698182,
+          "episodes_ci": [
+            0.64,
+            0.755556
+          ],
+          "share_draws_at_or_above_method": null
+        },
+        "logistic_minus_calendar": {
+          "difference": -0.00678,
+          "ci": [
+            -0.028692,
+            0.014558
+          ]
+        },
+        "rule_minus_calendar": {
+          "difference": 0.010055,
+          "ci": [
+            -0.01202,
+            0.037347
+          ]
+        }
+      },
+      {
+        "seed": 20261214,
+        "train_students": 106,
+        "test_students": 107,
+        "train_weeks": 8834,
+        "test_weeks": 8052,
+        "train_auc": 0.596155,
+        "test_auc": 0.527946,
+        "test_auc_ci": [
+          0.469956,
+          0.586157
+        ],
+        "test_auc_signals_out": 0.54975,
+        "test_auc_rule_count": 0.537581,
+        "test_within_student_auc": 0.548894,
+        "test_within_student_auc_signals_out": 0.556089,
+        "test_within_student_auc_rule_count": 0.550955,
+        "intercept": -2.062134,
+        "coef": {
+          "z_sleep": -0.02412,
+          "z_bedtime": 0.007614,
+          "z_night_phone": 0.073148,
+          "z_time_with_others": -0.015839,
+          "z_places": 0.011704,
+          "z_movement": 0.052252,
+          "z_sleep_last_week": -0.014005,
+          "z_bedtime_last_week": 0.01804,
+          "z_night_phone_last_week": 0.054347,
+          "z_time_with_others_last_week": -0.007187,
+          "z_places_last_week": 0.006944,
+          "z_movement_last_week": 0.032527,
+          "signals_out": 0.074091
+        },
+        "test_budget_asks_per_student_year": 21.45322,
+        "logistic_at_budget": {
+          "asks": 4414,
+          "student_years": 205.75,
+          "asks_per_student_year": 21.45322,
+          "scored_asks": 3377,
+          "share_asks_scored": 0.765066,
+          "hits": 451,
+          "hit_rate": 0.13355,
+          "base_rate": 0.124193,
+          "lift": 1.075349,
+          "false_alarms": 2926,
+          "false_alarms_per_student_year": 14.221142,
+          "positive_weeks": 1000,
+          "positive_weeks_asked": 451,
+          "positive_weeks_missed": 549,
+          "share_positive_weeks_asked": 0.451,
+          "episodes": 218,
+          "episodes_reached": 125,
+          "episodes_missed": 93,
+          "share_episodes_reached": 0.573394
+        },
+        "rule_on_test": {
+          "asks": 4414,
+          "student_years": 205.75,
+          "asks_per_student_year": 21.45322,
+          "scored_asks": 3264,
+          "share_asks_scored": 0.739465,
+          "hits": 464,
+          "hit_rate": 0.142157,
+          "base_rate": 0.124193,
+          "lift": 1.144647,
+          "false_alarms": 2800,
+          "false_alarms_per_student_year": 13.608748,
+          "positive_weeks": 1000,
+          "positive_weeks_asked": 464,
+          "positive_weeks_missed": 536,
+          "share_positive_weeks_asked": 0.464,
+          "episodes": 218,
+          "episodes_reached": 122,
+          "episodes_missed": 96,
+          "share_episodes_reached": 0.559633
+        },
+        "calendar_on_test": {
+          "asks": 4408.5,
+          "asks_per_student_year": 21.426488,
+          "scored_asks": 3317.5,
+          "hits": 412.4,
+          "hit_rate": 0.124288,
+          "lift": 1.000769,
+          "false_alarms": 2905.1,
+          "false_alarms_per_student_year": 14.119563,
+          "positive_weeks_asked": 412.4,
+          "positive_weeks_missed": 587.6,
+          "share_positive_weeks_asked": 0.4124,
+          "episodes_reached": 188.8,
+          "episodes_missed": 29.2,
+          "share_episodes_reached": 0.866055,
+          "hit_rate_range_over_start_weeks": [
+            0.121646,
+            0.129828
+          ],
+          "episodes": 218,
+          "base_rate": 0.124193,
+          "n_start_offsets": 10
+        },
+        "random_on_test": {
+          "draws": 1000,
+          "hit_rate": 0.124338,
+          "ci": [
+            0.115495,
+            0.132672
+          ],
+          "share_episodes_reached": 0.724688,
+          "episodes_ci": [
+            0.669725,
+            0.779817
+          ],
+          "share_draws_at_or_above_method": null
+        },
+        "logistic_minus_calendar": {
+          "difference": 0.00924,
+          "ci": [
+            -0.012475,
+            0.032995
+          ]
+        },
+        "rule_minus_calendar": {
+          "difference": 0.017846,
+          "ci": [
+            -0.004885,
+            0.044812
+          ]
+        }
+      },
+      {
+        "seed": 20261314,
+        "train_students": 106,
+        "test_students": 107,
+        "train_weeks": 8679,
+        "test_weeks": 8207,
+        "train_auc": 0.601933,
+        "test_auc": 0.426804,
+        "test_auc_ci": [
+          0.370177,
+          0.515818
+        ],
+        "test_auc_signals_out": 0.589828,
+        "test_auc_rule_count": 0.594539,
+        "test_within_student_auc": 0.507807,
+        "test_within_student_auc_signals_out": 0.570192,
+        "test_within_student_auc_rule_count": 0.567658,
+        "intercept": -1.674496,
+        "coef": {
+          "z_sleep": 0.044021,
+          "z_bedtime": 0.083838,
+          "z_night_phone": 0.035001,
+          "z_time_with_others": 0.014375,
+          "z_places": -0.021446,
+          "z_movement": 0.03941,
+          "z_sleep_last_week": 0.009327,
+          "z_bedtime_last_week": 0.054285,
+          "z_night_phone_last_week": 0.031228,
+          "z_time_with_others_last_week": -0.0117,
+          "z_places_last_week": -0.024255,
+          "z_movement_last_week": 0.009153,
+          "signals_out": -0.011672
+        },
+        "test_budget_asks_per_student_year": 18.877527,
+        "logistic_at_budget": {
+          "asks": 3969,
+          "student_years": 210.25,
+          "asks_per_student_year": 18.877527,
+          "scored_asks": 3068,
+          "share_asks_scored": 0.772991,
+          "hits": 257,
+          "hit_rate": 0.083768,
+          "base_rate": 0.108078,
+          "lift": 0.775066,
+          "false_alarms": 2811,
+          "false_alarms_per_student_year": 13.369798,
+          "positive_weeks": 887,
+          "positive_weeks_asked": 257,
+          "positive_weeks_missed": 630,
+          "share_positive_weeks_asked": 0.289741,
+          "episodes": 181,
+          "episodes_reached": 72,
+          "episodes_missed": 109,
+          "share_episodes_reached": 0.39779
+        },
+        "rule_on_test": {
+          "asks": 3969,
+          "student_years": 210.25,
+          "asks_per_student_year": 18.877527,
+          "scored_asks": 2976,
+          "share_asks_scored": 0.749811,
+          "hits": 431,
+          "hit_rate": 0.144825,
+          "base_rate": 0.108078,
+          "lift": 1.340001,
+          "false_alarms": 2545,
+          "false_alarms_per_student_year": 12.104637,
+          "positive_weeks": 887,
+          "positive_weeks_asked": 431,
+          "positive_weeks_missed": 456,
+          "share_positive_weeks_asked": 0.485908,
+          "episodes": 181,
+          "episodes_reached": 106,
+          "episodes_missed": 75,
+          "share_episodes_reached": 0.585635
+        },
+        "calendar_on_test": {
+          "asks": 3963.7,
+          "asks_per_student_year": 18.852319,
+          "scored_asks": 2975.9,
+          "hits": 323.3,
+          "hit_rate": 0.108653,
+          "lift": 1.005316,
+          "false_alarms": 2652.6,
+          "false_alarms_per_student_year": 12.616409,
+          "positive_weeks_asked": 323.3,
+          "positive_weeks_missed": 563.7,
+          "share_positive_weeks_asked": 0.364487,
+          "episodes_reached": 148.1,
+          "episodes_missed": 32.9,
+          "share_episodes_reached": 0.818232,
+          "hit_rate_range_over_start_weeks": [
+            0.104325,
+            0.112779
+          ],
+          "episodes": 181,
+          "base_rate": 0.108078,
+          "n_start_offsets": 10
+        },
+        "random_on_test": {
+          "draws": 1000,
+          "hit_rate": 0.107983,
+          "ci": [
+            0.099661,
+            0.116889
+          ],
+          "share_episodes_reached": 0.672309,
+          "episodes_ci": [
+            0.607735,
+            0.740331
+          ],
+          "share_draws_at_or_above_method": null
+        },
+        "logistic_minus_calendar": {
+          "difference": -0.024871,
+          "ci": [
+            -0.056037,
+            0.00318
+          ]
+        },
+        "rule_minus_calendar": {
+          "difference": 0.036186,
+          "ci": [
+            0.006214,
+            0.074218
+          ]
+        }
+      },
+      {
+        "seed": 20261414,
+        "train_students": 106,
+        "test_students": 107,
+        "train_weeks": 8173,
+        "test_weeks": 8713,
+        "train_auc": 0.593822,
+        "test_auc": 0.533716,
+        "test_auc_ci": [
+          0.485149,
+          0.591865
+        ],
+        "test_auc_signals_out": 0.573879,
+        "test_auc_rule_count": 0.558776,
+        "test_within_student_auc": 0.563496,
+        "test_within_student_auc_signals_out": 0.538879,
+        "test_within_student_auc_rule_count": 0.533433,
+        "intercept": -1.819974,
+        "coef": {
+          "z_sleep": -0.025719,
+          "z_bedtime": 0.049307,
+          "z_night_phone": 0.059404,
+          "z_time_with_others": -0.006259,
+          "z_places": 0.01181,
+          "z_movement": 0.063534,
+          "z_sleep_last_week": -0.005174,
+          "z_bedtime_last_week": 0.022726,
+          "z_night_phone_last_week": 0.05576,
+          "z_time_with_others_last_week": -0.046824,
+          "z_places_last_week": 0.035245,
+          "z_movement_last_week": 0.031887,
+          "signals_out": 0.007785
+        },
+        "test_budget_asks_per_student_year": 22.037024,
+        "logistic_at_budget": {
+          "asks": 4899,
+          "student_years": 222.307692,
+          "asks_per_student_year": 22.037024,
+          "scored_asks": 3728,
+          "share_asks_scored": 0.760972,
+          "hits": 458,
+          "hit_rate": 0.122854,
+          "base_rate": 0.108573,
+          "lift": 1.13153,
+          "false_alarms": 3270,
+          "false_alarms_per_student_year": 14.709343,
+          "positive_weeks": 946,
+          "positive_weeks_asked": 458,
+          "positive_weeks_missed": 488,
+          "share_positive_weeks_asked": 0.484144,
+          "episodes": 206,
+          "episodes_reached": 131,
+          "episodes_missed": 75,
+          "share_episodes_reached": 0.635922
+        },
+        "rule_on_test": {
+          "asks": 4899,
+          "student_years": 222.307692,
+          "asks_per_student_year": 22.037024,
+          "scored_asks": 3714,
+          "share_asks_scored": 0.758114,
+          "hits": 486,
+          "hit_rate": 0.130856,
+          "base_rate": 0.108573,
+          "lift": 1.205233,
+          "false_alarms": 3228,
+          "false_alarms_per_student_year": 14.520415,
+          "positive_weeks": 946,
+          "positive_weeks_asked": 486,
+          "positive_weeks_missed": 460,
+          "share_positive_weeks_asked": 0.513742,
+          "episodes": 206,
+          "episodes_reached": 126,
+          "episodes_missed": 80,
+          "share_episodes_reached": 0.61165
+        },
+        "calendar_on_test": {
+          "asks": 4893.6,
+          "asks_per_student_year": 22.012734,
+          "scored_asks": 3686.5,
+          "hits": 399.6,
+          "hit_rate": 0.108383,
+          "lift": 0.998246,
+          "false_alarms": 3286.9,
+          "false_alarms_per_student_year": 14.785363,
+          "positive_weeks_asked": 399.6,
+          "positive_weeks_missed": 546.4,
+          "share_positive_weeks_asked": 0.42241,
+          "episodes_reached": 180.2,
+          "episodes_missed": 25.8,
+          "share_episodes_reached": 0.874757,
+          "hit_rate_range_over_start_weeks": [
+            0.103298,
+            0.112215
+          ],
+          "episodes": 206,
+          "base_rate": 0.108573,
+          "n_start_offsets": 10
+        },
+        "random_on_test": {
+          "draws": 1000,
+          "hit_rate": 0.108437,
+          "ci": [
+            0.100538,
+            0.115771
+          ],
+          "share_episodes_reached": 0.732432,
+          "episodes_ci": [
+            0.67949,
+            0.786408
+          ],
+          "share_draws_at_or_above_method": null
+        },
+        "logistic_minus_calendar": {
+          "difference": 0.014459,
+          "ci": [
+            -0.001791,
+            0.033776
+          ]
+        },
+        "rule_minus_calendar": {
+          "difference": 0.022461,
+          "ci": [
+            0.00105,
+            0.05149
+          ]
+        }
+      },
+      {
+        "seed": 20261514,
+        "train_students": 106,
+        "test_students": 107,
+        "train_weeks": 7879,
+        "test_weeks": 9007,
+        "train_auc": 0.612196,
+        "test_auc": 0.495421,
+        "test_auc_ci": [
+          0.4472,
+          0.544581
+        ],
+        "test_auc_signals_out": 0.536748,
+        "test_auc_rule_count": 0.518852,
+        "test_within_student_auc": 0.5134,
+        "test_within_student_auc_signals_out": 0.54599,
+        "test_within_student_auc_rule_count": 0.540674,
+        "intercept": -2.277409,
+        "coef": {
+          "z_sleep": 0.001505,
+          "z_bedtime": 0.032306,
+          "z_night_phone": 0.050186,
+          "z_time_with_others": 0.061872,
+          "z_places": 0.063667,
+          "z_movement": 0.019159,
+          "z_sleep_last_week": 0.024091,
+          "z_bedtime_last_week": 0.013777,
+          "z_night_phone_last_week": 0.037829,
+          "z_time_with_others_last_week": 0.043004,
+          "z_places_last_week": 0.03226,
+          "z_movement_last_week": -0.050964,
+          "signals_out": -0.011365
+        },
+        "test_budget_asks_per_student_year": 22.249609,
+        "logistic_at_budget": {
+          "asks": 5194,
+          "student_years": 233.442308,
+          "asks_per_student_year": 22.249609,
+          "scored_asks": 3796,
+          "share_asks_scored": 0.730843,
+          "hits": 543,
+          "hit_rate": 0.143045,
+          "base_rate": 0.138115,
+          "lift": 1.035699,
+          "false_alarms": 3253,
+          "false_alarms_per_student_year": 13.934921,
+          "positive_weeks": 1244,
+          "positive_weeks_asked": 543,
+          "positive_weeks_missed": 701,
+          "share_positive_weeks_asked": 0.436495,
+          "episodes": 258,
+          "episodes_reached": 133,
+          "episodes_missed": 125,
+          "share_episodes_reached": 0.515504
+        },
+        "rule_on_test": {
+          "asks": 5194,
+          "student_years": 233.442308,
+          "asks_per_student_year": 22.249609,
+          "scored_asks": 3805,
+          "share_asks_scored": 0.732576,
+          "hits": 537,
+          "hit_rate": 0.14113,
+          "base_rate": 0.138115,
+          "lift": 1.021832,
+          "false_alarms": 3268,
+          "false_alarms_per_student_year": 13.999176,
+          "positive_weeks": 1244,
+          "positive_weeks_asked": 537,
+          "positive_weeks_missed": 707,
+          "share_positive_weeks_asked": 0.431672,
+          "episodes": 258,
+          "episodes_reached": 136,
+          "episodes_missed": 122,
+          "share_episodes_reached": 0.527132
+        },
+        "calendar_on_test": {
+          "asks": 5188.8,
+          "asks_per_student_year": 22.227333,
+          "scored_asks": 3851.4,
+          "hits": 533.0,
+          "hit_rate": 0.138413,
+          "lift": 1.002161,
+          "false_alarms": 3318.4,
+          "false_alarms_per_student_year": 14.215075,
+          "positive_weeks_asked": 533.0,
+          "positive_weeks_missed": 711.0,
+          "share_positive_weeks_asked": 0.428457,
+          "episodes_reached": 229.1,
+          "episodes_missed": 28.9,
+          "share_episodes_reached": 0.887984,
+          "hit_rate_range_over_start_weeks": [
+            0.133248,
+            0.141225
+          ],
+          "episodes": 258,
+          "base_rate": 0.138115,
+          "n_start_offsets": 10
+        },
+        "random_on_test": {
+          "draws": 1000,
+          "hit_rate": 0.138353,
+          "ci": [
+            0.130406,
+            0.14653
+          ],
+          "share_episodes_reached": 0.740349,
+          "episodes_ci": [
+            0.689922,
+            0.790698
+          ],
+          "share_draws_at_or_above_method": null
+        },
+        "logistic_minus_calendar": {
+          "difference": 0.004654,
+          "ci": [
+            -0.013578,
+            0.028293
+          ]
+        },
+        "rule_minus_calendar": {
+          "difference": 0.002739,
+          "ci": [
+            -0.020421,
+            0.027261
+          ]
+        }
+      }
+    ],
+    "spread": {
+      "test_auc_mean": 0.493204,
+      "test_auc_min": 0.426804,
+      "test_auc_max": 0.533716,
+      "hit_rate_mean": 0.119002,
+      "hit_rate_min": 0.083768,
+      "hit_rate_max": 0.143045,
+      "rule_hit_rate_mean": 0.137519,
+      "calendar_hit_rate_mean": 0.119664,
+      "calendar_hit_rate_min": 0.108383,
+      "calendar_hit_rate_max": 0.138413,
+      "within_student_auc_mean": 0.530239,
+      "signals_out_auc_mean": 0.556825,
+      "signals_out_within_student_auc_mean": 0.550851
+    },
+    "week_split_contrast": {
+      "test_auc": 0.552537
+    }
+  },
+  "heads_up": {
+    "splits": [
+      {
+        "seed": 20261114,
+        "chosen": {
+          "weeks_out": 6,
+          "cooldown_weeks": 3
+        },
+        "train_choice": {
+          "weeks_out": 6,
+          "cooldown_weeks": 3,
+          "alerts_per_student_year": 3.2123,
+          "hit_rate": 0.216906,
+          "scored_alerts": 627,
+          "alerts": 671,
+          "share_episodes_reached": 0.212389,
+          "base_rate": 0.167783
+        },
+        "test": {
+          "budget_asks_per_student_year": 2.809741,
+          "asks_per_student_week": 0.054033,
+          "method": {
+            "asks": 639,
+            "student_years": 227.423077,
+            "asks_per_student_year": 2.809741,
+            "scored_asks": 568,
+            "share_asks_scored": 0.888889,
+            "hits": 90,
+            "hit_rate": 0.158451,
+            "base_rate": 0.155354,
+            "lift": 1.019931,
+            "false_alarms": 478,
+            "false_alarms_per_student_year": 2.10181,
+            "positive_weeks": 1024,
+            "positive_weeks_asked": 56,
+            "positive_weeks_missed": 968,
+            "share_positive_weeks_asked": 0.054688,
+            "episodes": 225,
+            "episodes_reached": 27,
+            "episodes_missed": 198,
+            "share_episodes_reached": 0.12
+          },
+          "fixed_calendar": {
+            "asks": 633.3,
+            "asks_per_student_year": 2.784678,
+            "scored_asks": 572.8,
+            "hits": 88.7,
+            "hit_rate": 0.155219,
+            "lift": 0.999127,
+            "false_alarms": 484.1,
+            "false_alarms_per_student_year": 2.128632,
+            "positive_weeks_asked": 55.7,
+            "positive_weeks_missed": 968.3,
+            "share_positive_weeks_asked": 0.054395,
+            "episodes_reached": 33.4,
+            "episodes_missed": 191.6,
+            "share_episodes_reached": 0.148444,
+            "hit_rate_range_over_start_weeks": [
+              0.13754,
+              0.169231
+            ],
+            "episodes": 225,
+            "base_rate": 0.155354,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.154789,
+            "ci": [
+              0.12649,
+              0.183253
+            ],
+            "share_episodes_reached": 0.133218,
+            "episodes_ci": [
+              0.088889,
+              0.177778
+            ],
+            "share_draws_at_or_above_method": 0.378
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.148461,
+            "ci": [
+              0.126516,
+              0.170397
+            ],
+            "share_episodes_reached": 0.122733,
+            "episodes_ci": [
+              0.088889,
+              0.16
+            ],
+            "share_draws_at_or_above_method": 0.185
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.161661,
+            "ci": [
+              0.143601,
+              0.181501
+            ],
+            "share_episodes_reached": 0.122444,
+            "episodes_ci": [
+              0.093333,
+              0.155556
+            ],
+            "share_draws_at_or_above_method": 0.623
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.001565,
+            "hit_rate_outside_full_quarters": 0.158451,
+            "chance_outside_full_quarters": 0.155994
+          },
+          "method_minus_calendar": {
+            "difference": 0.003597,
+            "ci": [
+              -0.034207,
+              0.049847
+            ]
+          }
+        },
+        "train_grid": [
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 6.860247,
+            "hit_rate": 0.203008,
+            "scored_alerts": 1330,
+            "alerts": 1433,
+            "share_episodes_reached": 0.424779,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 5.577242,
+            "hit_rate": 0.202952,
+            "scored_alerts": 1084,
+            "alerts": 1165,
+            "share_episodes_reached": 0.411504,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 4.792119,
+            "hit_rate": 0.187229,
+            "scored_alerts": 924,
+            "alerts": 1001,
+            "share_episodes_reached": 0.331858,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 5.582029,
+            "hit_rate": 0.21808,
+            "scored_alerts": 1073,
+            "alerts": 1166,
+            "share_episodes_reached": 0.358407,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 4.471368,
+            "hit_rate": 0.214286,
+            "scored_alerts": 854,
+            "alerts": 934,
+            "share_episodes_reached": 0.323009,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 3.796354,
+            "hit_rate": 0.212038,
+            "scored_alerts": 731,
+            "alerts": 793,
+            "share_episodes_reached": 0.252212,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 4.634137,
+            "hit_rate": 0.204241,
+            "scored_alerts": 896,
+            "alerts": 968,
+            "share_episodes_reached": 0.309735,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 3.724544,
+            "hit_rate": 0.200837,
+            "scored_alerts": 717,
+            "alerts": 778,
+            "share_episodes_reached": 0.247788,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 3.183576,
+            "hit_rate": 0.211475,
+            "scored_alerts": 610,
+            "alerts": 665,
+            "share_episodes_reached": 0.216814,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 4.026146,
+            "hit_rate": 0.221795,
+            "scored_alerts": 780,
+            "alerts": 841,
+            "share_episodes_reached": 0.265487,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 3.2123,
+            "hit_rate": 0.216906,
+            "scored_alerts": 627,
+            "alerts": 671,
+            "share_episodes_reached": 0.212389,
+            "base_rate": 0.167783
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 2.714417,
+            "hit_rate": 0.215238,
+            "scored_alerts": 525,
+            "alerts": 567,
+            "share_episodes_reached": 0.225664,
+            "base_rate": 0.167783
+          }
+        ],
+        "test_grid": [
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 6.362591,
+            "hit_rate": 0.169622,
+            "scored_alerts": 1297,
+            "alerts": 1447,
+            "share_episodes_reached": 0.266667,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 5.179773,
+            "hit_rate": 0.167619,
+            "scored_alerts": 1050,
+            "alerts": 1178,
+            "share_episodes_reached": 0.235556,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 3,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 4.476239,
+            "hit_rate": 0.179848,
+            "scored_alerts": 923,
+            "alerts": 1018,
+            "share_episodes_reached": 0.191111,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 5.008287,
+            "hit_rate": 0.164506,
+            "scored_alerts": 1003,
+            "alerts": 1139,
+            "share_episodes_reached": 0.208889,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 4.089295,
+            "hit_rate": 0.165666,
+            "scored_alerts": 833,
+            "alerts": 930,
+            "share_episodes_reached": 0.173333,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 4,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 3.508879,
+            "hit_rate": 0.167135,
+            "scored_alerts": 712,
+            "alerts": 798,
+            "share_episodes_reached": 0.155556,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 4.194825,
+            "hit_rate": 0.16298,
+            "scored_alerts": 859,
+            "alerts": 954,
+            "share_episodes_reached": 0.16,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 3.341789,
+            "hit_rate": 0.165192,
+            "scored_alerts": 678,
+            "alerts": 760,
+            "share_episodes_reached": 0.137778,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 5,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 2.897683,
+            "hit_rate": 0.165529,
+            "scored_alerts": 586,
+            "alerts": 659,
+            "share_episodes_reached": 0.12,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 2,
+            "alerts_per_student_year": 3.52207,
+            "hit_rate": 0.15309,
+            "scored_alerts": 712,
+            "alerts": 801,
+            "share_episodes_reached": 0.151111,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 3,
+            "alerts_per_student_year": 2.809741,
+            "hit_rate": 0.158451,
+            "scored_alerts": 568,
+            "alerts": 639,
+            "share_episodes_reached": 0.12,
+            "base_rate": 0.155354
+          },
+          {
+            "weeks_out": 6,
+            "cooldown_weeks": 4,
+            "alerts_per_student_year": 2.396415,
+            "hit_rate": 0.153361,
+            "scored_alerts": 476,
+            "alerts": 545,
+            "share_episodes_reached": 0.084444,
+            "base_rate": 0.155354
+          }
+        ],
+        "doc_default_W4_C2_on_test": {
+          "budget_asks_per_student_year": 5.008287,
+          "asks_per_student_week": 0.096313,
+          "method": {
+            "asks": 1139,
+            "student_years": 227.423077,
+            "asks_per_student_year": 5.008287,
+            "scored_asks": 1003,
+            "share_asks_scored": 0.880597,
+            "hits": 165,
+            "hit_rate": 0.164506,
+            "base_rate": 0.155354,
+            "lift": 1.058912,
+            "false_alarms": 838,
+            "false_alarms_per_student_year": 3.684762,
+            "positive_weeks": 1024,
+            "positive_weeks_asked": 101,
+            "positive_weeks_missed": 923,
+            "share_positive_weeks_asked": 0.098633,
+            "episodes": 225,
+            "episodes_reached": 47,
+            "episodes_missed": 178,
+            "share_episodes_reached": 0.208889
+          },
+          "fixed_calendar": {
+            "asks": 1133.8,
+            "asks_per_student_year": 4.985422,
+            "scored_asks": 1027.0,
+            "hits": 160.5,
+            "hit_rate": 0.156244,
+            "lift": 1.005725,
+            "false_alarms": 866.5,
+            "false_alarms_per_student_year": 3.810079,
+            "positive_weeks_asked": 98.8,
+            "positive_weeks_missed": 925.2,
+            "share_positive_weeks_asked": 0.096484,
+            "episodes_reached": 57.0,
+            "episodes_missed": 168.0,
+            "share_episodes_reached": 0.253333,
+            "hit_rate_range_over_start_weeks": [
+              0.142724,
+              0.165085
+            ],
+            "episodes": 225,
+            "base_rate": 0.155354,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.155393,
+            "ci": [
+              0.134372,
+              0.178123
+            ],
+            "share_episodes_reached": 0.228258,
+            "episodes_ci": [
+              0.177667,
+              0.284444
+            ],
+            "share_draws_at_or_above_method": 0.204
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.152081,
+            "ci": [
+              0.13618,
+              0.169399
+            ],
+            "share_episodes_reached": 0.212938,
+            "episodes_ci": [
+              0.168889,
+              0.257778
+            ],
+            "share_draws_at_or_above_method": 0.073
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.165367,
+            "ci": [
+              0.15064,
+              0.179764
+            ],
+            "share_episodes_reached": 0.20436,
+            "episodes_ci": [
+              0.168889,
+              0.24
+            ],
+            "share_draws_at_or_above_method": 0.546
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.000878,
+            "hit_rate_outside_full_quarters": 0.164506,
+            "chance_outside_full_quarters": 0.162574
+          },
+          "method_minus_calendar": {
+            "difference": 0.008226,
+            "ci": [
+              -0.024977,
+              0.045646
+            ]
+          }
+        }
+      },
+      {
+        "seed": 20261214,
+        "chosen": {
+          "weeks_out": 6,
+          "cooldown_weeks": 3
+        },
+        "train_choice": {
+          "weeks_out": 6,
+          "cooldown_weeks": 3,
+          "alerts_per_student_year": 2.971057,
+          "hit_rate": 0.199045,
+          "scored_alerts": 628,
+          "alerts": 685,
+          "share_episodes_reached": 0.16309,
+          "base_rate": 0.166575
+        },
+        "test": {
+          "budget_asks_per_student_year": 3.037667,
+          "asks_per_student_week": 0.058417,
+          "method": {
+            "asks": 625,
+            "student_years": 205.75,
+            "asks_per_student_year": 3.037667,
+            "scored_asks": 567,
+            "share_asks_scored": 0.9072,
+            "hits": 101,
+            "hit_rate": 0.178131,
+            "base_rate": 0.155494,
+            "lift": 1.145578,
+            "false_alarms": 466,
+            "false_alarms_per_student_year": 2.264885,
+            "positive_weeks": 1000,
+            "positive_weeks_asked": 59,
+            "positive_weeks_missed": 941,
+            "share_positive_weeks_asked": 0.059,
+            "episodes": 218,
+            "episodes_reached": 37,
+            "episodes_missed": 181,
+            "share_episodes_reached": 0.169725
+          },
+          "fixed_calendar": {
+            "asks": 619.8,
+            "asks_per_student_year": 3.012394,
+            "scored_asks": 564.7,
+            "hits": 87.8,
+            "hit_rate": 0.155506,
+            "lift": 1.000075,
+            "false_alarms": 476.9,
+            "false_alarms_per_student_year": 2.317861,
+            "positive_weeks_asked": 59.0,
+            "positive_weeks_missed": 941.0,
+            "share_positive_weeks_asked": 0.059,
+            "episodes_reached": 39.6,
+            "episodes_missed": 178.4,
+            "share_episodes_reached": 0.181651,
+            "hit_rate_range_over_start_weeks": [
+              0.137112,
+              0.179688
+            ],
+            "episodes": 218,
+            "base_rate": 0.155494,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.154109,
+            "ci": [
+              0.126731,
+              0.185318
+            ],
+            "share_episodes_reached": 0.160862,
+            "episodes_ci": [
+              0.119266,
+              0.201835
+            ],
+            "share_draws_at_or_above_method": 0.056
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.161675,
+            "ci": [
+              0.13989,
+              0.185445
+            ],
+            "share_episodes_reached": 0.159128,
+            "episodes_ci": [
+              0.119266,
+              0.197248
+            ],
+            "share_draws_at_or_above_method": 0.086
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.183273,
+            "ci": [
+              0.16202,
+              0.203911
+            ],
+            "share_episodes_reached": 0.164073,
+            "episodes_ci": [
+              0.12844,
+              0.197248
+            ],
+            "share_draws_at_or_above_method": 0.714
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.0032,
+            "hit_rate_outside_full_quarters": 0.178131,
+            "chance_outside_full_quarters": 0.174906
+          },
+          "method_minus_calendar": {
+            "difference": 0.02265,
+            "ci": [
+              -0.02248,
+              0.073406
+            ]
+          }
+        }
+      },
+      {
+        "seed": 20261314,
+        "chosen": {
+          "weeks_out": 5,
+          "cooldown_weeks": 3
+        },
+        "train_choice": {
+          "weeks_out": 5,
+          "cooldown_weeks": 3,
+          "alerts_per_student_year": 3.968014,
+          "hit_rate": 0.190887,
+          "scored_alerts": 812,
+          "alerts": 897,
+          "share_episodes_reached": 0.2,
+          "base_rate": 0.183088
+        },
+        "test": {
+          "budget_asks_per_student_year": 3.048751,
+          "asks_per_student_week": 0.05863,
+          "method": {
+            "asks": 641,
+            "student_years": 210.25,
+            "asks_per_student_year": 3.048751,
+            "scored_asks": 583,
+            "share_asks_scored": 0.909516,
+            "hits": 101,
+            "hit_rate": 0.173242,
+            "base_rate": 0.137976,
+            "lift": 1.255595,
+            "false_alarms": 482,
+            "false_alarms_per_student_year": 2.292509,
+            "positive_weeks": 887,
+            "positive_weeks_asked": 68,
+            "positive_weeks_missed": 819,
+            "share_positive_weeks_asked": 0.076663,
+            "episodes": 181,
+            "episodes_reached": 33,
+            "episodes_missed": 148,
+            "share_episodes_reached": 0.18232
+          },
+          "fixed_calendar": {
+            "asks": 635.7,
+            "asks_per_student_year": 3.023543,
+            "scored_asks": 580.5,
+            "hits": 82.5,
+            "hit_rate": 0.142021,
+            "lift": 1.02932,
+            "false_alarms": 498.0,
+            "false_alarms_per_student_year": 2.368609,
+            "positive_weeks_asked": 54.4,
+            "positive_weeks_missed": 832.6,
+            "share_positive_weeks_asked": 0.06133,
+            "episodes_reached": 32.1,
+            "episodes_missed": 148.9,
+            "share_episodes_reached": 0.177348,
+            "hit_rate_range_over_start_weeks": [
+              0.111712,
+              0.156197
+            ],
+            "episodes": 181,
+            "base_rate": 0.137976,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.13781,
+            "ci": [
+              0.112036,
+              0.164103
+            ],
+            "share_episodes_reached": 0.159547,
+            "episodes_ci": [
+              0.110497,
+              0.209945
+            ],
+            "share_draws_at_or_above_method": 0.007
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.175539,
+            "ci": [
+              0.151768,
+              0.19802
+            ],
+            "share_episodes_reached": 0.201254,
+            "episodes_ci": [
+              0.154696,
+              0.248757
+            ],
+            "share_draws_at_or_above_method": 0.573
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.198397,
+            "ci": [
+              0.17838,
+              0.218864
+            ],
+            "share_episodes_reached": 0.208171,
+            "episodes_ci": [
+              0.165746,
+              0.248619
+            ],
+            "share_draws_at_or_above_method": 0.995
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.00156,
+            "hit_rate_outside_full_quarters": 0.173242,
+            "chance_outside_full_quarters": 0.199634
+          },
+          "method_minus_calendar": {
+            "difference": 0.031123,
+            "ci": [
+              -0.014785,
+              0.08273
+            ]
+          }
+        }
+      },
+      {
+        "seed": 20261414,
+        "chosen": {
+          "weeks_out": 6,
+          "cooldown_weeks": 2
+        },
+        "train_choice": {
+          "weeks_out": 6,
+          "cooldown_weeks": 2,
+          "alerts_per_student_year": 3.570093,
+          "hit_rate": 0.217718,
+          "scored_alerts": 666,
+          "alerts": 764,
+          "share_episodes_reached": 0.163265,
+          "base_rate": 0.185475
+        },
+        "test": {
+          "budget_asks_per_student_year": 3.949481,
+          "asks_per_student_week": 0.075952,
+          "method": {
+            "asks": 878,
+            "student_years": 222.307692,
+            "asks_per_student_year": 3.949481,
+            "scored_asks": 826,
+            "share_asks_scored": 0.940774,
+            "hits": 137,
+            "hit_rate": 0.16586,
+            "base_rate": 0.138447,
+            "lift": 1.198,
+            "false_alarms": 689,
+            "false_alarms_per_student_year": 3.099308,
+            "positive_weeks": 946,
+            "positive_weeks_asked": 89,
+            "positive_weeks_missed": 857,
+            "share_positive_weeks_asked": 0.09408,
+            "episodes": 206,
+            "episodes_reached": 54,
+            "episodes_missed": 152,
+            "share_episodes_reached": 0.262136
+          },
+          "fixed_calendar": {
+            "asks": 872.6,
+            "asks_per_student_year": 3.92519,
+            "scored_asks": 799.8,
+            "hits": 112.8,
+            "hit_rate": 0.141249,
+            "lift": 1.020235,
+            "false_alarms": 687.0,
+            "false_alarms_per_student_year": 3.090311,
+            "positive_weeks_asked": 72.4,
+            "positive_weeks_missed": 873.6,
+            "share_positive_weeks_asked": 0.076533,
+            "episodes_reached": 45.6,
+            "episodes_missed": 160.4,
+            "share_episodes_reached": 0.221359,
+            "hit_rate_range_over_start_weeks": [
+              0.125461,
+              0.160315
+            ],
+            "episodes": 206,
+            "base_rate": 0.138447,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.138643,
+            "ci": [
+              0.115747,
+              0.161932
+            ],
+            "share_episodes_reached": 0.199675,
+            "episodes_ci": [
+              0.150485,
+              0.252427
+            ],
+            "share_draws_at_or_above_method": 0.014
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.156397,
+            "ci": [
+              0.139751,
+              0.173451
+            ],
+            "share_episodes_reached": 0.230675,
+            "episodes_ci": [
+              0.184466,
+              0.271966
+            ],
+            "share_draws_at_or_above_method": 0.146
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.173008,
+            "ci": [
+              0.158727,
+              0.18599
+            ],
+            "share_episodes_reached": 0.227005,
+            "episodes_ci": [
+              0.194175,
+              0.262136
+            ],
+            "share_draws_at_or_above_method": 0.851
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.001139,
+            "hit_rate_outside_full_quarters": 0.16586,
+            "chance_outside_full_quarters": 0.169746
+          },
+          "method_minus_calendar": {
+            "difference": 0.024824,
+            "ci": [
+              -0.019592,
+              0.087393
+            ]
+          }
+        }
+      },
+      {
+        "seed": 20261514,
+        "chosen": {
+          "weeks_out": 6,
+          "cooldown_weeks": 2
+        },
+        "train_choice": {
+          "weeks_out": 6,
+          "cooldown_weeks": 2,
+          "alerts_per_student_year": 3.618163,
+          "hit_rate": 0.216095,
+          "scored_alerts": 671,
+          "alerts": 734,
+          "share_episodes_reached": 0.26943,
+          "base_rate": 0.147929
+        },
+        "test": {
+          "budget_asks_per_student_year": 3.889612,
+          "asks_per_student_week": 0.0748,
+          "method": {
+            "asks": 908,
+            "student_years": 233.442308,
+            "asks_per_student_year": 3.889612,
+            "scored_asks": 821,
+            "share_asks_scored": 0.904185,
+            "hits": 137,
+            "hit_rate": 0.16687,
+            "base_rate": 0.173027,
+            "lift": 0.964416,
+            "false_alarms": 684,
+            "false_alarms_per_student_year": 2.93006,
+            "positive_weeks": 1244,
+            "positive_weeks_asked": 84,
+            "positive_weeks_missed": 1160,
+            "share_positive_weeks_asked": 0.067524,
+            "episodes": 258,
+            "episodes_reached": 42,
+            "episodes_missed": 216,
+            "share_episodes_reached": 0.162791
+          },
+          "fixed_calendar": {
+            "asks": 902.6,
+            "asks_per_student_year": 3.86648,
+            "scored_asks": 824.7,
+            "hits": 144.3,
+            "hit_rate": 0.175131,
+            "lift": 1.012163,
+            "false_alarms": 680.4,
+            "false_alarms_per_student_year": 2.914639,
+            "positive_weeks_asked": 94.8,
+            "positive_weeks_missed": 1149.2,
+            "share_positive_weeks_asked": 0.076206,
+            "episodes_reached": 58.3,
+            "episodes_missed": 199.7,
+            "share_episodes_reached": 0.225969,
+            "hit_rate_range_over_start_weeks": [
+              0.16472,
+              0.186881
+            ],
+            "episodes": 258,
+            "base_rate": 0.173027,
+            "n_start_offsets": 10
+          },
+          "random": {
+            "draws": 1000,
+            "hit_rate": 0.173485,
+            "ci": [
+              0.147511,
+              0.198085
+            ],
+            "share_episodes_reached": 0.198403,
+            "episodes_ci": [
+              0.155039,
+              0.248062
+            ],
+            "share_draws_at_or_above_method": 0.698
+          },
+          "random_same_students": {
+            "draws": 1000,
+            "hit_rate": 0.151932,
+            "ci": [
+              0.134293,
+              0.169637
+            ],
+            "share_episodes_reached": 0.159446,
+            "episodes_ci": [
+              0.124031,
+              0.193798
+            ],
+            "share_draws_at_or_above_method": 0.06
+          },
+          "random_same_student_and_quarter": {
+            "draws": 1000,
+            "hit_rate": 0.169285,
+            "ci": [
+              0.154307,
+              0.184823
+            ],
+            "share_episodes_reached": 0.154605,
+            "episodes_ci": [
+              0.127907,
+              0.182171
+            ],
+            "share_draws_at_or_above_method": 0.624
+          },
+          "strata_check": {
+            "share_asks_in_full_quarters": 0.002203,
+            "hit_rate_outside_full_quarters": 0.167073,
+            "chance_outside_full_quarters": 0.168978
+          },
+          "method_minus_calendar": {
+            "difference": -0.008103,
+            "ci": [
+              -0.053299,
+              0.040133
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "door_check": {
+    "students_with_12_valid_weeks": 212,
+    "any_high_learning_week": {
+      "students": 37,
+      "missed_by_drift_rule": 11,
+      "share_missed": 0.297297,
+      "still_high_in_weeks_5_to_12": 29,
+      "missed_and_still_high_in_weeks_5_to_12": 10
+    },
+    "mean_high_over_learning_weeks": {
+      "students": 12,
+      "missed_by_drift_rule": 3,
+      "share_missed": 0.25,
+      "still_high_in_weeks_5_to_12": 11,
+      "missed_and_still_high_in_weeks_5_to_12": 3
+    },
+    "comparison_not_high_at_start": {
+      "students": 175,
+      "missed_by_drift_rule": 58,
+      "share_missed": 0.331429,
+      "still_high_in_weeks_5_to_12": 25,
+      "missed_and_still_high_in_weeks_5_to_12": 5
+    }
+  },
+  "door_check_adaptive_range": {
+    "students_with_12_valid_weeks": 212,
+    "any_high_learning_week": {
+      "students": 37,
+      "missed_by_drift_rule": 3,
+      "share_missed": 0.081081,
+      "still_high_in_weeks_5_to_12": 29,
+      "missed_and_still_high_in_weeks_5_to_12": 3
+    },
+    "mean_high_over_learning_weeks": {
+      "students": 12,
+      "missed_by_drift_rule": 1,
+      "share_missed": 0.083333,
+      "still_high_in_weeks_5_to_12": 11,
+      "missed_and_still_high_in_weeks_5_to_12": 1
+    },
+    "comparison_not_high_at_start": {
+      "students": 175,
+      "missed_by_drift_rule": 25,
+      "share_missed": 0.142857,
+      "still_high_in_weeks_5_to_12": 25,
+      "missed_and_still_high_in_weeks_5_to_12": 1
+    }
+  },
+  "platform_secondary": {
+    "ios": {
+      "students": 183,
+      "core_signals": {
+        "budget_asks_per_student_year": 20.727615,
+        "hit_rate": 0.154704,
+        "scored_asks": 5378,
+        "episodes_reached": 0.534177,
+        "calendar_hit_rate": 0.135231,
+        "calendar_episodes_reached": 0.863797,
+        "random_hit_rate": 0.135078,
+        "random_ci": [
+          0.127847,
+          0.14207
+        ],
+        "random_same_students_hit_rate": 0.141643,
+        "random_same_students_ci": [
+          0.13602,
+          0.147044
+        ],
+        "random_same_student_and_quarter_hit_rate": 0.157076,
+        "random_same_student_and_quarter_ci": [
+          0.153054,
+          0.161536
+        ],
+        "method_minus_calendar": {
+          "difference": 0.019472,
+          "ci": [
+            0.000801,
+            0.041351
+          ]
+        },
+        "base_rate": 0.1351
+      },
+      "core_plus_platform": {
+        "budget_asks_per_student_year": 26.561934,
+        "hit_rate": 0.149978,
+        "scored_asks": 6941,
+        "episodes_reached": 0.655696,
+        "calendar_hit_rate": 0.135286,
+        "calendar_episodes_reached": 0.97038,
+        "random_hit_rate": 0.135112,
+        "random_ci": [
+          0.128898,
+          0.141028
+        ],
+        "random_same_students_hit_rate": 0.142392,
+        "random_same_students_ci": [
+          0.138138,
+          0.14664
+        ],
+        "random_same_student_and_quarter_hit_rate": 0.153479,
+        "random_same_student_and_quarter_ci": [
+          0.150293,
+          0.156866
+        ],
+        "method_minus_calendar": {
+          "difference": 0.014703,
+          "ci": [
+            0.001651,
+            0.029692
+          ]
+        },
+        "base_rate": 0.1351
+      },
+      "single_signal_auc": {
+        "steps": {
+          "auc": 0.529404,
+          "weeks": 12850,
+          "share_weeks_out": 0.489339
+        },
+        "night_audio": {
+          "auc": 0.534214,
+          "weeks": 13555,
+          "share_weeks_out": 0.214238
+        }
+      }
+    },
+    "android": {
+      "students": 30,
+      "core_signals": {
+        "budget_asks_per_student_year": 25.135513,
+        "hit_rate": 0.116822,
+        "scored_asks": 1498,
+        "episodes_reached": 0.696429,
+        "calendar_hit_rate": 0.100648,
+        "calendar_episodes_reached": 0.958929,
+        "random_hit_rate": 0.100352,
+        "random_ci": [
+          0.090136,
+          0.112108
+        ],
+        "random_same_students_hit_rate": 0.113049,
+        "random_same_students_ci": [
+          0.105331,
+          0.120707
+        ],
+        "random_same_student_and_quarter_hit_rate": 0.11952,
+        "random_same_student_and_quarter_ci": [
+          0.113815,
+          0.125
+        ],
+        "method_minus_calendar": {
+          "difference": 0.016172,
+          "ci": [
+            -0.018502,
+            0.057574
+          ]
+        },
+        "base_rate": 0.100471
+      },
+      "core_plus_platform": {
+        "budget_asks_per_student_year": 29.407097,
+        "hit_rate": 0.113675,
+        "scored_asks": 1777,
+        "episodes_reached": 0.732143,
+        "calendar_hit_rate": 0.100922,
+        "calendar_episodes_reached": 0.978571,
+        "random_hit_rate": 0.100418,
+        "random_ci": [
+          0.09111,
+          0.109262
+        ],
+        "random_same_students_hit_rate": 0.110211,
+        "random_same_students_ci": [
+          0.103524,
+          0.116701
+        ],
+        "random_same_student_and_quarter_hit_rate": 0.113728,
+        "random_same_student_and_quarter_ci": [
+          0.109436,
+          0.11804
+        ],
+        "method_minus_calendar": {
+          "difference": 0.012764,
+          "ci": [
+            -0.012723,
+            0.043128
+          ]
+        },
+        "base_rate": 0.100471
+      },
+      "single_signal_auc": {
+        "sms_out": {
+          "auc": 0.572284,
+          "weeks": 2605,
+          "share_weeks_out": 0.267946
+        },
+        "calls_out": {
+          "auc": 0.444276,
+          "weeks": 2605,
+          "share_weeks_out": 0.238772
+        },
+        "conversation": {
+          "auc": 0.627248,
+          "weeks": 2605,
+          "share_weeks_out": 0.370441
+        }
+      }
+    }
+  },
+  "runtime_seconds": 44.692548,
+  "headline": "At 21 asks per student-year, 14.6% of the drift rule's asks landed on weeks with a high mood score against 12.9% for a fixed calendar, but random weeks from the same student in the same three months did as well (14.9%), so the rule found harder stretches and did no better than chance at picking the week.",
+  "caveats": [
+    "Mood scores stand in for a note being right. They cannot show whether a note helped a family.",
+    "The students are Dartmouth undergraduates followed from 2017 to 2022, through the pandemic. Steady is meant for high school students.",
+    "The label is two PHQ-4 items answered on the phone, counted as high at 3 or more. Only 74% of monitored weeks have one.",
+    "The phone signals are the study's own features. Steady would record different ones, and typing, tone and music were not available.",
+    "The personal range is learned in each student's first four valid weeks and then frozen, so it drifts: the rule asked in 26% of weeks in year one and 61% in year three.",
+    "At k = 1.0 the rule asks in 41% of monitored weeks, far more often than a real app should.",
+    "The logistic regression and heads-up numbers come from the test half of one fixed split of students. The spread over five splits is in results.json.",
+    "Nothing here shows that phone signals detect depression."
+  ]
+}

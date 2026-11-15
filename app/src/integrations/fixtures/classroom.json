@@ -1,0 +1,166 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "courses": {
+  "courses": [
+   {
+    "id": "c1"
+   },
+   {
+    "id": "c2"
+   }
+  ]
+ },
+ "courseWork": {
+  "c1": {
+   "courseWork": [
+    {
+     "id": "w1",
+     "title": "Lab report",
+     "dueDate": {
+      "year": 2026,
+      "month": 10,
+      "day": 20
+     },
+     "dueTime": {
+      "hours": 23,
+      "minutes": 59
+     }
+    },
+    {
+     "id": "w2",
+     "title": "Reading",
+     "dueDate": {
+      "year": 2026,
+      "month": 10,
+      "day": 27
+     }
+    },
+    {
+     "id": "w3",
+     "title": "Essay",
+     "dueDate": {
+      "year": 2026,
+      "month": 11,
+      "day": 3
+     },
+     "dueTime": {
+      "hours": 7
+     }
+    },
+    {
+     "id": "w4",
+     "title": "Worksheet",
+     "dueDate": {
+      "year": 2026,
+      "month": 11,
+      "day": 4
+     },
+     "dueTime": {
+      "hours": 7
+     }
+    },
+    {
+     "id": "w5",
+     "title": "No due date"
+    }
+   ]
+  },
+  "c2": {
+   "courseWork": [
+    {
+     "id": "x1",
+     "title": "Quiz prep",
+     "dueDate": {
+      "year": 2026,
+      "month": 11,
+      "day": 5
+     },
+     "dueTime": {
+      "hours": 7
+     }
+    }
+   ],
+   "nextPageToken": "more"
+  },
+  "c2-more": {
+   "courseWork": [
+    {
+     "id": "x2",
+     "title": "Project",
+     "dueDate": {
+      "year": 2026,
+      "month": 11,
+      "day": 20
+     }
+    }
+   ]
+  }
+ },
+ "submissions": {
+  "c1": {
+   "studentSubmissions": [
+    {
+     "courseWorkId": "w1",
+     "state": "TURNED_IN",
+     "late": false,
+     "submissionHistory": [
+      {
+       "stateHistory": {
+        "state": "CREATED",
+        "stateTimestamp": "2026-10-15T10:00:00Z"
+       }
+      },
+      {
+       "stateHistory": {
+        "state": "TURNED_IN",
+        "stateTimestamp": "2026-10-20T01:30:00Z"
+       }
+      }
+     ]
+    },
+    {
+     "courseWorkId": "w2",
+     "state": "RETURNED",
+     "late": true,
+     "submissionHistory": [
+      {
+       "stateHistory": {
+        "state": "TURNED_IN",
+        "stateTimestamp": "2026-10-28T20:00:00Z"
+       }
+      }
+     ]
+    },
+    {
+     "courseWorkId": "w3",
+     "state": "CREATED"
+    },
+    {
+     "courseWorkId": "w4",
+     "state": "TURNED_IN",
+     "late": true,
+     "submissionHistory": [
+      {
+       "stateHistory": {
+        "state": "TURNED_IN",
+        "stateTimestamp": "2026-11-05T02:10:00Z"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "c2": {
+   "studentSubmissions": [
+    {
+     "courseWorkId": "x1",
+     "state": "NEW"
+    },
+    {
+     "courseWorkId": "x2",
+     "state": "NEW"
+    }
+   ]
+  }
+ }
+}

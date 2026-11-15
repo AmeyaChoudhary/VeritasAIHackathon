@@ -1,0 +1,217 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "pages": [
+  {
+   "recenttracks": {
+    "track": [
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Night Bus"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": ""
+      },
+      "name": "Last Stop",
+      "url": "https://www.last.fm/music/fixture",
+      "@attr": {
+       "nowplaying": "true"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Night Bus"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Last Stop",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794532200",
+       "#text": "13 Nov 2026, 01:10"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Night Bus"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Last Stop",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794530400",
+       "#text": "13 Nov 2026, 00:40"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "The Quiet Hours"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Paper Moon",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794521100",
+       "#text": "12 Nov 2026, 22:05"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "The Quiet Hours"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Paper Moon",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1794520200",
+       "#text": "12 Nov 2026, 21:50"
+      }
+     }
+    ],
+    "@attr": {
+     "user": "maya_fixture",
+     "totalPages": "2",
+     "page": "1",
+     "perPage": "4",
+     "total": "7"
+    }
+   }
+  },
+  {
+   "recenttracks": {
+    "track": [
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fern Avenue"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Bright Side",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793811600",
+       "#text": "04 Nov 2026, 17:00"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "Fern Avenue"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Morning Run",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793811300",
+       "#text": "04 Nov 2026, 16:55"
+      }
+     },
+     {
+      "artist": {
+       "mbid": "",
+       "#text": "The Quiet Hours"
+      },
+      "streamable": "0",
+      "image": [],
+      "mbid": "",
+      "album": {
+       "mbid": "",
+       "#text": "(fixture album)"
+      },
+      "name": "Paper Moon",
+      "url": "https://www.last.fm/music/fixture",
+      "date": {
+       "uts": "1793673000",
+       "#text": "03 Nov 2026, 02:30"
+      }
+     }
+    ],
+    "@attr": {
+     "user": "maya_fixture",
+     "totalPages": "2",
+     "page": "2",
+     "perPage": "4",
+     "total": "7"
+    }
+   }
+  }
+ ],
+ "single": {
+  "recenttracks": {
+   "track": {
+    "artist": {
+     "mbid": "",
+     "#text": "Fern Avenue"
+    },
+    "streamable": "0",
+    "image": [],
+    "mbid": "",
+    "album": {
+     "mbid": "",
+     "#text": "(fixture album)"
+    },
+    "name": "Bright Side",
+    "url": "https://www.last.fm/music/fixture",
+    "date": {
+     "uts": "1794312000",
+     "#text": "10 Nov 2026, 12:00"
+    }
+   },
+   "@attr": {
+    "user": "maya_fixture",
+    "totalPages": "1",
+    "page": "1",
+    "perPage": "200",
+    "total": "1"
+   }
+  }
+ },
+ "error": {
+  "error": 6,
+  "message": "User not found",
+  "links": []
+ }
+}

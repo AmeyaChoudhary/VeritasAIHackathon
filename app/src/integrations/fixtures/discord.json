@@ -1,0 +1,41 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "entries": {
+  "Account/user.json": {
+   "id": "111111111111111111",
+   "username": "maya_fixture",
+   "global_name": "Maya",
+   "email": "maya.r@example.com"
+  },
+  "Messages/index.json": {
+   "222": "Direct Message with jordan_fixture"
+  },
+  "Messages/c222/messages.json": [
+   {
+    "ID": "333",
+    "Timestamp": "2026-11-12 22:00:00.123456+00:00",
+    "Contents": "> i want to die\nlol dont say that",
+    "Attachments": ""
+   },
+   {
+    "ID": "334",
+    "Timestamp": "2026-11-11 01:10:00.000000+00:00",
+    "Contents": "so tired and sad",
+    "Attachments": ""
+   },
+   {
+    "ID": "335",
+    "Timestamp": "2026-11-03 19:00:00.000000+00:00",
+    "Contents": "gg",
+    "Attachments": ""
+   }
+  ]
+ },
+ "olderCsv": {
+  "account/user.json": {
+   "id": "111111111111111111",
+   "username": "maya_fixture"
+  },
+  "messages/444/messages.csv": "ID,Timestamp,Contents,Attachments\n555,2026-11-04 01:10:00.000000+00:00,\"see you, \"\"friend\"\"\",\n556,2026-11-05 18:00:00.000000+00:00,\"two\nlines\",\n"
+ }
+}

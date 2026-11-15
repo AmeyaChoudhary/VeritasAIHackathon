@@ -1,0 +1,103 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "entries": {
+  "personal_information/personal_information/personal_information.json": {
+   "profile_user": [
+    {
+     "media_map_data": {},
+     "string_map_data": {
+      "Email": {
+       "href": "",
+       "value": "maya.r@example.com",
+       "timestamp": 0
+      },
+      "Name": {
+       "href": "",
+       "value": "Maya R\u00c3\u00a9",
+       "timestamp": 0
+      },
+      "Username": {
+       "href": "",
+       "value": "maya.fixture",
+       "timestamp": 0
+      }
+     }
+    }
+   ]
+  },
+  "your_instagram_activity/messages/inbox/jordan_123/message_1.json": {
+   "participants": [
+    {
+     "name": "Jordan"
+    },
+    {
+     "name": "Maya R\u00c3\u00a9"
+    }
+   ],
+   "messages": [
+    {
+     "sender_name": "Maya R\u00c3\u00a9",
+     "timestamp_ms": 1794668400000,
+     "is_geoblocked_for_viewer": false,
+     "content": "honestly nobody would miss me"
+    },
+    {
+     "sender_name": "Jordan",
+     "timestamp_ms": 1794668100000,
+     "is_geoblocked_for_viewer": false,
+     "content": "i want to die lol this homework"
+    },
+    {
+     "sender_name": "Maya R\u00c3\u00a9",
+     "timestamp_ms": 1794273600000,
+     "is_geoblocked_for_viewer": false,
+     "content": "can\u00e2\u0080\u0099t sleep again \u00f0\u009f\u0098\u0085"
+    },
+    {
+     "sender_name": "Maya R\u00c3\u00a9",
+     "timestamp_ms": 1793822400000,
+     "is_geoblocked_for_viewer": false,
+     "content": "see you at practice"
+    },
+    {
+     "sender_name": "Jordan",
+     "timestamp_ms": 1793821800000,
+     "is_geoblocked_for_viewer": false,
+     "content": "I want to kill myself"
+    },
+    {
+     "sender_name": "Maya R\u00c3\u00a9",
+     "timestamp_ms": 1793739600000,
+     "is_geoblocked_for_viewer": false
+    }
+   ],
+   "title": "Jordan",
+   "is_still_participant": true,
+   "thread_path": "inbox/jordan_123"
+  },
+  "your_instagram_activity/likes/liked_posts.json": {
+   "likes_media_likes": [
+    {
+     "title": "someone",
+     "string_list_data": [
+      {
+       "href": "https://www.instagram.com/p/x/",
+       "value": "\ud83d\udc4d",
+       "timestamp": 1794443400
+      }
+     ]
+    },
+    {
+     "title": "other",
+     "string_list_data": [
+      {
+       "href": "https://www.instagram.com/p/y/",
+       "value": "\ud83d\udc4d",
+       "timestamp": 1793905200
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

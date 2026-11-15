@@ -1,0 +1,163 @@
+// What each source's Connect screen says. Plain words, one screen per source.
+
+import type { SourceId } from "../engine/types";
+import { FITBIT_STATUS } from "../integrations/fitbit";
+
+export type Kind = "google" | "microsoft" | "fitbit" | "lastfm" | "server" | "file" | "phone";
+
+export interface SourceInfo {
+  name: string;
+  group: string;
+  kind: Kind;
+  reads: string;
+  keeps: string;
+  more: string[];
+  /** For files: how to get the export. */
+  howTo?: string[];
+}
+
+const GMAIL_LIMITS =
+  "School accounts for students under 18 block apps like this until the school allows them, so use a personal account. Google lets up to 100 test users try it before it reviews the app.";
+const SERVER =
+  "This one needs the phone app or a server. Its API doesn't accept calls from a web page, so this web prototype can only show sample data. Steady never asks for your password.";
+const FILE_NOTE = "The file is read on this phone and nothing is uploaded. Other people's messages in it are skipped without being read.";
+
+export const SOURCE_INFO: Record<SourceId, SourceInfo> = {
+  classroom: {
+    name: "Google Classroom",
+    group: "School",
+    kind: "google",
+    reads: "Your own coursework and what you turned in, in your classes.",
+    keeps: "Weekly: assignments due, turned in late, missing, and how many you turned in after midnight. Titles are not downloaded.",
+    more: [GMAIL_LIMITS],
+  },
+  canvas: {
+    name: "Canvas",
+    group: "School",
+    kind: "server",
+    reads: "Your own missing and late assignments, with an access token you make in your Canvas account settings.",
+    keeps: "Weekly: missing and late counts.",
+    more: [SERVER],
+  },
+  schoology: {
+    name: "Schoology",
+    group: "School",
+    kind: "server",
+    reads: "Your own assignments and grades, to count missing and late work, with the API key you make in your Schoology account.",
+    keeps: "Weekly: missing and late counts.",
+    more: [SERVER],
+  },
+  gmail: {
+    name: "Gmail",
+    group: "Email and calendar",
+    kind: "google",
+    reads: "The emails you send, from the last 28 days. For each reply, the time of the message it answered. Other people's emails are never opened.",
+    keeps: "Weekly counts: emails sent, how long you take to reply, how many you send after midnight, and how many read as low mood. The text is scored on this phone and dropped.",
+    more: [
+      "Quoted and forwarded text is cut before scoring. An email whose own words can't be separated is skipped.",
+      "Emails you sent in the last 24 hours also go through the self-harm check, the same as typed words.",
+      GMAIL_LIMITS,
+    ],
+  },
+  calendar: {
+    name: "Google Calendar",
+    group: "Email and calendar",
+    kind: "google",
+    reads: "Events from four weeks back to four weeks ahead.",
+    keeps: "Whether an exam or test is coming. Titles are read on this phone and not kept.",
+    more: ["This is context only. It never sends a note."],
+  },
+  microsoft: {
+    name: "Microsoft 365",
+    group: "Email and calendar",
+    kind: "microsoft",
+    reads: "Your Sent Items and your calendar, read the same way as Gmail and Google Calendar. Mail you received is never opened.",
+    keeps: "The same as Gmail and Google Calendar: weekly counts, and which weeks have an exam.",
+    more: [
+      "Quoted and forwarded text is cut before scoring. An email whose own words can't be separated is skipped.",
+      "Some school accounts need an admin to allow the app first.",
+    ],
+  },
+  drive: {
+    name: "Google Drive activity",
+    group: "School",
+    kind: "google",
+    reads: "When you edit your own files. No file names and nothing inside them.",
+    keeps: "Weekly: days with edits, and how many edits were after midnight.",
+    more: ["Edits by other people in shared files are skipped."],
+  },
+  lastfm: {
+    name: "Last.fm",
+    group: "Music",
+    kind: "lastfm",
+    reads: "The plays from the last 28 days on the public Last.fm profile for the name you type.",
+    keeps: "Weekly listening, how much is after midnight, and how often the same songs repeat.",
+    more: [
+      "Steady can't check that the profile is yours. Checking would need Last.fm sign-in, which needs a server this prototype doesn't have. The name you type is used once and not kept.",
+      "To send your Spotify plays to Last.fm: sign in at last.fm, open Settings, then Applications, and connect Spotify. New plays show up there within a few minutes.",
+    ],
+  },
+  fitbit: {
+    name: "Fitbit",
+    group: "Sleep and steps",
+    kind: "fitbit",
+    reads: "Sleep and steps from your Fitbit account.",
+    keeps: "Nightly sleep hours and bedtime, and daily steps, as weekly averages.",
+    more: [FITBIT_STATUS],
+  },
+  screentime: {
+    name: "Phone data (Android)",
+    group: "Phone",
+    kind: "phone",
+    reads: "A file from the Steady app on Android: screen time, Health Connect sleep and steps, and the Steady keyboard's daily numbers. On iPhone, screen-time threshold events.",
+    keeps: "Daily minutes on the phone and between midnight and 5 a.m., sleep hours and bedtime, steps, and from the keyboard: messages sent, typing speed, pauses, corrections and the share that reads as low mood. Never what you typed.",
+    more: ["This needs the Steady app in native/. Export its file, then choose it here."],
+  },
+  instagram: {
+    name: "Instagram data file",
+    group: "Data files",
+    kind: "file",
+    reads: "The export Instagram gives you. Only messages you sent and the times of your own activity.",
+    keeps: "Weekly: messages sent, activity after midnight, and how many of your messages read as low mood.",
+    more: [FILE_NOTE],
+    howTo: ["In Instagram: Accounts Center, Your information and permissions, Download your information.", "Choose JSON as the format, then choose the .zip here."],
+  },
+  tiktok: {
+    name: "TikTok data file",
+    group: "Data files",
+    kind: "file",
+    reads: "The export TikTok gives you. Only messages you sent and the times of your own activity.",
+    keeps: "Weekly: messages sent, activity after midnight, and how many of your messages read as low mood.",
+    more: [FILE_NOTE],
+    howTo: ["In TikTok: Settings and privacy, Account, Download your data.", "Choose JSON, then choose the file here."],
+  },
+  snapchat: {
+    name: "Snapchat data file",
+    group: "Data files",
+    kind: "file",
+    reads: "The export Snapchat gives you. Only chats you sent and their times.",
+    keeps: "Weekly: chats sent, activity after midnight, and how many of your chats read as low mood.",
+    more: [FILE_NOTE, "Snapchat only exports chats that were saved."],
+    howTo: ["In Snapchat: Settings, My Data.", "Include the JSON files and your chat history, then choose the .zip here."],
+  },
+  discord: {
+    name: "Discord data package",
+    group: "Data files",
+    kind: "file",
+    reads: "The data package Discord gives you. It holds only messages you sent.",
+    keeps: "Weekly: messages sent, activity after midnight, and how many of your messages read as low mood.",
+    more: [FILE_NOTE, "Lines you quoted from someone else are cut before scoring."],
+    howTo: ["In Discord: User Settings, Data and Privacy, Request all of my data.", "Choose the package .zip here."],
+  },
+  youtube: {
+    name: "YouTube (Google Takeout)",
+    group: "Data files",
+    kind: "file",
+    reads: "Your YouTube watch and search history from Google Takeout. Only the times; titles are not read.",
+    keeps: "Weekly: how much you watched and searched, and how much of it was after midnight.",
+    more: ["YouTube no longer offers watch history through its API, so it is a file."],
+    howTo: ["At takeout.google.com, choose YouTube and YouTube Music, and set history to JSON.", "Choose the .zip here."],
+  },
+};
+
+export const GROUP_ORDER = ["School", "Email and calendar", "Music", "Sleep and steps", "Phone", "Data files"];

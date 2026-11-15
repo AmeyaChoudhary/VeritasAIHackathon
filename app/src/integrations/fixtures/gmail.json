@@ -1,0 +1,624 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "profile": {
+  "emailAddress": "maya.r@example.com"
+ },
+ "list": [
+  {
+   "messages": [
+    {
+     "id": "m9s",
+     "threadId": "t9"
+    },
+    {
+     "id": "m8s",
+     "threadId": "t8"
+    },
+    {
+     "id": "m4s",
+     "threadId": "t4"
+    },
+    {
+     "id": "m7s",
+     "threadId": "t7"
+    },
+    {
+     "id": "m6s",
+     "threadId": "t6"
+    }
+   ],
+   "nextPageToken": "p2",
+   "resultSizeEstimate": 10
+  },
+  {
+   "messages": [
+    {
+     "id": "m3s2",
+     "threadId": "t3"
+    },
+    {
+     "id": "m3s1",
+     "threadId": "t3"
+    },
+    {
+     "id": "m2s",
+     "threadId": "t2"
+    },
+    {
+     "id": "m5s",
+     "threadId": "t5"
+    },
+    {
+     "id": "m1s",
+     "threadId": "t1"
+    }
+   ],
+   "resultSizeEstimate": 10
+  }
+ ],
+ "threads": {
+  "t1": {
+   "messages": [
+    {
+     "id": "m1a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1793631600000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m1a@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m1s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1793640600000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m1s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m1a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t2": {
+   "messages": [
+    {
+     "id": "m2a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1793883600000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m2a@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m2s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1793928000000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m2s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m2a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t3": {
+   "messages": [
+    {
+     "id": "m3s1",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794254400000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m3s1@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m3a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1794256200000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m3a@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m3s1@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m3s2",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794258000000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m3s2@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m3a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t4": {
+   "messages": [
+    {
+     "id": "m4a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1794520800000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m4a@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m4s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794610800000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m4s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m4a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t5": {
+   "messages": [
+    {
+     "id": "m5a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1793383200000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m5a@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m5s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1793732400000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m5s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m5a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t6": {
+   "messages": [
+    {
+     "id": "m6s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794326400000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m6s@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t7": {
+   "messages": [
+    {
+     "id": "m7a",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1794391200000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m7a@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m7b",
+     "labelIds": [
+      "INBOX"
+     ],
+     "internalDate": "1794394800000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m7b@mail.example.com>"
+       }
+      ]
+     }
+    },
+    {
+     "id": "m7s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794398400000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m7s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<m7a@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t8": {
+   "messages": [
+    {
+     "id": "m8s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794646800000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m8s@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "t9": {
+   "messages": [
+    {
+     "id": "m9s",
+     "labelIds": [
+      "SENT"
+     ],
+     "internalDate": "1794650400000",
+     "payload": {
+      "headers": [
+       {
+        "name": "Message-ID",
+        "value": "<m9s@mail.example.com>"
+       },
+       {
+        "name": "In-Reply-To",
+        "value": "<gone@mail.example.com>"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ },
+ "messages": {
+  "m1s": {
+   "id": "m1s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1793640600000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "WWVzISBJJ2xsIGJlIHRoZXJlIGFyb3VuZCAyLiBDYW4geW91IGJyaW5nIHRoZSBzcGVha2VyPwoKT24gTW9uLCBOb3YgMiwgMjAyNiBhdCA3OjAwIEFNIEpvcmRhbiA8am9yZGFuQGV4YW1wbGUuY29tPiB3cm90ZToKPiBoZXkgYXJlIHlvdSBjb21pbmcgc2F0dXJkYXk_Cj4gd2UgY291bGQgZG8gdGhlIGxha2UgYWZ0ZXIK"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-WWVzISBJJ2xsIGJlIHRoZXJlIGFyb3VuZCAyLiBDYW4geW91IGJyaW5nIHRoZSBzcGVha2VyPwoKT24gTW9uLCBOb3YgMiwgMjAyNiBhdCA3OjAwIEFNIEpvcmRhbiA8am9yZGFuQGV4YW1wbGUuY29tPiB3cm90ZToKPiBoZXkgYXJlIHlvdSBjb21pbmcgc2F0dXJkYXk_Cj4gd2UgY291bGQgZG8gdGhlIGxha2UgYWZ0ZXIKPC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m2s": {
+   "id": "m2s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1793928000000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "VGhhbmsgeW91IGZvciB0aGUgZXh0ZW5zaW9uLiBJIHdpbGwgc2VuZCB0aGUgZXNzYXkgYnkgRnJpZGF5LgoKT24gVGh1LCBOb3YgNSwgMjAyNiBhdCA1OjAwIEFNIE1yLiBPa2Fmb3IKPG9rYWZvckBleGFtcGxlLmVkdT4gd3JvdGU6Cgo-IE1heWEsIHlvdSBjYW4gaGF2ZSB1bnRpbCBGcmlkYXkuCg"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-VGhhbmsgeW91IGZvciB0aGUgZXh0ZW5zaW9uLiBJIHdpbGwgc2VuZCB0aGUgZXNzYXkgYnkgRnJpZGF5LgoKT24gVGh1LCBOb3YgNSwgMjAyNiBhdCA1OjAwIEFNIE1yLiBPa2Fmb3IKPG9rYWZvckBleGFtcGxlLmVkdT4gd3JvdGU6Cgo-IE1heWEsIHlvdSBjYW4gaGF2ZSB1bnRpbCBGcmlkYXkuCjwvZGl2Pg"
+      }
+     }
+    ]
+   }
+  },
+  "m3s1": {
+   "id": "m3s1",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794254400000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "RG9lcyBhbnlvbmUgaGF2ZSB0aGUgbm90ZXMgZnJvbSBjaGVtaXN0cnkgdG9kYXk_"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-RG9lcyBhbnlvbmUgaGF2ZSB0aGUgbm90ZXMgZnJvbSBjaGVtaXN0cnkgdG9kYXk_PC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m3s2": {
+   "id": "m3s2",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794258000000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "dGhhbmtzIHNvIG11Y2gsIHlvdSBhcmUgYSBsaWZlc2F2ZXIKPiBoZXJlIHlvdSBnbywgcGFnZSA0IHRvIDkK"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-dGhhbmtzIHNvIG11Y2gsIHlvdSBhcmUgYSBsaWZlc2F2ZXIKPiBoZXJlIHlvdSBnbywgcGFnZSA0IHRvIDkKPC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m4s": {
+   "id": "m4s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794610800000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "c29ycnkgZm9yIHRoZSBzbG93IHJlcGx5LiBob25lc3RseSBzbyB0aXJlZCBhbmQgc2FkIGxhdGVseSwgSSBqdXN0IGZlZWwgZW1wdHkK"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-c29ycnkgZm9yIHRoZSBzbG93IHJlcGx5LiBob25lc3RseSBzbyB0aXJlZCBhbmQgc2FkIGxhdGVseSwgSSBqdXN0IGZlZWwgZW1wdHkKPC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m5s": {
+   "id": "m5s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1793732400000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "bG9sIG5vYm9keSB3b3VsZCBtaXNzIG1lIGlmIGkgc2tpcHBlZCB0aGUgcGFydHkgYW55d2F5"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-bG9sIG5vYm9keSB3b3VsZCBtaXNzIG1lIGlmIGkgc2tpcHBlZCB0aGUgcGFydHkgYW55d2F5PC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m7s": {
+   "id": "m7s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794398400000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "c3VyZSwgc2VlIHlvdSB0aGVu"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-c3VyZSwgc2VlIHlvdSB0aGVuPC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m8s": {
+   "id": "m8s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794646800000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "RllJCgotLS0tLS0tLS0tIEZvcndhcmRlZCBtZXNzYWdlIC0tLS0tLS0tLQpGcm9tOiBTb21lYm9keSA8c29tZWJvZHlAZXhhbXBsZS5jb20-CkRhdGU6IEZyaSwgTm92IDEzLCAyMDI2IGF0IDg6MDAgUE0KU3ViamVjdDogbHlyaWNzClRvOiBNYXlhIFIgPG1heWEuckBleGFtcGxlLmNvbT4KCkkgd2FudCB0byBkaWUK"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-RllJCgotLS0tLS0tLS0tIEZvcndhcmRlZCBtZXNzYWdlIC0tLS0tLS0tLQpGcm9tOiBTb21lYm9keSA8c29tZWJvZHlAZXhhbXBsZS5jb20-CkRhdGU6IEZyaSwgTm92IDEzLCAyMDI2IGF0IDg6MDAgUE0KU3ViamVjdDogbHlyaWNzClRvOiBNYXlhIFIgPG1heWEuckBleGFtcGxlLmNvbT4KCkkgd2FudCB0byBkaWUKPC9kaXY-"
+      }
+     }
+    ]
+   }
+  },
+  "m9s": {
+   "id": "m9s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794650400000",
+   "payload": {
+    "mimeType": "multipart/alternative",
+    "body": {},
+    "parts": [
+     {
+      "mimeType": "text/plain",
+      "body": {
+       "data": "b2s"
+      }
+     },
+     {
+      "mimeType": "text/html",
+      "body": {
+       "data": "PGRpdiBkaXI9Imx0ciI-b2s8L2Rpdj4"
+      }
+     }
+    ]
+   }
+  },
+  "m6s": {
+   "id": "m6s",
+   "labelIds": [
+    "SENT"
+   ],
+   "internalDate": "1794326400000",
+   "payload": {
+    "mimeType": "text/html",
+    "body": {
+     "data": "PHA-SSBjYW4ndCBtYWtlIHByYWN0aWNlIG9uIFRodXJzZGF5LCBzb3JyeS48L3A-"
+    }
+   }
+  }
+ }
+}

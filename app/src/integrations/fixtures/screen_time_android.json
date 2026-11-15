@@ -1,0 +1,105 @@
+{
+ "source": "android_usage_stats",
+ "version": 1,
+ "generated": "2026-11-02T08:00:00Z",
+ "days": [
+  {
+   "date": "2026-10-19",
+   "screen_minutes": 245,
+   "night_minutes": 0,
+   "first_use": "07:05",
+   "last_use": "23:20"
+  },
+  {
+   "date": "2026-10-20",
+   "screen_minutes": 260,
+   "night_minutes": 0,
+   "first_use": "06:55",
+   "last_use": "23:05"
+  },
+  {
+   "date": "2026-10-21",
+   "screen_minutes": 230,
+   "night_minutes": 0,
+   "first_use": "07:10",
+   "last_use": "23:59"
+  },
+  {
+   "date": "2026-10-22",
+   "screen_minutes": 250,
+   "night_minutes": 25,
+   "first_use": "00:00",
+   "last_use": "23:40"
+  },
+  {
+   "date": "2026-10-23",
+   "screen_minutes": 300,
+   "night_minutes": 0,
+   "first_use": "08:30",
+   "last_use": "23:10"
+  },
+  {
+   "date": "2026-10-24",
+   "screen_minutes": 320,
+   "night_minutes": 30,
+   "first_use": "01:15",
+   "last_use": "22:50"
+  },
+  {
+   "date": "2026-10-25",
+   "screen_minutes": null,
+   "night_minutes": 0,
+   "first_use": "09:40",
+   "last_use": "23:00"
+  },
+  {
+   "date": "2026-10-26",
+   "screen_minutes": 245,
+   "night_minutes": 0,
+   "first_use": "07:05",
+   "last_use": "23:20"
+  },
+  {
+   "date": "2026-10-27",
+   "screen_minutes": 260,
+   "night_minutes": 0,
+   "first_use": "06:55",
+   "last_use": "23:05"
+  },
+  {
+   "date": "2026-10-28",
+   "screen_minutes": 230,
+   "night_minutes": 0,
+   "first_use": "07:10",
+   "last_use": "23:59"
+  },
+  {
+   "date": "2026-10-29",
+   "screen_minutes": 250,
+   "night_minutes": 25,
+   "first_use": "00:00",
+   "last_use": "23:40"
+  },
+  {
+   "date": "2026-10-30",
+   "screen_minutes": 300,
+   "night_minutes": 0,
+   "first_use": "08:30",
+   "last_use": "23:10"
+  },
+  {
+   "date": "2026-10-31",
+   "screen_minutes": 320,
+   "night_minutes": 30,
+   "first_use": "01:15",
+   "last_use": "22:50"
+  },
+  {
+   "date": "2026-11-01",
+   "screen_minutes": null,
+   "night_minutes": 0,
+   "first_use": "09:40",
+   "last_use": "23:00"
+  }
+ ]
+}

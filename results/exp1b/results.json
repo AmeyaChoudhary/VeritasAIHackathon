@@ -1,0 +1,6665 @@
+{
+  "generated": "2026-11-14",
+  "dataset": "College Experience Study (Dartmouth), CC BY-NC-SA 4.0",
+  "label": "PHQ-2 >= 3 (PHQ-4 items 3 and 4), the answer nearest the end of each week",
+  "metric_notes": {
+    "sens_at_80_spec": "Interpolated test-ROC sensitivity at 80% specificity. Descriptive only: the threshold is read off the test ROC curve, and tied scores are interpolated. It is not a validated operating threshold.",
+    "intervals": "95% percentile intervals from 1000 resamples of students, conditional on the fitted predictions. They do not include refitting or choosing among models.",
+    "model_choice": "Rows marked kind=model are exploratory, model-specific cross-validation estimates. Rows marked kind=nested choose the model inside each training part."
+  },
+  "settings": {
+    "seed": 20261114,
+    "bootstrap_draws": 1000,
+    "folds": 5,
+    "min_past_weeks_for_z": 4,
+    "z_clip": 5.0,
+    "leak_flag_auc": 0.9,
+    "personal_n": [
+      8,
+      16
+    ],
+    "personal_min_test_weeks": 4,
+    "term_min_labelled_weeks": 4,
+    "term_min_valid_weeks": 4,
+    "change_rise_points": 2,
+    "change_min_prior_answers": 4,
+    "specificity_target": 0.8
+  },
+  "data": {
+    "students": 213,
+    "labelled_weeks": 16886,
+    "base_rate": 0.1286,
+    "daily_features": 171,
+    "passive_features": 686,
+    "checkin_features": 19,
+    "before_answer_weeks": 16684,
+    "before_answer_students": 213,
+    "before_answer_base_rate": 0.1289,
+    "before_answer_features": 686,
+    "weeks_in_both": 16581
+  },
+  "feature_families": {
+    "mean_cols": 171,
+    "sd_cols": 171,
+    "z_cols": 171,
+    "lag_cols": 171,
+    "checkin_cols": 19,
+    "checkin_lastweek_cols": 6,
+    "checkin_single_cols": 6,
+    "separated_cols": 16,
+    "prospective_cols": 686,
+    "core_z_cols": 6,
+    "context_cols": 2
+  },
+  "data_terms": {
+    "ces": {
+      "name": "College Experience Study (Dartmouth, 2017 to 2022)",
+      "source": "Kaggle dataset subigyanepal/college-experience-dataset, already in data/ces/",
+      "license": "CC BY-NC-SA 4.0",
+      "terms": "Academic use only. No re-identification. No per-student rows in any output. Cite Nepal et al., IMWUT 2024."
+    },
+    "depresjon": {
+      "name": "Depresjon (Simula Research Laboratory)",
+      "source": "https://datasets.simula.no/depresjon/ , file depresjon.zip (5.4 MB), no account or agreement",
+      "license": "No licence named. The page's terms of use ask that any document reporting results cites Garcia-Ceja et al., MMSys 2018.",
+      "terms": "Cite the dataset paper."
+    },
+    "studentlife": {
+      "name": "StudentLife 2013 (Dartmouth), RData copy",
+      "source": "Zenodo record 3529253, file dataset_rds.zip (230 MB), open access, no account. The original site studentlife.cs.dartmouth.edu did not answer from this machine.",
+      "license": "CC BY 4.0 on the Zenodo record",
+      "terms": "Cite Wang et al., UbiComp 2014. The original site's own terms could not be read because it was unreachable."
+    }
+  },
+  "term": {
+    "student_terms": 1949,
+    "students": 213,
+    "base_rate": 0.0857,
+    "share_with_previous_term": 0.8907,
+    "median_labelled_weeks_per_term": 9.0,
+    "nested_choices": [
+      "rf",
+      "logistic",
+      "hgb",
+      "rf",
+      "rf"
+    ]
+  },
+  "change": {
+    "rows": 16681,
+    "students": 213,
+    "base_rate": 0.0647
+  },
+  "checkin": {
+    "same_day_share_phq2_high_by_pam_block": {
+      "pam_block_top_left": 0.205,
+      "pam_block_top_right": 0.0897,
+      "pam_block_bottom_left": 0.0777,
+      "pam_block_bottom_right": 0.2084
+    },
+    "share_weeks_with_single_lastweek_checkin": 0.8523
+  },
+  "personal": {
+    "first_8": {
+      "students": 206,
+      "test_weeks": 14769,
+      "min_days_between_last_training_answer_and_test_answer": 14,
+      "median_raw_phq2_answers_before_last_training_week": 20.0
+    },
+    "first_16": {
+      "students": 191,
+      "test_weeks": 13134,
+      "min_days_between_last_training_answer_and_test_answer": 14,
+      "median_raw_phq2_answers_before_last_training_week": 33.0
+    }
+  },
+  "label_reliability": {
+    "pairs_1_to_3_days_apart": 12116,
+    "share_status_flips": 0.0718,
+    "share_high_first_then_not_high": 0.3064,
+    "cohen_kappa": 0.648,
+    "same_score_share": 0.7089
+  },
+  "external": {
+    "depresjon": {
+      "participants": 55,
+      "depressed": 23,
+      "controls": 32,
+      "full_days": 1029,
+      "day_features": [
+        "mean_log_activity",
+        "sd_log_activity",
+        "share_zero_minutes",
+        "night_mean_log_activity",
+        "day_mean_log_activity",
+        "evening_mean_log_activity",
+        "share_active_minutes",
+        "night_minus_day"
+      ],
+      "all_zero_days_removed": 70,
+      "people_with_all_zero_days": 12,
+      "used": true,
+      "label": "Depressed patient (unipolar or bipolar) against healthy control"
+    },
+    "studentlife": {
+      "features": [
+        "moving_share",
+        "conversation_hours",
+        "conversation_count",
+        "dark_hours",
+        "dark_count",
+        "phonelock_hours",
+        "phonelock_count",
+        "phonecharge_hours",
+        "phonecharge_count",
+        "log_km",
+        "places",
+        "call_events_count"
+      ],
+      "first_version_features": [
+        "moving_share",
+        "conversation_hours",
+        "conversation_count",
+        "dark_hours",
+        "dark_count",
+        "phonelock_hours",
+        "phonelock_count",
+        "phonecharge_hours",
+        "phonecharge_count",
+        "log_km",
+        "places",
+        "logger_sms_records_count",
+        "logger_call_records_count"
+      ],
+      "used": true,
+      "students_with_post_phq9": 38,
+      "post_phq9_at_10_or_more": 7,
+      "post_phq9_at_5_or_more": 19,
+      "median_days_of_data": 62.0,
+      "label": "PHQ-9 at the end of the 10-week term"
+    }
+  },
+  "rows": [
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.571,
+      "auc_ci": [
+        0.5134,
+        0.628
+      ],
+      "pr_auc": 0.1703,
+      "pr_auc_ci": [
+        0.1296,
+        0.2102
+      ],
+      "sens_at_80_spec": 0.3035,
+      "sens_at_80_spec_ci": [
+        0.2422,
+        0.3709
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.5725,
+      "n_features": 686
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.569,
+      "auc_ci": [
+        0.5197,
+        0.6249
+      ],
+      "pr_auc": 0.1633,
+      "pr_auc_ci": [
+        0.1239,
+        0.2044
+      ],
+      "sens_at_80_spec": 0.2754,
+      "sens_at_80_spec_ci": [
+        0.2172,
+        0.3466
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.5765,
+      "n_features": 686
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.578,
+      "auc_ci": [
+        0.5212,
+        0.6313
+      ],
+      "pr_auc": 0.1616,
+      "pr_auc_ci": [
+        0.123,
+        0.2036
+      ],
+      "sens_at_80_spec": 0.2837,
+      "sens_at_80_spec_ci": [
+        0.2181,
+        0.3555
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.581,
+      "n_features": 686
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Gradient boosting, own-past z-scores only",
+      "kind": "variant",
+      "auc": 0.5177,
+      "auc_ci": [
+        0.4674,
+        0.569
+      ],
+      "pr_auc": 0.1353,
+      "pr_auc_ci": [
+        0.1066,
+        0.1704
+      ],
+      "sens_at_80_spec": 0.2096,
+      "sens_at_80_spec_ci": [
+        0.1623,
+        0.2651
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.5647,
+      "n_features": 173
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Logistic regression, scored on the rows 1b also has",
+      "kind": "variant",
+      "auc": 0.5692,
+      "auc_ci": [
+        0.511,
+        0.6266
+      ],
+      "pr_auc": 0.1704,
+      "pr_auc_ci": [
+        0.1291,
+        0.2108
+      ],
+      "sens_at_80_spec": 0.3029,
+      "sens_at_80_spec_ci": [
+        0.2402,
+        0.3724
+      ],
+      "base_rate": 0.129,
+      "n_rows": 16581,
+      "n_positive": 2139,
+      "n_students": 213,
+      "within_student_auc": 0.5714
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Gradient boosting (HistGB), scored on the rows 1b also has",
+      "kind": "variant",
+      "auc": 0.5669,
+      "auc_ci": [
+        0.517,
+        0.6227
+      ],
+      "pr_auc": 0.163,
+      "pr_auc_ci": [
+        0.1243,
+        0.2042
+      ],
+      "sens_at_80_spec": 0.2749,
+      "sens_at_80_spec_ci": [
+        0.2159,
+        0.3444
+      ],
+      "base_rate": 0.129,
+      "n_rows": 16581,
+      "n_positive": 2139,
+      "n_students": 213,
+      "within_student_auc": 0.5756
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Random forest, scored on the rows 1b also has",
+      "kind": "variant",
+      "auc": 0.5764,
+      "auc_ci": [
+        0.5189,
+        0.6299
+      ],
+      "pr_auc": 0.1614,
+      "pr_auc_ci": [
+        0.1232,
+        0.2031
+      ],
+      "sens_at_80_spec": 0.2821,
+      "sens_at_80_spec_ci": [
+        0.2199,
+        0.3546
+      ],
+      "base_rate": 0.129,
+      "n_rows": 16581,
+      "n_positive": 2139,
+      "n_students": 213,
+      "within_student_auc": 0.5798
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8773,
+      "auc_ci": [
+        0.8541,
+        0.8982
+      ],
+      "pr_auc": 0.5541,
+      "pr_auc_ci": [
+        0.4572,
+        0.6466
+      ],
+      "sens_at_80_spec": 0.7878,
+      "sens_at_80_spec_ci": [
+        0.7382,
+        0.8421
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7385,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8512,
+      "share_answer_8_to_14_days_before_monday": 0.1038,
+      "share_answer_over_14_days_before_monday": 0.045,
+      "max_answer_age_days": 381.0
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "kind": "baseline",
+      "auc": 0.8828,
+      "auc_ci": [
+        0.8589,
+        0.9039
+      ],
+      "pr_auc": 0.5571,
+      "pr_auc_ci": [
+        0.4544,
+        0.6476
+      ],
+      "sens_at_80_spec": 0.8014,
+      "sens_at_80_spec_ci": [
+        0.7517,
+        0.8582
+      ],
+      "base_rate": 0.1235,
+      "n_rows": 14374,
+      "n_positive": 1775,
+      "n_students": 213,
+      "within_student_auc": 0.745,
+      "share_rows_with_value": 0.8512
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1286,
+      "pr_auc_ci": [
+        0.1017,
+        0.1593
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.5015,
+      "auc_ci": [
+        0.4886,
+        0.514
+      ],
+      "pr_auc": 0.1315,
+      "pr_auc_ci": [
+        0.1246,
+        0.1405
+      ],
+      "sens_at_80_spec": 0.205,
+      "sens_at_80_spec_ci": [
+        0.1892,
+        0.2236
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.605,
+      "auc_ci": [
+        0.562,
+        0.6462
+      ],
+      "pr_auc": 0.1808,
+      "pr_auc_ci": [
+        0.1466,
+        0.2261
+      ],
+      "sens_at_80_spec": 0.3189,
+      "sens_at_80_spec_ci": [
+        0.258,
+        0.3828
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5684,
+      "n_features": 686
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.5827,
+      "auc_ci": [
+        0.5262,
+        0.6367
+      ],
+      "pr_auc": 0.1761,
+      "pr_auc_ci": [
+        0.1285,
+        0.2238
+      ],
+      "sens_at_80_spec": 0.3082,
+      "sens_at_80_spec_ci": [
+        0.2431,
+        0.3837
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5623,
+      "n_features": 686
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.5725,
+      "auc_ci": [
+        0.5128,
+        0.6321
+      ],
+      "pr_auc": 0.1605,
+      "pr_auc_ci": [
+        0.1226,
+        0.2018
+      ],
+      "sens_at_80_spec": 0.289,
+      "sens_at_80_spec_ci": [
+        0.2197,
+        0.3608
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5695,
+      "n_features": 686
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Gradient boosting, own-past z-scores only",
+      "kind": "variant",
+      "auc": 0.5386,
+      "auc_ci": [
+        0.4869,
+        0.5867
+      ],
+      "pr_auc": 0.1416,
+      "pr_auc_ci": [
+        0.109,
+        0.1771
+      ],
+      "sens_at_80_spec": 0.2441,
+      "sens_at_80_spec_ci": [
+        0.1838,
+        0.2994
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5317,
+      "n_features": 173
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8771,
+      "auc_ci": [
+        0.8539,
+        0.8983
+      ],
+      "pr_auc": 0.5531,
+      "pr_auc_ci": [
+        0.4561,
+        0.6462
+      ],
+      "sens_at_80_spec": 0.7869,
+      "sens_at_80_spec_ci": [
+        0.7372,
+        0.8417
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7365,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8537,
+      "share_answer_8_to_14_days_before_monday": 0.1036,
+      "share_answer_over_14_days_before_monday": 0.0427,
+      "max_answer_age_days": 373.0
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "kind": "baseline",
+      "auc": 0.882,
+      "auc_ci": [
+        0.8581,
+        0.9034
+      ],
+      "pr_auc": 0.5555,
+      "pr_auc_ci": [
+        0.4537,
+        0.6458
+      ],
+      "sens_at_80_spec": 0.7997,
+      "sens_at_80_spec_ci": [
+        0.7486,
+        0.8573
+      ],
+      "base_rate": 0.1236,
+      "n_rows": 14243,
+      "n_positive": 1761,
+      "n_students": 213,
+      "within_student_auc": 0.7425,
+      "share_rows_with_value": 0.8537
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1289,
+      "pr_auc_ci": [
+        0.1015,
+        0.1593
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4988,
+      "auc_ci": [
+        0.4848,
+        0.5126
+      ],
+      "pr_auc": 0.128,
+      "pr_auc_ci": [
+        0.1214,
+        0.136
+      ],
+      "sens_at_80_spec": 0.199,
+      "sens_at_80_spec_ci": [
+        0.1777,
+        0.2161
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Own model only (6 core signals)",
+      "kind": "model",
+      "auc": 0.5949,
+      "auc_ci": [
+        0.5464,
+        0.6471
+      ],
+      "pr_auc": 0.218,
+      "pr_auc_ci": [
+        0.1561,
+        0.3021
+      ],
+      "sens_at_80_spec": 0.3752,
+      "sens_at_80_spec_ci": [
+        0.3003,
+        0.4565
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5087,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "kind": "model",
+      "auc": 0.6589,
+      "auc_ci": [
+        0.588,
+        0.7317
+      ],
+      "pr_auc": 0.2962,
+      "pr_auc_ci": [
+        0.2376,
+        0.4092
+      ],
+      "sens_at_80_spec": 0.4427,
+      "sens_at_80_spec_ci": [
+        0.3366,
+        0.5523
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept and signal weights",
+      "kind": "model",
+      "auc": 0.6475,
+      "auc_ci": [
+        0.5754,
+        0.7205
+      ],
+      "pr_auc": 0.2706,
+      "pr_auc_ci": [
+        0.1884,
+        0.3645
+      ],
+      "sens_at_80_spec": 0.4337,
+      "sens_at_80_spec_ci": [
+        0.3397,
+        0.5415
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.549,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting, no personal step",
+      "kind": "baseline",
+      "auc": 0.5755,
+      "auc_ci": [
+        0.5156,
+        0.6353
+      ],
+      "pr_auc": 0.1815,
+      "pr_auc_ci": [
+        0.1334,
+        0.234
+      ],
+      "sens_at_80_spec": 0.3042,
+      "sens_at_80_spec_ci": [
+        0.2338,
+        0.3747
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 8 weeks",
+      "kind": "baseline",
+      "auc": 0.7465,
+      "auc_ci": [
+        0.6947,
+        0.796
+      ],
+      "pr_auc": 0.3355,
+      "pr_auc_ci": [
+        0.2391,
+        0.4231
+      ],
+      "sens_at_80_spec": 0.4503,
+      "sens_at_80_spec_ci": [
+        0.3354,
+        0.6188
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Own share of high weeks in the first 8 weeks",
+      "kind": "baseline",
+      "auc": 0.6812,
+      "auc_ci": [
+        0.6172,
+        0.7466
+      ],
+      "pr_auc": 0.2815,
+      "pr_auc_ci": [
+        0.199,
+        0.3874
+      ],
+      "sens_at_80_spec": 0.5241,
+      "sens_at_80_spec_ci": [
+        0.4004,
+        0.6434
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8807,
+      "auc_ci": [
+        0.8557,
+        0.9016
+      ],
+      "pr_auc": 0.5702,
+      "pr_auc_ci": [
+        0.4603,
+        0.6557
+      ],
+      "sens_at_80_spec": 0.7894,
+      "sens_at_80_spec_ci": [
+        0.7344,
+        0.8381
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.7289,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8491,
+      "share_answer_8_to_14_days_before_monday": 0.1053,
+      "share_answer_over_14_days_before_monday": 0.0456,
+      "max_answer_age_days": 373.0,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1354,
+      "pr_auc_ci": [
+        0.1047,
+        0.1678
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Label-shuffle control (pooled + own intercept)",
+      "kind": "control",
+      "auc": 0.5098,
+      "auc_ci": [
+        0.4952,
+        0.5227
+      ],
+      "pr_auc": 0.1323,
+      "pr_auc_ci": [
+        0.1253,
+        0.1419
+      ],
+      "sens_at_80_spec": 0.2083,
+      "sens_at_80_spec_ci": [
+        0.1877,
+        0.228
+      ],
+      "base_rate": 0.1278,
+      "n_rows": 14769,
+      "n_positive": 1887,
+      "n_students": 206,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History only (own average and share high): Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7191,
+      "auc_ci": [
+        0.6575,
+        0.7774
+      ],
+      "pr_auc": 0.3207,
+      "pr_auc_ci": [
+        0.2297,
+        0.4296
+      ],
+      "sens_at_80_spec": 0.4528,
+      "sens_at_80_spec_ci": [
+        0.3299,
+        0.6346
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus phone data before the answer: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.6876,
+      "auc_ci": [
+        0.6363,
+        0.739
+      ],
+      "pr_auc": 0.2579,
+      "pr_auc_ci": [
+        0.2067,
+        0.3248
+      ],
+      "sens_at_80_spec": 0.4292,
+      "sens_at_80_spec_ci": [
+        0.3519,
+        0.5267
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5668,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History only (own average and share high): Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.6821,
+      "auc_ci": [
+        0.618,
+        0.7413
+      ],
+      "pr_auc": 0.2336,
+      "pr_auc_ci": [
+        0.1641,
+        0.2979
+      ],
+      "sens_at_80_spec": 0.4183,
+      "sens_at_80_spec_ci": [
+        0.3013,
+        0.5501
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.7023,
+      "auc_ci": [
+        0.6487,
+        0.7605
+      ],
+      "pr_auc": 0.246,
+      "pr_auc_ci": [
+        0.182,
+        0.3008
+      ],
+      "sens_at_80_spec": 0.4387,
+      "sens_at_80_spec_ci": [
+        0.3325,
+        0.5503
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5966,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7225,
+      "auc_ci": [
+        0.6603,
+        0.7833
+      ],
+      "pr_auc": 0.3364,
+      "pr_auc_ci": [
+        0.2508,
+        0.4552
+      ],
+      "sens_at_80_spec": 0.4807,
+      "sens_at_80_spec_ci": [
+        0.3685,
+        0.6166
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Own model only (6 core signals)",
+      "kind": "model",
+      "auc": 0.6347,
+      "auc_ci": [
+        0.5817,
+        0.6879
+      ],
+      "pr_auc": 0.2658,
+      "pr_auc_ci": [
+        0.1914,
+        0.3463
+      ],
+      "sens_at_80_spec": 0.4428,
+      "sens_at_80_spec_ci": [
+        0.359,
+        0.5331
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5093,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "kind": "model",
+      "auc": 0.7208,
+      "auc_ci": [
+        0.6618,
+        0.7745
+      ],
+      "pr_auc": 0.3569,
+      "pr_auc_ci": [
+        0.2954,
+        0.4492
+      ],
+      "sens_at_80_spec": 0.4907,
+      "sens_at_80_spec_ci": [
+        0.3921,
+        0.5969
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept and signal weights",
+      "kind": "model",
+      "auc": 0.6791,
+      "auc_ci": [
+        0.6243,
+        0.7356
+      ],
+      "pr_auc": 0.2891,
+      "pr_auc_ci": [
+        0.2151,
+        0.3636
+      ],
+      "sens_at_80_spec": 0.457,
+      "sens_at_80_spec_ci": [
+        0.3685,
+        0.554
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.54,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting, no personal step",
+      "kind": "baseline",
+      "auc": 0.5667,
+      "auc_ci": [
+        0.4978,
+        0.6336
+      ],
+      "pr_auc": 0.1829,
+      "pr_auc_ci": [
+        0.1412,
+        0.2409
+      ],
+      "sens_at_80_spec": 0.2874,
+      "sens_at_80_spec_ci": [
+        0.2154,
+        0.373
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 16 weeks",
+      "kind": "baseline",
+      "auc": 0.7973,
+      "auc_ci": [
+        0.7563,
+        0.8346
+      ],
+      "pr_auc": 0.4037,
+      "pr_auc_ci": [
+        0.3059,
+        0.4914
+      ],
+      "sens_at_80_spec": 0.6336,
+      "sens_at_80_spec_ci": [
+        0.4914,
+        0.7396
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Own share of high weeks in the first 16 weeks",
+      "kind": "baseline",
+      "auc": 0.763,
+      "auc_ci": [
+        0.7081,
+        0.8088
+      ],
+      "pr_auc": 0.3796,
+      "pr_auc_ci": [
+        0.2829,
+        0.4682
+      ],
+      "sens_at_80_spec": 0.5854,
+      "sens_at_80_spec_ci": [
+        0.4604,
+        0.7144
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8822,
+      "auc_ci": [
+        0.8547,
+        0.9062
+      ],
+      "pr_auc": 0.5824,
+      "pr_auc_ci": [
+        0.4695,
+        0.6728
+      ],
+      "sens_at_80_spec": 0.7903,
+      "sens_at_80_spec_ci": [
+        0.7308,
+        0.8471
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.7238,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8468,
+      "share_answer_8_to_14_days_before_monday": 0.1054,
+      "share_answer_over_14_days_before_monday": 0.0478,
+      "max_answer_age_days": 373.0,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1398,
+      "pr_auc_ci": [
+        0.1089,
+        0.1753
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Label-shuffle control (pooled + own intercept)",
+      "kind": "control",
+      "auc": 0.5024,
+      "auc_ci": [
+        0.4875,
+        0.5187
+      ],
+      "pr_auc": 0.1272,
+      "pr_auc_ci": [
+        0.1198,
+        0.1359
+      ],
+      "sens_at_80_spec": 0.2013,
+      "sens_at_80_spec_ci": [
+        0.1829,
+        0.2241
+      ],
+      "base_rate": 0.1267,
+      "n_rows": 13134,
+      "n_positive": 1664,
+      "n_students": 191,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History only (own average and share high): Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7987,
+      "auc_ci": [
+        0.7556,
+        0.837
+      ],
+      "pr_auc": 0.4168,
+      "pr_auc_ci": [
+        0.3182,
+        0.5042
+      ],
+      "sens_at_80_spec": 0.6576,
+      "sens_at_80_spec_ci": [
+        0.5179,
+        0.7637
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus phone data before the answer: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7593,
+      "auc_ci": [
+        0.7189,
+        0.7968
+      ],
+      "pr_auc": 0.3284,
+      "pr_auc_ci": [
+        0.2525,
+        0.3982
+      ],
+      "sens_at_80_spec": 0.5436,
+      "sens_at_80_spec_ci": [
+        0.4651,
+        0.6297
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5667,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History only (own average and share high): Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.6709,
+      "auc_ci": [
+        0.5874,
+        0.7428
+      ],
+      "pr_auc": 0.2958,
+      "pr_auc_ci": [
+        0.2092,
+        0.3924
+      ],
+      "sens_at_80_spec": 0.4159,
+      "sens_at_80_spec_ci": [
+        0.2853,
+        0.5497
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.7622,
+      "auc_ci": [
+        0.7131,
+        0.8057
+      ],
+      "pr_auc": 0.3399,
+      "pr_auc_ci": [
+        0.2753,
+        0.4282
+      ],
+      "sens_at_80_spec": 0.5305,
+      "sens_at_80_spec_ci": [
+        0.4067,
+        0.644
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5699,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7957,
+      "auc_ci": [
+        0.7524,
+        0.8339
+      ],
+      "pr_auc": 0.4149,
+      "pr_auc_ci": [
+        0.315,
+        0.501
+      ],
+      "sens_at_80_spec": 0.5978,
+      "sens_at_80_spec_ci": [
+        0.4737,
+        0.7222
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.6269,
+      "auc_ci": [
+        0.565,
+        0.6962
+      ],
+      "pr_auc": 0.1439,
+      "pr_auc_ci": [
+        0.0943,
+        0.2039
+      ],
+      "sens_at_80_spec": 0.3653,
+      "sens_at_80_spec_ci": [
+        0.2654,
+        0.4791
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.6269,
+      "n_features": 348
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.596,
+      "auc_ci": [
+        0.5066,
+        0.6837
+      ],
+      "pr_auc": 0.117,
+      "pr_auc_ci": [
+        0.0816,
+        0.1636
+      ],
+      "sens_at_80_spec": 0.3293,
+      "sens_at_80_spec_ci": [
+        0.2194,
+        0.4452
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.5575,
+      "n_features": 348
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.6063,
+      "auc_ci": [
+        0.5125,
+        0.6901
+      ],
+      "pr_auc": 0.1149,
+      "pr_auc_ci": [
+        0.0757,
+        0.1634
+      ],
+      "sens_at_80_spec": 0.2695,
+      "sens_at_80_spec_ci": [
+        0.1617,
+        0.4121
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.6106,
+      "n_features": 348
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Nested choice among the three models",
+      "kind": "nested",
+      "auc": 0.5944,
+      "auc_ci": [
+        0.5141,
+        0.6757
+      ],
+      "pr_auc": 0.1299,
+      "pr_auc_ci": [
+        0.0804,
+        0.1897
+      ],
+      "sens_at_80_spec": 0.3377,
+      "sens_at_80_spec_ci": [
+        0.1956,
+        0.4663
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.5824,
+      "chosen": [
+        "rf",
+        "logistic",
+        "hgb",
+        "rf",
+        "rf"
+      ]
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Last term's average PHQ-2 alone",
+      "kind": "baseline",
+      "auc": 0.9224,
+      "auc_ci": [
+        0.8927,
+        0.9459
+      ],
+      "pr_auc": 0.6679,
+      "pr_auc_ci": [
+        0.5276,
+        0.7772
+      ],
+      "sens_at_80_spec": 0.8683,
+      "sens_at_80_spec_ci": [
+        0.804,
+        0.9227
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.7392,
+      "share_rows_with_value": 0.8907
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Last term's average PHQ-2, rows that have one",
+      "kind": "baseline",
+      "auc": 0.9384,
+      "auc_ci": [
+        0.9119,
+        0.9605
+      ],
+      "pr_auc": 0.6976,
+      "pr_auc_ci": [
+        0.5553,
+        0.809
+      ],
+      "sens_at_80_spec": 0.9051,
+      "sens_at_80_spec_ci": [
+        0.8365,
+        0.9521
+      ],
+      "base_rate": 0.091,
+      "n_rows": 1736,
+      "n_positive": 158,
+      "n_students": 210,
+      "within_student_auc": 0.7292
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.0857,
+      "pr_auc_ci": [
+        0.0591,
+        0.1172
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4913,
+      "auc_ci": [
+        0.4495,
+        0.5333
+      ],
+      "pr_auc": 0.0798,
+      "pr_auc_ci": [
+        0.0681,
+        0.0958
+      ],
+      "sens_at_80_spec": 0.1437,
+      "sens_at_80_spec_ci": [
+        0.0914,
+        0.1975
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.6211,
+      "auc_ci": [
+        0.5794,
+        0.6605
+      ],
+      "pr_auc": 0.098,
+      "pr_auc_ci": [
+        0.0713,
+        0.1389
+      ],
+      "sens_at_80_spec": 0.3411,
+      "sens_at_80_spec_ci": [
+        0.2788,
+        0.4106
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.5912,
+      "n_features": 686
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.5527,
+      "auc_ci": [
+        0.519,
+        0.5894
+      ],
+      "pr_auc": 0.0738,
+      "pr_auc_ci": [
+        0.0604,
+        0.0912
+      ],
+      "sens_at_80_spec": 0.241,
+      "sens_at_80_spec_ci": [
+        0.2016,
+        0.2871
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.5519,
+      "n_features": 686
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Most recent PHQ-2 before Monday minus own running mean",
+      "kind": "baseline",
+      "auc": 0.7791,
+      "auc_ci": [
+        0.7457,
+        0.8092
+      ],
+      "pr_auc": 0.3087,
+      "pr_auc_ci": [
+        0.2454,
+        0.3796
+      ],
+      "sens_at_80_spec": 0.6525,
+      "sens_at_80_spec_ci": [
+        0.6042,
+        0.7068
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.7423
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Own running mean alone",
+      "kind": "baseline",
+      "auc": 0.7641,
+      "auc_ci": [
+        0.7242,
+        0.8031
+      ],
+      "pr_auc": 0.1622,
+      "pr_auc_ci": [
+        0.1142,
+        0.2272
+      ],
+      "sens_at_80_spec": 0.5746,
+      "sens_at_80_spec_ci": [
+        0.4771,
+        0.6551
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.5384
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.0647,
+      "pr_auc_ci": [
+        0.0518,
+        0.0784
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.5136,
+      "auc_ci": [
+        0.4971,
+        0.5291
+      ],
+      "pr_auc": 0.0652,
+      "pr_auc_ci": [
+        0.0606,
+        0.0701
+      ],
+      "sens_at_80_spec": 0.2085,
+      "sens_at_80_spec_ci": [
+        0.1847,
+        0.2311
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer only: Logistic regression",
+      "kind": "model",
+      "auc": 0.605,
+      "auc_ci": [
+        0.562,
+        0.6462
+      ],
+      "pr_auc": 0.1808,
+      "pr_auc_ci": [
+        0.1466,
+        0.2261
+      ],
+      "sens_at_80_spec": 0.3189,
+      "sens_at_80_spec_ci": [
+        0.258,
+        0.3828
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5684,
+      "n_features": 686
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer only: Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.5827,
+      "auc_ci": [
+        0.5262,
+        0.6367
+      ],
+      "pr_auc": 0.1761,
+      "pr_auc_ci": [
+        0.1285,
+        0.2238
+      ],
+      "sens_at_80_spec": 0.3082,
+      "sens_at_80_spec_ci": [
+        0.2431,
+        0.3837
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5623,
+      "n_features": 686
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer only: Random forest",
+      "kind": "model",
+      "auc": 0.5725,
+      "auc_ci": [
+        0.5128,
+        0.6321
+      ],
+      "pr_auc": 0.1605,
+      "pr_auc_ci": [
+        0.1226,
+        0.2018
+      ],
+      "sens_at_80_spec": 0.289,
+      "sens_at_80_spec_ci": [
+        0.2197,
+        0.3608
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5695,
+      "n_features": 686
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Single last-week check-in (latest answer): Logistic regression",
+      "kind": "model",
+      "auc": 0.6924,
+      "auc_ci": [
+        0.6584,
+        0.7272
+      ],
+      "pr_auc": 0.2462,
+      "pr_auc_ci": [
+        0.1856,
+        0.3272
+      ],
+      "sens_at_80_spec": 0.4239,
+      "sens_at_80_spec_ci": [
+        0.3664,
+        0.4873
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6107,
+      "n_features": 6
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Single last-week check-in (latest answer): Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.6893,
+      "auc_ci": [
+        0.6567,
+        0.7249
+      ],
+      "pr_auc": 0.2421,
+      "pr_auc_ci": [
+        0.1828,
+        0.3239
+      ],
+      "sens_at_80_spec": 0.4062,
+      "sens_at_80_spec_ci": [
+        0.3552,
+        0.4701
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6071,
+      "n_features": 6
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Last week's check-ins (mean): Logistic regression",
+      "kind": "model",
+      "auc": 0.7051,
+      "auc_ci": [
+        0.671,
+        0.7403
+      ],
+      "pr_auc": 0.2591,
+      "pr_auc_ci": [
+        0.1938,
+        0.3449
+      ],
+      "sens_at_80_spec": 0.4449,
+      "sens_at_80_spec_ci": [
+        0.3879,
+        0.5087
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6214,
+      "n_features": 6
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Last week's check-ins (mean): Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7024,
+      "auc_ci": [
+        0.6691,
+        0.7384
+      ],
+      "pr_auc": 0.2519,
+      "pr_auc_ci": [
+        0.1918,
+        0.3336
+      ],
+      "sens_at_80_spec": 0.4383,
+      "sens_at_80_spec_ci": [
+        0.3812,
+        0.5013
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6192,
+      "n_features": 6
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history: Logistic regression",
+      "kind": "model",
+      "auc": 0.7797,
+      "auc_ci": [
+        0.7322,
+        0.8238
+      ],
+      "pr_auc": 0.4013,
+      "pr_auc_ci": [
+        0.3384,
+        0.5354
+      ],
+      "sens_at_80_spec": 0.5774,
+      "sens_at_80_spec_ci": [
+        0.4868,
+        0.6777
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6339,
+      "n_features": 19
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history: Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7417,
+      "auc_ci": [
+        0.6962,
+        0.7864
+      ],
+      "pr_auc": 0.2704,
+      "pr_auc_ci": [
+        0.2015,
+        0.3687
+      ],
+      "sens_at_80_spec": 0.4751,
+      "sens_at_80_spec_ci": [
+        0.3796,
+        0.5877
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6128,
+      "n_features": 19
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history: Logistic regression",
+      "kind": "model",
+      "auc": 0.7663,
+      "auc_ci": [
+        0.7228,
+        0.8038
+      ],
+      "pr_auc": 0.357,
+      "pr_auc_ci": [
+        0.2652,
+        0.4535
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.4872,
+        0.6454
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6125,
+      "n_features": 705
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history: Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7629,
+      "auc_ci": [
+        0.7221,
+        0.7974
+      ],
+      "pr_auc": 0.3033,
+      "pr_auc_ci": [
+        0.2378,
+        0.3822
+      ],
+      "sens_at_80_spec": 0.5444,
+      "sens_at_80_spec_ci": [
+        0.4601,
+        0.6233
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6247,
+      "n_features": 705
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history plus earlier PHQ-2 answers: Logistic regression",
+      "kind": "with_history",
+      "auc": 0.8985,
+      "auc_ci": [
+        0.8772,
+        0.9181
+      ],
+      "pr_auc": 0.6152,
+      "pr_auc_ci": [
+        0.5004,
+        0.7032
+      ],
+      "sens_at_80_spec": 0.8312,
+      "sens_at_80_spec_ci": [
+        0.7856,
+        0.8758
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7206,
+      "n_features": 23
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.9016,
+      "auc_ci": [
+        0.8815,
+        0.921
+      ],
+      "pr_auc": 0.6348,
+      "pr_auc_ci": [
+        0.5343,
+        0.72
+      ],
+      "sens_at_80_spec": 0.8331,
+      "sens_at_80_spec_ci": [
+        0.7862,
+        0.8741
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.741,
+      "n_features": 23
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.9041,
+      "auc_ci": [
+        0.8839,
+        0.9225
+      ],
+      "pr_auc": 0.6437,
+      "pr_auc_ci": [
+        0.5678,
+        0.7317
+      ],
+      "sens_at_80_spec": 0.834,
+      "sens_at_80_spec_ci": [
+        0.7866,
+        0.8814
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7441,
+      "n_features": 709
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8771,
+      "auc_ci": [
+        0.8539,
+        0.8983
+      ],
+      "pr_auc": 0.5531,
+      "pr_auc_ci": [
+        0.4561,
+        0.6462
+      ],
+      "sens_at_80_spec": 0.7869,
+      "sens_at_80_spec_ci": [
+        0.7372,
+        0.8417
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7365,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8537,
+      "share_answer_8_to_14_days_before_monday": 0.1036,
+      "share_answer_over_14_days_before_monday": 0.0427,
+      "max_answer_age_days": 373.0
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "kind": "baseline",
+      "auc": 0.882,
+      "auc_ci": [
+        0.8581,
+        0.9034
+      ],
+      "pr_auc": 0.5555,
+      "pr_auc_ci": [
+        0.4537,
+        0.6458
+      ],
+      "sens_at_80_spec": 0.7997,
+      "sens_at_80_spec_ci": [
+        0.7486,
+        0.8573
+      ],
+      "base_rate": 0.1236,
+      "n_rows": 14243,
+      "n_positive": 1761,
+      "n_students": 213,
+      "within_student_auc": 0.7425,
+      "share_rows_with_value": 0.8537
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1289,
+      "pr_auc_ci": [
+        0.1015,
+        0.1593
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4958,
+      "auc_ci": [
+        0.4815,
+        0.5099
+      ],
+      "pr_auc": 0.1277,
+      "pr_auc_ci": [
+        0.1212,
+        0.1358
+      ],
+      "sens_at_80_spec": 0.1881,
+      "sens_at_80_spec_ci": [
+        0.1667,
+        0.2063
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Latest PHQ-2 answered 14 or more days before, alone",
+      "kind": "baseline",
+      "auc": 0.8591,
+      "auc_ci": [
+        0.8327,
+        0.8831
+      ],
+      "pr_auc": 0.5055,
+      "pr_auc_ci": [
+        0.4026,
+        0.6069
+      ],
+      "sens_at_80_spec": 0.7567,
+      "sens_at_80_spec_ci": [
+        0.6983,
+        0.8175
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7025
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Mean of PHQ-2 answers 14 or more days before, alone",
+      "kind": "baseline",
+      "auc": 0.8717,
+      "auc_ci": [
+        0.8445,
+        0.8966
+      ],
+      "pr_auc": 0.5493,
+      "pr_auc_ci": [
+        0.4244,
+        0.6461
+      ],
+      "sens_at_80_spec": 0.7922,
+      "sens_at_80_spec_ci": [
+        0.7318,
+        0.8424
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5931
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Single check-in 14 or more days before: Logistic regression",
+      "kind": "model",
+      "auc": 0.6965,
+      "auc_ci": [
+        0.6624,
+        0.7342
+      ],
+      "pr_auc": 0.2527,
+      "pr_auc_ci": [
+        0.1905,
+        0.3395
+      ],
+      "sens_at_80_spec": 0.4486,
+      "sens_at_80_spec_ci": [
+        0.3865,
+        0.5225
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6004,
+      "n_features": 7
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "All questionnaire inputs 14 or more days before: Logistic regression",
+      "kind": "with_history",
+      "auc": 0.8872,
+      "auc_ci": [
+        0.8635,
+        0.9098
+      ],
+      "pr_auc": 0.5839,
+      "pr_auc_ci": [
+        0.4652,
+        0.6743
+      ],
+      "sens_at_80_spec": 0.8047,
+      "sens_at_80_spec_ci": [
+        0.7556,
+        0.8569
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.681,
+      "n_features": 16
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "All questionnaire inputs 14 or more days before: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.8889,
+      "auc_ci": [
+        0.8659,
+        0.9104
+      ],
+      "pr_auc": 0.574,
+      "pr_auc_ci": [
+        0.4657,
+        0.665
+      ],
+      "sens_at_80_spec": 0.8164,
+      "sens_at_80_spec_ci": [
+        0.7614,
+        0.8617
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7036,
+      "n_features": 16
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Phone before the answer plus those inputs: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.8909,
+      "auc_ci": [
+        0.8688,
+        0.9112
+      ],
+      "pr_auc": 0.586,
+      "pr_auc_ci": [
+        0.5156,
+        0.6847
+      ],
+      "sens_at_80_spec": 0.8145,
+      "sens_at_80_spec_ci": [
+        0.7603,
+        0.86
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7112,
+      "n_features": 702
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1289,
+      "pr_auc_ci": [
+        0.1015,
+        0.1593
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4875,
+      "auc_ci": [
+        0.4753,
+        0.4992
+      ],
+      "pr_auc": 0.1242,
+      "pr_auc_ci": [
+        0.1187,
+        0.1306
+      ],
+      "sens_at_80_spec": 0.192,
+      "sens_at_80_spec_ci": [
+        0.1749,
+        0.2132
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: Logistic regression",
+      "kind": "model",
+      "auc": 0.7052,
+      "auc_ci": [
+        0.551,
+        0.8479
+      ],
+      "pr_auc": 0.6599,
+      "pr_auc_ci": [
+        0.517,
+        0.8559
+      ],
+      "sens_at_80_spec": 0.5826,
+      "sens_at_80_spec_ci": [
+        0.3217,
+        0.8095
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: Random forest",
+      "kind": "model",
+      "auc": 0.8397,
+      "auc_ci": [
+        0.6983,
+        0.9589
+      ],
+      "pr_auc": 0.8745,
+      "pr_auc_ci": [
+        0.764,
+        0.9664
+      ],
+      "sens_at_80_spec": 0.8,
+      "sens_at_80_spec_ci": [
+        0.635,
+        0.96
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: nested choice between the two models",
+      "kind": "nested",
+      "auc": 0.8139,
+      "auc_ci": [
+        0.6713,
+        0.9405
+      ],
+      "pr_auc": 0.8572,
+      "pr_auc_ci": [
+        0.7345,
+        0.9572
+      ],
+      "sens_at_80_spec": 0.7826,
+      "sens_at_80_spec_ci": [
+        0.5946,
+        0.9444
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "chosen": [
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf"
+      ]
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person, all-zero days removed: Logistic regression",
+      "kind": "variant",
+      "auc": 0.7188,
+      "auc_ci": [
+        0.5634,
+        0.8628
+      ],
+      "pr_auc": 0.7091,
+      "pr_auc_ci": [
+        0.5606,
+        0.8756
+      ],
+      "sens_at_80_spec": 0.5391,
+      "sens_at_80_spec_ci": [
+        0.3174,
+        0.8501
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person, all-zero days removed: Random forest",
+      "kind": "variant",
+      "auc": 0.8533,
+      "auc_ci": [
+        0.719,
+        0.9625
+      ],
+      "pr_auc": 0.8881,
+      "pr_auc_ci": [
+        0.7805,
+        0.9719
+      ],
+      "sens_at_80_spec": 0.8261,
+      "sens_at_80_spec_ci": [
+        0.64,
+        0.9583
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.4182,
+      "pr_auc_ci": [
+        0.2909,
+        0.5455
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4158,
+      "auc_ci": [
+        0.2634,
+        0.5729
+      ],
+      "pr_auc": 0.3629,
+      "pr_auc_ci": [
+        0.2422,
+        0.522
+      ],
+      "sens_at_80_spec": 0.0435,
+      "sens_at_80_spec_ci": [
+        0.0,
+        0.3215
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per day, split by person: Random forest",
+      "kind": "variant",
+      "auc": 0.6436,
+      "auc_ci": [
+        0.5204,
+        0.7562
+      ],
+      "pr_auc": 0.509,
+      "pr_auc_ci": [
+        0.339,
+        0.6459
+      ],
+      "sens_at_80_spec": 0.4206,
+      "sens_at_80_spec_ci": [
+        0.2702,
+        0.5806
+      ],
+      "base_rate": 0.3489,
+      "n_rows": 1029,
+      "n_positive": 359,
+      "n_students": 55,
+      "n_features": 8
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: Logistic regression",
+      "kind": "model",
+      "auc": 0.6959,
+      "auc_ci": [
+        0.4285,
+        0.9412
+      ],
+      "pr_auc": 0.3997,
+      "pr_auc_ci": [
+        0.1445,
+        0.6638
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.1329,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "n_features": 12
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: Random forest",
+      "kind": "model",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.4999,
+        0.9688
+      ],
+      "pr_auc": 0.5778,
+      "pr_auc_ci": [
+        0.3973,
+        0.8908
+      ],
+      "sens_at_80_spec": 0.7143,
+      "sens_at_80_spec_ci": [
+        0.2495,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "n_features": 12
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: nested choice between the two models",
+      "kind": "nested",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.5554,
+        0.9426
+      ],
+      "pr_auc": 0.443,
+      "pr_auc_ci": [
+        0.1616,
+        0.6818
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.1667,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "chosen": [
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "logistic",
+        "rf",
+        "logistic",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic"
+      ]
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "First version, with logger record counts in place of calls and texts: Logistic regression",
+      "kind": "note",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.5373,
+        0.9401
+      ],
+      "pr_auc": 0.4204,
+      "pr_auc_ci": [
+        0.1762,
+        0.6876
+      ],
+      "sens_at_80_spec": 0.6,
+      "sens_at_80_spec_ci": [
+        0.1564,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.1842,
+      "pr_auc_ci": [
+        0.0789,
+        0.3158
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "PHQ-9 at the start of term alone",
+      "kind": "baseline",
+      "auc": 0.9355,
+      "auc_ci": [
+        0.8374,
+        1.0
+      ],
+      "pr_auc": 0.752,
+      "pr_auc_ci": [
+        0.5521,
+        1.0
+      ],
+      "sens_at_80_spec": 0.8571,
+      "sens_at_80_spec_ci": [
+        0.6,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.6544,
+      "auc_ci": [
+        0.4481,
+        0.8287
+      ],
+      "pr_auc": 0.2695,
+      "pr_auc_ci": [
+        0.1221,
+        0.4988
+      ],
+      "sens_at_80_spec": 0.4571,
+      "sens_at_80_spec_ci": [
+        0.0,
+        0.8339
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 5",
+      "model": "Term average: Logistic regression",
+      "kind": "model",
+      "auc": 0.5956,
+      "auc_ci": [
+        0.4117,
+        0.776
+      ],
+      "pr_auc": 0.6198,
+      "pr_auc_ci": [
+        0.4113,
+        0.768
+      ],
+      "sens_at_80_spec": 0.4105,
+      "sens_at_80_spec_ci": [
+        0.1882,
+        0.7158
+      ],
+      "base_rate": 0.5,
+      "n_rows": 38,
+      "n_positive": 19,
+      "n_students": 38,
+      "n_features": 12
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 5",
+      "model": "Term average: Random forest",
+      "kind": "model",
+      "auc": 0.5596,
+      "auc_ci": [
+        0.3717,
+        0.7557
+      ],
+      "pr_auc": 0.5701,
+      "pr_auc_ci": [
+        0.3522,
+        0.7326
+      ],
+      "sens_at_80_spec": 0.2632,
+      "sens_at_80_spec_ci": [
+        0.0862,
+        0.6957
+      ],
+      "base_rate": 0.5,
+      "n_rows": 38,
+      "n_positive": 19,
+      "n_students": 38,
+      "n_features": 12
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 5",
+      "model": "Base rate (no information)",
+      "kind": "baseline",
+      "auc": 0.5,
+      "auc_ci": [
+        0.5,
+        0.5
+      ],
+      "pr_auc": 0.5,
+      "pr_auc_ci": [
+        0.3421,
+        0.6579
+      ],
+      "sens_at_80_spec": 0.2,
+      "sens_at_80_spec_ci": [
+        0.2,
+        0.2
+      ],
+      "base_rate": 0.5,
+      "n_rows": 38,
+      "n_positive": 19,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 5",
+      "model": "PHQ-9 at the start of term alone",
+      "kind": "baseline",
+      "auc": 0.8947,
+      "auc_ci": [
+        0.7812,
+        0.9723
+      ],
+      "pr_auc": 0.8843,
+      "pr_auc_ci": [
+        0.7793,
+        0.9734
+      ],
+      "sens_at_80_spec": 0.8105,
+      "sens_at_80_spec_ci": [
+        0.5555,
+        1.0
+      ],
+      "base_rate": 0.5,
+      "n_rows": 38,
+      "n_positive": 19,
+      "n_students": 38
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 5",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4958,
+      "auc_ci": [
+        0.3,
+        0.6834
+      ],
+      "pr_auc": 0.5799,
+      "pr_auc_ci": [
+        0.4526,
+        0.789
+      ],
+      "sens_at_80_spec": 0.2105,
+      "sens_at_80_spec_ci": [
+        0.0476,
+        0.4667
+      ],
+      "base_rate": 0.5,
+      "n_rows": 38,
+      "n_positive": 19,
+      "n_students": 38
+    }
+  ],
+  "found_leak": {
+    "what": "In the first run, check-in history plus earlier PHQ-2 answers scored above 0.90.",
+    "cause": "\"Last week's PHQ-2\" was taken from last week's label, whose window runs Thursday to Wednesday. So it could be a different answer given on Monday to Wednesday of this week, one to three days before this week's answer, with a recall period that overlaps it almost fully.",
+    "fix": "Use only PHQ-2 answers dated before Monday of this week, the same rule as the check-in.",
+    "same_day_pairs_before_fix": 0,
+    "share_gaps_under_4_days_before_fix": 0.0199,
+    "share_gaps_under_4_days_after_fix": 0.0,
+    "median_gap_days_before_fix": 8.0,
+    "median_gap_days_after_fix": 9.0,
+    "recent_phq2_alone_before_fix": {
+      "auc": 0.8838,
+      "auc_ci": [
+        0.8618,
+        0.9032
+      ],
+      "pr_auc": 0.5661,
+      "pr_auc_ci": [
+        0.4672,
+        0.6541
+      ],
+      "sens_at_80_spec": 0.801,
+      "sens_at_80_spec_ci": [
+        0.7533,
+        0.8532
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7514
+    },
+    "recent_phq2_alone_after_fix": {
+      "auc": 0.8773,
+      "auc_ci": [
+        0.8541,
+        0.8982
+      ],
+      "pr_auc": 0.5541,
+      "pr_auc_ci": [
+        0.4572,
+        0.6466
+      ],
+      "sens_at_80_spec": 0.7878,
+      "sens_at_80_spec_ci": [
+        0.7382,
+        0.8421
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7385
+    },
+    "checkin_history_plus_phq2_before_fix": {
+      "auc": 0.9088,
+      "auc_ci": [
+        0.8892,
+        0.9266
+      ],
+      "pr_auc": 0.6505,
+      "pr_auc_ci": [
+        0.5607,
+        0.7379
+      ],
+      "sens_at_80_spec": 0.8448,
+      "sens_at_80_spec_ci": [
+        0.802,
+        0.8886
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7563
+    },
+    "checkin_history_plus_phq2_after_fix": {
+      "auc": 0.9041,
+      "auc_ci": [
+        0.8838,
+        0.9226
+      ],
+      "pr_auc": 0.6309,
+      "pr_auc_ci": [
+        0.5469,
+        0.727
+      ],
+      "sens_at_80_spec": 0.8379,
+      "sens_at_80_spec_ci": [
+        0.792,
+        0.8826
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7411
+    },
+    "population": "framing 1a weeks",
+    "model": "Gradient boosting (HistGB)"
+  },
+  "leak_demos": [
+    {
+      "name": "Anxiety items from the label's own survey",
+      "cause": "PHQ-4 items 1 and 2 are answered on the same screen, seconds before the two items that make the label.",
+      "fix": "Use only answers from earlier weeks (framing 5).",
+      "leaky": {
+        "auc": 0.8088,
+        "auc_ci": [
+          0.7729,
+          0.8421
+        ],
+        "pr_auc": 0.365,
+        "pr_auc_ci": [
+          0.2958,
+          0.4285
+        ],
+        "sens_at_80_spec": 0.6435,
+        "sens_at_80_spec_ci": [
+          0.565,
+          0.723
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.734
+      },
+      "fixed_name": "Same-week phone plus check-in history (logistic)",
+      "fixed": {
+        "auc": 0.7388,
+        "auc_ci": [
+          0.6931,
+          0.7816
+        ],
+        "pr_auc": 0.3301,
+        "pr_auc_ci": [
+          0.235,
+          0.4327
+        ],
+        "sens_at_80_spec": 0.5196,
+        "sens_at_80_spec_ci": [
+          0.4371,
+          0.5972
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.6162
+      }
+    },
+    {
+      "name": "The PHQ-4 total from the label's own survey",
+      "cause": "The PHQ-4 total contains the two PHQ-2 items, so it is the label plus noise.",
+      "fix": "Never use a score that contains the label items.",
+      "leaky": {
+        "auc": 0.9805,
+        "auc_ci": [
+          0.9752,
+          0.9848
+        ],
+        "pr_auc": 0.8807,
+        "pr_auc_ci": [
+          0.8436,
+          0.9124
+        ],
+        "sens_at_80_spec": 0.9802,
+        "sens_at_80_spec_ci": [
+          0.9683,
+          0.9886
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.9673
+      },
+      "fixed_name": "Most recent PHQ-2 before Monday",
+      "fixed": {
+        "auc": 0.8773,
+        "auc_ci": [
+          0.8541,
+          0.8982
+        ],
+        "pr_auc": 0.5541,
+        "pr_auc_ci": [
+          0.4572,
+          0.6466
+        ],
+        "sens_at_80_spec": 0.7878,
+        "sens_at_80_spec_ci": [
+          0.7382,
+          0.8421
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.7385
+      }
+    },
+    {
+      "name": "Each student's average PHQ-2 over all their weeks",
+      "cause": "The average includes this week's answer and every later answer.",
+      "fix": "Average only the answers from earlier weeks.",
+      "leaky": {
+        "auc": 0.8823,
+        "auc_ci": [
+          0.8538,
+          0.9046
+        ],
+        "pr_auc": 0.5663,
+        "pr_auc_ci": [
+          0.4914,
+          0.6509
+        ],
+        "sens_at_80_spec": 0.7994,
+        "sens_at_80_spec_ci": [
+          0.7341,
+          0.8507
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.5
+      },
+      "fixed_name": "Average of earlier answers only",
+      "fixed": {
+        "auc": 0.8758,
+        "auc_ci": [
+          0.8489,
+          0.9
+        ],
+        "pr_auc": 0.5588,
+        "pr_auc_ci": [
+          0.4337,
+          0.6551
+        ],
+        "sens_at_80_spec": 0.7958,
+        "sens_at_80_spec_ci": [
+          0.7369,
+          0.8456
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.6103
+      }
+    },
+    {
+      "name": "Weeks split at random, so each student sits in train and test",
+      "cause": "The model learns each student's usual phone pattern and their usual mood, then meets the same student again.",
+      "fix": "Split by student (GroupKFold).",
+      "leaky": {
+        "auc": 0.8212,
+        "auc_ci": [
+          0.79,
+          0.8481
+        ],
+        "pr_auc": 0.4927,
+        "pr_auc_ci": [
+          0.4264,
+          0.59
+        ],
+        "sens_at_80_spec": 0.6831,
+        "sens_at_80_spec_ci": [
+          0.6242,
+          0.7384
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.6588
+      },
+      "fixed_name": "Split by student",
+      "fixed": {
+        "auc": 0.569,
+        "auc_ci": [
+          0.5197,
+          0.6249
+        ],
+        "pr_auc": 0.1633,
+        "sens_at_80_spec": 0.2754,
+        "n_students": 213
+      }
+    },
+    {
+      "name": "Random week split, with check-ins and earlier PHQ-2 answers as features",
+      "cause": "Same as above, with mood answers added. The model meets students it already knows.",
+      "fix": "Split by student.",
+      "leaky": {
+        "auc": 0.9145,
+        "auc_ci": [
+          0.8954,
+          0.9308
+        ],
+        "pr_auc": 0.6835,
+        "pr_auc_ci": [
+          0.6168,
+          0.7669
+        ],
+        "sens_at_80_spec": 0.8637,
+        "sens_at_80_spec_ci": [
+          0.8227,
+          0.9016
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.752
+      },
+      "fixed_name": "Same features, split by student",
+      "fixed": {
+        "auc": 0.9046,
+        "auc_ci": [
+          0.8846,
+          0.9225
+        ],
+        "pr_auc": 0.6309,
+        "pr_auc_ci": [
+          0.5557,
+          0.7194
+        ],
+        "sens_at_80_spec": 0.8466,
+        "sens_at_80_spec_ci": [
+          0.7993,
+          0.8879
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.745
+      }
+    },
+    {
+      "name": "z-scores normalised with the student's future weeks",
+      "cause": "Each week is compared with a mean and spread that include later weeks.",
+      "fix": "Use only earlier weeks for the mean and spread.",
+      "leaky": {
+        "auc": 0.5454,
+        "auc_ci": [
+          0.4805,
+          0.6069
+        ],
+        "pr_auc": 0.1468,
+        "pr_auc_ci": [
+          0.1146,
+          0.1892
+        ],
+        "sens_at_80_spec": 0.2533,
+        "sens_at_80_spec_ci": [
+          0.1897,
+          0.3262
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.5871
+      },
+      "fixed_name": "Own-past z-scores only",
+      "fixed": {
+        "auc": 0.5177,
+        "auc_ci": [
+          0.4674,
+          0.569
+        ],
+        "pr_auc": 0.1353,
+        "sens_at_80_spec": 0.2096,
+        "n_students": 213
+      }
+    },
+    {
+      "name": "Depresjon days split at random",
+      "cause": "Days from the same person land in train and test, so the model recognises the person.",
+      "fix": "Split by person.",
+      "leaky": {
+        "auc": 0.8334,
+        "auc_ci": [
+          0.761,
+          0.8928
+        ],
+        "pr_auc": 0.7446,
+        "pr_auc_ci": [
+          0.6202,
+          0.856
+        ],
+        "sens_at_80_spec": 0.7103,
+        "sens_at_80_spec_ci": [
+          0.5763,
+          0.8373
+        ],
+        "base_rate": 0.3489,
+        "n_rows": 1029,
+        "n_positive": 359,
+        "n_students": 55
+      },
+      "fixed_name": "Per day, split by person",
+      "fixed": {
+        "framing": "7a. Depresjon (external)",
+        "model": "Per day, split by person: Random forest",
+        "kind": "variant",
+        "auc": 0.6436,
+        "auc_ci": [
+          0.5204,
+          0.7562
+        ],
+        "pr_auc": 0.509,
+        "pr_auc_ci": [
+          0.339,
+          0.6459
+        ],
+        "sens_at_80_spec": 0.4206,
+        "sens_at_80_spec_ci": [
+          0.2702,
+          0.5806
+        ],
+        "base_rate": 0.3489,
+        "n_rows": 1029,
+        "n_positive": 359,
+        "n_students": 55,
+        "n_features": 8
+      }
+    }
+  ],
+  "leakage_checks": {
+    "student_split": {
+      "passed": true,
+      "what": "Every cross-validation fold is checked in code: no student is in both the training and the test part."
+    },
+    "past_only_features": {
+      "passed": true,
+      "students_tested": 30,
+      "what": "Every week after a cut-off was replaced with noise. The z-scores and last-week values up to the cut-off did not change."
+    },
+    "checkin_before_label": {
+      "passed": true,
+      "min_days_before_label": 4,
+      "median_days_before_label": 9.0,
+      "what": "The latest check-in answer used for a week is always from an earlier day than that week's PHQ-2 answer, and never from the same survey."
+    },
+    "earlier_phq2_before_monday": {
+      "passed": true,
+      "min_days_between_answers": 4,
+      "median_days_between_answers": 9.0,
+      "share_sharing_recall_days": 0.8493,
+      "last_phq2_auc_all": 0.8773,
+      "last_phq2_auc_14_days_or_more": 0.8607,
+      "what": "Every earlier PHQ-2 answer used as a feature is dated before Monday of the week, so at least 4 days before the label answer. PHQ-2 asks about the last two weeks, so the baseline is also scored on pairs 14 or more days apart."
+    },
+    "label_shuffle": {
+      "passed": true,
+      "aucs": {
+        "1a. Across students, same-week association | Label-shuffle control (Logistic regression)": 0.5015,
+        "1b. Across students, phone data from before the answer | Label-shuffle control (Logistic regression)": 0.4988,
+        "2. Personal model, first 8 eligible weeks | Label-shuffle control (pooled + own intercept)": 0.5098,
+        "2. Personal model, first 16 eligible weeks | Label-shuffle control (pooled + own intercept)": 0.5024,
+        "3. Between students, same-term association | Label-shuffle control (Logistic regression)": 0.4913,
+        "4. Change detection, phone data from before the answer | Label-shuffle control (Logistic regression)": 0.5136,
+        "5. Check-ins and earlier answers | Label-shuffle control (Logistic regression)": 0.4958,
+        "5b. Questionnaire inputs from before the recall window | Label-shuffle control (Logistic regression)": 0.4875,
+        "7a. Depresjon (external) | Label-shuffle control (Logistic regression)": 0.4158,
+        "7b. StudentLife 2013 (external), PHQ-9 >= 10 | Label-shuffle control (Logistic regression)": 0.6544,
+        "7b. StudentLife 2013 (external), PHQ-9 >= 5 | Label-shuffle control (Logistic regression)": 0.4958
+      },
+      "what": "The same pipeline run on shuffled labels must score near 0.5: within 0.47 to 0.53 on the Dartmouth framings, and with 0.5 inside the 95% interval on the small external samples."
+    },
+    "phone_before_answer": {
+      "passed": true,
+      "rows": 16684,
+      "latest_phone_day_relative_to_answer_days": -1,
+      "what": "In framings 1b, 2, 4 and 5 every phone day used, including the personal baseline weeks and the eligibility count, is dated strictly before the PHQ-2 answer."
+    },
+    "personal_14_day_separation": {
+      "passed": true,
+      "min_days": 14,
+      "what": "In the personal models every test answer comes 14 or more days after the last training answer, by actual answer dates."
+    },
+    "separated_inputs_before_recall_window": {
+      "passed": true,
+      "min_days_before_answer": 14,
+      "what": "In framing 5b every PHQ-2 and check-in input is dated 14 or more days before the answer, so it shares no day with the two weeks the answer describes."
+    },
+    "no_self_report_in_passive": {
+      "passed": true,
+      "blocked_tokens": [
+        "phq",
+        "label",
+        "pam",
+        "stress",
+        "social_level",
+        "leak",
+        "ci_",
+        "prev_",
+        "run_mean",
+        "win_",
+        "far_"
+      ],
+      "what": "Every passive feature set is checked in code for PHQ, label, check-in or history columns."
+    },
+    "transforms_inside_folds": {
+      "passed": true,
+      "what": "Scaling, imputation and every model are fit on the training part of each fold only. Personal z-scores use only the student's earlier weeks."
+    },
+    "auc_above_0.90": {
+      "passed": false,
+      "rows": [
+        {
+          "framing": "3. Between students, same-term association",
+          "model": "Last term's average PHQ-2 alone",
+          "auc": 0.9224,
+          "within_student_auc": 0.7392
+        },
+        {
+          "framing": "3. Between students, same-term association",
+          "model": "Last term's average PHQ-2, rows that have one",
+          "auc": 0.9384,
+          "within_student_auc": 0.7292
+        },
+        {
+          "framing": "5. Check-ins and earlier answers",
+          "model": "Check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+          "auc": 0.9016,
+          "within_student_auc": 0.741
+        },
+        {
+          "framing": "5. Check-ins and earlier answers",
+          "model": "Phone before the answer plus check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+          "auc": 0.9041,
+          "within_student_auc": 0.7441
+        },
+        {
+          "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+          "model": "PHQ-9 at the start of term alone",
+          "auc": 0.9355,
+          "within_student_auc": null
+        }
+      ],
+      "outcome": "Every flagged row uses the student's earlier PHQ answers. One leak was found and fixed (see results.md). The rest is persistence: students who scored high before score high again.",
+      "what": "Any honest result above AUC 0.90 is treated as a suspected leak and investigated."
+    }
+  },
+  "first_version": {
+    "phone_same_week": {
+      "auc_by_model": {
+        "logistic": 0.571,
+        "hgb": 0.569,
+        "rf": 0.578
+      },
+      "label": "Phone data alone"
+    },
+    "last_week_phq2": {
+      "auc": 0.877,
+      "label": "Last week's PHQ-2 alone"
+    },
+    "one_tap_checkin": {
+      "auc": 0.772,
+      "label": "One-tap check-in (was check-in history with platform)"
+    },
+    "phone_plus_checkin": {
+      "auc": 0.771,
+      "label": "Passive plus check-in (gradient boosting)"
+    },
+    "checkin_plus_phq2": {
+      "auc": 0.904,
+      "label": "Check-in plus earlier PHQ-2 (gradient boosting)"
+    },
+    "personal_8": {
+      "auc": 0.658,
+      "label": "Pooled + own intercept, first 8"
+    },
+    "personal_16": {
+      "auc": 0.72,
+      "label": "Pooled + own intercept, first 16"
+    },
+    "own_avg_8": {
+      "auc": 0.751,
+      "label": "Own average PHQ-2, first 8"
+    },
+    "own_avg_16": {
+      "auc": 0.796,
+      "label": "Own average PHQ-2, first 16"
+    },
+    "term": {
+      "auc": 0.627,
+      "label": "Term level, logistic"
+    },
+    "change": {
+      "auc": 0.597,
+      "label": "Change detection, logistic"
+    },
+    "depresjon": {
+      "auc": 0.84,
+      "label": "Depresjon per person, random forest"
+    },
+    "studentlife": {
+      "auc": 0.76,
+      "label": "StudentLife, logistic"
+    }
+  },
+  "provenance": {
+    "code_sha256_16": {
+      "exp1b_deeper.py": "8c9ec3b7fb489beb",
+      "exp1_timing.py": "9ea586ce316b57bd"
+    },
+    "cache_version": 4,
+    "studentlife_cache_version": 2,
+    "sources": {
+      "sensing.csv": {
+        "bytes": 521959313,
+        "modified": "2026-11-14 15:55"
+      },
+      "general_ema.csv": {
+        "bytes": 16449907,
+        "modified": "2026-11-14 15:54"
+      },
+      "depresjon.zip": {
+        "bytes": 5656112,
+        "modified": "2026-11-14 17:11"
+      },
+      "studentlife dataset_rds.zip": {
+        "bytes": 230469489,
+        "modified": "2026-11-14 17:17"
+      }
+    }
+  },
+  "runtime_seconds": 282.4434,
+  "summary_rows": [
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.605,
+      "auc_ci": [
+        0.562,
+        0.6462
+      ],
+      "pr_auc": 0.1808,
+      "pr_auc_ci": [
+        0.1466,
+        0.2261
+      ],
+      "sens_at_80_spec": 0.3189,
+      "sens_at_80_spec_ci": [
+        0.258,
+        0.3828
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5684,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.5827,
+      "auc_ci": [
+        0.5262,
+        0.6367
+      ],
+      "pr_auc": 0.1761,
+      "pr_auc_ci": [
+        0.1285,
+        0.2238
+      ],
+      "sens_at_80_spec": 0.3082,
+      "sens_at_80_spec_ci": [
+        0.2431,
+        0.3837
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5623,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.5725,
+      "auc_ci": [
+        0.5128,
+        0.6321
+      ],
+      "pr_auc": 0.1605,
+      "pr_auc_ci": [
+        0.1226,
+        0.2018
+      ],
+      "sens_at_80_spec": 0.289,
+      "sens_at_80_spec_ci": [
+        0.2197,
+        0.3608
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.5695,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8771,
+      "auc_ci": [
+        0.8539,
+        0.8983
+      ],
+      "pr_auc": 0.5531,
+      "pr_auc_ci": [
+        0.4561,
+        0.6462
+      ],
+      "sens_at_80_spec": 0.7869,
+      "sens_at_80_spec_ci": [
+        0.7372,
+        0.8417
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7365,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8537,
+      "share_answer_8_to_14_days_before_monday": 0.1036,
+      "share_answer_over_14_days_before_monday": 0.0427,
+      "max_answer_age_days": 373.0,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "kind": "baseline",
+      "auc": 0.882,
+      "auc_ci": [
+        0.8581,
+        0.9034
+      ],
+      "pr_auc": 0.5555,
+      "pr_auc_ci": [
+        0.4537,
+        0.6458
+      ],
+      "sens_at_80_spec": 0.7997,
+      "sens_at_80_spec_ci": [
+        0.7486,
+        0.8573
+      ],
+      "base_rate": 0.1236,
+      "n_rows": 14243,
+      "n_positive": 1761,
+      "n_students": 213,
+      "within_student_auc": 0.7425,
+      "share_rows_with_value": 0.8537,
+      "group": "baseline",
+      "chart": false
+    },
+    {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4988,
+      "auc_ci": [
+        0.4848,
+        0.5126
+      ],
+      "pr_auc": 0.128,
+      "pr_auc_ci": [
+        0.1214,
+        0.136
+      ],
+      "sens_at_80_spec": 0.199,
+      "sens_at_80_spec_ci": [
+        0.1777,
+        0.2161
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.571,
+      "auc_ci": [
+        0.5134,
+        0.628
+      ],
+      "pr_auc": 0.1703,
+      "pr_auc_ci": [
+        0.1296,
+        0.2102
+      ],
+      "sens_at_80_spec": 0.3035,
+      "sens_at_80_spec_ci": [
+        0.2422,
+        0.3709
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.5725,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.569,
+      "auc_ci": [
+        0.5197,
+        0.6249
+      ],
+      "pr_auc": 0.1633,
+      "pr_auc_ci": [
+        0.1239,
+        0.2044
+      ],
+      "sens_at_80_spec": 0.2754,
+      "sens_at_80_spec_ci": [
+        0.2172,
+        0.3466
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.5765,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.578,
+      "auc_ci": [
+        0.5212,
+        0.6313
+      ],
+      "pr_auc": 0.1616,
+      "pr_auc_ci": [
+        0.123,
+        0.2036
+      ],
+      "sens_at_80_spec": 0.2837,
+      "sens_at_80_spec_ci": [
+        0.2181,
+        0.3555
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.581,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Most recent PHQ-2 before Monday",
+      "kind": "baseline",
+      "auc": 0.8773,
+      "auc_ci": [
+        0.8541,
+        0.8982
+      ],
+      "pr_auc": 0.5541,
+      "pr_auc_ci": [
+        0.4572,
+        0.6466
+      ],
+      "sens_at_80_spec": 0.7878,
+      "sens_at_80_spec_ci": [
+        0.7382,
+        0.8421
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "within_student_auc": 0.7385,
+      "share_rows_with_value": 1.0,
+      "share_answer_1_to_7_days_before_monday": 0.8512,
+      "share_answer_8_to_14_days_before_monday": 0.1038,
+      "share_answer_over_14_days_before_monday": 0.045,
+      "max_answer_age_days": 381.0,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "kind": "baseline",
+      "auc": 0.8828,
+      "auc_ci": [
+        0.8589,
+        0.9039
+      ],
+      "pr_auc": 0.5571,
+      "pr_auc_ci": [
+        0.4544,
+        0.6476
+      ],
+      "sens_at_80_spec": 0.8014,
+      "sens_at_80_spec_ci": [
+        0.7517,
+        0.8582
+      ],
+      "base_rate": 0.1235,
+      "n_rows": 14374,
+      "n_positive": 1775,
+      "n_students": 213,
+      "within_student_auc": 0.745,
+      "share_rows_with_value": 0.8512,
+      "group": "baseline",
+      "chart": false
+    },
+    {
+      "framing": "1a. Across students, same-week association",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.5015,
+      "auc_ci": [
+        0.4886,
+        0.514
+      ],
+      "pr_auc": 0.1315,
+      "pr_auc_ci": [
+        0.1246,
+        0.1405
+      ],
+      "sens_at_80_spec": 0.205,
+      "sens_at_80_spec_ci": [
+        0.1892,
+        0.2236
+      ],
+      "base_rate": 0.1286,
+      "n_rows": 16886,
+      "n_positive": 2171,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "kind": "model",
+      "auc": 0.6589,
+      "auc_ci": [
+        0.588,
+        0.7317
+      ],
+      "pr_auc": 0.2962,
+      "pr_auc_ci": [
+        0.2376,
+        0.4092
+      ],
+      "sens_at_80_spec": 0.4427,
+      "sens_at_80_spec_ci": [
+        0.3366,
+        0.5523
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting, no personal step",
+      "kind": "baseline",
+      "auc": 0.5755,
+      "auc_ci": [
+        0.5156,
+        0.6353
+      ],
+      "pr_auc": 0.1815,
+      "pr_auc_ci": [
+        0.1334,
+        0.234
+      ],
+      "sens_at_80_spec": 0.3042,
+      "sens_at_80_spec_ci": [
+        0.2338,
+        0.3747
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8,
+      "group": "phone",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 8 weeks",
+      "kind": "baseline",
+      "auc": 0.7465,
+      "auc_ci": [
+        0.6947,
+        0.796
+      ],
+      "pr_auc": 0.3355,
+      "pr_auc_ci": [
+        0.2391,
+        0.4231
+      ],
+      "sens_at_80_spec": 0.4503,
+      "sens_at_80_spec_ci": [
+        0.3354,
+        0.6188
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8,
+      "group": "baseline",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History only (own average and share high): Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7191,
+      "auc_ci": [
+        0.6575,
+        0.7774
+      ],
+      "pr_auc": 0.3207,
+      "pr_auc_ci": [
+        0.2297,
+        0.4296
+      ],
+      "sens_at_80_spec": 0.4528,
+      "sens_at_80_spec_ci": [
+        0.3299,
+        0.6346
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus phone data before the answer: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.6876,
+      "auc_ci": [
+        0.6363,
+        0.739
+      ],
+      "pr_auc": 0.2579,
+      "pr_auc_ci": [
+        0.2067,
+        0.3248
+      ],
+      "sens_at_80_spec": 0.4292,
+      "sens_at_80_spec_ci": [
+        0.3519,
+        0.5267
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5668,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History only (own average and share high): Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.6821,
+      "auc_ci": [
+        0.618,
+        0.7413
+      ],
+      "pr_auc": 0.2336,
+      "pr_auc_ci": [
+        0.1641,
+        0.2979
+      ],
+      "sens_at_80_spec": 0.4183,
+      "sens_at_80_spec_ci": [
+        0.3013,
+        0.5501
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.7023,
+      "auc_ci": [
+        0.6487,
+        0.7605
+      ],
+      "pr_auc": 0.246,
+      "pr_auc_ci": [
+        0.182,
+        0.3008
+      ],
+      "sens_at_80_spec": 0.4387,
+      "sens_at_80_spec_ci": [
+        0.3325,
+        0.5503
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.5966,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7225,
+      "auc_ci": [
+        0.6603,
+        0.7833
+      ],
+      "pr_auc": 0.3364,
+      "pr_auc_ci": [
+        0.2508,
+        0.4552
+      ],
+      "sens_at_80_spec": 0.4807,
+      "sens_at_80_spec_ci": [
+        0.3685,
+        0.6166
+      ],
+      "base_rate": 0.1354,
+      "n_rows": 14769,
+      "n_positive": 1999,
+      "n_students": 206,
+      "within_student_auc": 0.559,
+      "train_weeks_per_student": 8,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Label-shuffle control (pooled + own intercept)",
+      "kind": "control",
+      "auc": 0.5098,
+      "auc_ci": [
+        0.4952,
+        0.5227
+      ],
+      "pr_auc": 0.1323,
+      "pr_auc_ci": [
+        0.1253,
+        0.1419
+      ],
+      "sens_at_80_spec": 0.2083,
+      "sens_at_80_spec_ci": [
+        0.1877,
+        0.228
+      ],
+      "base_rate": 0.1278,
+      "n_rows": 14769,
+      "n_positive": 1887,
+      "n_students": 206,
+      "train_weeks_per_student": 8,
+      "group": "control",
+      "chart": false
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "kind": "model",
+      "auc": 0.7208,
+      "auc_ci": [
+        0.6618,
+        0.7745
+      ],
+      "pr_auc": 0.3569,
+      "pr_auc_ci": [
+        0.2954,
+        0.4492
+      ],
+      "sens_at_80_spec": 0.4907,
+      "sens_at_80_spec_ci": [
+        0.3921,
+        0.5969
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting, no personal step",
+      "kind": "baseline",
+      "auc": 0.5667,
+      "auc_ci": [
+        0.4978,
+        0.6336
+      ],
+      "pr_auc": 0.1829,
+      "pr_auc_ci": [
+        0.1412,
+        0.2409
+      ],
+      "sens_at_80_spec": 0.2874,
+      "sens_at_80_spec_ci": [
+        0.2154,
+        0.373
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 16 weeks",
+      "kind": "baseline",
+      "auc": 0.7973,
+      "auc_ci": [
+        0.7563,
+        0.8346
+      ],
+      "pr_auc": 0.4037,
+      "pr_auc_ci": [
+        0.3059,
+        0.4914
+      ],
+      "sens_at_80_spec": 0.6336,
+      "sens_at_80_spec_ci": [
+        0.4914,
+        0.7396
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History only (own average and share high): Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7987,
+      "auc_ci": [
+        0.7556,
+        0.837
+      ],
+      "pr_auc": 0.4168,
+      "pr_auc_ci": [
+        0.3182,
+        0.5042
+      ],
+      "sens_at_80_spec": 0.6576,
+      "sens_at_80_spec_ci": [
+        0.5179,
+        0.7637
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus phone data before the answer: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7593,
+      "auc_ci": [
+        0.7189,
+        0.7968
+      ],
+      "pr_auc": 0.3284,
+      "pr_auc_ci": [
+        0.2525,
+        0.3982
+      ],
+      "sens_at_80_spec": 0.5436,
+      "sens_at_80_spec_ci": [
+        0.4651,
+        0.6297
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5667,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History only (own average and share high): Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.6709,
+      "auc_ci": [
+        0.5874,
+        0.7428
+      ],
+      "pr_auc": 0.2958,
+      "pr_auc_ci": [
+        0.2092,
+        0.3924
+      ],
+      "sens_at_80_spec": 0.4159,
+      "sens_at_80_spec_ci": [
+        0.2853,
+        0.5497
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+      "kind": "comparison",
+      "auc": 0.7622,
+      "auc_ci": [
+        0.7131,
+        0.8057
+      ],
+      "pr_auc": 0.3399,
+      "pr_auc_ci": [
+        0.2753,
+        0.4282
+      ],
+      "sens_at_80_spec": 0.5305,
+      "sens_at_80_spec_ci": [
+        0.4067,
+        0.644
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5699,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "kind": "comparison",
+      "auc": 0.7957,
+      "auc_ci": [
+        0.7524,
+        0.8339
+      ],
+      "pr_auc": 0.4149,
+      "pr_auc_ci": [
+        0.315,
+        0.501
+      ],
+      "sens_at_80_spec": 0.5978,
+      "sens_at_80_spec_ci": [
+        0.4737,
+        0.7222
+      ],
+      "base_rate": 0.1398,
+      "n_rows": 13134,
+      "n_positive": 1836,
+      "n_students": 191,
+      "within_student_auc": 0.5504,
+      "train_weeks_per_student": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Label-shuffle control (pooled + own intercept)",
+      "kind": "control",
+      "auc": 0.5024,
+      "auc_ci": [
+        0.4875,
+        0.5187
+      ],
+      "pr_auc": 0.1272,
+      "pr_auc_ci": [
+        0.1198,
+        0.1359
+      ],
+      "sens_at_80_spec": 0.2013,
+      "sens_at_80_spec_ci": [
+        0.1829,
+        0.2241
+      ],
+      "base_rate": 0.1267,
+      "n_rows": 13134,
+      "n_positive": 1664,
+      "n_students": 191,
+      "train_weeks_per_student": 16,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.6269,
+      "auc_ci": [
+        0.565,
+        0.6962
+      ],
+      "pr_auc": 0.1439,
+      "pr_auc_ci": [
+        0.0943,
+        0.2039
+      ],
+      "sens_at_80_spec": 0.3653,
+      "sens_at_80_spec_ci": [
+        0.2654,
+        0.4791
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.6269,
+      "n_features": 348,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.596,
+      "auc_ci": [
+        0.5066,
+        0.6837
+      ],
+      "pr_auc": 0.117,
+      "pr_auc_ci": [
+        0.0816,
+        0.1636
+      ],
+      "sens_at_80_spec": 0.3293,
+      "sens_at_80_spec_ci": [
+        0.2194,
+        0.4452
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.5575,
+      "n_features": 348,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Random forest",
+      "kind": "model",
+      "auc": 0.6063,
+      "auc_ci": [
+        0.5125,
+        0.6901
+      ],
+      "pr_auc": 0.1149,
+      "pr_auc_ci": [
+        0.0757,
+        0.1634
+      ],
+      "sens_at_80_spec": 0.2695,
+      "sens_at_80_spec_ci": [
+        0.1617,
+        0.4121
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.6106,
+      "n_features": 348,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Nested choice among the three models",
+      "kind": "nested",
+      "auc": 0.5944,
+      "auc_ci": [
+        0.5141,
+        0.6757
+      ],
+      "pr_auc": 0.1299,
+      "pr_auc_ci": [
+        0.0804,
+        0.1897
+      ],
+      "sens_at_80_spec": 0.3377,
+      "sens_at_80_spec_ci": [
+        0.1956,
+        0.4663
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.5824,
+      "chosen": [
+        "rf",
+        "logistic",
+        "hgb",
+        "rf",
+        "rf"
+      ],
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Last term's average PHQ-2 alone",
+      "kind": "baseline",
+      "auc": 0.9224,
+      "auc_ci": [
+        0.8927,
+        0.9459
+      ],
+      "pr_auc": 0.6679,
+      "pr_auc_ci": [
+        0.5276,
+        0.7772
+      ],
+      "sens_at_80_spec": 0.8683,
+      "sens_at_80_spec_ci": [
+        0.804,
+        0.9227
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "within_student_auc": 0.7392,
+      "share_rows_with_value": 0.8907,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "3. Between students, same-term association",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4913,
+      "auc_ci": [
+        0.4495,
+        0.5333
+      ],
+      "pr_auc": 0.0798,
+      "pr_auc_ci": [
+        0.0681,
+        0.0958
+      ],
+      "sens_at_80_spec": 0.1437,
+      "sens_at_80_spec_ci": [
+        0.0914,
+        0.1975
+      ],
+      "base_rate": 0.0857,
+      "n_rows": 1949,
+      "n_positive": 167,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Logistic regression",
+      "kind": "model",
+      "auc": 0.6211,
+      "auc_ci": [
+        0.5794,
+        0.6605
+      ],
+      "pr_auc": 0.098,
+      "pr_auc_ci": [
+        0.0713,
+        0.1389
+      ],
+      "sens_at_80_spec": 0.3411,
+      "sens_at_80_spec_ci": [
+        0.2788,
+        0.4106
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.5912,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.5527,
+      "auc_ci": [
+        0.519,
+        0.5894
+      ],
+      "pr_auc": 0.0738,
+      "pr_auc_ci": [
+        0.0604,
+        0.0912
+      ],
+      "sens_at_80_spec": 0.241,
+      "sens_at_80_spec_ci": [
+        0.2016,
+        0.2871
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.5519,
+      "n_features": 686,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Most recent PHQ-2 before Monday minus own running mean",
+      "kind": "baseline",
+      "auc": 0.7791,
+      "auc_ci": [
+        0.7457,
+        0.8092
+      ],
+      "pr_auc": 0.3087,
+      "pr_auc_ci": [
+        0.2454,
+        0.3796
+      ],
+      "sens_at_80_spec": 0.6525,
+      "sens_at_80_spec_ci": [
+        0.6042,
+        0.7068
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "within_student_auc": 0.7423,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "4. Change detection, phone data from before the answer",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.5136,
+      "auc_ci": [
+        0.4971,
+        0.5291
+      ],
+      "pr_auc": 0.0652,
+      "pr_auc_ci": [
+        0.0606,
+        0.0701
+      ],
+      "sens_at_80_spec": 0.2085,
+      "sens_at_80_spec_ci": [
+        0.1847,
+        0.2311
+      ],
+      "base_rate": 0.0647,
+      "n_rows": 16681,
+      "n_positive": 1079,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Single last-week check-in (latest answer): Logistic regression",
+      "kind": "model",
+      "auc": 0.6924,
+      "auc_ci": [
+        0.6584,
+        0.7272
+      ],
+      "pr_auc": 0.2462,
+      "pr_auc_ci": [
+        0.1856,
+        0.3272
+      ],
+      "sens_at_80_spec": 0.4239,
+      "sens_at_80_spec_ci": [
+        0.3664,
+        0.4873
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6107,
+      "n_features": 6,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Single last-week check-in (latest answer): Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.6893,
+      "auc_ci": [
+        0.6567,
+        0.7249
+      ],
+      "pr_auc": 0.2421,
+      "pr_auc_ci": [
+        0.1828,
+        0.3239
+      ],
+      "sens_at_80_spec": 0.4062,
+      "sens_at_80_spec_ci": [
+        0.3552,
+        0.4701
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6071,
+      "n_features": 6,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Last week's check-ins (mean): Logistic regression",
+      "kind": "model",
+      "auc": 0.7051,
+      "auc_ci": [
+        0.671,
+        0.7403
+      ],
+      "pr_auc": 0.2591,
+      "pr_auc_ci": [
+        0.1938,
+        0.3449
+      ],
+      "sens_at_80_spec": 0.4449,
+      "sens_at_80_spec_ci": [
+        0.3879,
+        0.5087
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6214,
+      "n_features": 6,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Last week's check-ins (mean): Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7024,
+      "auc_ci": [
+        0.6691,
+        0.7384
+      ],
+      "pr_auc": 0.2519,
+      "pr_auc_ci": [
+        0.1918,
+        0.3336
+      ],
+      "sens_at_80_spec": 0.4383,
+      "sens_at_80_spec_ci": [
+        0.3812,
+        0.5013
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6192,
+      "n_features": 6,
+      "group": "answers",
+      "chart": false
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history: Logistic regression",
+      "kind": "model",
+      "auc": 0.7797,
+      "auc_ci": [
+        0.7322,
+        0.8238
+      ],
+      "pr_auc": 0.4013,
+      "pr_auc_ci": [
+        0.3384,
+        0.5354
+      ],
+      "sens_at_80_spec": 0.5774,
+      "sens_at_80_spec_ci": [
+        0.4868,
+        0.6777
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6339,
+      "n_features": 19,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history: Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7417,
+      "auc_ci": [
+        0.6962,
+        0.7864
+      ],
+      "pr_auc": 0.2704,
+      "pr_auc_ci": [
+        0.2015,
+        0.3687
+      ],
+      "sens_at_80_spec": 0.4751,
+      "sens_at_80_spec_ci": [
+        0.3796,
+        0.5877
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6128,
+      "n_features": 19,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history: Logistic regression",
+      "kind": "model",
+      "auc": 0.7663,
+      "auc_ci": [
+        0.7228,
+        0.8038
+      ],
+      "pr_auc": 0.357,
+      "pr_auc_ci": [
+        0.2652,
+        0.4535
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.4872,
+        0.6454
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6125,
+      "n_features": 705,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history: Gradient boosting (HistGB)",
+      "kind": "model",
+      "auc": 0.7629,
+      "auc_ci": [
+        0.7221,
+        0.7974
+      ],
+      "pr_auc": 0.3033,
+      "pr_auc_ci": [
+        0.2378,
+        0.3822
+      ],
+      "sens_at_80_spec": 0.5444,
+      "sens_at_80_spec_ci": [
+        0.4601,
+        0.6233
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6247,
+      "n_features": 705,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history plus earlier PHQ-2 answers: Logistic regression",
+      "kind": "with_history",
+      "auc": 0.8985,
+      "auc_ci": [
+        0.8772,
+        0.9181
+      ],
+      "pr_auc": 0.6152,
+      "pr_auc_ci": [
+        0.5004,
+        0.7032
+      ],
+      "sens_at_80_spec": 0.8312,
+      "sens_at_80_spec_ci": [
+        0.7856,
+        0.8758
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7206,
+      "n_features": 23,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.9016,
+      "auc_ci": [
+        0.8815,
+        0.921
+      ],
+      "pr_auc": 0.6348,
+      "pr_auc_ci": [
+        0.5343,
+        0.72
+      ],
+      "sens_at_80_spec": 0.8331,
+      "sens_at_80_spec_ci": [
+        0.7862,
+        0.8741
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.741,
+      "n_features": 23,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Phone before the answer plus check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.9041,
+      "auc_ci": [
+        0.8839,
+        0.9225
+      ],
+      "pr_auc": 0.6437,
+      "pr_auc_ci": [
+        0.5678,
+        0.7317
+      ],
+      "sens_at_80_spec": 0.834,
+      "sens_at_80_spec_ci": [
+        0.7866,
+        0.8814
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7441,
+      "n_features": 709,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5. Check-ins and earlier answers",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4958,
+      "auc_ci": [
+        0.4815,
+        0.5099
+      ],
+      "pr_auc": 0.1277,
+      "pr_auc_ci": [
+        0.1212,
+        0.1358
+      ],
+      "sens_at_80_spec": 0.1881,
+      "sens_at_80_spec_ci": [
+        0.1667,
+        0.2063
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Latest PHQ-2 answered 14 or more days before, alone",
+      "kind": "baseline",
+      "auc": 0.8591,
+      "auc_ci": [
+        0.8327,
+        0.8831
+      ],
+      "pr_auc": 0.5055,
+      "pr_auc_ci": [
+        0.4026,
+        0.6069
+      ],
+      "sens_at_80_spec": 0.7567,
+      "sens_at_80_spec_ci": [
+        0.6983,
+        0.8175
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7025,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Single check-in 14 or more days before: Logistic regression",
+      "kind": "model",
+      "auc": 0.6965,
+      "auc_ci": [
+        0.6624,
+        0.7342
+      ],
+      "pr_auc": 0.2527,
+      "pr_auc_ci": [
+        0.1905,
+        0.3395
+      ],
+      "sens_at_80_spec": 0.4486,
+      "sens_at_80_spec_ci": [
+        0.3865,
+        0.5225
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.6004,
+      "n_features": 7,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "All questionnaire inputs 14 or more days before: Logistic regression",
+      "kind": "with_history",
+      "auc": 0.8872,
+      "auc_ci": [
+        0.8635,
+        0.9098
+      ],
+      "pr_auc": 0.5839,
+      "pr_auc_ci": [
+        0.4652,
+        0.6743
+      ],
+      "sens_at_80_spec": 0.8047,
+      "sens_at_80_spec_ci": [
+        0.7556,
+        0.8569
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.681,
+      "n_features": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "All questionnaire inputs 14 or more days before: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.8889,
+      "auc_ci": [
+        0.8659,
+        0.9104
+      ],
+      "pr_auc": 0.574,
+      "pr_auc_ci": [
+        0.4657,
+        0.665
+      ],
+      "sens_at_80_spec": 0.8164,
+      "sens_at_80_spec_ci": [
+        0.7614,
+        0.8617
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7036,
+      "n_features": 16,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Phone before the answer plus those inputs: Gradient boosting (HistGB)",
+      "kind": "with_history",
+      "auc": 0.8909,
+      "auc_ci": [
+        0.8688,
+        0.9112
+      ],
+      "pr_auc": 0.586,
+      "pr_auc_ci": [
+        0.5156,
+        0.6847
+      ],
+      "sens_at_80_spec": 0.8145,
+      "sens_at_80_spec_ci": [
+        0.7603,
+        0.86
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "within_student_auc": 0.7112,
+      "n_features": 702,
+      "group": "answers",
+      "chart": true
+    },
+    {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4875,
+      "auc_ci": [
+        0.4753,
+        0.4992
+      ],
+      "pr_auc": 0.1242,
+      "pr_auc_ci": [
+        0.1187,
+        0.1306
+      ],
+      "sens_at_80_spec": 0.192,
+      "sens_at_80_spec_ci": [
+        0.1749,
+        0.2132
+      ],
+      "base_rate": 0.1289,
+      "n_rows": 16684,
+      "n_positive": 2151,
+      "n_students": 213,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: Logistic regression",
+      "kind": "model",
+      "auc": 0.7052,
+      "auc_ci": [
+        0.551,
+        0.8479
+      ],
+      "pr_auc": 0.6599,
+      "pr_auc_ci": [
+        0.517,
+        0.8559
+      ],
+      "sens_at_80_spec": 0.5826,
+      "sens_at_80_spec_ci": [
+        0.3217,
+        0.8095
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: Random forest",
+      "kind": "model",
+      "auc": 0.8397,
+      "auc_ci": [
+        0.6983,
+        0.9589
+      ],
+      "pr_auc": 0.8745,
+      "pr_auc_ci": [
+        0.764,
+        0.9664
+      ],
+      "sens_at_80_spec": 0.8,
+      "sens_at_80_spec_ci": [
+        0.635,
+        0.96
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: nested choice between the two models",
+      "kind": "nested",
+      "auc": 0.8139,
+      "auc_ci": [
+        0.6713,
+        0.9405
+      ],
+      "pr_auc": 0.8572,
+      "pr_auc_ci": [
+        0.7345,
+        0.9572
+      ],
+      "sens_at_80_spec": 0.7826,
+      "sens_at_80_spec_ci": [
+        0.5946,
+        0.9444
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "chosen": [
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "rf"
+      ],
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person, all-zero days removed: Random forest",
+      "kind": "variant",
+      "auc": 0.8533,
+      "auc_ci": [
+        0.719,
+        0.9625
+      ],
+      "pr_auc": 0.8881,
+      "pr_auc_ci": [
+        0.7805,
+        0.9719
+      ],
+      "sens_at_80_spec": 0.8261,
+      "sens_at_80_spec_ci": [
+        0.64,
+        0.9583
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "n_features": 9,
+      "group": "phone",
+      "chart": false
+    },
+    {
+      "framing": "7a. Depresjon (external)",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.4158,
+      "auc_ci": [
+        0.2634,
+        0.5729
+      ],
+      "pr_auc": 0.3629,
+      "pr_auc_ci": [
+        0.2422,
+        0.522
+      ],
+      "sens_at_80_spec": 0.0435,
+      "sens_at_80_spec_ci": [
+        0.0,
+        0.3215
+      ],
+      "base_rate": 0.4182,
+      "n_rows": 55,
+      "n_positive": 23,
+      "n_students": 55,
+      "group": "control",
+      "chart": true
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: Logistic regression",
+      "kind": "model",
+      "auc": 0.6959,
+      "auc_ci": [
+        0.4285,
+        0.9412
+      ],
+      "pr_auc": 0.3997,
+      "pr_auc_ci": [
+        0.1445,
+        0.6638
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.1329,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "n_features": 12,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: Random forest",
+      "kind": "model",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.4999,
+        0.9688
+      ],
+      "pr_auc": 0.5778,
+      "pr_auc_ci": [
+        0.3973,
+        0.8908
+      ],
+      "sens_at_80_spec": 0.7143,
+      "sens_at_80_spec_ci": [
+        0.2495,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "n_features": 12,
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: nested choice between the two models",
+      "kind": "nested",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.5554,
+        0.9426
+      ],
+      "pr_auc": 0.443,
+      "pr_auc_ci": [
+        0.1616,
+        0.6818
+      ],
+      "sens_at_80_spec": 0.5714,
+      "sens_at_80_spec_ci": [
+        0.1667,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "chosen": [
+        "rf",
+        "rf",
+        "rf",
+        "rf",
+        "logistic",
+        "rf",
+        "logistic",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic",
+        "rf",
+        "rf",
+        "logistic",
+        "logistic"
+      ],
+      "group": "phone",
+      "chart": true
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "PHQ-9 at the start of term alone",
+      "kind": "baseline",
+      "auc": 0.9355,
+      "auc_ci": [
+        0.8374,
+        1.0
+      ],
+      "pr_auc": 0.752,
+      "pr_auc_ci": [
+        0.5521,
+        1.0
+      ],
+      "sens_at_80_spec": 0.8571,
+      "sens_at_80_spec_ci": [
+        0.6,
+        1.0
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "group": "baseline",
+      "chart": true
+    },
+    {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Label-shuffle control (Logistic regression)",
+      "kind": "control",
+      "auc": 0.6544,
+      "auc_ci": [
+        0.4481,
+        0.8287
+      ],
+      "pr_auc": 0.2695,
+      "pr_auc_ci": [
+        0.1221,
+        0.4988
+      ],
+      "sens_at_80_spec": 0.4571,
+      "sens_at_80_spec_ci": [
+        0.0,
+        0.8339
+      ],
+      "base_rate": 0.1842,
+      "n_rows": 38,
+      "n_positive": 7,
+      "n_students": 38,
+      "group": "control",
+      "chart": true
+    }
+  ],
+  "headline_numbers": {
+    "before_answer": [
+      {
+        "framing": "1b. Across students, phone data from before the answer",
+        "model": "Logistic regression",
+        "kind": "model",
+        "auc": 0.605,
+        "auc_ci": [
+          0.562,
+          0.6462
+        ],
+        "pr_auc": 0.1808,
+        "pr_auc_ci": [
+          0.1466,
+          0.2261
+        ],
+        "sens_at_80_spec": 0.3189,
+        "sens_at_80_spec_ci": [
+          0.258,
+          0.3828
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.5684,
+        "n_features": 686
+      },
+      {
+        "framing": "1b. Across students, phone data from before the answer",
+        "model": "Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.5827,
+        "auc_ci": [
+          0.5262,
+          0.6367
+        ],
+        "pr_auc": 0.1761,
+        "pr_auc_ci": [
+          0.1285,
+          0.2238
+        ],
+        "sens_at_80_spec": 0.3082,
+        "sens_at_80_spec_ci": [
+          0.2431,
+          0.3837
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.5623,
+        "n_features": 686
+      },
+      {
+        "framing": "1b. Across students, phone data from before the answer",
+        "model": "Random forest",
+        "kind": "model",
+        "auc": 0.5725,
+        "auc_ci": [
+          0.5128,
+          0.6321
+        ],
+        "pr_auc": 0.1605,
+        "pr_auc_ci": [
+          0.1226,
+          0.2018
+        ],
+        "sens_at_80_spec": 0.289,
+        "sens_at_80_spec_ci": [
+          0.2197,
+          0.3608
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.5695,
+        "n_features": 686
+      }
+    ],
+    "same_week": [
+      {
+        "framing": "1a. Across students, same-week association",
+        "model": "Logistic regression",
+        "kind": "model",
+        "auc": 0.571,
+        "auc_ci": [
+          0.5134,
+          0.628
+        ],
+        "pr_auc": 0.1703,
+        "pr_auc_ci": [
+          0.1296,
+          0.2102
+        ],
+        "sens_at_80_spec": 0.3035,
+        "sens_at_80_spec_ci": [
+          0.2422,
+          0.3709
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.5725,
+        "n_features": 686
+      },
+      {
+        "framing": "1a. Across students, same-week association",
+        "model": "Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.569,
+        "auc_ci": [
+          0.5197,
+          0.6249
+        ],
+        "pr_auc": 0.1633,
+        "pr_auc_ci": [
+          0.1239,
+          0.2044
+        ],
+        "sens_at_80_spec": 0.2754,
+        "sens_at_80_spec_ci": [
+          0.2172,
+          0.3466
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.5765,
+        "n_features": 686
+      },
+      {
+        "framing": "1a. Across students, same-week association",
+        "model": "Random forest",
+        "kind": "model",
+        "auc": 0.578,
+        "auc_ci": [
+          0.5212,
+          0.6313
+        ],
+        "pr_auc": 0.1616,
+        "pr_auc_ci": [
+          0.123,
+          0.2036
+        ],
+        "sens_at_80_spec": 0.2837,
+        "sens_at_80_spec_ci": [
+          0.2181,
+          0.3555
+        ],
+        "base_rate": 0.1286,
+        "n_rows": 16886,
+        "n_positive": 2171,
+        "n_students": 213,
+        "within_student_auc": 0.581,
+        "n_features": 686
+      }
+    ],
+    "recent_phq": {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "Most recent PHQ-2 before Monday",
+      "auc": 0.8771,
+      "auc_ci": [
+        0.8539,
+        0.8983
+      ],
+      "pr_auc": 0.5531,
+      "sens_at_80_spec": 0.7869,
+      "n_students": 213,
+      "n_rows": 16684
+    },
+    "recent_phq_1a": {
+      "framing": "1a. Across students, same-week association",
+      "model": "Most recent PHQ-2 before Monday",
+      "auc": 0.8773,
+      "auc_ci": [
+        0.8541,
+        0.8982
+      ],
+      "pr_auc": 0.5541,
+      "sens_at_80_spec": 0.7878,
+      "n_students": 213,
+      "n_rows": 16886
+    },
+    "exact_phq": {
+      "framing": "1b. Across students, phone data from before the answer",
+      "model": "PHQ-2 from last calendar week only, rows that have one",
+      "auc": 0.882,
+      "auc_ci": [
+        0.8581,
+        0.9034
+      ],
+      "pr_auc": 0.5555,
+      "sens_at_80_spec": 0.7997,
+      "n_students": 213,
+      "n_rows": 14243
+    },
+    "single_checkin": [
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Single last-week check-in (latest answer): Logistic regression",
+        "kind": "model",
+        "auc": 0.6924,
+        "auc_ci": [
+          0.6584,
+          0.7272
+        ],
+        "pr_auc": 0.2462,
+        "pr_auc_ci": [
+          0.1856,
+          0.3272
+        ],
+        "sens_at_80_spec": 0.4239,
+        "sens_at_80_spec_ci": [
+          0.3664,
+          0.4873
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6107,
+        "n_features": 6
+      },
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Single last-week check-in (latest answer): Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.6893,
+        "auc_ci": [
+          0.6567,
+          0.7249
+        ],
+        "pr_auc": 0.2421,
+        "pr_auc_ci": [
+          0.1828,
+          0.3239
+        ],
+        "sens_at_80_spec": 0.4062,
+        "sens_at_80_spec_ci": [
+          0.3552,
+          0.4701
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6071,
+        "n_features": 6
+      }
+    ],
+    "lastweek_checkins": [
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Last week's check-ins (mean): Logistic regression",
+        "kind": "model",
+        "auc": 0.7051,
+        "auc_ci": [
+          0.671,
+          0.7403
+        ],
+        "pr_auc": 0.2591,
+        "pr_auc_ci": [
+          0.1938,
+          0.3449
+        ],
+        "sens_at_80_spec": 0.4449,
+        "sens_at_80_spec_ci": [
+          0.3879,
+          0.5087
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6214,
+        "n_features": 6
+      },
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Last week's check-ins (mean): Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.7024,
+        "auc_ci": [
+          0.6691,
+          0.7384
+        ],
+        "pr_auc": 0.2519,
+        "pr_auc_ci": [
+          0.1918,
+          0.3336
+        ],
+        "sens_at_80_spec": 0.4383,
+        "sens_at_80_spec_ci": [
+          0.3812,
+          0.5013
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6192,
+        "n_features": 6
+      }
+    ],
+    "checkin_history": [
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Check-in history: Logistic regression",
+        "kind": "model",
+        "auc": 0.7797,
+        "auc_ci": [
+          0.7322,
+          0.8238
+        ],
+        "pr_auc": 0.4013,
+        "pr_auc_ci": [
+          0.3384,
+          0.5354
+        ],
+        "sens_at_80_spec": 0.5774,
+        "sens_at_80_spec_ci": [
+          0.4868,
+          0.6777
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6339,
+        "n_features": 19
+      },
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Check-in history: Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.7417,
+        "auc_ci": [
+          0.6962,
+          0.7864
+        ],
+        "pr_auc": 0.2704,
+        "pr_auc_ci": [
+          0.2015,
+          0.3687
+        ],
+        "sens_at_80_spec": 0.4751,
+        "sens_at_80_spec_ci": [
+          0.3796,
+          0.5877
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6128,
+        "n_features": 19
+      }
+    ],
+    "phone_checkin_history": [
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Phone before the answer plus check-in history: Logistic regression",
+        "kind": "model",
+        "auc": 0.7663,
+        "auc_ci": [
+          0.7228,
+          0.8038
+        ],
+        "pr_auc": 0.357,
+        "pr_auc_ci": [
+          0.2652,
+          0.4535
+        ],
+        "sens_at_80_spec": 0.5714,
+        "sens_at_80_spec_ci": [
+          0.4872,
+          0.6454
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6125,
+        "n_features": 705
+      },
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Phone before the answer plus check-in history: Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.7629,
+        "auc_ci": [
+          0.7221,
+          0.7974
+        ],
+        "pr_auc": 0.3033,
+        "pr_auc_ci": [
+          0.2378,
+          0.3822
+        ],
+        "sens_at_80_spec": 0.5444,
+        "sens_at_80_spec_ci": [
+          0.4601,
+          0.6233
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.6247,
+        "n_features": 705
+      }
+    ],
+    "checkin_history_phq": [
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Check-in history plus earlier PHQ-2 answers: Logistic regression",
+        "kind": "with_history",
+        "auc": 0.8985,
+        "auc_ci": [
+          0.8772,
+          0.9181
+        ],
+        "pr_auc": 0.6152,
+        "pr_auc_ci": [
+          0.5004,
+          0.7032
+        ],
+        "sens_at_80_spec": 0.8312,
+        "sens_at_80_spec_ci": [
+          0.7856,
+          0.8758
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.7206,
+        "n_features": 23
+      },
+      {
+        "framing": "5. Check-ins and earlier answers",
+        "model": "Check-in history plus earlier PHQ-2 answers: Gradient boosting (HistGB)",
+        "kind": "with_history",
+        "auc": 0.9016,
+        "auc_ci": [
+          0.8815,
+          0.921
+        ],
+        "pr_auc": 0.6348,
+        "pr_auc_ci": [
+          0.5343,
+          0.72
+        ],
+        "sens_at_80_spec": 0.8331,
+        "sens_at_80_spec_ci": [
+          0.7862,
+          0.8741
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.741,
+        "n_features": 23
+      }
+    ],
+    "separated": [
+      {
+        "framing": "5b. Questionnaire inputs from before the recall window",
+        "model": "All questionnaire inputs 14 or more days before: Logistic regression",
+        "kind": "with_history",
+        "auc": 0.8872,
+        "auc_ci": [
+          0.8635,
+          0.9098
+        ],
+        "pr_auc": 0.5839,
+        "pr_auc_ci": [
+          0.4652,
+          0.6743
+        ],
+        "sens_at_80_spec": 0.8047,
+        "sens_at_80_spec_ci": [
+          0.7556,
+          0.8569
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.681,
+        "n_features": 16
+      },
+      {
+        "framing": "5b. Questionnaire inputs from before the recall window",
+        "model": "All questionnaire inputs 14 or more days before: Gradient boosting (HistGB)",
+        "kind": "with_history",
+        "auc": 0.8889,
+        "auc_ci": [
+          0.8659,
+          0.9104
+        ],
+        "pr_auc": 0.574,
+        "pr_auc_ci": [
+          0.4657,
+          0.665
+        ],
+        "sens_at_80_spec": 0.8164,
+        "sens_at_80_spec_ci": [
+          0.7614,
+          0.8617
+        ],
+        "base_rate": 0.1289,
+        "n_rows": 16684,
+        "n_positive": 2151,
+        "n_students": 213,
+        "within_student_auc": 0.7036,
+        "n_features": 16
+      }
+    ],
+    "separated_phq": {
+      "framing": "5b. Questionnaire inputs from before the recall window",
+      "model": "Latest PHQ-2 answered 14 or more days before, alone",
+      "auc": 0.8591,
+      "auc_ci": [
+        0.8327,
+        0.8831
+      ],
+      "pr_auc": 0.5055,
+      "sens_at_80_spec": 0.7567,
+      "n_students": 213,
+      "n_rows": 16684
+    },
+    "personal16": {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "auc": 0.7208,
+      "auc_ci": [
+        0.6618,
+        0.7745
+      ],
+      "pr_auc": 0.3569,
+      "sens_at_80_spec": 0.4907,
+      "n_students": 191,
+      "n_rows": 13134
+    },
+    "personal8": {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Pooled gradient boosting + own intercept",
+      "auc": 0.6589,
+      "auc_ci": [
+        0.588,
+        0.7317
+      ],
+      "pr_auc": 0.2962,
+      "sens_at_80_spec": 0.4427,
+      "n_students": 206,
+      "n_rows": 14769
+    },
+    "own_avg16": {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 16 weeks",
+      "auc": 0.7973,
+      "auc_ci": [
+        0.7563,
+        0.8346
+      ],
+      "pr_auc": 0.4037,
+      "sens_at_80_spec": 0.6336,
+      "n_students": 191,
+      "n_rows": 13134
+    },
+    "own_avg8": {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "Own average PHQ-2 score in the first 8 weeks",
+      "auc": 0.7465,
+      "auc_ci": [
+        0.6947,
+        0.796
+      ],
+      "pr_auc": 0.3355,
+      "sens_at_80_spec": 0.4503,
+      "n_students": 206,
+      "n_rows": 14769
+    },
+    "hist16": [
+      {
+        "framing": "2. Personal model, first 16 eligible weeks",
+        "model": "History only (own average and share high): Logistic regression",
+        "kind": "comparison",
+        "auc": 0.7987,
+        "auc_ci": [
+          0.7556,
+          0.837
+        ],
+        "pr_auc": 0.4168,
+        "pr_auc_ci": [
+          0.3182,
+          0.5042
+        ],
+        "sens_at_80_spec": 0.6576,
+        "sens_at_80_spec_ci": [
+          0.5179,
+          0.7637
+        ],
+        "base_rate": 0.1398,
+        "n_rows": 13134,
+        "n_positive": 1836,
+        "n_students": 191,
+        "within_student_auc": 0.5,
+        "train_weeks_per_student": 16
+      },
+      {
+        "framing": "2. Personal model, first 16 eligible weeks",
+        "model": "History only (own average and share high): Gradient boosting (HistGB)",
+        "kind": "comparison",
+        "auc": 0.6709,
+        "auc_ci": [
+          0.5874,
+          0.7428
+        ],
+        "pr_auc": 0.2958,
+        "pr_auc_ci": [
+          0.2092,
+          0.3924
+        ],
+        "sens_at_80_spec": 0.4159,
+        "sens_at_80_spec_ci": [
+          0.2853,
+          0.5497
+        ],
+        "base_rate": 0.1398,
+        "n_rows": 13134,
+        "n_positive": 1836,
+        "n_students": 191,
+        "within_student_auc": 0.5,
+        "train_weeks_per_student": 16
+      }
+    ],
+    "histphone16": [
+      {
+        "framing": "2. Personal model, first 16 eligible weeks",
+        "model": "History plus phone data before the answer: Logistic regression",
+        "kind": "comparison",
+        "auc": 0.7593,
+        "auc_ci": [
+          0.7189,
+          0.7968
+        ],
+        "pr_auc": 0.3284,
+        "pr_auc_ci": [
+          0.2525,
+          0.3982
+        ],
+        "sens_at_80_spec": 0.5436,
+        "sens_at_80_spec_ci": [
+          0.4651,
+          0.6297
+        ],
+        "base_rate": 0.1398,
+        "n_rows": 13134,
+        "n_positive": 1836,
+        "n_students": 191,
+        "within_student_auc": 0.5667,
+        "train_weeks_per_student": 16
+      },
+      {
+        "framing": "2. Personal model, first 16 eligible weeks",
+        "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+        "kind": "comparison",
+        "auc": 0.7622,
+        "auc_ci": [
+          0.7131,
+          0.8057
+        ],
+        "pr_auc": 0.3399,
+        "pr_auc_ci": [
+          0.2753,
+          0.4282
+        ],
+        "sens_at_80_spec": 0.5305,
+        "sens_at_80_spec_ci": [
+          0.4067,
+          0.644
+        ],
+        "base_rate": 0.1398,
+        "n_rows": 13134,
+        "n_positive": 1836,
+        "n_students": 191,
+        "within_student_auc": 0.5699,
+        "train_weeks_per_student": 16
+      }
+    ],
+    "hist8": [
+      {
+        "framing": "2. Personal model, first 8 eligible weeks",
+        "model": "History only (own average and share high): Logistic regression",
+        "kind": "comparison",
+        "auc": 0.7191,
+        "auc_ci": [
+          0.6575,
+          0.7774
+        ],
+        "pr_auc": 0.3207,
+        "pr_auc_ci": [
+          0.2297,
+          0.4296
+        ],
+        "sens_at_80_spec": 0.4528,
+        "sens_at_80_spec_ci": [
+          0.3299,
+          0.6346
+        ],
+        "base_rate": 0.1354,
+        "n_rows": 14769,
+        "n_positive": 1999,
+        "n_students": 206,
+        "within_student_auc": 0.5,
+        "train_weeks_per_student": 8
+      },
+      {
+        "framing": "2. Personal model, first 8 eligible weeks",
+        "model": "History only (own average and share high): Gradient boosting (HistGB)",
+        "kind": "comparison",
+        "auc": 0.6821,
+        "auc_ci": [
+          0.618,
+          0.7413
+        ],
+        "pr_auc": 0.2336,
+        "pr_auc_ci": [
+          0.1641,
+          0.2979
+        ],
+        "sens_at_80_spec": 0.4183,
+        "sens_at_80_spec_ci": [
+          0.3013,
+          0.5501
+        ],
+        "base_rate": 0.1354,
+        "n_rows": 14769,
+        "n_positive": 1999,
+        "n_students": 206,
+        "within_student_auc": 0.5,
+        "train_weeks_per_student": 8
+      }
+    ],
+    "histphone8": [
+      {
+        "framing": "2. Personal model, first 8 eligible weeks",
+        "model": "History plus phone data before the answer: Logistic regression",
+        "kind": "comparison",
+        "auc": 0.6876,
+        "auc_ci": [
+          0.6363,
+          0.739
+        ],
+        "pr_auc": 0.2579,
+        "pr_auc_ci": [
+          0.2067,
+          0.3248
+        ],
+        "sens_at_80_spec": 0.4292,
+        "sens_at_80_spec_ci": [
+          0.3519,
+          0.5267
+        ],
+        "base_rate": 0.1354,
+        "n_rows": 14769,
+        "n_positive": 1999,
+        "n_students": 206,
+        "within_student_auc": 0.5668,
+        "train_weeks_per_student": 8
+      },
+      {
+        "framing": "2. Personal model, first 8 eligible weeks",
+        "model": "History plus phone data before the answer: Gradient boosting (HistGB)",
+        "kind": "comparison",
+        "auc": 0.7023,
+        "auc_ci": [
+          0.6487,
+          0.7605
+        ],
+        "pr_auc": 0.246,
+        "pr_auc_ci": [
+          0.182,
+          0.3008
+        ],
+        "sens_at_80_spec": 0.4387,
+        "sens_at_80_spec_ci": [
+          0.3325,
+          0.5503
+        ],
+        "base_rate": 0.1354,
+        "n_rows": 14769,
+        "n_positive": 1999,
+        "n_students": 206,
+        "within_student_auc": 0.5966,
+        "train_weeks_per_student": 8
+      }
+    ],
+    "histscore16": {
+      "framing": "2. Personal model, first 16 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "auc": 0.7957,
+      "auc_ci": [
+        0.7524,
+        0.8339
+      ],
+      "pr_auc": 0.4149,
+      "sens_at_80_spec": 0.5978,
+      "n_students": 191,
+      "n_rows": 13134
+    },
+    "histscore8": {
+      "framing": "2. Personal model, first 8 eligible weeks",
+      "model": "History plus the shared phone model's score: Logistic regression",
+      "auc": 0.7225,
+      "auc_ci": [
+        0.6603,
+        0.7833
+      ],
+      "pr_auc": 0.3364,
+      "sens_at_80_spec": 0.4807,
+      "n_students": 206,
+      "n_rows": 14769
+    },
+    "term": [
+      {
+        "framing": "3. Between students, same-term association",
+        "model": "Logistic regression",
+        "kind": "model",
+        "auc": 0.6269,
+        "auc_ci": [
+          0.565,
+          0.6962
+        ],
+        "pr_auc": 0.1439,
+        "pr_auc_ci": [
+          0.0943,
+          0.2039
+        ],
+        "sens_at_80_spec": 0.3653,
+        "sens_at_80_spec_ci": [
+          0.2654,
+          0.4791
+        ],
+        "base_rate": 0.0857,
+        "n_rows": 1949,
+        "n_positive": 167,
+        "n_students": 213,
+        "within_student_auc": 0.6269,
+        "n_features": 348
+      },
+      {
+        "framing": "3. Between students, same-term association",
+        "model": "Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.596,
+        "auc_ci": [
+          0.5066,
+          0.6837
+        ],
+        "pr_auc": 0.117,
+        "pr_auc_ci": [
+          0.0816,
+          0.1636
+        ],
+        "sens_at_80_spec": 0.3293,
+        "sens_at_80_spec_ci": [
+          0.2194,
+          0.4452
+        ],
+        "base_rate": 0.0857,
+        "n_rows": 1949,
+        "n_positive": 167,
+        "n_students": 213,
+        "within_student_auc": 0.5575,
+        "n_features": 348
+      },
+      {
+        "framing": "3. Between students, same-term association",
+        "model": "Random forest",
+        "kind": "model",
+        "auc": 0.6063,
+        "auc_ci": [
+          0.5125,
+          0.6901
+        ],
+        "pr_auc": 0.1149,
+        "pr_auc_ci": [
+          0.0757,
+          0.1634
+        ],
+        "sens_at_80_spec": 0.2695,
+        "sens_at_80_spec_ci": [
+          0.1617,
+          0.4121
+        ],
+        "base_rate": 0.0857,
+        "n_rows": 1949,
+        "n_positive": 167,
+        "n_students": 213,
+        "within_student_auc": 0.6106,
+        "n_features": 348
+      }
+    ],
+    "term_nested": {
+      "framing": "3. Between students, same-term association",
+      "model": "Nested choice among the three models",
+      "auc": 0.5944,
+      "auc_ci": [
+        0.5141,
+        0.6757
+      ],
+      "pr_auc": 0.1299,
+      "sens_at_80_spec": 0.3377,
+      "n_students": 213,
+      "n_rows": 1949
+    },
+    "change": [
+      {
+        "framing": "4. Change detection, phone data from before the answer",
+        "model": "Logistic regression",
+        "kind": "model",
+        "auc": 0.6211,
+        "auc_ci": [
+          0.5794,
+          0.6605
+        ],
+        "pr_auc": 0.098,
+        "pr_auc_ci": [
+          0.0713,
+          0.1389
+        ],
+        "sens_at_80_spec": 0.3411,
+        "sens_at_80_spec_ci": [
+          0.2788,
+          0.4106
+        ],
+        "base_rate": 0.0647,
+        "n_rows": 16681,
+        "n_positive": 1079,
+        "n_students": 213,
+        "within_student_auc": 0.5912,
+        "n_features": 686
+      },
+      {
+        "framing": "4. Change detection, phone data from before the answer",
+        "model": "Gradient boosting (HistGB)",
+        "kind": "model",
+        "auc": 0.5527,
+        "auc_ci": [
+          0.519,
+          0.5894
+        ],
+        "pr_auc": 0.0738,
+        "pr_auc_ci": [
+          0.0604,
+          0.0912
+        ],
+        "sens_at_80_spec": 0.241,
+        "sens_at_80_spec_ci": [
+          0.2016,
+          0.2871
+        ],
+        "base_rate": 0.0647,
+        "n_rows": 16681,
+        "n_positive": 1079,
+        "n_students": 213,
+        "within_student_auc": 0.5519,
+        "n_features": 686
+      }
+    ],
+    "dep": [
+      {
+        "framing": "7a. Depresjon (external)",
+        "model": "Per person: Logistic regression",
+        "kind": "model",
+        "auc": 0.7052,
+        "auc_ci": [
+          0.551,
+          0.8479
+        ],
+        "pr_auc": 0.6599,
+        "pr_auc_ci": [
+          0.517,
+          0.8559
+        ],
+        "sens_at_80_spec": 0.5826,
+        "sens_at_80_spec_ci": [
+          0.3217,
+          0.8095
+        ],
+        "base_rate": 0.4182,
+        "n_rows": 55,
+        "n_positive": 23,
+        "n_students": 55,
+        "n_features": 9
+      },
+      {
+        "framing": "7a. Depresjon (external)",
+        "model": "Per person: Random forest",
+        "kind": "model",
+        "auc": 0.8397,
+        "auc_ci": [
+          0.6983,
+          0.9589
+        ],
+        "pr_auc": 0.8745,
+        "pr_auc_ci": [
+          0.764,
+          0.9664
+        ],
+        "sens_at_80_spec": 0.8,
+        "sens_at_80_spec_ci": [
+          0.635,
+          0.96
+        ],
+        "base_rate": 0.4182,
+        "n_rows": 55,
+        "n_positive": 23,
+        "n_students": 55,
+        "n_features": 9
+      }
+    ],
+    "dep_nested": {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person: nested choice between the two models",
+      "auc": 0.8139,
+      "auc_ci": [
+        0.6713,
+        0.9405
+      ],
+      "pr_auc": 0.8572,
+      "sens_at_80_spec": 0.7826,
+      "n_students": 55,
+      "n_rows": 55
+    },
+    "dep_zero": {
+      "framing": "7a. Depresjon (external)",
+      "model": "Per person, all-zero days removed: Random forest",
+      "auc": 0.8533,
+      "auc_ci": [
+        0.719,
+        0.9625
+      ],
+      "pr_auc": 0.8881,
+      "sens_at_80_spec": 0.8261,
+      "n_students": 55,
+      "n_rows": 55
+    },
+    "sl": [
+      {
+        "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+        "model": "Term average: Logistic regression",
+        "kind": "model",
+        "auc": 0.6959,
+        "auc_ci": [
+          0.4285,
+          0.9412
+        ],
+        "pr_auc": 0.3997,
+        "pr_auc_ci": [
+          0.1445,
+          0.6638
+        ],
+        "sens_at_80_spec": 0.5714,
+        "sens_at_80_spec_ci": [
+          0.1329,
+          1.0
+        ],
+        "base_rate": 0.1842,
+        "n_rows": 38,
+        "n_positive": 7,
+        "n_students": 38,
+        "n_features": 12
+      },
+      {
+        "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+        "model": "Term average: Random forest",
+        "kind": "model",
+        "auc": 0.7604,
+        "auc_ci": [
+          0.4999,
+          0.9688
+        ],
+        "pr_auc": 0.5778,
+        "pr_auc_ci": [
+          0.3973,
+          0.8908
+        ],
+        "sens_at_80_spec": 0.7143,
+        "sens_at_80_spec_ci": [
+          0.2495,
+          1.0
+        ],
+        "base_rate": 0.1842,
+        "n_rows": 38,
+        "n_positive": 7,
+        "n_students": 38,
+        "n_features": 12
+      }
+    ],
+    "sl_nested": {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "Term average: nested choice between the two models",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.5554,
+        0.9426
+      ],
+      "pr_auc": 0.443,
+      "sens_at_80_spec": 0.5714,
+      "n_students": 38,
+      "n_rows": 38
+    },
+    "sl_old": {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "First version, with logger record counts in place of calls and texts: Logistic regression",
+      "auc": 0.7604,
+      "auc_ci": [
+        0.5373,
+        0.9401
+      ],
+      "pr_auc": 0.4204,
+      "sens_at_80_spec": 0.6,
+      "n_students": 38,
+      "n_rows": 38
+    },
+    "sl_pre": {
+      "framing": "7b. StudentLife 2013 (external), PHQ-9 >= 10",
+      "model": "PHQ-9 at the start of term alone",
+      "auc": 0.9355,
+      "auc_ci": [
+        0.8374,
+        1.0
+      ],
+      "pr_auc": 0.752,
+      "sens_at_80_spec": 0.8571,
+      "n_students": 38,
+      "n_rows": 38
+    }
+  },
+  "headline": "Using only phone data recorded before the answer, models picked out high PHQ-2 weeks in students they never saw at an AUC of 0.57 to 0.60, while a single check-in from the week before reached 0.69."
+}

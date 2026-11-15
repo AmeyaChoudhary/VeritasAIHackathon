@@ -1,0 +1,85 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "entries": {
+  "mydata~123/json/account.json": {
+   "Basic Information": {
+    "Username": "maya.fixture",
+    "Name": "Maya",
+    "Creation Date": "2023-01-01 00:00:00 UTC"
+   }
+  },
+  "mydata~123/json/chat_history.json": {
+   "jordan.fixture": [
+    {
+     "From": "jordan.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-12 22:00:00 UTC",
+     "Content": "i want to die",
+     "Conversation Title": null,
+     "IsSender": false,
+     "Created(microseconds)": 1
+    },
+    {
+     "From": "maya.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-12 22:05:00 UTC",
+     "Content": "lol ok, so tired",
+     "Conversation Title": null,
+     "IsSender": true,
+     "Created(microseconds)": 2
+    },
+    {
+     "From": "maya.fixture",
+     "Media Type": "MEDIA",
+     "Created": "2026-11-13 01:15:00 UTC",
+     "Content": "",
+     "Conversation Title": null,
+     "IsSender": true,
+     "Created(microseconds)": 3
+    },
+    {
+     "From": "maya.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-04 18:00:00 UTC",
+     "Content": "see you tmrw",
+     "Conversation Title": null,
+     "IsSender": true,
+     "Created(microseconds)": 4
+    }
+   ]
+  }
+ },
+ "older": {
+  "json/account.json": {
+   "Basic Information": {
+    "Username": "maya.fixture",
+    "Name": "Maya",
+    "Creation Date": "2023-01-01 00:00:00 UTC"
+   }
+  },
+  "json/chat_history.json": {
+   "Received Saved Chat History": [
+    {
+     "From": "jordan.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-12 22:00:00 UTC",
+     "Text": "i want to die"
+    }
+   ],
+   "Sent Saved Chat History": [
+    {
+     "To": "jordan.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-12 22:05:00 UTC",
+     "Text": "ok"
+    },
+    {
+     "To": "jordan.fixture",
+     "Media Type": "TEXT",
+     "Created": "2026-11-04 01:00:00 UTC",
+     "Text": "night"
+    }
+   ]
+  }
+ }
+}

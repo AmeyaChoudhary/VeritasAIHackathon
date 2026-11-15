@@ -1,0 +1,440 @@
+// Data files the teen downloads from Instagram, TikTok, Snapchat, Discord and YouTube (Google
+// Takeout), read on the phone. These apps give no way for another app to read a person's own
+// activity with their permission, so the teen's own export is the only honest route; Steady
+// never uses a password or a login session.
+//
+// For each export: work out whose account it is from the export's own profile file, keep only
+// that person's sent messages and own activity times, and skip other people's messages unread.
+// Own messages are scored on the phone and dropped. Only weekly numbers are kept.
+// A zip is read in two passes: first the small profile files, then each data file as it is
+// unpacked, parsed and dropped, so a large export never sits in memory whole.
+// The JSON forms are read. HTML files are never unpacked; an HTML-only export, a layout not
+// listed here, or a missing profile imports nothing.
+//
+// Layouts (checked against the apps' help pages and known exports, Nov 2026):
+// Instagram: personal_information/personal_information(.../)personal_information.json, and
+//   (your_instagram_activity/)messages/inbox/<thread>/message_N.json; likes in likes/liked_posts.json.
+//   Instagram writes UTF-8 bytes as \u00XX escapes; the text is repaired before use.
+// TikTok: user_data_tiktok.json (older: user_data.json), keys "Profile"/"Profile And Settings",
+//   "Direct Message(s)" > "Direct Messages" > "ChatHistory", "Activity"/"Your Activity" >
+//   "Video Browsing History" > "VideoList", "Search History" > "SearchList", "Like List".
+// Snapchat: json/account.json ("Basic Information" > "Username") and json/chat_history.json, either
+//   keyed by conversation with "IsSender", or the older "Sent/Received Saved Chat History" lists.
+// Discord: account/user.json and messages/c<id>/messages.json (newer) or messages/<id>/messages.csv
+//   (older); folder names may be capitalised. The package holds only the owner's own messages.
+// YouTube (Takeout): .../history/watch-history.json and search-history.json, if JSON was chosen.
+
+import { CONFIG, type Config } from "../engine/config";
+import type { ToneModel } from "../engine/tone";
+import { localTime, type TimeFns } from "./common";
+import { chatOwnWords, eventWeeks, exportRange, flagKey, scoreOwnWords, type AggWeek, type ItemFlag, type OwnEvent } from "./agg";
+import { readEntries, streamEntries, type Entries } from "./zip";
+
+export type ExportPlatform = "instagram" | "tiktok" | "snapchat" | "discord" | "youtube";
+
+export interface ExportResult {
+  platform: ExportPlatform;
+  layout: string;
+  weeks: AggWeek[];
+  ownMessages: number;
+  /** Other people's messages, skipped without reading their words. */
+  othersSkipped: number;
+  /** Conversations whose owner could not be told apart (Instagram), skipped whole. */
+  unreadable: number;
+  activity: number;
+  flags: ItemFlag[];
+  /** Files in the export that were too big to read, or over the total cap. */
+  tooBig: string[];
+  truncated: boolean;
+  notes: string[];
+}
+
+export class ExportError extends Error {}
+
+interface Opts {
+  now: number;
+  tone: ToneModel | null;
+  time?: TimeFns;
+  cfg?: Config;
+}
+
+const json = (text: string | undefined): unknown => {
+  if (text == null) return undefined;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return undefined;
+  }
+};
+const obj = (v: unknown): Record<string, unknown> => (v && typeof v === "object" && !Array.isArray(v) ? (v as Record<string, unknown>) : {});
+const arr = (v: unknown): unknown[] => (Array.isArray(v) ? v : []);
+const str = (v: unknown): string | undefined => (typeof v === "string" ? v : undefined);
+
+/** Instagram's exports write UTF-8 bytes as one character each. Put them back together. */
+export function repairText(s: string): string {
+  if (!/[\u0080-ÿ]/.test(s) || /[^\u0000-ÿ]/.test(s)) return s;
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from(s, (c) => c.charCodeAt(0)));
+  } catch {
+    return s;
+  }
+}
+
+/** "2024-01-02 15:04:05", "2024-01-02 15:04:05 UTC" and "2024-01-02 15:04:05.123456+00:00" as ms (UTC). */
+export function exportTime(v: unknown): number {
+  if (typeof v === "number") return v > 1e12 ? v : v * 1000;
+  if (typeof v !== "string") return NaN;
+  let s = v.trim().replace(" UTC", "Z").replace(" ", "T");
+  s = s.replace(/(\.\d{3})\d+/, "$1");
+  if (!/[zZ]|[+-]\d\d:?\d\d$/.test(s)) s += "Z";
+  return Date.parse(s);
+}
+
+/** The older Discord package's messages.csv: ID,Timestamp,Contents,Attachments, with quoted fields. */
+export function parseCsv(text: string): string[][] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) {
+      if (ch === '"' && text[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else if (ch === '"') q = false;
+      else cell += ch;
+    } else if (ch === '"') q = true;
+    else if (ch === ",") {
+      row.push(cell);
+      cell = "";
+    } else if (ch === "\n" || ch === "\r") {
+      if (ch === "\r" && text[i + 1] === "\n") i++;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else cell += ch;
+  }
+  if (cell || row.length) {
+    row.push(cell);
+    rows.push(row);
+  }
+  return rows.filter((r) => r.some((c) => c !== ""));
+}
+
+// ---------------------------------------------------------------- collectors
+
+interface Collector {
+  /** Small files read first: who the account belongs to. */
+  identityWanted(path: string): boolean;
+  /** Files parsed one at a time, as they are unpacked. Never HTML. */
+  dataWanted(path: string): boolean;
+  identify(files: Map<string, string>, names: string[]): void;
+  consume(path: string, text: string): Promise<void>;
+  finish(names: string[], tooBig: string[]): ExportResult;
+}
+
+const IG_PROFILE = /personal_information\.json$/i;
+const IG_THREAD = /messages\/inbox\/[^/]+\/message_\d+\.json$/i;
+const IG_LIKES = /likes\/liked_posts\.json$/i;
+const TT_DATA = /(^|\/)user_data(_tiktok)?\.json$/i;
+const SC_ACCOUNT = /(^|\/)json\/account\.json$/i;
+const SC_CHATS = /(^|\/)json\/chat_history\.json$/i;
+const DC_USER = /(^|\/)account\/user\.json$/i;
+const DC_MSGS = /(^|\/)messages\/c?\d+\/messages\.(json|csv)$/i;
+const YT_HISTORY = /(^|\/)(watch|search)-history\.json$/i;
+
+const TITLE: Record<ExportPlatform, string> = {
+  instagram: "an Instagram export",
+  tiktok: "a TikTok export",
+  snapchat: "a Snapchat export",
+  discord: "a Discord data package",
+  youtube: "a YouTube Takeout",
+};
+
+function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
+  const cfg = opts.cfg ?? CONFIG;
+  const events: OwnEvent[] = [];
+  const flags: ItemFlag[] = [];
+  let others = 0;
+  let unreadable = 0;
+  let owner = "";
+  let names: string[] = [];
+  let layout = "";
+  let sawData = false;
+
+  /** Score one own message and drop the words. */
+  const ownMessage = async (text: string | undefined, at: number): Promise<void> => {
+    let lowMood: boolean | null = null;
+    if (text) {
+      const words = chatOwnWords(text);
+      if (words) {
+        const r = scoreOwnWords(words, at, { now: opts.now, tone: opts.tone, cfg });
+        lowMood = r.lowMood;
+        if (r.level !== "none") flags.push({ at, level: r.level, key: await flagKey(platform, owner, at, r.hash), textHash: r.hash });
+      }
+    }
+    events.push({ at, message: true, lowMood });
+  };
+
+  const finish = (allNames: string[], tooBig: string[]): ExportResult => {
+    if (!sawData) {
+      if (allNames.some((n) => /\.html?$/i.test(n))) throw new ExportError("This is an HTML export. Request it again and choose JSON. Nothing was imported.");
+      throw new ExportError(`This doesn't look like ${TITLE[platform]} Steady knows. Nothing was imported.`);
+    }
+    const range = exportRange(events, opts.now, cfg);
+    if (!range)
+      throw new ExportError(
+        unreadable
+          ? `Steady couldn't tell which messages were yours in ${unreadable} conversation${unreadable === 1 ? "" : "s"}, and found nothing else of yours. Nothing was imported.`
+          : "This export has no activity of yours in it.",
+      );
+    const inRange = events.filter((e) => e.at >= range.from && e.at <= range.to);
+    const truncated = tooBig.length > 0;
+    let weeks: AggWeek[] = eventWeeks(inRange, range, opts.time ?? localTime, cfg, { messages: platform !== "youtube", activity: true });
+    if (truncated) weeks = weeks.map((w) => ({ ...w, complete: false }));
+    const notes: string[] = [];
+    if (truncated) notes.push(`${tooBig.length} file${tooBig.length === 1 ? " was" : "s were"} too big to read, so these weeks are partial and do not reach the rules.`);
+    if (unreadable) notes.push(`${unreadable} conversation${unreadable === 1 ? " was" : "s were"} skipped: Steady couldn't tell which messages were yours.`);
+    flags.sort((a, b) => a.at - b.at);
+    return {
+      platform,
+      layout,
+      weeks,
+      ownMessages: inRange.filter((e) => e.message).length,
+      othersSkipped: others,
+      unreadable,
+      activity: inRange.length,
+      flags,
+      tooBig,
+      truncated,
+      notes,
+    };
+  };
+
+  switch (platform) {
+    case "instagram":
+      return {
+        finish,
+        identityWanted: (p) => IG_PROFILE.test(p),
+        dataWanted: (p) => IG_THREAD.test(p) || IG_LIKES.test(p),
+        identify(files) {
+          const text = [...files.entries()].find(([p]) => IG_PROFILE.test(p))?.[1];
+          const map = obj(obj(arr(obj(json(text)).profile_user)[0]).string_map_data);
+          names = [str(obj(map.Name).value), str(obj(map.Username).value)].filter((n): n is string => !!n).map(repairText);
+          if (!names.length) throw new ExportError("This export has no profile file, so Steady can't tell which messages are yours. Nothing was imported.");
+          owner = names[0];
+          layout = "Instagram JSON";
+        },
+        async consume(path, text) {
+          sawData = true;
+          const data = obj(json(text));
+          if (IG_LIKES.test(path)) {
+            for (const l of arr(data.likes_media_likes))
+              for (const d of arr(obj(l).string_list_data)) {
+                const at = exportTime(obj(d).timestamp);
+                if (Number.isFinite(at)) events.push({ at });
+              }
+            return;
+          }
+          // The owner must be exactly one participant of this conversation, by display name.
+          const people = arr(data.participants).map((p) => repairText(str(obj(p).name) ?? ""));
+          const mine = names.find((n) => people.includes(n));
+          if (!mine || people.filter((p) => p === mine).length !== 1) {
+            unreadable++;
+            return;
+          }
+          for (const m of arr(data.messages)) {
+            const msg = obj(m);
+            const at = Number(msg.timestamp_ms);
+            if (!Number.isFinite(at)) continue;
+            if (repairText(str(msg.sender_name) ?? "") !== mine) {
+              others++; // someone else's message: not read
+              continue;
+            }
+            const content = str(msg.content);
+            await ownMessage(content ? repairText(content) : undefined, at);
+          }
+        },
+      };
+    case "tiktok":
+      return {
+        finish,
+        identityWanted: (p) => TT_DATA.test(p),
+        dataWanted: (p) => TT_DATA.test(p),
+        identify(files) {
+          const data = obj(json([...files.entries()].find(([p]) => TT_DATA.test(p))?.[1]));
+          if (!Object.keys(data).length) throw new ExportError("This doesn't look like a TikTok JSON export. Choose JSON when you request your data. Nothing was imported.");
+          const prof = obj(data.Profile ?? data["Profile And Settings"] ?? data["Your Profile"]);
+          const pmap = obj(obj(prof["Profile Information"] ?? prof["Profile Info"]).ProfileMap);
+          owner = str(pmap.userName) ?? str(pmap.username) ?? "";
+          const dm = obj(data["Direct Message"] ?? data["Direct Messages"]);
+          const act = obj(data.Activity ?? data["Your Activity"]);
+          if (!Object.keys(dm).length && !Object.keys(act).length) throw new ExportError("This TikTok export has a layout Steady doesn't know. Nothing was imported.");
+          if (!owner) throw new ExportError("This export has no profile, so Steady can't tell which messages are yours. Nothing was imported.");
+          layout = "TikTok JSON";
+        },
+        async consume(_path, text) {
+          sawData = true;
+          const data = obj(json(text));
+          const dm = obj(data["Direct Message"] ?? data["Direct Messages"]);
+          const history = obj(obj(dm["Direct Messages"]).ChatHistory ?? dm.ChatHistory);
+          for (const list of Object.values(history)) {
+            for (const m of arr(list)) {
+              const msg = obj(m);
+              const at = exportTime(msg.Date);
+              if (!Number.isFinite(at)) continue;
+              if (str(msg.From) !== owner) {
+                others++;
+                continue;
+              }
+              await ownMessage(str(msg.Content), at);
+            }
+          }
+          const act = obj(data.Activity ?? data["Your Activity"]);
+          for (const l of [obj(act["Video Browsing History"]).VideoList, obj(act["Search History"]).SearchList, obj(act["Like List"]).ItemFavoriteList]) {
+            for (const item of arr(l)) {
+              const at = exportTime(obj(item).Date ?? obj(item).date);
+              if (Number.isFinite(at)) events.push({ at });
+            }
+          }
+        },
+      };
+    case "snapchat":
+      return {
+        finish,
+        identityWanted: (p) => SC_ACCOUNT.test(p),
+        dataWanted: (p) => SC_CHATS.test(p),
+        identify(files, allNames) {
+          const account = obj(json([...files.entries()].find(([p]) => SC_ACCOUNT.test(p))?.[1]));
+          owner = str(obj(account["Basic Information"]).Username) ?? "";
+          if (!owner) {
+            if (!allNames.some((n) => SC_CHATS.test(n)) && allNames.some((n) => /\.html?$/i.test(n)))
+              throw new ExportError("This is an HTML export. Request your data again with JSON files included. Nothing was imported.");
+            if (!allNames.some((n) => SC_CHATS.test(n))) throw new ExportError("This doesn't look like a Snapchat export Steady knows. Nothing was imported.");
+            throw new ExportError("This export has no account file, so Steady can't tell which messages are yours. Nothing was imported.");
+          }
+        },
+        async consume(_path, text) {
+          sawData = true;
+          const c = obj(json(text));
+          const older = Array.isArray(c["Sent Saved Chat History"]) || Array.isArray(c["Received Saved Chat History"]);
+          layout = older ? "Snapchat JSON (older)" : "Snapchat JSON";
+          if (older) {
+            others += arr(c["Received Saved Chat History"]).length;
+            for (const m of arr(c["Sent Saved Chat History"])) {
+              const msg = obj(m);
+              const at = exportTime(msg.Created);
+              if (Number.isFinite(at)) await ownMessage(str(msg.Text), at);
+            }
+            return;
+          }
+          for (const list of Object.values(c)) {
+            for (const m of arr(list)) {
+              const msg = obj(m);
+              const at = exportTime(msg.Created);
+              if (!Number.isFinite(at)) continue;
+              const mine = msg.IsSender === true || (msg.IsSender === undefined && str(msg.From) === owner);
+              if (!mine) {
+                others++;
+                continue;
+              }
+              const text = str(msg["Media Type"]) === "TEXT" || msg["Media Type"] === undefined ? str(msg.Content) : undefined;
+              await ownMessage(text, at);
+            }
+          }
+        },
+      };
+    case "discord":
+      return {
+        finish,
+        identityWanted: (p) => DC_USER.test(p),
+        dataWanted: (p) => DC_MSGS.test(p),
+        identify(files, allNames) {
+          const user = obj(json([...files.entries()].find(([p]) => DC_USER.test(p))?.[1]));
+          owner = str(user.id) ?? str(user.username) ?? "";
+          if (!owner) {
+            if (!allNames.some((n) => DC_MSGS.test(n))) throw new ExportError("This doesn't look like a Discord data package Steady knows. Nothing was imported.");
+            throw new ExportError("This package has no account file, so Steady can't tell whose it is. Nothing was imported.");
+          }
+          layout = "Discord package";
+        },
+        async consume(path, text) {
+          sawData = true;
+          const rows: { ts: unknown; contents?: string }[] = [];
+          if (/\.json$/i.test(path)) {
+            for (const m of arr(json(text))) {
+              const o = obj(m);
+              rows.push({ ts: o.Timestamp ?? o.timestamp, contents: str(o.Contents ?? o.contents) });
+            }
+          } else {
+            const [head, ...body] = parseCsv(text);
+            const iTs = (head ?? []).indexOf("Timestamp");
+            const iC = (head ?? []).indexOf("Contents");
+            if (iTs < 0) return;
+            for (const r of body) rows.push({ ts: r[iTs], contents: r[iC] });
+          }
+          for (const r of rows) {
+            const at = exportTime(r.ts);
+            // Every message in the package is the owner's. Lines quoted from someone else are cut.
+            if (Number.isFinite(at)) await ownMessage(r.contents, at);
+          }
+        },
+      };
+    case "youtube":
+      return {
+        finish,
+        identityWanted: () => false,
+        dataWanted: (p) => YT_HISTORY.test(p),
+        // Takeout is one Google account's own history, so every entry is the owner's activity.
+        identify() {
+          owner = "takeout";
+          layout = "Google Takeout JSON";
+        },
+        async consume(_path, text) {
+          sawData = true;
+          // Titles of videos and searches are never read; only the times.
+          for (const item of arr(json(text))) {
+            const at = exportTime(obj(item).time);
+            if (Number.isFinite(at)) events.push({ at });
+          }
+        },
+      };
+  }
+}
+
+/** Run a collector over files already unpacked (tests, sample data). */
+async function parseEntries(platform: ExportPlatform, e: Entries, opts: Opts): Promise<ExportResult> {
+  const c = makeCollector(platform, opts);
+  const identity = new Map([...e.files.entries()].filter(([p]) => c.identityWanted(p)));
+  c.identify(identity, e.names);
+  for (const [p, text] of e.files) if (c.dataWanted(p)) await c.consume(p, text);
+  return c.finish(e.names, e.tooBig);
+}
+
+/** Read an export file the teen chose: profile files first, then each data file as it is
+ *  unpacked, parsed and dropped. HTML files are never unpacked. */
+export async function importExport(blob: Blob, name: string, platform: ExportPlatform, opts: Opts): Promise<ExportResult> {
+  const cfg = opts.cfg ?? CONFIG;
+  const caps = { maxBytes: cfg.integrations.maxEntryBytes, maxTotal: cfg.integrations.maxTotalBytes };
+  const c = makeCollector(platform, opts);
+  const first = await readEntries(blob, name, (p) => c.identityWanted(p), caps.maxBytes);
+  c.identify(first.files, first.names);
+  const second = await streamEntries(blob, name, (p) => c.dataWanted(p), (p, text) => c.consume(p, text), caps);
+  return c.finish(second.names, [...first.tooBig, ...second.tooBig]);
+}
+
+/** Which files a platform's import unpacks. Never HTML. */
+export function wanted(platform: ExportPlatform): (path: string) => boolean {
+  const c = makeCollector(platform, { now: 0, tone: null });
+  return (p) => c.identityWanted(p) || c.dataWanted(p);
+}
+
+export const PARSERS: Record<ExportPlatform, (e: Entries, o: Opts) => Promise<ExportResult>> = {
+  instagram: (e, o) => parseEntries("instagram", e, o),
+  tiktok: (e, o) => parseEntries("tiktok", e, o),
+  snapchat: (e, o) => parseEntries("snapchat", e, o),
+  discord: (e, o) => parseEntries("discord", e, o),
+  youtube: (e, o) => parseEntries("youtube", e, o),
+};

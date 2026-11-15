@@ -1,0 +1,85 @@
+# XcodeGen spec for the Steady screen-time app and its two extensions.
+# Generate the Xcode project with:  cd native/ios && xcodegen generate
+name: SteadyScreenTime
+options:
+  bundleIdPrefix: app.steadyhack.pvslh
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    GENERATE_INFOPLIST_FILE: YES
+    # Set your own team in Xcode (Signing & Capabilities) to run on an iPhone.
+    CODE_SIGN_STYLE: Automatic
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  SteadyScreenTime:
+    type: application
+    platform: iOS
+    sources:
+      - path: SteadyScreenTime
+        excludes: ["*.entitlements"]
+      - path: Shared/SteadyShared.swift
+      - path: Shared/ReportContext.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.steadyhack.pvslh.screentime
+        CODE_SIGN_ENTITLEMENTS: SteadyScreenTime/SteadyScreenTime.entitlements
+        INFOPLIST_KEY_CFBundleDisplayName: Steady screen time
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    dependencies:
+      - target: SteadyMonitor
+        embed: true
+      - target: SteadyReport
+        embed: true
+
+  SteadyMonitor:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SteadyMonitor
+        excludes: ["*.entitlements"]
+      - path: Shared/SteadyShared.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.steadyhack.pvslh.screentime.SteadyMonitor
+        CODE_SIGN_ENTITLEMENTS: SteadyMonitor/SteadyMonitor.entitlements
+        GENERATE_INFOPLIST_FILE: NO
+    info:
+      path: SteadyMonitor/Info.plist
+      properties:
+        CFBundleDisplayName: SteadyMonitor
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.deviceactivity.monitor-extension
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).DeviceActivityMonitorExtension
+
+  SteadyReport:
+    type: extensionkit-extension
+    platform: iOS
+    sources:
+      - path: SteadyReport
+        excludes: ["*.entitlements"]
+      - path: Shared/SteadyShared.swift
+      - path: Shared/ReportContext.swift
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.steadyhack.pvslh.screentime.SteadyReport
+        CODE_SIGN_ENTITLEMENTS: SteadyReport/SteadyReport.entitlements
+        GENERATE_INFOPLIST_FILE: NO
+    info:
+      path: SteadyReport/Info.plist
+      properties:
+        CFBundleDisplayName: SteadyReport
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        EXAppExtensionAttributes:
+          EXExtensionPointIdentifier: com.apple.deviceactivityui.report-extension

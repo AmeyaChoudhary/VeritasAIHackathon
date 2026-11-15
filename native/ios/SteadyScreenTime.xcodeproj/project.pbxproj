@@ -1,0 +1,574 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0192CBF49726AC664D5979F9 /* SteadyMonitor.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4741A6AF7A70BDC54209D393 /* SteadyMonitor.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		031C46A4F607BEA41676505F /* Monitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDE6A202474D5BAD309F106 /* Monitoring.swift */; };
+		0494AC6B3EDD93E4627751DB /* SteadyShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57775DEEFBEB8616453D506D /* SteadyShared.swift */; };
+		05C82B2CB9E6425EF40B154A /* SteadyShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57775DEEFBEB8616453D506D /* SteadyShared.swift */; };
+		127CFF514E5AD542BA22F261 /* SteadyReport.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 07E3DBFF84421320C62CD358 /* SteadyReport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		47292FC2AD705E64306E8BE7 /* ReportContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE01BB659C2A6163333F502 /* ReportContext.swift */; };
+		5944B07E025140E4D860ECE1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B8DD483A03C4F95F07168A /* ContentView.swift */; };
+		5F5BA725DBD9C679565FE542 /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C019C7AC262812D37E74AC7 /* DeviceActivityMonitorExtension.swift */; };
+		926C979EB5D967C7D786719A /* SteadyScreenTimeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2684BB4A42FD29BA7FB314 /* SteadyScreenTimeApp.swift */; };
+		94277AC58C99E1AE45FA43B0 /* SteadyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09057FC2DB85B780DBF52B40 /* SteadyReport.swift */; };
+		95F086448C6D19F928C8F381 /* SteadyShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57775DEEFBEB8616453D506D /* SteadyShared.swift */; };
+		9ECD5C58A5A90927B64925EA /* ScreenTimeAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6F56AFC9AE18C42662D451 /* ScreenTimeAccess.swift */; };
+		A3190A4F5E2149DE0B83D5F8 /* ReportContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE01BB659C2A6163333F502 /* ReportContext.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2259B2E6159369B1173C4DA6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 199A0576E1CCDDF30F32E3CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0339F517253F0C88EF900163;
+			remoteInfo = SteadyReport;
+		};
+		2EC7F55DF0215110E5F0A169 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 199A0576E1CCDDF30F32E3CD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBBCA47ED9C1654B7AFC9387;
+			remoteInfo = SteadyMonitor;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		48AD68197165517C23EE2933 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0192CBF49726AC664D5979F9 /* SteadyMonitor.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		98ACDFCAFD4F93D30740A5FE /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				127CFF514E5AD542BA22F261 /* SteadyReport.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		07E3DBFF84421320C62CD358 /* SteadyReport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = SteadyReport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		09057FC2DB85B780DBF52B40 /* SteadyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteadyReport.swift; sourceTree = "<group>"; };
+		16FCE5734C85ADC4C227CF5D /* SteadyScreenTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SteadyScreenTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C6F56AFC9AE18C42662D451 /* ScreenTimeAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeAccess.swift; sourceTree = "<group>"; };
+		3AB6A37F1818FEA9249FA802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4741A6AF7A70BDC54209D393 /* SteadyMonitor.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SteadyMonitor.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		501C94E21A26E0188526095E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		57775DEEFBEB8616453D506D /* SteadyShared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteadyShared.swift; sourceTree = "<group>"; };
+		7C019C7AC262812D37E74AC7 /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		7E2684BB4A42FD29BA7FB314 /* SteadyScreenTimeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SteadyScreenTimeApp.swift; sourceTree = "<group>"; };
+		9FE01BB659C2A6163333F502 /* ReportContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportContext.swift; sourceTree = "<group>"; };
+		A4B8DD483A03C4F95F07168A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CCDE6A202474D5BAD309F106 /* Monitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitoring.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		530B1CCD7EDA14FB3466F77C /* SteadyScreenTime */ = {
+			isa = PBXGroup;
+			children = (
+				A4B8DD483A03C4F95F07168A /* ContentView.swift */,
+				CCDE6A202474D5BAD309F106 /* Monitoring.swift */,
+				1C6F56AFC9AE18C42662D451 /* ScreenTimeAccess.swift */,
+				7E2684BB4A42FD29BA7FB314 /* SteadyScreenTimeApp.swift */,
+			);
+			path = SteadyScreenTime;
+			sourceTree = "<group>";
+		};
+		5B80E88D8F97074F284C59E0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				9FE01BB659C2A6163333F502 /* ReportContext.swift */,
+				57775DEEFBEB8616453D506D /* SteadyShared.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		646F2AE16741B871C00DF261 = {
+			isa = PBXGroup;
+			children = (
+				5B80E88D8F97074F284C59E0 /* Shared */,
+				ADB7F808150E0D1A25836CE1 /* SteadyMonitor */,
+				9FF0D5E2B08F5D5F5902C06A /* SteadyReport */,
+				530B1CCD7EDA14FB3466F77C /* SteadyScreenTime */,
+				8F1013B684969346EFAB6EC7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8F1013B684969346EFAB6EC7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4741A6AF7A70BDC54209D393 /* SteadyMonitor.appex */,
+				07E3DBFF84421320C62CD358 /* SteadyReport.appex */,
+				16FCE5734C85ADC4C227CF5D /* SteadyScreenTime.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9FF0D5E2B08F5D5F5902C06A /* SteadyReport */ = {
+			isa = PBXGroup;
+			children = (
+				501C94E21A26E0188526095E /* Info.plist */,
+				09057FC2DB85B780DBF52B40 /* SteadyReport.swift */,
+			);
+			path = SteadyReport;
+			sourceTree = "<group>";
+		};
+		ADB7F808150E0D1A25836CE1 /* SteadyMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				7C019C7AC262812D37E74AC7 /* DeviceActivityMonitorExtension.swift */,
+				3AB6A37F1818FEA9249FA802 /* Info.plist */,
+			);
+			path = SteadyMonitor;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0339F517253F0C88EF900163 /* SteadyReport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 145AADC31BE6461E269C9783 /* Build configuration list for PBXNativeTarget "SteadyReport" */;
+			buildPhases = (
+				F98237998905D090F4B67C04 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SteadyReport;
+			packageProductDependencies = (
+			);
+			productName = SteadyReport;
+			productReference = 07E3DBFF84421320C62CD358 /* SteadyReport.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
+		85CD188BEE67C9FD1B993B05 /* SteadyScreenTime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00E8307101EB4CD04E26089A /* Build configuration list for PBXNativeTarget "SteadyScreenTime" */;
+			buildPhases = (
+				7F5EA52CA08D6A729EF6DF69 /* Sources */,
+				48AD68197165517C23EE2933 /* Embed Foundation Extensions */,
+				98ACDFCAFD4F93D30740A5FE /* Embed ExtensionKit Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6B455EF96AFA1644620CF161 /* PBXTargetDependency */,
+				985A0E098A474772816D5683 /* PBXTargetDependency */,
+			);
+			name = SteadyScreenTime;
+			packageProductDependencies = (
+			);
+			productName = SteadyScreenTime;
+			productReference = 16FCE5734C85ADC4C227CF5D /* SteadyScreenTime.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DBBCA47ED9C1654B7AFC9387 /* SteadyMonitor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 163C1D12AB1285D7CE214161 /* Build configuration list for PBXNativeTarget "SteadyMonitor" */;
+			buildPhases = (
+				BC7A20E44EAC1D431633282F /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SteadyMonitor;
+			packageProductDependencies = (
+			);
+			productName = SteadyMonitor;
+			productReference = 4741A6AF7A70BDC54209D393 /* SteadyMonitor.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		199A0576E1CCDDF30F32E3CD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					0339F517253F0C88EF900163 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					85CD188BEE67C9FD1B993B05 = {
+						ProvisioningStyle = Automatic;
+					};
+					DBBCA47ED9C1654B7AFC9387 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 3655BB9D9EFA1DBE3BFFB40E /* Build configuration list for PBXProject "SteadyScreenTime" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 646F2AE16741B871C00DF261;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8F1013B684969346EFAB6EC7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				85CD188BEE67C9FD1B993B05 /* SteadyScreenTime */,
+				DBBCA47ED9C1654B7AFC9387 /* SteadyMonitor */,
+				0339F517253F0C88EF900163 /* SteadyReport */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7F5EA52CA08D6A729EF6DF69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5944B07E025140E4D860ECE1 /* ContentView.swift in Sources */,
+				031C46A4F607BEA41676505F /* Monitoring.swift in Sources */,
+				47292FC2AD705E64306E8BE7 /* ReportContext.swift in Sources */,
+				9ECD5C58A5A90927B64925EA /* ScreenTimeAccess.swift in Sources */,
+				926C979EB5D967C7D786719A /* SteadyScreenTimeApp.swift in Sources */,
+				05C82B2CB9E6425EF40B154A /* SteadyShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC7A20E44EAC1D431633282F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F5BA725DBD9C679565FE542 /* DeviceActivityMonitorExtension.swift in Sources */,
+				95F086448C6D19F928C8F381 /* SteadyShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F98237998905D090F4B67C04 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3190A4F5E2149DE0B83D5F8 /* ReportContext.swift in Sources */,
+				94277AC58C99E1AE45FA43B0 /* SteadyReport.swift in Sources */,
+				0494AC6B3EDD93E4627751DB /* SteadyShared.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6B455EF96AFA1644620CF161 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBBCA47ED9C1654B7AFC9387 /* SteadyMonitor */;
+			targetProxy = 2EC7F55DF0215110E5F0A169 /* PBXContainerItemProxy */;
+		};
+		985A0E098A474772816D5683 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0339F517253F0C88EF900163 /* SteadyReport */;
+			targetProxy = 2259B2E6159369B1173C4DA6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0AD1E453943DD535AAA78728 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SteadyReport/SteadyReport.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SteadyReport/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime.SteadyReport;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1FB556A9FEC18665AC812CC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		413FCC2F9BF31459B6E836AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SteadyScreenTime/SteadyScreenTime.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = WU8P8TNY6G;
+				INFOPLIST_KEY_CFBundleDisplayName = "Steady screen time";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		59A2DBCC32FD573597952DA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SteadyMonitor/SteadyMonitor.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SteadyMonitor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime.SteadyMonitor;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5F62A6BBAA49D55BB5993CD5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SteadyScreenTime/SteadyScreenTime.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = WU8P8TNY6G;
+				INFOPLIST_KEY_CFBundleDisplayName = "Steady screen time";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		82A389C48156BE2E4DE605AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SteadyMonitor/SteadyMonitor.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SteadyMonitor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime.SteadyMonitor;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		937FC167EA5E24C38D832632 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 0.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		FB795845893CBA9007EF804F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SteadyReport/SteadyReport.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SteadyReport/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.steadyhack.pvslh.screentime.SteadyReport;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00E8307101EB4CD04E26089A /* Build configuration list for PBXNativeTarget "SteadyScreenTime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F62A6BBAA49D55BB5993CD5 /* Debug */,
+				413FCC2F9BF31459B6E836AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		145AADC31BE6461E269C9783 /* Build configuration list for PBXNativeTarget "SteadyReport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0AD1E453943DD535AAA78728 /* Debug */,
+				FB795845893CBA9007EF804F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		163C1D12AB1285D7CE214161 /* Build configuration list for PBXNativeTarget "SteadyMonitor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82A389C48156BE2E4DE605AE /* Debug */,
+				59A2DBCC32FD573597952DA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3655BB9D9EFA1DBE3BFFB40E /* Build configuration list for PBXProject "SteadyScreenTime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FB556A9FEC18665AC812CC8 /* Debug */,
+				937FC167EA5E24C38D832632 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 199A0576E1CCDDF30F32E3CD /* Project object */;
+}

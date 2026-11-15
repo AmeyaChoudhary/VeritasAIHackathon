@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+    Lets the app read screen on and off times. Declaring it is not enough: the teen also has to
+    turn on usage access for this app in Settings.
+    https://developer.android.com/reference/android/app/usage/UsageStatsManager
+    -->
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--
+    Health Connect: read sleep sessions and steps. The teen grants these on Health Connect's own
+    screen. Nothing is written to Health Connect.
+    https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started
+    -->
+    <uses-permission android:name="android.permission.health.READ_SLEEP" />
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+
+    <!--
+    The ongoing notification shown while the Steady keyboard is on. Google Play requires a
+    monitoring app to show a persistent notification while it runs. From Android 13 the teen
+    allows notifications first; the app asks with a plain explanation.
+    https://support.google.com/googleplay/android-developer/answer/9888380
+    -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!--
+    There is no INTERNET permission on purpose. Without it the app cannot open a network
+    connection, so nothing it reads can leave the phone except the file the teen saves.
+    The app reads screen time and Health Connect only while its own screen is open, so it has
+    no foreground service.
+    -->
+
+    <!-- Lets getSdkStatus() see the Health Connect app on Android 13 and lower. -->
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <!--
+        Google Play's flag for monitoring apps. Steady can send a parent a note, so it declares
+        itself as parental monitoring.
+        https://support.google.com/googleplay/android-developer/answer/12955211
+        That page shows this element directly under <manifest>. The Android manifest reference
+        lists <meta-data> as a child of <application>, so it sits here, where the build tools
+        accept it. The same reference also lists an android:isMonitoringTool attribute on
+        <application> (values "parental_control", "enterprise_management", "other"). Check the
+        current Play Console guidance before a store upload.
+        https://developer.android.com/guide/topics/manifest/application-element
+        -->
+        <meta-data
+            android:name="isMonitoringTool"
+            android:value="child_monitoring" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Health Connect opens this from the privacy policy link on its permission screen. -->
+        <activity
+            android:name=".HealthRationaleActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+
+        <!-- The same screen for Android 14 and later, where Health Connect is part of Android. -->
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE"
+            android:targetActivity=".HealthRationaleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+
+        <!-- The 988 screen the keyboard opens. Its own task, so closing it returns to the chat. -->
+        <activity
+            android:name=".CrisisActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:taskAffinity="app.steady.screentime.help" />
+
+        <!--
+        The Steady keyboard. BIND_INPUT_METHOD means only the system can connect to it.
+        https://developer.android.com/develop/ui/views/touch-and-input/creating-input-method
+        -->
+        <service
+            android:name=".SteadyKeyboardService"
+            android:exported="true"
+            android:label="@string/keyboard_name"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+    </application>
+</manifest>

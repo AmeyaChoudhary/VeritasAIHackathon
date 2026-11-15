@@ -1,0 +1,203 @@
+{
+  "source": "android_usage_stats",
+  "version": 1,
+  "generated": "2026-11-14T08:00:00Z",
+  "days": [
+    {
+      "date": "2026-10-17",
+      "screen_minutes": 281,
+      "night_minutes": 0,
+      "first_use": "09:56",
+      "last_use": "23:17"
+    },
+    {
+      "date": "2026-10-18",
+      "screen_minutes": 335,
+      "night_minutes": 0,
+      "first_use": "09:54",
+      "last_use": "22:42"
+    },
+    {
+      "date": "2026-10-19",
+      "screen_minutes": 227,
+      "night_minutes": 0,
+      "first_use": "07:22",
+      "last_use": "23:07"
+    },
+    {
+      "date": "2026-10-20",
+      "screen_minutes": 228,
+      "night_minutes": 0,
+      "first_use": "07:05",
+      "last_use": "23:00"
+    },
+    {
+      "date": "2026-10-21",
+      "screen_minutes": 205,
+      "night_minutes": 0,
+      "first_use": "07:00",
+      "last_use": "22:55"
+    },
+    {
+      "date": "2026-10-22",
+      "screen_minutes": 223,
+      "night_minutes": 0,
+      "first_use": "07:20",
+      "last_use": "23:30"
+    },
+    {
+      "date": "2026-10-23",
+      "screen_minutes": 209,
+      "night_minutes": 0,
+      "first_use": "07:22",
+      "last_use": "22:45"
+    },
+    {
+      "date": "2026-10-24",
+      "screen_minutes": 285,
+      "night_minutes": 3,
+      "first_use": "01:15",
+      "last_use": "23:26"
+    },
+    {
+      "date": "2026-10-25",
+      "screen_minutes": 296,
+      "night_minutes": 5,
+      "first_use": "01:26",
+      "last_use": "22:58"
+    },
+    {
+      "date": "2026-10-26",
+      "screen_minutes": 241,
+      "night_minutes": 0,
+      "first_use": "07:08",
+      "last_use": "23:27"
+    },
+    {
+      "date": "2026-10-27",
+      "screen_minutes": 202,
+      "night_minutes": 0,
+      "first_use": "07:23",
+      "last_use": "22:24"
+    },
+    {
+      "date": "2026-10-28",
+      "screen_minutes": 236,
+      "night_minutes": 0,
+      "first_use": "06:46",
+      "last_use": "23:12"
+    },
+    {
+      "date": "2026-10-29",
+      "screen_minutes": 255,
+      "night_minutes": 0,
+      "first_use": "06:57",
+      "last_use": "23:07"
+    },
+    {
+      "date": "2026-10-30",
+      "screen_minutes": 217,
+      "night_minutes": 0,
+      "first_use": "06:58",
+      "last_use": "23:14"
+    },
+    {
+      "date": "2026-10-31",
+      "screen_minutes": 291,
+      "night_minutes": 3,
+      "first_use": "01:35",
+      "last_use": "22:45"
+    },
+    {
+      "date": "2026-11-01",
+      "screen_minutes": 282,
+      "night_minutes": 8,
+      "first_use": "01:52",
+      "last_use": "22:24"
+    },
+    {
+      "date": "2026-11-02",
+      "screen_minutes": 201,
+      "night_minutes": 0,
+      "first_use": "07:23",
+      "last_use": "22:31"
+    },
+    {
+      "date": "2026-11-03",
+      "screen_minutes": 273,
+      "night_minutes": 70,
+      "first_use": "01:58",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-04",
+      "screen_minutes": 244,
+      "night_minutes": 64,
+      "first_use": "00:00",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-05",
+      "screen_minutes": 275,
+      "night_minutes": 31,
+      "first_use": "00:00",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-06",
+      "screen_minutes": 261,
+      "night_minutes": 64,
+      "first_use": "00:00",
+      "last_use": "23:27"
+    },
+    {
+      "date": "2026-11-07",
+      "screen_minutes": 321,
+      "night_minutes": 52,
+      "first_use": "02:00",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-08",
+      "screen_minutes": 335,
+      "night_minutes": 70,
+      "first_use": "00:00",
+      "last_use": "23:06"
+    },
+    {
+      "date": "2026-11-09",
+      "screen_minutes": 233,
+      "night_minutes": 45,
+      "first_use": "01:03",
+      "last_use": "23:37"
+    },
+    {
+      "date": "2026-11-10",
+      "screen_minutes": 271,
+      "night_minutes": 52,
+      "first_use": "01:32",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-11",
+      "screen_minutes": 239,
+      "night_minutes": 0,
+      "first_use": "06:54",
+      "last_use": "23:59"
+    },
+    {
+      "date": "2026-11-12",
+      "screen_minutes": 247,
+      "night_minutes": 38,
+      "first_use": "00:00",
+      "last_use": "23:21"
+    },
+    {
+      "date": "2026-11-13",
+      "screen_minutes": 263,
+      "night_minutes": 31,
+      "first_use": "02:05",
+      "last_use": "23:12"
+    }
+  ]
+}

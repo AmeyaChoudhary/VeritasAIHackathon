@@ -1,0 +1,1612 @@
+{
+  "generated": "2026-11-14",
+  "dataset": "GoEmotions simplified (Google), Apache-2.0, Reddit comments",
+  "label_names": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "low_mood_labels": [
+    "sadness",
+    "grief",
+    "disappointment",
+    "remorse"
+  ],
+  "low_mood_label_ids": [
+    9,
+    16,
+    24,
+    25
+  ],
+  "data": {
+    "train": {
+      "n": 43410,
+      "low_mood": 2986,
+      "share": 0.0688
+    },
+    "validation": {
+      "n": 5426,
+      "low_mood": 360,
+      "share": 0.0663
+    },
+    "test": {
+      "n": 5427,
+      "low_mood": 345,
+      "share": 0.0636
+    },
+    "train_label_counts": {
+      "sadness": 1326,
+      "grief": 77,
+      "disappointment": 1269,
+      "remorse": 545
+    }
+  },
+  "keywords": [
+    "sad",
+    "sadder",
+    "saddest",
+    "sadness",
+    "depressed",
+    "depressing",
+    "depression",
+    "miss",
+    "missed",
+    "missing",
+    "cry",
+    "crying",
+    "cried",
+    "cries",
+    "tears",
+    "lonely",
+    "alone",
+    "hate myself",
+    "heartbroken",
+    "hurt",
+    "hurts",
+    "upset",
+    "unhappy",
+    "miserable",
+    "hopeless",
+    "worthless",
+    "disappointed",
+    "disappointing",
+    "regret",
+    "grief",
+    "grieving",
+    "empty"
+  ],
+  "search": {
+    "grid": [
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 0.25,
+        "val_ap": 0.5506,
+        "val_best_f1": 0.5283,
+        "val_best_threshold": 0.6
+      },
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 0.5,
+        "val_ap": 0.5524,
+        "val_best_f1": 0.5251,
+        "val_best_threshold": 0.635
+      },
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 1.0,
+        "val_ap": 0.5477,
+        "val_best_f1": 0.5244,
+        "val_best_threshold": 0.755
+      },
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 2.0,
+        "val_ap": 0.5355,
+        "val_best_f1": 0.5246,
+        "val_best_threshold": 0.79
+      },
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 4.0,
+        "val_ap": 0.5218,
+        "val_best_f1": 0.516,
+        "val_best_threshold": 0.785
+      },
+      {
+        "vocab": 10000,
+        "tf": "raw",
+        "C": 8.0,
+        "val_ap": 0.5044,
+        "val_best_f1": 0.5084,
+        "val_best_threshold": 0.845
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 0.25,
+        "val_ap": 0.5511,
+        "val_best_f1": 0.5257,
+        "val_best_threshold": 0.6
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 0.5,
+        "val_ap": 0.553,
+        "val_best_f1": 0.5294,
+        "val_best_threshold": 0.665
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 1.0,
+        "val_ap": 0.5468,
+        "val_best_f1": 0.5226,
+        "val_best_threshold": 0.745
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 2.0,
+        "val_ap": 0.5384,
+        "val_best_f1": 0.5263,
+        "val_best_threshold": 0.795
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 4.0,
+        "val_ap": 0.5204,
+        "val_best_f1": 0.5158,
+        "val_best_threshold": 0.82
+      },
+      {
+        "vocab": 10000,
+        "tf": "sublinear",
+        "C": 8.0,
+        "val_ap": 0.5045,
+        "val_best_f1": 0.5101,
+        "val_best_threshold": 0.84
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 0.25,
+        "val_ap": 0.5551,
+        "val_best_f1": 0.5208,
+        "val_best_threshold": 0.555
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 0.5,
+        "val_ap": 0.5592,
+        "val_best_f1": 0.5244,
+        "val_best_threshold": 0.66
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 1.0,
+        "val_ap": 0.5527,
+        "val_best_f1": 0.5272,
+        "val_best_threshold": 0.63
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 2.0,
+        "val_ap": 0.5429,
+        "val_best_f1": 0.5255,
+        "val_best_threshold": 0.675
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 4.0,
+        "val_ap": 0.5308,
+        "val_best_f1": 0.514,
+        "val_best_threshold": 0.695
+      },
+      {
+        "vocab": 15000,
+        "tf": "raw",
+        "C": 8.0,
+        "val_ap": 0.516,
+        "val_best_f1": 0.5023,
+        "val_best_threshold": 0.715
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 0.25,
+        "val_ap": 0.5561,
+        "val_best_f1": 0.5235,
+        "val_best_threshold": 0.64
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 0.5,
+        "val_ap": 0.5598,
+        "val_best_f1": 0.524,
+        "val_best_threshold": 0.67
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 1.0,
+        "val_ap": 0.5533,
+        "val_best_f1": 0.5222,
+        "val_best_threshold": 0.7
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 2.0,
+        "val_ap": 0.5456,
+        "val_best_f1": 0.5255,
+        "val_best_threshold": 0.675
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 4.0,
+        "val_ap": 0.5302,
+        "val_best_f1": 0.5124,
+        "val_best_threshold": 0.685
+      },
+      {
+        "vocab": 15000,
+        "tf": "sublinear",
+        "C": 8.0,
+        "val_ap": 0.5173,
+        "val_best_f1": 0.5047,
+        "val_best_threshold": 0.765
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 0.25,
+        "val_ap": 0.5576,
+        "val_best_f1": 0.5282,
+        "val_best_threshold": 0.57
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 0.5,
+        "val_ap": 0.5606,
+        "val_best_f1": 0.5286,
+        "val_best_threshold": 0.595
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 1.0,
+        "val_ap": 0.5571,
+        "val_best_f1": 0.5284,
+        "val_best_threshold": 0.615
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 2.0,
+        "val_ap": 0.5457,
+        "val_best_f1": 0.5233,
+        "val_best_threshold": 0.64
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 4.0,
+        "val_ap": 0.5337,
+        "val_best_f1": 0.5187,
+        "val_best_threshold": 0.625
+      },
+      {
+        "vocab": 20000,
+        "tf": "raw",
+        "C": 8.0,
+        "val_ap": 0.52,
+        "val_best_f1": 0.514,
+        "val_best_threshold": 0.69
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 0.25,
+        "val_ap": 0.5578,
+        "val_best_f1": 0.5258,
+        "val_best_threshold": 0.57
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 0.5,
+        "val_ap": 0.5597,
+        "val_best_f1": 0.5284,
+        "val_best_threshold": 0.575
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 1.0,
+        "val_ap": 0.5554,
+        "val_best_f1": 0.5257,
+        "val_best_threshold": 0.645
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 2.0,
+        "val_ap": 0.5477,
+        "val_best_f1": 0.5211,
+        "val_best_threshold": 0.64
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 4.0,
+        "val_ap": 0.5347,
+        "val_best_f1": 0.5198,
+        "val_best_threshold": 0.605
+      },
+      {
+        "vocab": 20000,
+        "tf": "sublinear",
+        "C": 8.0,
+        "val_ap": 0.5179,
+        "val_best_f1": 0.514,
+        "val_best_threshold": 0.675
+      }
+    ],
+    "chosen": {
+      "vocab": 20000,
+      "tf": "raw",
+      "C": 0.5,
+      "val_ap": 0.5606,
+      "val_best_f1": 0.5286,
+      "val_best_threshold": 0.595
+    },
+    "criterion": "validation average precision",
+    "threshold_criterion": "best F1 on validation, grid 0.05 to 0.95 step 0.005"
+  },
+  "validation_at_threshold": {
+    "n": 5426,
+    "positives": 360,
+    "flagged": 393,
+    "tp": 199,
+    "fp": 194,
+    "fn": 161,
+    "tn": 4872,
+    "precision": 0.5063613231552163,
+    "recall": 0.5527777777777778,
+    "f1": 0.5285524568393095,
+    "missed": 161,
+    "false_alarms": 194
+  },
+  "test": {
+    "model": {
+      "n": 5427,
+      "positives": 345,
+      "flagged": 365,
+      "tp": 189,
+      "fp": 176,
+      "fn": 156,
+      "tn": 4906,
+      "precision": 0.5178082191780822,
+      "recall": 0.5478260869565217,
+      "f1": 0.532394366197183,
+      "missed": 156,
+      "false_alarms": 176,
+      "precision_95ci": [
+        0.4665,
+        0.5718
+      ],
+      "recall_95ci": [
+        0.4944,
+        0.6
+      ],
+      "threshold": 0.595,
+      "average_precision": 0.5214,
+      "roc_auc": 0.8776,
+      "recall_by_label": {
+        "sadness": {
+          "n": 156,
+          "recall": 0.6538
+        },
+        "grief": {
+          "n": 6,
+          "recall": 0.8333
+        },
+        "disappointment": {
+          "n": 151,
+          "recall": 0.3113
+        },
+        "remorse": {
+          "n": 56,
+          "recall": 0.9107
+        }
+      }
+    },
+    "model_at_0_5": {
+      "n": 5427,
+      "positives": 345,
+      "flagged": 577,
+      "tp": 221,
+      "fp": 356,
+      "fn": 124,
+      "tn": 4726,
+      "precision": 0.3830155979202773,
+      "recall": 0.6405797101449275,
+      "f1": 0.47939262472885036,
+      "missed": 124,
+      "false_alarms": 356
+    },
+    "baseline_keyword": {
+      "n": 5427,
+      "positives": 345,
+      "flagged": 171,
+      "tp": 82,
+      "fp": 89,
+      "fn": 263,
+      "tn": 4993,
+      "precision": 0.47953216374269003,
+      "recall": 0.23768115942028986,
+      "f1": 0.31782945736434104,
+      "missed": 263,
+      "false_alarms": 89,
+      "precision_95ci": [
+        0.407,
+        0.5562
+      ],
+      "recall_95ci": [
+        0.1956,
+        0.2836
+      ],
+      "recall_by_label": {
+        "sadness": {
+          "n": 156,
+          "recall": 0.3846
+        },
+        "grief": {
+          "n": 6,
+          "recall": 0.1667
+        },
+        "disappointment": {
+          "n": 151,
+          "recall": 0.1722
+        },
+        "remorse": {
+          "n": 56,
+          "recall": 0.0714
+        }
+      }
+    },
+    "baseline_always_no": {
+      "n": 5427,
+      "positives": 345,
+      "flagged": 0,
+      "tp": 0,
+      "fp": 0,
+      "fn": 345,
+      "tn": 5082,
+      "precision": null,
+      "recall": 0.0,
+      "f1": 0.0,
+      "missed": 345,
+      "false_alarms": 0
+    },
+    "unrounded_vs_shipped_max_abs_diff": 2.3287294026785865e-05
+  },
+  "top_features": {
+    "low_mood": [
+      [
+        "sorry",
+        15.3992
+      ],
+      [
+        "sad",
+        12.2808
+      ],
+      [
+        "sadly",
+        8.3841
+      ],
+      [
+        "bad",
+        6.7689
+      ],
+      [
+        "poor",
+        5.7993
+      ],
+      [
+        "hurts",
+        5.7315
+      ],
+      [
+        "unfortunately",
+        5.7268
+      ],
+      [
+        "disappointing",
+        5.488
+      ],
+      [
+        "disappointed",
+        5.4273
+      ],
+      [
+        "miss",
+        5.3538
+      ],
+      [
+        "regret",
+        5.3049
+      ],
+      [
+        "hurt",
+        5.2314
+      ],
+      [
+        "lost",
+        5.1159
+      ],
+      [
+        "crying",
+        5.0364
+      ],
+      [
+        "painful",
+        4.8099
+      ],
+      [
+        "apologies",
+        4.5842
+      ],
+      [
+        "upset",
+        4.3298
+      ],
+      [
+        "missed",
+        4.2027
+      ],
+      [
+        "depressing",
+        4.0167
+      ],
+      [
+        "rip",
+        3.9431
+      ],
+      [
+        "cry",
+        3.9099
+      ],
+      [
+        "died",
+        3.8471
+      ],
+      [
+        "pain",
+        3.6204
+      ],
+      [
+        "me",
+        3.5737
+      ],
+      [
+        "worse",
+        3.5666
+      ]
+    ],
+    "not_low_mood": [
+      [
+        "love",
+        -4.2426
+      ],
+      [
+        "lol",
+        -4.064
+      ],
+      [
+        "thanks",
+        -3.8447
+      ],
+      [
+        "thank",
+        -2.8386
+      ],
+      [
+        "i like",
+        -2.706
+      ],
+      [
+        "haha",
+        -2.5286
+      ],
+      [
+        "wow",
+        -2.5115
+      ],
+      [
+        "amazing",
+        -2.23
+      ],
+      [
+        "awesome",
+        -2.2235
+      ],
+      [
+        "thank you",
+        -2.2049
+      ],
+      [
+        "glad",
+        -2.0034
+      ],
+      [
+        "great",
+        -1.9547
+      ],
+      [
+        "i love",
+        -1.867
+      ],
+      [
+        "you",
+        -1.8339
+      ],
+      [
+        "best",
+        -1.8287
+      ],
+      [
+        "to me",
+        -1.7881
+      ],
+      [
+        "right",
+        -1.7743
+      ],
+      [
+        "fun",
+        -1.7717
+      ],
+      [
+        "nice",
+        -1.7699
+      ],
+      [
+        "start",
+        -1.7284
+      ],
+      [
+        "sure",
+        -1.6845
+      ],
+      [
+        "joke",
+        -1.6521
+      ],
+      [
+        "sense",
+        -1.6517
+      ],
+      [
+        "hey",
+        -1.6436
+      ],
+      [
+        "funny",
+        -1.565
+      ]
+    ]
+  },
+  "model_file": {
+    "path": "app/public/models/tone.json",
+    "bytes": 507430,
+    "kb": 496,
+    "n_features": 20000
+  },
+  "parity": {
+    "node": "v25.9.0",
+    "tone_n": 5487,
+    "tone_max_abs_diff": 3.3306690738754696e-16,
+    "tone_mean_abs_diff": 2.5466638497700705e-17,
+    "tone_max_abs_diff_vs_unrounded_sklearn": 2.3287294026841376e-05,
+    "tone_decision_mismatches": 0,
+    "within_1e-4": true,
+    "selfharm_n": 5487,
+    "selfharm_mismatches": 0,
+    "default_url_outside_vite": "/models/tone.json"
+  },
+  "messages": {
+    "n": 60,
+    "overall": {
+      "model": {
+        "n": 60,
+        "positives": 33,
+        "flagged": 13,
+        "tp": 11,
+        "fp": 2,
+        "fn": 22,
+        "tn": 25,
+        "precision": 0.8461538461538461,
+        "recall": 0.3333333333333333,
+        "f1": 0.47826086956521735,
+        "missed": 22,
+        "false_alarms": 2
+      },
+      "keyword": {
+        "n": 60,
+        "positives": 33,
+        "flagged": 6,
+        "tp": 5,
+        "fp": 1,
+        "fn": 28,
+        "tn": 26,
+        "precision": 0.8333333333333334,
+        "recall": 0.15151515151515152,
+        "f1": 0.25641025641025644,
+        "missed": 28,
+        "false_alarms": 1
+      }
+    },
+    "by_slice": {
+      "everyday": {
+        "n": 10,
+        "labelled_low_mood": 0,
+        "flagged_low_mood": 1,
+        "tp": 0,
+        "missed": 0,
+        "false_alarms": 1,
+        "precision": 0.0,
+        "recall": null,
+        "keyword_flagged": 1,
+        "keyword_missed": 0,
+        "keyword_false_alarms": 1,
+        "selfharm": {
+          "none": 10,
+          "concern": 0,
+          "plan": 0
+        }
+      },
+      "low_mood": {
+        "n": 11,
+        "labelled_low_mood": 11,
+        "flagged_low_mood": 6,
+        "tp": 6,
+        "missed": 5,
+        "false_alarms": 0,
+        "precision": 1.0,
+        "recall": 0.5455,
+        "keyword_flagged": 4,
+        "keyword_missed": 7,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 11,
+          "concern": 0,
+          "plan": 0
+        }
+      },
+      "lyric_style": {
+        "n": 8,
+        "labelled_low_mood": 4,
+        "flagged_low_mood": 0,
+        "tp": 0,
+        "missed": 4,
+        "false_alarms": 0,
+        "precision": null,
+        "recall": 0.0,
+        "keyword_flagged": 0,
+        "keyword_missed": 4,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 8,
+          "concern": 0,
+          "plan": 0
+        }
+      },
+      "dark_joke": {
+        "n": 8,
+        "labelled_low_mood": 0,
+        "flagged_low_mood": 1,
+        "tp": 0,
+        "missed": 0,
+        "false_alarms": 1,
+        "precision": 0.0,
+        "recall": null,
+        "keyword_flagged": 0,
+        "keyword_missed": 0,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 4,
+          "concern": 4,
+          "plan": 0
+        }
+      },
+      "sarcasm": {
+        "n": 8,
+        "labelled_low_mood": 3,
+        "flagged_low_mood": 0,
+        "tp": 0,
+        "missed": 3,
+        "false_alarms": 0,
+        "precision": null,
+        "recall": 0.0,
+        "keyword_flagged": 0,
+        "keyword_missed": 3,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 8,
+          "concern": 0,
+          "plan": 0
+        }
+      },
+      "risk_concern": {
+        "n": 6,
+        "labelled_low_mood": 6,
+        "flagged_low_mood": 2,
+        "tp": 2,
+        "missed": 4,
+        "false_alarms": 0,
+        "precision": 1.0,
+        "recall": 0.3333,
+        "keyword_flagged": 0,
+        "keyword_missed": 6,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 4,
+          "concern": 2,
+          "plan": 0
+        }
+      },
+      "risk_plan": {
+        "n": 9,
+        "labelled_low_mood": 9,
+        "flagged_low_mood": 3,
+        "tp": 3,
+        "missed": 6,
+        "false_alarms": 0,
+        "precision": 1.0,
+        "recall": 0.3333,
+        "keyword_flagged": 1,
+        "keyword_missed": 8,
+        "keyword_false_alarms": 0,
+        "selfharm": {
+          "none": 5,
+          "concern": 0,
+          "plan": 4
+        }
+      }
+    },
+    "per_message": [
+      {
+        "id": "m01",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.2016,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m02",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.1614,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m03",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.133,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m04",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.367,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m05",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.7851,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m06",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.2612,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m07",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.1563,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m08",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.3537,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m09",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.3811,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m10",
+        "slice": "everyday",
+        "low_mood": 0,
+        "tone_score": 0.3256,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m13",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.8766,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m14",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.3751,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m15",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.6972,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m16",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.8887,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m17",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.9165,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m18",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.325,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m19",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.7451,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m20",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.4209,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m21",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.5618,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m22",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.9281,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m23",
+        "slice": "low_mood",
+        "low_mood": 1,
+        "tone_score": 0.5533,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m25",
+        "slice": "lyric_style",
+        "low_mood": 1,
+        "tone_score": 0.4762,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m26",
+        "slice": "lyric_style",
+        "low_mood": 1,
+        "tone_score": 0.1818,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m27",
+        "slice": "lyric_style",
+        "low_mood": 1,
+        "tone_score": 0.4618,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m28",
+        "slice": "lyric_style",
+        "low_mood": 1,
+        "tone_score": 0.5018,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m29",
+        "slice": "lyric_style",
+        "low_mood": 0,
+        "tone_score": 0.4658,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m30",
+        "slice": "lyric_style",
+        "low_mood": 0,
+        "tone_score": 0.3517,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m31",
+        "slice": "lyric_style",
+        "low_mood": 0,
+        "tone_score": 0.1071,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m32",
+        "slice": "lyric_style",
+        "low_mood": 0,
+        "tone_score": 0.3626,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m33",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.3205,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_kms"
+      },
+      {
+        "id": "m34",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.4839,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_want_die"
+      },
+      {
+        "id": "m35",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.5167,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m36",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.143,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_kill_myself"
+      },
+      {
+        "id": "m37",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.2462,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m38",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.3164,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m39",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.5506,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_unalive"
+      },
+      {
+        "id": "m40",
+        "slice": "dark_joke",
+        "low_mood": 0,
+        "tone_score": 0.6734,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m41",
+        "slice": "sarcasm",
+        "low_mood": 1,
+        "tone_score": 0.2615,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m42",
+        "slice": "sarcasm",
+        "low_mood": 0,
+        "tone_score": 0.1902,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m43",
+        "slice": "sarcasm",
+        "low_mood": 1,
+        "tone_score": 0.1286,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m44",
+        "slice": "sarcasm",
+        "low_mood": 0,
+        "tone_score": 0.3047,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m45",
+        "slice": "sarcasm",
+        "low_mood": 0,
+        "tone_score": 0.4514,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m46",
+        "slice": "sarcasm",
+        "low_mood": 1,
+        "tone_score": 0.2859,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m47",
+        "slice": "sarcasm",
+        "low_mood": 0,
+        "tone_score": 0.2818,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m48",
+        "slice": "sarcasm",
+        "low_mood": 0,
+        "tone_score": 0.5424,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "none",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m49",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.2054,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m50",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.6419,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_not_live"
+      },
+      {
+        "id": "m51",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.8944,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m52",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.2558,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m53",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.3865,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "concern",
+        "selfharm_rule": "c_thinking_about"
+      },
+      {
+        "id": "m54",
+        "slice": "risk_concern",
+        "low_mood": 1,
+        "tone_score": 0.4234,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "concern",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m55",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.4413,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m56",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.2741,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m57",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.4982,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "plan",
+        "selfharm_rule": "p_time_after"
+      },
+      {
+        "id": "m58",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.6131,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "m59",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.5883,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "plan",
+        "selfharm_rule": "p_intent_now"
+      },
+      {
+        "id": "m60",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.3125,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      },
+      {
+        "id": "x01",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.4185,
+        "tone_flag": 0,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "plan",
+        "selfharm_rule": "p_took"
+      },
+      {
+        "id": "x02",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.7932,
+        "tone_flag": 1,
+        "keyword_flag": 0,
+        "selfharm_expected": "plan",
+        "selfharm_level": "plan",
+        "selfharm_rule": "p_did_something"
+      },
+      {
+        "id": "x03",
+        "slice": "risk_plan",
+        "low_mood": 1,
+        "tone_score": 0.9871,
+        "tone_flag": 1,
+        "keyword_flag": 1,
+        "selfharm_expected": "plan",
+        "selfharm_level": "none",
+        "selfharm_rule": null
+      }
+    ]
+  },
+  "selfharm": {
+    "false_flag_pool": 24,
+    "false_flags": 4,
+    "false_flags_as_plan": 0,
+    "false_flags_as_concern": 4,
+    "risk_pool": 15,
+    "missed": 9,
+    "plan_pool": 9,
+    "concern_pool": 6,
+    "plan_as_concern": 0,
+    "plan_missed": 5,
+    "plan_correct": 4,
+    "concern_as_plan": 0,
+    "concern_missed": 4,
+    "concern_correct": 2,
+    "flags_on_everyday_and_low_mood": 0,
+    "goemotions_test_flags": {
+      "none": 5424,
+      "concern": 2,
+      "plan": 1
+    },
+    "goemotions_test_rules": {
+      "c_want_die": 2,
+      "p_last_alive": 1
+    },
+    "phrase_counts": {
+      "plan": 21,
+      "concern": 24,
+      "negations": 3
+    }
+  },
+  "runtime_seconds": 7.8
+}

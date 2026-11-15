@@ -1,0 +1,164 @@
+{
+ "en": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "U2VlIHlvdSBhdCA2LgoKT24gVHVlLCBOb3YgMTAsIDIwMjYgYXQgOToxNCBBTSBBbGV4IDxhbGV4QGV4YW1wbGUuY29tPiB3cm90ZToKPiBJIHdhbnQgdG8gZGllIGxvbCB0aGlzIGhvbWV3b3JrCg"
+   }
+  },
+  "own": "See you at 6."
+ },
+ "en_wrapped": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "U291bmRzIGdvb2QKCk9uIFR1ZSwgTm92IDEwLCAyMDI2IGF0IDk6MTQgQU0gQWxleCBSaXZlcmEgPAphbGV4QGV4YW1wbGUuY29tPiB3cm90ZToKCj4gbm9ib2R5IHdvdWxkIG1pc3MgbWUK"
+   }
+  },
+  "own": "Sounds good"
+ },
+ "fr": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "TWVyY2ksIMOgIGRlbWFpbi4KCkxlIG1hci4gMTAgbm92LiAyMDI2IMOgIDA5OjE0LCBBbGV4IDxhbGV4QGV4YW1wbGUuY29tPiBhIMOpY3JpdCA6Cj4gamUgdmV1eCBtb3VyaXIK"
+   }
+  },
+  "own": "Merci, à demain."
+ },
+ "es": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "R3JhY2lhcyEKCkVsIG1hciwgMTAgbm92IDIwMjYgYSBsYXMgOToxNCwgQWxleCAoPGFsZXhAZXhhbXBsZS5jb20-KSBlc2NyaWJpw7M6Cj4gSSB3YW50IHRvIGRpZQo"
+   }
+  },
+  "own": "Gracias!"
+ },
+ "de": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "RGFua2UgZGlyLgoKQW0gRGkuLCAxMC4gTm92LiAyMDI2IHVtIDA5OjE0IFVociBzY2hyaWViIEFsZXggPGFsZXhAZXhhbXBsZS5jb20-Ogo-IEkgd2FudCB0byBkaWUK"
+   }
+  },
+  "own": "Danke dir."
+ },
+ "pt": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "VmFsZXUhCgpFbSB0ZXIuLCAxMCBkZSBub3YuIGRlIDIwMjYgw6BzIDA5OjE0LCBBbGV4IDxhbGV4QGV4YW1wbGUuY29tPiBlc2NyZXZldToKPiBJIHdhbnQgdG8gZGllCg"
+   }
+  },
+  "own": "Valeu!"
+ },
+ "plain_wrote": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "c2VlIGJlbG93CkFsZXggd3JvdGU6Ckkgd2FudCB0byBkaWUK"
+   }
+  },
+  "own": "see below"
+ },
+ "gmail_forward": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "RllJCgotLS0tLS0tLS0tIEZvcndhcmRlZCBtZXNzYWdlIC0tLS0tLS0tLQpGcm9tOiBTb21lYm9keSA8c29tZWJvZHlAZXhhbXBsZS5jb20-CkRhdGU6IEZyaSwgTm92IDEzLCAyMDI2ClN1YmplY3Q6IGx5cmljcwpUbzogTWF5YQoKSSB3YW50IHRvIGRpZQo"
+   }
+  },
+  "own": "FYI"
+ },
+ "apple_forward": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "bG9vayBhdCB0aGlzCgpCZWdpbiBmb3J3YXJkZWQgbWVzc2FnZToKCkZyb206IFNhbSA8c2FtQGV4YW1wbGUuY29tPgpTdWJqZWN0OiBoaQpEYXRlOiBOb3ZlbWJlciAxMywgMjAyNiBhdCA4OjAwOjAwIFBNIFBTVAoKSSB3YW50IHRvIGtpbGwgbXlzZWxmCg"
+   }
+  },
+  "own": "look at this"
+ },
+ "outlook_rule": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "U291bmRzIGdvb2QuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcm9tOiBDb2FjaCBMZWUgPGxlZUBleGFtcGxlLmNvbT4KU2VudDogTW9uZGF5LCBOb3ZlbWJlciA5LCAyMDI2IDEwOjAwIEFNClRvOiBNYXlhClN1YmplY3Q6IFByYWN0aWNlCgpub2JvZHkgd291bGQgbWlzcyBtZQo"
+   }
+  },
+  "own": "Sounds good."
+ },
+ "outlook_original": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "b2sKCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFNhbQpTZW50OiBNb25kYXkKCkkgd2FudCB0byBkaWUK"
+   }
+  },
+  "own": "ok"
+ },
+ "header_block": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "dGhhbmtzCgpGcm9tOiBTYW0gPHNhbUBleGFtcGxlLmNvbT4KU2VudDogTW9uZGF5LCBOb3ZlbWJlciA5LCAyMDI2IDEwOjAwIEFNClRvOiBNYXlhCgpJIHdhbnQgdG8gZGllCg"
+   }
+  },
+  "own": "thanks"
+ },
+ "interleaved": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "PiBhcmUgeW91IG9rPwp5ZXMsIGFsbCBnb29kCj4gd2FudCB0byB0YWxrIGxhdGVyPwpzdXJlCg"
+   }
+  },
+  "own": "yes, all good\nsure"
+ },
+ "ambiguous": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "Rm9yd2FyZGluZyB3aGF0IEFsZXggc2VudCBtZQpGcm9tOiBBbGV4Ckkgd2FudCB0byBkaWUK"
+   }
+  },
+  "own": null
+ },
+ "only_quote": {
+  "payload": {
+   "mimeType": "text/plain",
+   "body": {
+    "data": "PiBJIHdhbnQgdG8gZGllCg"
+   }
+  },
+  "own": ""
+ },
+ "rfc822": {
+  "payload": {
+   "mimeType": "multipart/mixed",
+   "body": {},
+   "parts": [
+    {
+     "mimeType": "text/plain",
+     "body": {
+      "data": "c2VlIGF0dGFjaGVk"
+     }
+    },
+    {
+     "mimeType": "message/rfc822",
+     "body": {},
+     "parts": [
+      {
+       "mimeType": "text/plain",
+       "body": {
+        "data": "SSB3YW50IHRvIGRpZQ"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "own": "see attached"
+ }
+}

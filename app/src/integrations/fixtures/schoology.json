@@ -1,0 +1,83 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "me": {
+  "uid": 9,
+  "name_display": "Maya R"
+ },
+ "grades": {
+  "section": [
+   {
+    "section_id": "77",
+    "period": [
+     {
+      "period_id": "p1",
+      "assignment": [
+       {
+        "assignment_id": 1,
+        "grade": "",
+        "exception": 3,
+        "late": 0
+       },
+       {
+        "assignment_id": 2,
+        "grade": "8",
+        "exception": 0,
+        "late": 1
+       },
+       {
+        "assignment_id": 3,
+        "grade": "10",
+        "exception": 0,
+        "late": 0
+       },
+       {
+        "assignment_id": 4,
+        "grade": "",
+        "exception": 3
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "assignments": {
+  "77": {
+   "assignment": [
+    {
+     "id": 1,
+     "title": "Lab report",
+     "due": "2026-11-03 23:59:00"
+    },
+    {
+     "id": 2,
+     "title": "Essay",
+     "due": "2026-11-04 23:59:00"
+    }
+   ],
+   "total": 4,
+   "links": {
+    "self": "x",
+    "next": "https://api.schoology.com/v1/sections/77/assignments?start=2&limit=200"
+   }
+  },
+  "77-p2": {
+   "assignment": [
+    {
+     "id": 3,
+     "title": "Quiz",
+     "due": "2026-10-28 23:59:00"
+    },
+    {
+     "id": 4,
+     "title": "Future",
+     "due": "2026-11-30 23:59:00"
+    }
+   ],
+   "total": 4,
+   "links": {
+    "self": "y"
+   }
+  }
+ }
+}

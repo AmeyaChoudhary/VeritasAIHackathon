@@ -1,0 +1,35 @@
+{
+ "source": "ios_device_activity",
+ "version": 1,
+ "generated": "2026-10-30T08:00:00Z",
+ "days": [
+  {
+   "date": "2026-10-26",
+   "screen_minutes": ">=180",
+   "night_minutes": ">=30",
+   "first_use": null,
+   "last_use": null
+  },
+  {
+   "date": "2026-10-27",
+   "screen_minutes": "<60",
+   "night_minutes": "<15",
+   "first_use": null,
+   "last_use": null
+  },
+  {
+   "date": "2026-10-28",
+   "screen_minutes": ">=120",
+   "night_minutes": ">=15",
+   "first_use": null,
+   "last_use": null
+  },
+  {
+   "date": "2026-10-29",
+   "screen_minutes": null,
+   "night_minutes": null,
+   "first_use": null,
+   "last_use": null
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+id,text,slice,low_mood,selfharm
+m01,"omw to practice, can u grab me a gatorade",everyday,0,none
+m02,mom said we're doing tacos tonight lets gooo,everyday,0,none
+m03,did u finish the chem worksheet or nah,everyday,0,none
+m04,ngl that new map in the game is actually fire,everyday,0,none
+m05,ugh my alarm didnt go off and i missed the bus again,everyday,0,none
+m06,who's coming to jake's after school tmrw,everyday,0,none
+m07,we won 3-1!! coach was so hyped lol,everyday,0,none
+m08,can u send me the notes from 3rd period i was at the dentist,everyday,0,none
+m09,"sooo tired rn, practice went till 7",everyday,0,none
+m10,my little brother keeps taking my charger and its so annoying,everyday,0,none
+m13,we broke up last night and i cant stop crying,low_mood,1,none
+m14,everyone went to the movies and nobody even asked me,low_mood,1,none
+m15,i failed the driving test again. i'm so embarrassed,low_mood,1,none
+m16,"miss my grandpa so much today, it's been a year",low_mood,1,none
+m17,"we lost by one point and it was my fault, i missed both free throws",low_mood,1,none
+m18,"idk why i even try anymore, nothing i do is ever good enough",low_mood,1,none
+m19,"i shouldnt have said that to her, i feel so bad rn",low_mood,1,none
+m20,didnt make the team. been in my room all day,low_mood,1,none
+m21,feel like i'm always the extra friend nobody really wants around,low_mood,1,none
+m22,got my sat score back and i'm so disappointed in myself,low_mood,1,none
+m23,our dog died this morning and the house is so quiet,low_mood,1,none
+m25,"and if i fade out with the porch light, tell the moths i tried",lyric_style,1,none
+m26,"dont wake me when the sun gets loud, i'd rather stay asleep in the static",lyric_style,1,none
+m27,"buried my heart in the backyard snow, maybe it thaws by june",lyric_style,1,none
+m28,"i'm just a ghost in the hallway now, nobody hears my shoes",lyric_style,1,none
+m29,your hoodie smells like august and i'm never giving it back,lyric_style,0,none
+m30,"turn it up til the windows shake, everybody singing wrong and nobody cares",lyric_style,0,none
+m31,summer tasted like cherry ice and cheap sparklers on the roof,lyric_style,0,none
+m32,you smiled at me in the parking lot and the whole sky went gold,lyric_style,0,none
+m33,kms this essay is due at 11:59 and i have one sentence,dark_joke,0,none
+m34,mr k just called on me when i wasnt even listening i want to die,dark_joke,0,none
+m35,the wifi went out mid game kill me now,dark_joke,0,none
+m36,if i have to do one more proof i'm going to kill myself lol,dark_joke,0,none
+m37,"tripped up the stairs in front of the whole lunch line, dig my grave",dark_joke,0,none
+m38,i'm dead 💀 did u see what he wore for picture day,dark_joke,0,none
+m39,gonna unalive myself if this group project gets any worse,dark_joke,0,none
+m40,"bro i forgot my lunch AND my gym clothes, just end me",dark_joke,0,none
+m41,"oh great, a 52 on the test i studied all week for. love that for me",sarcasm,1,none
+m42,"wow so glad my phone died right before the bus came, truly blessed",sarcasm,0,none
+m43,"yeah sure, the group chat totally didnt make plans without me again. cool cool cool",sarcasm,1,none
+m44,"nothing says fun like 6am practice in the rain, i'm thriving",sarcasm,0,none
+m45,oh yeah i'm literally dying of excitement for the pep rally,sarcasm,0,none
+m46,"love how coach benched me the whole game, really great for my confidence",sarcasm,1,none
+m47,"so thrilled to spend my saturday doing my sister's chores, best day ever",sarcasm,0,none
+m48,"cant wait to sit through a 3 hour assembly, someone please put me out of my misery",sarcasm,0,none
+m49,i keep thinking everyone would be better off if i wasnt here,risk_concern,1,concern
+m50,"honestly i dont want to be alive anymore, i'm just so tired of everything",risk_concern,1,concern
+m51,sometimes when it gets this bad i think about hurting myself and it scares me,risk_concern,1,concern
+m52,"whats the point of any of it, nobody would even notice if i was gone",risk_concern,1,concern
+m53,i've been having thoughts about ending it lately and i havent told anyone,risk_concern,1,concern
+m54,ngl i've been wishing i could fall asleep and just not wake up,risk_concern,1,concern
+m55,"i've made up my mind. tonight is my last night, i'm done",risk_plan,1,plan
+m56,"this is goodbye. i love u guys, please dont blame yourselves",risk_plan,1,plan
+m57,i already decided i'm going to kill myself this weekend. i just wanted someone to know,risk_plan,1,plan
+m58,gave away my stuff today so nobody has to deal with it after i'm gone,risk_plan,1,plan
+m59,i'm ending my life tomorrow. i wrote letters for my mom and my sister,risk_plan,1,plan
+m60,by friday i wont be here anymore. i've thought about it and i'm sure,risk_plan,1,plan
+x01,"i took something like an hour ago and i feel really weird and scared, can u please come over",risk_plan,1,plan
+x02,"i messed up so bad tonight, i did something to myself and i think i need help",risk_plan,1,plan
+x03,just hurt myself again and its worse this time. idk what to do. i'm so sorry,risk_plan,1,plan
