@@ -3,7 +3,7 @@
   "id": "hook",
   "label": "The problem",
   "show": "Five dots, one turns amber. A bar: 4 in 10 get treatment. Then thin lines that slip down over weeks and fade.",
-  "text": "One in five American teenagers goes through depression in a year, and most get no treatment. It builds slowly: a little less sleep, fewer texts, dropped plans. Nobody sees it coming, and nobody knows when to ask."
+  "text": "One in five American teenagers goes through depression in a year, and most get no treatment. It builds slowly: a little less sleep, fewer texts, dropped plans. Nobody knows when to ask."
  },
  {
   "id": "steady",
@@ -14,8 +14,8 @@
  {
   "id": "learn",
   "label": "Her whole digital life",
-  "show": "Maya's phone in the centre. Instagram, YouTube, TikTok and browsing light up on the left; music, gaming chats and messages on the right, under '17 sources'. Then Stable floats in, drifts around, and settles into the check-in card on her phone.",
-  "text": "Stability connects to her whole digital life: Instagram, YouTube, TikTok, browsing, music, gaming chats and messages. It reads it all on her phone and learns her normal. Once a week, our mascot, Stable, checks in. Two taps."
+  "show": "Maya's phone in the centre. Instagram, TikTok, YouTube, browsing and news feeds light up on the left; Spotify, games and chats on the right, under '17 sources'. Then Stable floats in, drifts around, and settles into the check-in card on her phone.",
+  "text": "Stability connects to her whole digital life: Instagram, TikTok, YouTube, browsing, news feeds, Spotify, games and chats. It reads it all on her phone and learns her normal. Once a week, our mascot, Stable, checks in. Two taps."
  },
  {
   "id": "drift",
@@ -33,19 +33,19 @@
   "id": "private",
   "label": "Private, with a safety net",
   "show": "Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent. A chip: 988, one tap away.",
-  "text": "Nothing she types, watches or searches ever leaves her phone. Small models read it there and keep only numbers. And if she types or searches for self-harm, 988 is one tap away."
+  "text": "Nothing she types, watches or searches ever leaves her phone. Small models read it there and keep only numbers. If she types or searches for self-harm, 988 is one tap away."
  },
  {
   "id": "how",
   "label": "The engine",
   "show": "A diagram builds: her digital life, two taps and past answers feed the engine; it opens the two questions, then the eight, then the note. Below, the two on-phone models and a lock: 0 words leave the phone.",
-  "text": "Under the hood, her digital life, Stable's two taps and her past answers feed our engine. It tracks how she's doing and decides when to ask. High answers unlock the full eight questions, and only then is a parent told. No words ever leave the phone."
+  "text": "Under the hood, her digital life, Stable's two taps and her past answers feed our engine. It tracks how she's doing and decides when to ask. High answers unlock the full eight questions, and only then is a parent told."
  },
  {
   "id": "proof",
   "label": "It works",
-  "show": "A counter runs to 350,000+. Two bars: the ask model 44%, a fixed schedule 13%, with 3.4x. Then 0.90 on 113 teens, 92%, 2x and 13 of 15.",
-  "text": "And it works. Tested on over three hundred fifty thousand real examples, our ask model finds a hard week over three times as often as a schedule. On a hundred thirteen teenagers it had never seen, it scored an AUC of point nine oh, and nine in ten of its top asks found a struggling teen. Our language models catch twice what keyword lists do."
+  "show": "A counter runs to 400,000+. Tiles: 3.4x (the ask model 44% vs a fixed schedule 13%), 0.90 on 113 teens, 54% vs 24% (US high schoolers sleeping 4 hours or less vs 8 hours who felt sad or hopeless), and 2x with 13 of 15.",
+  "text": "And it works. Tested on over four hundred thousand real examples, our ask model finds a hard week three times as often as a schedule, and scored point nine oh on a hundred thirteen teens it had never seen. Across thirty thousand US high schoolers, those sleeping four hours or less were twice as likely to feel sad or hopeless. Our language models catch twice what keyword lists do."
  },
  {
   "id": "close",

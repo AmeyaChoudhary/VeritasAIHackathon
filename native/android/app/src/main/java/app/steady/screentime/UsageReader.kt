@@ -5,7 +5,9 @@ import android.app.AppOpsManager
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Process
 import java.io.File
 import java.time.Instant
@@ -87,12 +89,15 @@ class ScreenTimeRepository(private val context: Context) {
         val events = manager.queryEvents(begin, now) ?: return null
 
         val builder = SessionBuilder()
+        val apps = AppIntervalBuilder()
         val event = UsageEvents.Event()
         while (events.hasNextEvent()) {
             events.getNextEvent(event)
             builder.onEvent(event.eventType, event.timeStamp) { event.packageName + "/" + event.className }
+            apps.onEvent(event.eventType, event.timeStamp, { event.packageName }, { event.className ?: "" })
         }
         val sessions = builder.finish(now)
+        val appIntervals = apps.finish(now)
 
         val earliest = builder.earliestEvent ?: return SystemDays(emptyList(), true)
         // The oldest day Android still has is usually cut off part way, so it is skipped.
@@ -100,7 +105,45 @@ class ScreenTimeRepository(private val context: Context) {
         val dates = generateSequence(maxOf(firstFullDay, today.minusDays(REPORT_DAYS))) { it.plusDays(1) }
             .takeWhile { it < today }
             .toList()
-        return SystemDays(ScreenTimeMath.summarize(sessions, dates, zone), builder.sawScreenEvents)
+        val screenDays = ScreenTimeMath.summarize(sessions, dates, zone)
+        val categories = categoriesOf(appIntervals.mapTo(HashSet()) { it.packageName })
+        val games = GameMath.summarize(appIntervals, categories, sessions, dates, zone).associateBy { it.date }
+        val days = screenDays.map { day ->
+            val game = games[day.date] ?: return@map day
+            day.copy(gameMinutes = game.gameMinutes, nightGameMinutes = game.nightGameMinutes)
+        }
+        return SystemDays(days, builder.sawScreenEvents)
+    }
+
+    /**
+     * Each app's own category, for the apps that were in front in the usage log. Only these
+     * packages are looked up; the list of installed apps is never read. From Android 11 an app
+     * sees another app only if that app is visible to it. The <queries> element in the manifest
+     * makes apps with a launcher icon visible, and no permission is added for it. A package
+     * Android will not show, or one removed since, is left out and its time is not counted.
+     * https://developer.android.com/training/package-visibility
+     * The package names stay in this map in memory and are never stored.
+     */
+    private fun categoriesOf(packages: Set<String>): Map<String, Int> {
+        val pm = context.packageManager
+        val out = HashMap<String, Int>()
+        for (pkg in packages) {
+            try {
+                val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    pm.getApplicationInfo(pkg, PackageManager.ApplicationInfoFlags.of(0))
+                } else {
+                    @Suppress("DEPRECATION")
+                    pm.getApplicationInfo(pkg, 0)
+                }
+                // The older android:isGame flag counts when the app set no category.
+                @Suppress("DEPRECATION")
+                val isGameFlag = (info.flags and ApplicationInfo.FLAG_IS_GAME) != 0
+                out[pkg] = GameMath.categoryOf(info.category, isGameFlag)
+            } catch (e: PackageManager.NameNotFoundException) {
+                // Not visible to this app, or uninstalled. Not counted as a game.
+            }
+        }
+        return out
     }
 
     private fun loadCache(): List<DaySummary> =

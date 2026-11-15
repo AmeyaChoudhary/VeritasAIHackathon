@@ -55,6 +55,13 @@ data class DaySummary(
     val firstUse: LocalTime?,
     /** Last time the screen went off that day, to the minute. 23:59 if use ran past midnight. */
     val lastUse: LocalTime?,
+    /**
+     * Minutes in apps whose own manifest says they are a game, cut to screen-on time. Null when
+     * the day was saved before the app counted games.
+     */
+    val gameMinutes: Int? = null,
+    /** The same, from 00:00 to 05:00 of that date. */
+    val nightGameMinutes: Int? = null,
 )
 
 /**
@@ -179,6 +186,26 @@ object ScreenTimeMath {
                 lastUse = last?.let { clockTime(minOf(it, dayEnd - 1), zone) },
             )
         }
+
+    /**
+     * Minutes of [sessions] inside [date], and inside 00:00 to 05:00 of it. The same day and
+     * night rule as [summarize], for counts that need no first or last use, such as games.
+     */
+    fun dayAndNightMinutes(sessions: List<Session>, date: LocalDate, zone: ZoneId): Pair<Int, Int> {
+        val dayStart = date.atStartOfDay(zone).toInstant().toEpochMilli()
+        val dayEnd = date.plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli()
+        val nightEnd = date.atTime(NIGHT_END).atZone(zone).toInstant().toEpochMilli()
+        var totalMs = 0L
+        var nightMs = 0L
+        for (session in sessions) {
+            val start = maxOf(session.start, dayStart)
+            val end = minOf(session.end, dayEnd)
+            if (end <= start) continue
+            totalMs += end - start
+            nightMs += maxOf(0L, minOf(end, nightEnd) - start)
+        }
+        return toMinutes(totalMs) to toMinutes(nightMs)
+    }
 
     private fun toMinutes(ms: Long): Int = ((ms + 30_000L) / 60_000L).toInt()
 

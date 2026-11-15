@@ -67,15 +67,15 @@ export const Evidence: React.FC = () => {
   const p = (ph: string) => L(cue("proof", ph));
 
   const hoodAt = h("Under the hood"), lifeAt = h("her digital life"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our engine"), whenAt = h("decides when to ask");
-  const highAt = h("High answers"), eightAt = h("full eight"), parentAt = h("a parent"), noWordsAt = h("No words ever");
-  const worksAt = p("And it works"), examplesAt = p("three hundred fifty thousand"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
-  const nineAt = p("nine in ten"), twiceAt = p("twice");
+  const highAt = h("High answers"), eightAt = h("full eight"), parentAt = h("a parent"), noWordsAt = parentAt + 24;
+  const worksAt = p("And it works"), examplesAt = p("four hundred thousand"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
+  const sleepAt = p("sleeping four hours"), twiceAt = p("catch twice");
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);
 
   const hoodOut = interpolate(frame, [worksAt - 10, worksAt - 1], [1, 0], clamp);
   const worksIn = ramp(frame, worksAt - 2, 16);
-  const count = Math.round(350000 * interpolate(frame, [examplesAt - 6, examplesAt + 34], [0, 1], { ...clamp, easing: ease }));
+  const count = Math.round(numbers.pitch.examples * interpolate(frame, [examplesAt - 6, examplesAt + 34], [0, 1], { ...clamp, easing: ease }));
 
   // engine layout
   const YA = 300, YB = 440, YC = 580, YM = 430, Y3 = 790;
@@ -87,7 +87,7 @@ export const Evidence: React.FC = () => {
           <Mono size={20}>Under the hood</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 104, letterSpacing: -4.4, color: C.ink, lineHeight: 1, marginTop: 14 }}>The engine</div>
         </div>
-        <Node at={lifeAt} x={150} y={YA} w={350} title="Her digital life" sub={`${numbers.pitch.sources} sources, read on her phone`} icon={<Icon name="globe" size={34} />} />
+        <Node at={lifeAt} x={150} y={YA} w={350} title="Her digital life" sub={`${numbers.pitch.sources} sources, on her phone`} icon={<Icon name="globe" size={34} />} />
         <Node at={tapsAt} x={150} y={YB} w={350} title="Two taps" sub="from Stable, weekly" icon={<StableMascot size={52} />} />
         <Node at={pastAt} x={150} y={YC} w={350} title="Past answers" sub="her own history" />
         <Wire at={modelAt - 2} x1={500} y1={YA + 52} x2={610} y2={YM + 62} />
@@ -102,8 +102,9 @@ export const Evidence: React.FC = () => {
         <Node at={parentAt} x={1540} y={YM} w={270} title="A note" sub="to a parent" icon={<Icon name="note" size={34} />} />
         <Node at={lifeAt + 14} x={610} y={Y3} w={330} title="Mood model" sub="reads tone, on the phone" dark />
         <Node at={lifeAt + 20} x={980} y={Y3} w={330} title="Self-harm model" sub="988, one tap away" dark accent={C.amber} />
+        <Node at={lifeAt + 26} x={1350} y={Y3} w={330} title="Music mood" sub="how her songs sound" dark />
         {frame >= noWordsAt - 2 ? (
-          <div style={{ position: "absolute", left: 1380, top: Y3 + 18, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
+          <div style={{ position: "absolute", left: 1500, top: YM + 170, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
             <Icon name="lock" size={46} />
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 40, letterSpacing: -1.2, color: C.ink, lineHeight: 1.05 }}>0 words<br />leave the phone</span>
           </div>
@@ -116,14 +117,14 @@ export const Evidence: React.FC = () => {
           <Mono size={20}>It works</Mono>
           <div style={{ display: "flex", alignItems: "baseline", gap: 30, marginTop: 14 }}>
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 128, letterSpacing: -5.5, color: C.ink, lineHeight: 1, fontVariantNumeric: "tabular-nums", minWidth: 640 }}>
-              {count.toLocaleString("en-US")}{count >= 350000 ? "+" : ""}
+              {count.toLocaleString("en-US")}{count >= numbers.pitch.examples ? "+" : ""}
             </span>
             <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 48, letterSpacing: -1.4, color: C.inkSoft, opacity: ramp(frame, examplesAt + 10, 14) }}>real examples, tested</span>
           </div>
         </div>
         <Tile at={timesAt - 4} x={150} y={360} big={<>{numbers.pitch.times}×</>} label={`more hard weeks found than asking on a schedule (${numbers.timing.askModel}% vs ${numbers.timing.calendar}%)`} color={C.sage} />
         <Tile at={aucAt} x={980} y={360} big={numbers.pitch.teenAuc.toFixed(2)} label={`AUC on ${numbers.teens.count} real teenagers the model had never seen`} />
-        <Tile at={nineAt - 2} x={150} y={640} big={<>{numbers.pitch.topAsks}%</>} label="of its top asks found a teen who was struggling" />
+        <Tile at={sleepAt - 2} x={150} y={640} big={<>{numbers.sleep.short}%</>} label={`of US high schoolers sleeping 4 hours or less felt sad or hopeless, vs ${numbers.sleep.eight}% at 8 hours`} color={C.amber} />
         <Tile at={twiceAt - 4} x={980} y={640} big="2×" label={`what keyword lists catch, and ${numbers.pitch.selfHarmFound} of ${numbers.pitch.selfHarmTotal} self-harm messages`} color={C.sage} />
       </AbsoluteFill>
     </AbsoluteFill>

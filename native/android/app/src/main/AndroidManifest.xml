@@ -34,9 +34,20 @@
     no foreground service.
     -->
 
-    <!-- Lets getSdkStatus() see the Health Connect app on Android 13 and lower. -->
     <queries>
+        <!-- Lets getSdkStatus() see the Health Connect app on Android 13 and lower. -->
         <package android:name="com.google.android.apps.healthdata" />
+        <!--
+        Game minutes. From Android 11 getApplicationInfo() only answers for apps this app can
+        see. This makes apps with a launcher icon visible, so the app can read the category of
+        the apps in the usage log. It adds no permission. QUERY_ALL_PACKAGES would also work,
+        but it is a permission Google Play restricts, and it also shows apps with no icon.
+        https://developer.android.com/training/package-visibility/declaring
+        -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
     </queries>
 
     <application

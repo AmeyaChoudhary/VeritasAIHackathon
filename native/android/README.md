@@ -1,6 +1,6 @@
 # Stability for Android
 
-**Status: built and unit tested; the first version was also smoke-tested on an emulator.** After the review fixes on November 14, 2026, `./gradlew testDebugUnitTest assembleDebug` passed: 72 JVM tests, no failures. The review fixes have not been run on a device or emulator. They are the safety question, cursor tracking, message counting, sleep merging, the notification and targetSdk 36. Before those fixes, these worked on an Android 15 emulator (API 35, Google APIs image):
+**Status: built and unit tested; the first version was also smoke-tested on an emulator.** After the review fixes on November 14, 2026, `./gradlew testDebugUnitTest assembleDebug` passed: 72 JVM tests, no failures. Game minutes were added on November 15, 2026. With them, 80 JVM tests pass and the debug APK builds. Game minutes have not been run on a device or emulator. The review fixes have not been run on a device or emulator. They are the safety question, cursor tracking, message counting, sleep merging, the notification and targetSdk 36. Before those fixes, these worked on an Android 15 emulator (API 35, Google APIs image):
 
 - The Health Connect permission screen listed Sleep and Steps, and its privacy policy link opened Stability's own policy screen.
 - The keyboard typed in Google Messages and capitalized the first letter.
@@ -29,6 +29,28 @@ The app calls [`UsageStatsManager.queryEvents`](https://developer.android.com/re
 - **Android 9 and later.** A session runs from `SCREEN_INTERACTIVE` to `SCREEN_NON_INTERACTIVE`.
 - **Android 8.** There are no screen events, so a session is the time some app is on screen. App names are compared in memory to pair events and never stored. The screen says when this method was used.
 - **Restarts.** `DEVICE_SHUTDOWN` ends an open session. After `DEVICE_STARTUP` anything still open is dropped.
+
+### Game minutes
+
+Each day also gets `game_minutes` and `night_game_minutes`: minutes with a game in front, and the part of them from 00:00 to 05:00 of that date. This is the same night rule as `night_minutes`.
+
+- **Which apps are in front.** The same `queryEvents` stream gives each app's stretches in front, from its first `ACTIVITY_RESUMED` to the pause or stop of its last open activity. The screen turning off ends every stretch. Two games on screen at once count once.
+- **Which apps are games.** An app is a game when [`ApplicationInfo.category`](https://developer.android.com/reference/android/content/pm/ApplicationInfo#category) is `CATEGORY_GAME`. That value comes from the app's own manifest (`android:appCategory`, API 26). Apps that do not set a category are not counted, even if they are games. The older `FLAG_IS_GAME` flag, deprecated in API 26, is not checked. The Play Store's Games section is set in Play Console, and Android does not give it to other apps.
+- **Cut to screen time.** Game time is cut to the screen-on sessions, so `game_minutes` is never more than `screen_minutes`, and `night_game_minutes` never more than `night_minutes`.
+- **Nothing about the apps is kept.** Package names are used in memory to look up categories and are dropped. Only the two daily totals go into `days.json` and the export.
+- **The rules are plain Kotlin.** `Games.kt` has no Android imports. It takes per-app stretches and a map from package to category, so `GameTimeTest` checks it on the JVM.
+
+**Package visibility.** From Android 11, `PackageManager` only answers for apps that are visible to this app, and `getApplicationInfo` throws `NameNotFoundException` for the rest. Usage access does not change that. The usage log names every app, and Android's list of apps that are visible automatically does not include them. The options were:
+
+1. **No change.** On Android 11 and later almost no game would be visible, so game minutes would stay near 0.
+2. **`QUERY_ALL_PACKAGES`.** This is a permission, and Google Play allows it only for a short list of core uses. It also shows apps with no icon. The app would then ask for more than it does now.
+3. **A `<queries>` element with the launcher intent** (`MAIN` with `LAUNCHER`). It adds no permission. It makes visible the apps that have a home screen icon, which is how a teen opens a game. This is the one used.
+
+The app does not list installed apps. It calls `getApplicationInfo` only on the packages the usage log names, and reads only `category`. An app with no launcher icon, or one removed since, stays hidden, and its time is not counted. On Android 8 to 10 there is no visibility filter, so every app in the log can be looked up. See [package visibility](https://developer.android.com/training/package-visibility) and [declaring package visibility needs](https://developer.android.com/training/package-visibility/declaring).
+
+**Older days.** Days saved in `days.json` before this version have no game numbers. They load as they are, and their game fields are `null` in the export.
+
+### Usage access
 
 The teen turns on usage access in Settings; the app opens [`ACTION_USAGE_ACCESS_SETTINGS`](https://developer.android.com/reference/android/provider/Settings#ACTION_USAGE_ACCESS_SETTINGS) for them. Android keeps raw events for "a few days", so the app keeps its own daily numbers in `days.json` for 60 days. The oldest day Android still has is usually cut off part way, so it is left out.
 
@@ -109,6 +131,8 @@ It watches plain text, short and long message, email subject and web text fields
       "night_minutes": 52,
       "first_use": "01:32",
       "last_use": "23:59",
+      "game_minutes": 87,
+      "night_game_minutes": 35,
       "sleep_minutes": 359,
       "bedtime": "01:03",
       "steps": 6121,
@@ -125,7 +149,7 @@ It watches plain text, short and long message, email subject and web text fields
 }
 ```
 
-The full field list is in [native/README.md](../README.md). Each day has every key. A source with nothing for that day gives `null`. `kb_messages` is `0` on a day the keyboard was open but no counted message ended, and `null` when the keyboard was not used. Flags cover the last 28 days, today included. A flag's `answer` is `"yes"`, `"no"` or `null` (not answered, or a "plan" flag, which asks nothing). A flag id is SHA-256 of random bytes, so it says nothing about the words. The file holds no text, no app names and no rule ids.
+The full field list is in [native/README.md](../README.md). Each day has every key. A source with nothing for that day gives `null`. `game_minutes` and `night_game_minutes` are `null` when `screen_minutes` is, and on days saved before games were counted. The version stays 2: the two fields are optional, the web app reads files without them, and it refuses any version it does not know. `kb_messages` is `0` on a day the keyboard was open but no counted message ended, and `null` when the keyboard was not used. Flags cover the last 28 days, today included. A flag's `answer` is `"yes"`, `"no"` or `null` (not answered, or a "plan" flag, which asks nothing). A flag id is SHA-256 of random bytes, so it says nothing about the words. The file holds no text, no app names and no rule ids.
 
 ## Build and run
 
@@ -147,7 +171,7 @@ On a phone or emulator:
 5. On Android 13 and later, tap **Allow the notification** so the keyboard's notice can show.
 6. Come back to the app and tap **Save as file**.
 
-**Tests** (JVM, `./gradlew testDebugUnitTest`, 72 in all):
+**Tests** (JVM, `./gradlew testDebugUnitTest`, 80 in all):
 
 | File | Checks |
 | --- | --- |
@@ -157,8 +181,9 @@ On a phone or emulator:
 | `DayAggregationTest` | Which night counts for which date, the main sleep, bedtime across midnight, the 28-day window, the version 2 export with real nulls, weeks |
 | `FieldRulesTest` | Skipped fields, incognito, what enter does |
 | `ScreenTimeMathTest` | Screen sessions across midnight, short glances, the Android 8 path |
+| `GameTimeTest` | Only `CATEGORY_GAME` counts, the night rule across midnight, two games at once, the cut to screen time, per-app stretches from events, no package name in the export, `days.json` with and without game numbers, weekly game minutes, no new permission |
 | `HelpScreenTest` | "Are you safe right now?" for concern only, 911 for plan and after "No", the answer kept on the flag |
-| `ExportContractTest` | An export and the sample file against the version 2 contract: keys, answers, `kb_messages` 0, shares from 0 to 1 |
+| `ExportContractTest` | An export and the sample file against the version 2 contract: keys, answers, `kb_messages` 0, shares from 0 to 1, game minutes within screen minutes |
 | `KeyboardTextTest` | Typing and deleting at the cursor, selections, input restarts, late cursor updates, discards |
 | `MessageEndFlowTest` | The help screen opens before anything is saved, deleted words are checked, a failing disk never throws |
 | `SleepMergeTest` | Split nights merge, nap-only days stay empty, sources stay apart, the 3-hour rule |
@@ -180,6 +205,9 @@ The expected scores come from `tools/make_parity_fixtures.mjs`, which runs the w
 - **The phrase list is not validated.** Experiment 2 found it missed 9 of 15 risk messages written by someone who had not seen it.
 - **Health Connect "Disconnect"** on Android 14 and later only takes full effect when the app's process ends.
 - **Screen on is a different number from Digital Wellbeing's**, which adds up time in each app.
+- **Game minutes miss games that do not say they are games.** Nothing makes an app set `android:appCategory`. A game without it counts as screen time only.
+- **A game that crashes** without a pause event is counted until the screen turns off.
+- **Game minutes on Android 8** are cut to app time, since there are no screen events.
 
 ## What a Play Store build would need
 

@@ -1,0 +1,1507 @@
+{
+  "generated": "2026-11-15",
+  "seed": 8,
+  "folds": 5,
+  "repeats": 20,
+  "shuffles": 100,
+  "bootstrap": 2000,
+  "music": {
+    "genre_map": {
+      "Classical": {
+        "spotify_genres": [
+          "classical",
+          "opera"
+        ],
+        "valence": 0.2952,
+        "energy": 0.2571,
+        "tracks": 1893
+      },
+      "Country": {
+        "spotify_genres": [
+          "country",
+          "honky-tonk",
+          "bluegrass"
+        ],
+        "valence": 0.5963,
+        "energy": 0.499,
+        "tracks": 2979
+      },
+      "EDM": {
+        "spotify_genres": [
+          "edm",
+          "house",
+          "electro",
+          "dubstep",
+          "trance"
+        ],
+        "valence": 0.3728,
+        "energy": 0.7533,
+        "tracks": 3825
+      },
+      "Folk": {
+        "spotify_genres": [
+          "folk",
+          "acoustic"
+        ],
+        "valence": 0.4583,
+        "energy": 0.4915,
+        "tracks": 1970
+      },
+      "Gospel": {
+        "spotify_genres": [
+          "gospel"
+        ],
+        "valence": 0.3208,
+        "energy": 0.5763,
+        "tracks": 999
+      },
+      "Hip hop": {
+        "spotify_genres": [
+          "hip-hop"
+        ],
+        "valence": 0.5505,
+        "energy": 0.6824,
+        "tracks": 991
+      },
+      "Jazz": {
+        "spotify_genres": [
+          "jazz"
+        ],
+        "valence": 0.4903,
+        "energy": 0.3532,
+        "tracks": 999
+      },
+      "K pop": {
+        "spotify_genres": [
+          "k-pop"
+        ],
+        "valence": 0.5567,
+        "energy": 0.6758,
+        "tracks": 999
+      },
+      "Latin": {
+        "spotify_genres": [
+          "latin",
+          "latino",
+          "reggaeton",
+          "salsa"
+        ],
+        "valence": 0.7017,
+        "energy": 0.7235,
+        "tracks": 2631
+      },
+      "Lofi": {
+        "spotify_genres": [
+          "study",
+          "chill"
+        ],
+        "valence": 0.403,
+        "energy": 0.4187,
+        "tracks": 1997
+      },
+      "Metal": {
+        "spotify_genres": [
+          "metal",
+          "heavy-metal",
+          "metalcore",
+          "death-metal",
+          "black-metal"
+        ],
+        "valence": 0.3153,
+        "energy": 0.8842,
+        "tracks": 4639
+      },
+      "Pop": {
+        "spotify_genres": [
+          "pop",
+          "indie-pop",
+          "synth-pop"
+        ],
+        "valence": 0.5185,
+        "energy": 0.6271,
+        "tracks": 2975
+      },
+      "R&B": {
+        "spotify_genres": [
+          "r-n-b",
+          "soul"
+        ],
+        "valence": 0.5775,
+        "energy": 0.5888,
+        "tracks": 1958
+      },
+      "Rap": {
+        "spotify_genres": [
+          "hip-hop"
+        ],
+        "valence": 0.5505,
+        "energy": 0.6824,
+        "tracks": 991
+      },
+      "Rock": {
+        "spotify_genres": [
+          "rock",
+          "alt-rock",
+          "alternative",
+          "hard-rock",
+          "punk-rock"
+        ],
+        "valence": 0.529,
+        "energy": 0.7438,
+        "tracks": 3909
+      },
+      "Video game music": {
+        "spotify_genres": [],
+        "valence": null,
+        "energy": null,
+        "tracks": 0
+      }
+    },
+    "people": 736,
+    "ages": [
+      10.0,
+      89.0
+    ],
+    "median_age": 21.0,
+    "bpm_cleaning": {
+      "rule": "kept 40 to 220; anything else set to missing",
+      "missing_in_raw": 107,
+      "set_to_missing": 8
+    },
+    "no_mappable_listening": 0,
+    "models": {
+      "a_music_habits": {
+        "n": 736,
+        "positives": 256,
+        "base_rate": 0.34782608695652173,
+        "features": 22,
+        "auc": 0.5701171875000001,
+        "auc_ci": [
+          0.5259722251686542,
+          0.611254377525038
+        ],
+        "fold_auc_mean": 0.5681320308572146,
+        "fold_auc_spread": [
+          0.4853196486928104,
+          0.6587858220211161
+        ],
+        "repeat_auc_range": [
+          0.5365885416666667,
+          0.5899495442708333
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.4989454752604167,
+          "middle_95": [
+            0.4412204996744792,
+            0.5464235432942708
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Music habits only: hours, 16 genre frequencies, listening valence and energy, exploratory, while working, BPM",
+        "score_vs_0_10": 0.16461316708149806
+      },
+      "b_mood_and_hours": {
+        "n": 736,
+        "positives": 256,
+        "base_rate": 0.34782608695652173,
+        "features": 3,
+        "auc": 0.5991292317708333,
+        "auc_ci": [
+          0.5573768219467186,
+          0.6400582219915698
+        ],
+        "fold_auc_mean": 0.6005839932126698,
+        "fold_auc_spread": [
+          0.5136999591503268,
+          0.6837367238562091
+        ],
+        "repeat_auc_range": [
+          0.5734537760416667,
+          0.6053466796874999
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.49499772135416664,
+          "middle_95": [
+            0.4298057047526041,
+            0.5569887288411458
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Music mood (listening valence and energy) and hours per day",
+        "score_vs_0_10": 0.17154227206288059
+      },
+      "c_age_only": {
+        "n": 736,
+        "positives": 256,
+        "base_rate": 0.34782608695652173,
+        "features": 1,
+        "auc": 0.48430989583333334,
+        "auc_ci": [
+          0.4399700230264321,
+          0.5288991324657991
+        ],
+        "fold_auc_mean": 0.48892286481900454,
+        "fold_auc_spread": [
+          0.39546568627450984,
+          0.5706699346405228
+        ],
+        "repeat_auc_range": [
+          0.47574462890624997,
+          0.4899658203125
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.4945523274739584,
+          "middle_95": [
+            0.44697733561197917,
+            0.5392743937174479
+          ],
+          "share_at_or_above_real": 0.68
+        },
+        "label": "Age only (baseline)",
+        "score_vs_0_10": -0.017300068382686093
+      },
+      "d_age_plus_music": {
+        "n": 736,
+        "positives": 256,
+        "base_rate": 0.34782608695652173,
+        "features": 23,
+        "auc": 0.5764485677083333,
+        "auc_ci": [
+          0.5324726431671954,
+          0.6185242506514032
+        ],
+        "fold_auc_mean": 0.5744691899195576,
+        "fold_auc_spread": [
+          0.49735576923076924,
+          0.6699318910256409
+        ],
+        "repeat_auc_range": [
+          0.5439697265625,
+          0.5958902994791666
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.4990773925781251,
+          "middle_95": [
+            0.43918986002604166,
+            0.5505487060546874
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Age plus music habits",
+        "score_vs_0_10": 0.18086416421937732
+      },
+      "a_music_habits_trees": {
+        "n": 736,
+        "positives": 256,
+        "base_rate": 0.34782608695652173,
+        "features": 22,
+        "auc": 0.5684977213541667,
+        "auc_ci": [
+          0.5260087476827631,
+          0.6099956615202489
+        ],
+        "fold_auc_mean": 0.5619128645047762,
+        "fold_auc_spread": [
+          0.48796191553544493,
+          0.6249591503267974
+        ],
+        "repeat_auc_range": [
+          0.5505208333333332,
+          0.5737060546874999
+        ],
+        "label": "Music habits only, gradient-boosted trees (5 repeats, no shuffle check)"
+      }
+    },
+    "weights_music_habits": [
+      {
+        "feature": "freq_Rap",
+        "weight": 0.242
+      },
+      {
+        "feature": "hours_per_day",
+        "weight": 0.203
+      },
+      {
+        "feature": "freq_Rock",
+        "weight": 0.166
+      },
+      {
+        "feature": "listening_valence",
+        "weight": -0.16
+      },
+      {
+        "feature": "freq_Lofi",
+        "weight": -0.149
+      },
+      {
+        "feature": "freq_Gospel",
+        "weight": -0.147
+      },
+      {
+        "feature": "freq_Country",
+        "weight": -0.13
+      },
+      {
+        "feature": "freq_Latin",
+        "weight": 0.113
+      },
+      {
+        "feature": "listening_energy",
+        "weight": 0.107
+      },
+      {
+        "feature": "freq_Folk",
+        "weight": 0.095
+      }
+    ],
+    "weights_age_plus_music": [
+      {
+        "feature": "age",
+        "weight": -0.231
+      },
+      {
+        "feature": "hours_per_day",
+        "weight": 0.2
+      },
+      {
+        "feature": "freq_Rap",
+        "weight": 0.199
+      },
+      {
+        "feature": "freq_Rock",
+        "weight": 0.177
+      },
+      {
+        "feature": "freq_Lofi",
+        "weight": -0.162
+      },
+      {
+        "feature": "freq_Country",
+        "weight": -0.131
+      },
+      {
+        "feature": "freq_Gospel",
+        "weight": -0.127
+      },
+      {
+        "feature": "listening_valence",
+        "weight": -0.117
+      },
+      {
+        "feature": "freq_R&B",
+        "weight": 0.116
+      },
+      {
+        "feature": "freq_Latin",
+        "weight": 0.116
+      }
+    ],
+    "correlations_0_10": {
+      "listening_valence": {
+        "rho": -0.028256017271470316,
+        "ci": [
+          -0.10265021667194917,
+          0.04425614329647699
+        ],
+        "p": 0.4440236116695076,
+        "n": 736
+      },
+      "listening_energy": {
+        "rho": 0.14389735683800634,
+        "ci": [
+          0.07193929150249895,
+          0.21091974423629037
+        ],
+        "p": 8.943190909775735e-05,
+        "n": 736
+      },
+      "hours_per_day": {
+        "rho": 0.13517150332697087,
+        "ci": [
+          0.05751169310989545,
+          0.20774582068921169
+        ],
+        "p": 0.0002352821991197956,
+        "n": 736
+      },
+      "fav_genre_valence": {
+        "rho": -0.006634343353741185,
+        "ci": [
+          -0.0872035296216994,
+          0.06935457885811737
+        ],
+        "p": 0.8617014244718342,
+        "n": 692
+      },
+      "exploratory": {
+        "rho": 0.0630789267719853,
+        "ci": [
+          -0.009878965615406375,
+          0.13544622046798876
+        ],
+        "p": 0.08725053195208339,
+        "n": 736
+      },
+      "while_working": {
+        "rho": 0.05743087287449966,
+        "ci": [
+          -0.02112927860794711,
+          0.12670467907505864
+        ],
+        "p": 0.12030119877592152,
+        "n": 733
+      },
+      "bpm": {
+        "rho": 0.05884575817749904,
+        "ci": [
+          -0.019775824164202788,
+          0.1324496406410816
+        ],
+        "p": 0.14299084585473534,
+        "n": 621
+      },
+      "age": {
+        "rho": 0.008929128030660422,
+        "ci": [
+          -0.06628185197443832,
+          0.08374365396664717
+        ],
+        "p": 0.8090363812344176,
+        "n": 735
+      },
+      "freq_Classical": {
+        "rho": -0.005816431979270547,
+        "ci": [
+          -0.07967257782545162,
+          0.06243154753583039
+        ],
+        "p": 0.8748279772031817,
+        "n": 736
+      },
+      "freq_Country": {
+        "rho": -0.039412587428203326,
+        "ci": [
+          -0.11153988093500927,
+          0.03423876011102179
+        ],
+        "p": 0.28559529461222877,
+        "n": 736
+      },
+      "freq_EDM": {
+        "rho": 0.1067046701834801,
+        "ci": [
+          0.03538301989968517,
+          0.17896293227981003
+        ],
+        "p": 0.0037533163067255825,
+        "n": 736
+      },
+      "freq_Folk": {
+        "rho": 0.10962939612049628,
+        "ci": [
+          0.0392435463110013,
+          0.18142187344222774
+        ],
+        "p": 0.0029004465009260373,
+        "n": 736
+      },
+      "freq_Gospel": {
+        "rho": -0.004304879620062764,
+        "ci": [
+          -0.07306970242068427,
+          0.0651081867369064
+        ],
+        "p": 0.9071845729597533,
+        "n": 736
+      },
+      "freq_Hip hop": {
+        "rho": 0.10117249393577994,
+        "ci": [
+          0.021563425399556226,
+          0.16980010437780854
+        ],
+        "p": 0.006011976882847189,
+        "n": 736
+      },
+      "freq_Jazz": {
+        "rho": 0.0465192528756425,
+        "ci": [
+          -0.02377102286799812,
+          0.11469133673258568
+        ],
+        "p": 0.20746269336420164,
+        "n": 736
+      },
+      "freq_K pop": {
+        "rho": 0.008713449839384465,
+        "ci": [
+          -0.06441147152590634,
+          0.07996150005523432
+        ],
+        "p": 0.8134383683076906,
+        "n": 736
+      },
+      "freq_Latin": {
+        "rho": 0.03701083423121126,
+        "ci": [
+          -0.04075045069669506,
+          0.11056680658739286
+        ],
+        "p": 0.31599805808747383,
+        "n": 736
+      },
+      "freq_Lofi": {
+        "rho": 0.05419548182680731,
+        "ci": [
+          -0.020939188302014224,
+          0.12517645085957843
+        ],
+        "p": 0.14186882873704693,
+        "n": 736
+      },
+      "freq_Metal": {
+        "rho": 0.18870095226262062,
+        "ci": [
+          0.11234924092498452,
+          0.2590188476046343
+        ],
+        "p": 2.5090235104950067e-07,
+        "n": 736
+      },
+      "freq_Pop": {
+        "rho": 0.07765896326658264,
+        "ci": [
+          0.0039392990442744455,
+          0.14615200047034924
+        ],
+        "p": 0.03516651637807536,
+        "n": 736
+      },
+      "freq_R&B": {
+        "rho": 0.06610594346094019,
+        "ci": [
+          -0.00869347815709171,
+          0.13607576664778503
+        ],
+        "p": 0.07308142216409302,
+        "n": 736
+      },
+      "freq_Rap": {
+        "rho": 0.13766183507881313,
+        "ci": [
+          0.05987197695345041,
+          0.20873034354816034
+        ],
+        "p": 0.00017955242197558726,
+        "n": 736
+      },
+      "freq_Rock": {
+        "rho": 0.18394048225114715,
+        "ci": [
+          0.1115070660015118,
+          0.25179742869868527
+        ],
+        "p": 5.044003050970622e-07,
+        "n": 736
+      },
+      "freq_Video game music": {
+        "rho": 0.10048295721496618,
+        "ci": [
+          0.027703020663045943,
+          0.1700512918057532
+        ],
+        "p": 0.006365997376867176,
+        "n": 736
+      }
+    },
+    "valence_vs_depression_age_removed": -0.027324140498387557,
+    "valence_vs_age": -0.0473697346688938,
+    "rate_by_valence_third": [
+      {
+        "group": "lowest third",
+        "n": 246,
+        "rate": 0.33739837398373984,
+        "ci": [
+          0.28121506764978793,
+          0.3985820518050988
+        ]
+      },
+      {
+        "group": "middle third",
+        "n": 245,
+        "rate": 0.3795918367346939,
+        "ci": [
+          0.3211255911639338,
+          0.44177578866966327
+        ]
+      },
+      {
+        "group": "highest third",
+        "n": 245,
+        "rate": 0.32653061224489793,
+        "ci": [
+          0.2708810762667336,
+          0.38753616586641465
+        ]
+      }
+    ],
+    "valence_third_edges": [
+      0.2952,
+      0.4704777777777778,
+      0.4937391304347827,
+      0.5963
+    ],
+    "rate_by_hours": [
+      {
+        "group": "0 to 1",
+        "n": 148,
+        "rate": 0.2635135135135135,
+        "ci": [
+          0.19916966041712642,
+          0.3398236062502427
+        ]
+      },
+      {
+        "group": "over 1 to 2",
+        "n": 190,
+        "rate": 0.28421052631578947,
+        "ci": [
+          0.22484739434515574,
+          0.35212679488976584
+        ]
+      },
+      {
+        "group": "over 2 to 4",
+        "n": 209,
+        "rate": 0.3875598086124402,
+        "ci": [
+          0.324104878755863,
+          0.4550736277015214
+        ]
+      },
+      {
+        "group": "over 4 to 6",
+        "n": 102,
+        "rate": 0.39215686274509803,
+        "ci": [
+          0.3029736690082715,
+          0.4891685510639875
+        ]
+      },
+      {
+        "group": "over 6",
+        "n": 87,
+        "rate": 0.4827586206896552,
+        "ci": [
+          0.3807248617685969,
+          0.5862506208296843
+        ]
+      }
+    ],
+    "teen": {
+      "max_age": 19,
+      "n": 299,
+      "positives": 89,
+      "n_17_or_under": 153,
+      "a_music_habits": {
+        "n": 299,
+        "positives": 89,
+        "base_rate": 0.2976588628762542,
+        "features": 22,
+        "auc": 0.558908507223114,
+        "auc_ci": [
+          0.4859643583120513,
+          0.6331643598664429
+        ],
+        "fold_auc_mean": 0.5530423280423281,
+        "fold_auc_spread": [
+          0.4094187675070028,
+          0.674647914721444
+        ],
+        "repeat_auc_range": [
+          0.5112359550561798,
+          0.5829320492241841
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.4921252006420545,
+          "middle_95": [
+            0.38617174959871586,
+            0.5759844836811129
+          ],
+          "share_at_or_above_real": 0.08
+        },
+        "label": "Music habits only: hours, 16 genre frequencies, listening valence and energy, exploratory, while working, BPM"
+      },
+      "b_mood_and_hours": {
+        "n": 299,
+        "positives": 89,
+        "base_rate": 0.2976588628762542,
+        "features": 3,
+        "auc": 0.5908507223113965,
+        "auc_ci": [
+          0.5201183545335943,
+          0.6582018236288598
+        ],
+        "fold_auc_mean": 0.5902194211017742,
+        "fold_auc_spread": [
+          0.47132936507936507,
+          0.7027719421101774
+        ],
+        "repeat_auc_range": [
+          0.5617442482611023,
+          0.5966827180310326
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.4911498127340824,
+          "middle_95": [
+            0.39982075976458,
+            0.577573568753344
+          ],
+          "share_at_or_above_real": 0.01
+        },
+        "label": "Music mood (listening valence and energy) and hours per day"
+      },
+      "c_age_only": {
+        "n": 299,
+        "positives": 89,
+        "base_rate": 0.2976588628762542,
+        "features": 1,
+        "auc": 0.4744783306581059,
+        "auc_ci": [
+          0.4050050440394952,
+          0.5446850280045864
+        ],
+        "fold_auc_mean": 0.4791880641145347,
+        "fold_auc_spread": [
+          0.30749591503267976,
+          0.5937743152816681
+        ],
+        "repeat_auc_range": [
+          0.4099518459069021,
+          0.5279293739967896
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.49270465489566617,
+          "middle_95": [
+            0.39402755484216156,
+            0.571152354200107
+          ],
+          "share_at_or_above_real": 0.65
+        },
+        "label": "Age only (baseline)"
+      },
+      "valence_vs_0_10": {
+        "rho": -0.038474424541914846,
+        "ci": [
+          -0.15328115538657866,
+          0.07654262185875366
+        ],
+        "p": 0.5074946714389976,
+        "n": 299
+      },
+      "hours_vs_0_10": {
+        "rho": 0.1422434421125625,
+        "ci": [
+          0.021815921673172853,
+          0.25336247228186265
+        ],
+        "p": 0.013822358379248353,
+        "n": 299
+      }
+    }
+  },
+  "gaming": {
+    "people": 13413,
+    "base_rate": 0.17490494296577946,
+    "who": {
+      "male_share": 0.9430403340043242,
+      "age_min": 18,
+      "age_median": 20.0,
+      "age_max": 63,
+      "from_reddit_share": 0.9895623648699023,
+      "league_of_legends_share": 0.8402296279728622,
+      "pc_share": 0.981734138522329,
+      "aged_18_19": 5728
+    },
+    "cleaning": {
+      "duplicate_responses_dropped": 51,
+      "hours_over_168_set_missing": 2,
+      "hours_missing": 32,
+      "stream_hours_over_168_set_missing": 3
+    },
+    "categories": {
+      "game": [
+        "Counter Strike",
+        "Hearthstone",
+        "League of Legends",
+        "Other",
+        "Starcraft 2",
+        "World of Warcraft",
+        "other"
+      ],
+      "platform": [
+        "Console (PS, Xbox, ...)",
+        "PC",
+        "Smartphone / Tablet"
+      ],
+      "playstyle": [
+        "Multiplayer - offline (people in the same room)",
+        "Multiplayer - online - with online acquaintances or teammates",
+        "Multiplayer - online - with real life friends",
+        "Multiplayer - online - with strangers",
+        "Singleplayer",
+        "other"
+      ],
+      "whyplay": [
+        "having fun",
+        "improving",
+        "other",
+        "relaxing",
+        "winning"
+      ]
+    },
+    "models": {
+      "gaming_habits": {
+        "n": 13413,
+        "positives": 2346,
+        "base_rate": 0.17490494296577946,
+        "features": 23,
+        "auc": 0.594873694603381,
+        "auc_ci": [
+          0.582066759005701,
+          0.6078302634389883
+        ],
+        "fold_auc_mean": 0.5946609299461474,
+        "fold_auc_spread": [
+          0.5694749883005651,
+          0.617010864276513
+        ],
+        "repeat_auc_range": [
+          0.5905937299981181,
+          0.5959697274394178
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.49928138141927286,
+          "middle_95": [
+            0.48177217212820833,
+            0.5176823530336151
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Gaming habits: hours per week, stream hours, game, platform, playstyle, why they play"
+      },
+      "hours_only": {
+        "n": 13413,
+        "positives": 2346,
+        "base_rate": 0.17490494296577946,
+        "features": 1,
+        "auc": 0.5498441215718474,
+        "auc_ci": [
+          0.5362070184354009,
+          0.5626151656364824
+        ],
+        "fold_auc_mean": 0.5513839444081077,
+        "fold_auc_spread": [
+          0.5288727072149898,
+          0.5812081111572722
+        ],
+        "repeat_auc_range": [
+          0.5498496486293553,
+          0.5518153167820492
+        ],
+        "label": "Hours per week alone"
+      },
+      "aged_18_19": {
+        "n": 5728,
+        "positives": 1018,
+        "base_rate": 0.17772346368715083,
+        "features": 23,
+        "auc": 0.5830042254284867,
+        "auc_ci": [
+          0.5633541963695088,
+          0.6034385007214912
+        ],
+        "fold_auc_mean": 0.5834783024418495,
+        "fold_auc_spread": [
+          0.5409126389409267,
+          0.6342887165848109
+        ],
+        "repeat_auc_range": [
+          0.5799202466015125,
+          0.5862898819132474
+        ],
+        "label": "Gaming habits, players aged 18 and 19 only (5 repeats)"
+      }
+    },
+    "weights": [
+      {
+        "feature": "hours_per_week",
+        "weight": 0.174
+      },
+      {
+        "feature": "whyplay=winning",
+        "weight": 0.12
+      },
+      {
+        "feature": "whyplay=having fun",
+        "weight": -0.102
+      },
+      {
+        "feature": "whyplay=relaxing",
+        "weight": 0.089
+      },
+      {
+        "feature": "playstyle=Multiplayer - online - with real life friends",
+        "weight": -0.087
+      },
+      {
+        "feature": "stream_hours_per_week",
+        "weight": 0.083
+      },
+      {
+        "feature": "game=Starcraft 2",
+        "weight": -0.059
+      },
+      {
+        "feature": "playstyle=Multiplayer - online - with strangers",
+        "weight": 0.053
+      },
+      {
+        "feature": "game=Other",
+        "weight": 0.045
+      },
+      {
+        "feature": "playstyle=Singleplayer",
+        "weight": 0.04
+      }
+    ],
+    "hours_vs_gad_total": {
+      "rho": 0.06530090580438658,
+      "ci": [
+        0.04801645510505531,
+        0.08240088678217727
+      ],
+      "p": 3.9958154821947945e-14,
+      "n": 13381
+    },
+    "rate_by_hours_per_week": [
+      {
+        "group": "0 to 9",
+        "n": 1637,
+        "rate": 0.15455100794135615,
+        "ci": [
+          0.13785059094855218,
+          0.17286898125147004
+        ]
+      },
+      {
+        "group": "10 to 19",
+        "n": 4367,
+        "rate": 0.15433936340737348,
+        "ci": [
+          0.1439283569706889,
+          0.16535798275848362
+        ]
+      },
+      {
+        "group": "20 to 29",
+        "n": 4108,
+        "rate": 0.16358325219084713,
+        "ci": [
+          0.15258693874553753,
+          0.17520817865392646
+        ]
+      },
+      {
+        "group": "30 to 39",
+        "n": 1749,
+        "rate": 0.18524871355060035,
+        "ci": [
+          0.16773788054830044,
+          0.20413919037470826
+        ]
+      },
+      {
+        "group": "40 to 49",
+        "n": 809,
+        "rate": 0.23856613102595797,
+        "ci": [
+          0.21047525976737388,
+          0.2691281463575095
+        ]
+      },
+      {
+        "group": "50 to 69",
+        "n": 520,
+        "rate": 0.2903846153846154,
+        "ci": [
+          0.25301788389530994,
+          0.3308257818234876
+        ]
+      },
+      {
+        "group": "70 or more",
+        "n": 191,
+        "rate": 0.34554973821989526,
+        "ci": [
+          0.281751337253618,
+          0.41543858522700206
+        ]
+      }
+    ]
+  },
+  "social": {
+    "people": 481,
+    "base_rate": 0.4594594594594595,
+    "outcome_item": "18. How often do you feel depressed or down?",
+    "usage_columns": {
+      "daily_time_band": "8. What is the average time you spend on social media every day?",
+      "number_of_platforms": "count of platforms in: 7. What social media platforms do you commonly use?",
+      "uses_YouTube": "YouTube named in: 7. What social media platforms do you commonly use?",
+      "uses_Facebook": "Facebook named in: 7. What social media platforms do you commonly use?",
+      "uses_Instagram": "Instagram named in: 7. What social media platforms do you commonly use?",
+      "uses_Discord": "Discord named in: 7. What social media platforms do you commonly use?",
+      "uses_Snapchat": "Snapchat named in: 7. What social media platforms do you commonly use?",
+      "uses_Pinterest": "Pinterest named in: 7. What social media platforms do you commonly use?",
+      "uses_Twitter": "Twitter named in: 7. What social media platforms do you commonly use?",
+      "uses_Reddit": "Reddit named in: 7. What social media platforms do you commonly use?",
+      "uses_TikTok": "TikTok named in: 7. What social media platforms do you commonly use?",
+      "use_without_purpose": "9. How often do you find yourself using Social media without a specific purpose?",
+      "distracted_by_it_when_busy": "10. How often do you get distracted by Social media when you are busy doing something?"
+    },
+    "feeling_columns": {
+      "restless_without_it": "11. Do you feel restless if you haven't used Social media in a while?",
+      "easily_distracted": "12. On a scale of 1 to 5, how easily distracted are you?",
+      "bothered_by_worries": "13. On a scale of 1 to 5, how much are you bothered by worries?",
+      "hard_to_concentrate": "14. Do you find it difficult to concentrate on things?",
+      "compares_self_to_others": "15. On a scale of 1-5, how often do you compare yourself to other successful people through the use of social media?",
+      "feels_bad_about_comparisons": "16. Following the previous question, how do you feel about these comparisons, generally speaking?",
+      "seeks_validation": "17. How often do you look to seek validation from features of social media?",
+      "interest_fluctuates": "19. On a scale of 1 to 5, how frequently does your interest in daily activities fluctuate?",
+      "sleep_problems": "20. On a scale of 1 to 5, how often do you face issues regarding sleep?"
+    },
+    "left_out": [
+      "2. Gender",
+      "3. Relationship Status",
+      "4. Occupation Status",
+      "5. What type of organizations are you affiliated with?",
+      "6. Do you use social media?",
+      "Timestamp"
+    ],
+    "said_no_to_using_social_media": 3,
+    "age_vs_daily_time_rho": -0.2984068616564108,
+    "age_vs_outcome_rho": -0.21588459167440943,
+    "ages": [
+      13.0,
+      91.0
+    ],
+    "median_age": 22.0,
+    "occupation": {
+      "University Student": 292,
+      "Salaried Worker": 132,
+      "School Student": 49,
+      "Retired": 8
+    },
+    "teen": {
+      "max_age": 19,
+      "n": 51
+    },
+    "models": {
+      "usage_only": {
+        "n": 481,
+        "positives": 221,
+        "base_rate": 0.4594594594594595,
+        "features": 13,
+        "auc": 0.6743995823181343,
+        "auc_ci": [
+          0.6257193332705754,
+          0.7215668857201373
+        ],
+        "fold_auc_mean": 0.6733453282828283,
+        "fold_auc_spread": [
+          0.580621722027972,
+          0.7626584353146852
+        ],
+        "repeat_auc_range": [
+          0.6502436477549599,
+          0.6878176122520014
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.49690871910894535,
+          "middle_95": [
+            0.42789114166376613,
+            0.5632548729550992
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Usage only (the fair model)"
+      },
+      "age_only": {
+        "n": 481,
+        "positives": 221,
+        "base_rate": 0.4594594594594595,
+        "features": 1,
+        "auc": 0.6040723981900452,
+        "auc_ci": [
+          0.5507904658660545,
+          0.6540753675026741
+        ],
+        "fold_auc_mean": 0.611031857031857,
+        "fold_auc_spread": [
+          0.5250739364801864,
+          0.6897922736985236
+        ],
+        "repeat_auc_range": [
+          0.5943177862861119,
+          0.6140010442046642
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.49207466063348404,
+          "middle_95": [
+            0.42230181865645666,
+            0.5488585537765402
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Age only (baseline)"
+      },
+      "usage_plus_age": {
+        "n": 481,
+        "positives": 221,
+        "base_rate": 0.4594594594594595,
+        "features": 14,
+        "auc": 0.6790810998955796,
+        "auc_ci": [
+          0.62961404822562,
+          0.7272152080935432
+        ],
+        "fold_auc_mean": 0.6776980866355866,
+        "fold_auc_spread": [
+          0.5834010780885781,
+          0.771875
+        ],
+        "repeat_auc_range": [
+          0.6576052906369648,
+          0.6924121127741037
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.496532979463975,
+          "middle_95": [
+            0.4318021232161503,
+            0.558893143056039
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Usage plus age"
+      },
+      "usage_plus_feelings": {
+        "n": 481,
+        "positives": 221,
+        "base_rate": 0.4594594594594595,
+        "features": 22,
+        "auc": 0.7960842325095718,
+        "auc_ci": [
+          0.7566680315873916,
+          0.8337508402418136
+        ],
+        "fold_auc_mean": 0.7950923659673661,
+        "fold_auc_spread": [
+          0.719340034965035,
+          0.853513986013986
+        ],
+        "repeat_auc_range": [
+          0.7819004524886879,
+          0.8004698920988514
+        ],
+        "shuffle": {
+          "runs": 100,
+          "mean_auc": 0.5007859380438566,
+          "middle_95": [
+            0.4270814479638009,
+            0.5643090845805778
+          ],
+          "share_at_or_above_real": 0.0
+        },
+        "label": "Usage plus feeling items (not fair: the feeling items sit close to the label)"
+      }
+    },
+    "weights_usage_only": [
+      {
+        "feature": "daily_time_band",
+        "weight": 0.356
+      },
+      {
+        "feature": "distracted_by_it_when_busy",
+        "weight": 0.314
+      },
+      {
+        "feature": "use_without_purpose",
+        "weight": 0.224
+      },
+      {
+        "feature": "uses_Snapchat",
+        "weight": 0.187
+      },
+      {
+        "feature": "uses_YouTube",
+        "weight": -0.121
+      },
+      {
+        "feature": "uses_TikTok",
+        "weight": 0.104
+      },
+      {
+        "feature": "uses_Twitter",
+        "weight": -0.092
+      },
+      {
+        "feature": "uses_Reddit",
+        "weight": -0.05
+      },
+      {
+        "feature": "uses_Instagram",
+        "weight": 0.041
+      },
+      {
+        "feature": "uses_Discord",
+        "weight": -0.025
+      }
+    ],
+    "usage_correlations_1_5": {
+      "daily_time_band": {
+        "rho": 0.31849397320387085,
+        "ci": [
+          0.23471843970003567,
+          0.39569300435563115
+        ],
+        "p": 8.423517721443558e-13,
+        "n": 481
+      },
+      "number_of_platforms": {
+        "rho": 0.19928288180074868,
+        "ci": [
+          0.1115573640388354,
+          0.28573745985316157
+        ],
+        "p": 1.065242353794012e-05,
+        "n": 481
+      },
+      "use_without_purpose": {
+        "rho": 0.2952926117916972,
+        "ci": [
+          0.209040852635986,
+          0.3765507637736107
+        ],
+        "p": 3.913167155878617e-11,
+        "n": 481
+      },
+      "distracted_by_it_when_busy": {
+        "rho": 0.3646261398938736,
+        "ci": [
+          0.28300839925080695,
+          0.4458469526124746
+        ],
+        "p": 1.4298870725000775e-16,
+        "n": 481
+      }
+    },
+    "rate_by_daily_time": [
+      {
+        "group": "Less than an Hour",
+        "n": 34,
+        "rate": 0.11764705882352941,
+        "ci": [
+          0.04671370973436122,
+          0.26621174796298774
+        ]
+      },
+      {
+        "group": "Between 1 and 2 hours",
+        "n": 70,
+        "rate": 0.2714285714285714,
+        "ci": [
+          0.18119460808784751,
+          0.38544533470862496
+        ]
+      },
+      {
+        "group": "Between 2 and 3 hours",
+        "n": 101,
+        "rate": 0.45544554455445546,
+        "ci": [
+          0.36173444762795837,
+          0.5524217651730671
+        ]
+      },
+      {
+        "group": "Between 3 and 4 hours",
+        "n": 93,
+        "rate": 0.46236559139784944,
+        "ci": [
+          0.36454451284102324,
+          0.5631725013347029
+        ]
+      },
+      {
+        "group": "Between 4 and 5 hours",
+        "n": 67,
+        "rate": 0.5522388059701493,
+        "ci": [
+          0.4335740153183886,
+          0.6652379821520243
+        ]
+      },
+      {
+        "group": "More than 5 hours",
+        "n": 116,
+        "rate": 0.6206896551724138,
+        "ci": [
+          0.5298613573866044,
+          0.7037803830440974
+        ]
+      }
+    ]
+  },
+  "stress": {
+    "train_posts": 2835,
+    "test_posts": 715,
+    "test_stressed_share": 0.5160839160839161,
+    "subreddits": {
+      "anxiety": 147,
+      "relationships": 142,
+      "ptsd": 127,
+      "domesticviolence": 72,
+      "survivorsofabuse": 70,
+      "assistance": 66,
+      "homeless": 52,
+      "almosthomeless": 19,
+      "stress": 14,
+      "food_pantry": 6
+    },
+    "trained_on_dreaddit": {
+      "C_by_train_cv": 2,
+      "train_cv_auc_by_C": {
+        "0.5": 0.8450629311751696,
+        "1": 0.8471954456367271,
+        "2": 0.8481958121815418,
+        "4": 0.8476441892255103,
+        "8": 0.8459970854038653,
+        "16": 0.8438848853985007
+      },
+      "test_auc": 0.8243886774127857,
+      "test_auc_ci": [
+        0.7912926972676153,
+        0.8543745234599813
+      ],
+      "test_f1": 0.7559449311639549,
+      "train_excerpts_dropped_same_text_as_test": 3,
+      "test_accuracy": 0.7272727272727273,
+      "top_stressed_terms": [
+        "me",
+        "my",
+        "feel",
+        "even",
+        "because",
+        "am",
+        "just",
+        "anxiety",
+        "what to",
+        "don",
+        "do",
+        "myself"
+      ],
+      "top_calm_terms": [
+        "you",
+        "we",
+        "url",
+        "her",
+        "met",
+        "your",
+        "she",
+        "more",
+        "would",
+        "years",
+        "you can",
+        "for"
+      ]
+    },
+    "tone_zero_shot": {
+      "model": "app/public/models/tone.json (trained on GoEmotions for low mood; never saw Dreaddit)",
+      "threshold": 0.19,
+      "test_auc": 0.7452182903331924,
+      "test_auc_ci": [
+        0.7079455103683442,
+        0.7813765546280939
+      ],
+      "test_f1_at_app_threshold": 0.7026348808030113,
+      "flag_rate_stressed": 0.7588075880758808,
+      "flag_rate_not_stressed": 0.4277456647398844,
+      "median_score_stressed": 0.29873051006829976,
+      "median_score_not_stressed": 0.16027581910563812,
+      "all_posts_auc": 0.7631609916337582,
+      "all_posts": 3550,
+      "hand_cases": [
+        {
+          "text": "",
+          "by_hand": 0.03428370275519267,
+          "how": "no features, sigmoid(intercept)",
+          "python_copy": 0.03428370275519267,
+          "match": true
+        },
+        {
+          "text": "sad",
+          "by_hand": 0.9997310456755866,
+          "how": "one feature, x = 1, sigmoid(intercept + coef[sad])",
+          "python_copy": 0.9997310456755866,
+          "match": true
+        },
+        {
+          "text": "SOOOO sad",
+          "by_hand": 0.9877908000633442,
+          "how": "features in vocab ['soo', 'sad'], raw tf 1 each, idf-weighted, L2-normalised",
+          "python_copy": 0.9877908000633442,
+          "match": true
+        },
+        {
+          "text": "I'm sad, sad, sad",
+          "by_hand": 0.9995415879830319,
+          "how": "counts {'im': 1, 'sad': 3, 'im sad': 1}, raw tf, idf-weighted, L2-normalised",
+          "python_copy": 0.9995415879830319,
+          "match": true
+        }
+      ],
+      "tone_ts_parity": {
+        "ran": true,
+        "node": "v25.9.0",
+        "texts": 715,
+        "max_abs_diff": 1.1102230246251565e-16
+      }
+    }
+  },
+  "headline": "Across people, music habits lined up with high self-rated depression only weakly: AUC 0.57, 95% interval 0.53 to 0.61, where 0.50 is chance. Gaming habits lined up with moderate anxiety at 0.59 (0.58 to 0.61). Social media use alone lined up with often feeling down at 0.67 (0.63 to 0.72). A word model trained on stressed Reddit posts scored 0.82 on new posts. The app's own tone model, never trained on stress, scored 0.75 (0.71 to 0.78). All four are one-time snapshots, so none shows that a signal predicts one teen's week.",
+  "plain_sentences": {
+    "music": "In an open survey of 736 music listeners, listening habits told apart people with high self-rated depression only a little better than chance (AUC 0.57, where 0.50 is chance). People who listened more hours a day, and to higher-energy genres like metal and rock, rated their depression a little higher. How happy their genres sound made no clear difference.",
+    "gaming": "Among 13,413 mostly adult male gamers, play habits weakly told apart those with moderate anxiety (AUC 0.59). The scale measures anxiety and says nothing direct about depression. The share with moderate anxiety was about 15% at 10 to 19 hours of play a week and 35% at 70 hours or more.",
+    "social": "In a survey of 481 people, how much and how aimlessly they used social media told apart those who often feel down at an AUC of 0.67. Of people on social media more than five hours a day, 62% said they often feel down, against 12% of those under an hour.",
+    "stress": "A simple word model trained on stressed Reddit posts scored an AUC of 0.82 on posts it never saw. The app's own tone model, built to spot low mood, scored 0.75 on the same posts with no retraining."
+  },
+  "caveats": [
+    "Every dataset here is a one-time survey or a single post. Each result shows how a signal relates to distress across people at one moment. None shows that a change in a teen's music, gaming or scrolling comes before a bad week.",
+    "All three surveys are self-selected online samples. The music survey was an open online form (median age 21). The gaming survey is 94% male, all aged 18 or older, 84% League of Legends players. The social media survey has only 51 people aged 19 or under.",
+    "The outcomes are single self-ratings (depression 0 to 10, \"feel depressed or down\" 1 to 5) or a screening score (GAD-7). None is a diagnosis. The gaming outcome measures anxiety and says nothing direct about depression.",
+    "Listening valence comes from genre averages. Two people who both play pop \"very frequently\" get the same value even if one plays sad songs. Real Spotify data would give per-track valence; this test cannot say whether that would do better.",
+    "Dreaddit posts are long posts from Reddit users, most likely adults, in support subreddits such as anxiety, PTSD and relationships. Teens writing a short check-in note may write differently.",
+    "The tone model's threshold was set for low mood on GoEmotions. On Dreaddit it flags many posts that are not labelled stressed, so its flag should not be read as a stress alarm."
+  ]
+}

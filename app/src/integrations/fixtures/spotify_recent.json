@@ -1,0 +1,229 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "page": {
+  "items": [
+   {
+    "track": {
+     "id": "3JvKfv6T31zO0ini8iNItO",
+     "name": "Another Love",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Tom Odell"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-14T01:30:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "2QjOHCTQ1Jl3zawyYOpxh6",
+     "name": "Sweater Weather",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "The Neighbourhood"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-13T23:10:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "AAAAAAAAAAAAAAAAAAAAAA",
+     "name": "Unholy (feat. Kim Petras)",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Sam Smith"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-12T16:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "BBBBBBBBBBBBBBBBBBBBBB",
+     "name": "A Song Not In The List",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Tom Odell"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-11T02:15:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": null,
+     "name": "Nothing Like It",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": true,
+     "artists": [
+      {
+       "name": "Fixture Band"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-10T20:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "CCCCCCCCCCCCCCCCCCCCCC",
+     "name": "An episode",
+     "type": "episode",
+     "duration_ms": 1800000
+    },
+    "played_at": "2026-11-09T15:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "3JvKfv6T31zO0ini8iNItO",
+     "name": "Another Love",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Tom Odell"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-08T03:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "6Uj1ctrBOjOas8xZXGqKk4",
+     "name": "Woman",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Doja Cat"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-06T12:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "6Uj1ctrBOjOas8xZXGqKk4",
+     "name": "Woman",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Doja Cat"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-04T01:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "2QjOHCTQ1Jl3zawyYOpxh6",
+     "name": "Sweater Weather",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "The Neighbourhood"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-03T18:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "7ef4DlsgrMEH11cDZd32M6",
+     "name": "One Kiss (with Dua Lipa)",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Calvin Harris"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "2026-11-01T22:00:00.000Z",
+    "context": null
+   },
+   {
+    "track": {
+     "id": "6Uj1ctrBOjOas8xZXGqKk4",
+     "name": "Woman",
+     "type": "track",
+     "duration_ms": 200000,
+     "is_local": false,
+     "artists": [
+      {
+       "name": "Doja Cat"
+      }
+     ],
+     "album": {
+      "name": "(fixture album)"
+     }
+    },
+    "played_at": "not a time",
+    "context": null
+   }
+  ],
+  "next": null,
+  "limit": 50,
+  "href": "https://api.spotify.com/v1/me/player/recently-played?limit=50"
+ }
+}

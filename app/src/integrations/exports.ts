@@ -34,7 +34,9 @@
 //   Entries are {title: "Watched <video>" | "Searched for <words>", time}. Ads are counted but
 //   not scored.
 // Chrome (Takeout): Chrome/History.json, {"Browser History": [{title, url, time_usec}]}. Search
-//   words are taken from Google, Bing, DuckDuckGo and YouTube search addresses.
+//   words are taken from Google, Bing, DuckDuckGo and YouTube search addresses. Visits to the
+//   major news sites in NEWS_SITES are counted per week, with how many were between midnight and
+//   5 a.m.; the count is shown to the teen only and never reaches the rules.
 // YouTube and Chrome titles and searches are scored on the phone (tone model and self-harm
 // check) and dropped; only weekly counts are kept, and addresses are never kept.
 
@@ -171,6 +173,52 @@ const TITLE: Record<ExportPlatform, string> = {
   chrome: "a Chrome history Takeout",
 };
 
+/** Major news sites, by domain. A visit counts when the address is the domain or one of its
+ *  subdomains (edition.cnn.com, www.bbc.co.uk). "msn.com/news" counts only MSN's news pages,
+ *  which can have a locale first (/en-us/news/...). */
+export const NEWS_SITES = [
+  "cnn.com",
+  "nytimes.com",
+  "foxnews.com",
+  "washingtonpost.com",
+  "bbc.com",
+  "bbc.co.uk",
+  "apnews.com",
+  "reuters.com",
+  "nbcnews.com",
+  "cbsnews.com",
+  "abcnews.go.com",
+  "usatoday.com",
+  "theguardian.com",
+  "npr.org",
+  "wsj.com",
+  "news.google.com",
+  "news.yahoo.com",
+  "bloomberg.com",
+  "politico.com",
+  "axios.com",
+  "msn.com/news",
+] as const;
+
+/** Whether an address is a page on one of NEWS_SITES. */
+export function isNewsVisit(url: string): boolean {
+  let u: URL;
+  try {
+    u = new URL(url);
+  } catch {
+    return false;
+  }
+  if (u.protocol !== "https:" && u.protocol !== "http:") return false;
+  const host = u.hostname.toLowerCase().replace(/\.$/, "");
+  const segs = u.pathname.toLowerCase().split("/").filter(Boolean);
+  return NEWS_SITES.some((site) => {
+    const [domain, path] = site.split("/");
+    if (host !== domain && !host.endsWith(`.${domain}`)) return false;
+    // The path is the first segment, or the second after a locale such as "en-us".
+    return !path || segs[0] === path || (/^[a-z]{2}(-[a-z]{2,4})?$/.test(segs[0] ?? "") && segs[1] === path);
+  });
+}
+
 /** The words of a search, from a search page's address. Google, Bing, DuckDuckGo, YouTube. */
 export function searchWords(url: string): string | null {
   let u: URL;
@@ -239,14 +287,14 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
   };
 
   /** Score a title or a search on the phone, keep yes/no marks, and drop the words. */
-  const content = async (text: string | undefined, at: number, search: boolean): Promise<void> => {
+  const content = async (text: string | undefined, at: number, search: boolean, news = false): Promise<void> => {
     if (!text) {
-      events.push({ at });
+      events.push(news ? { at, news } : { at });
       return;
     }
     const r = scoreContent(text, at, { now: opts.now, tone: opts.tone, cfg, search });
     if (r.level !== "none") flags.push({ at, level: r.level, key: await flagKey(platform, owner, at, r.hash), textHash: r.hash });
-    events.push({ at, content: true, search, harm: r.harm, lowContent: r.lowContent });
+    events.push({ at, content: true, search, harm: r.harm, lowContent: r.lowContent, ...(news ? { news } : {}) });
   };
 
   const finish = (allNames: string[], tooBig: string[]): ExportResult => {
@@ -266,7 +314,13 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
     const browsing = platform === "youtube" || platform === "chrome";
     // Instagram and TikTok carry messages, searches and views.
     const social = platform === "instagram" || platform === "tiktok";
-    let weeks: AggWeek[] = eventWeeks(inRange, range, opts.time ?? localTime, cfg, { messages: !browsing, activity: true, content: browsing || social, views: social });
+    let weeks: AggWeek[] = eventWeeks(inRange, range, opts.time ?? localTime, cfg, {
+      messages: !browsing,
+      activity: true,
+      content: browsing || social,
+      views: social,
+      news: platform === "chrome",
+    });
     if (truncated) weeks = weeks.map((w) => ({ ...w, complete: false }));
     const notes: string[] = [];
     if (truncated) notes.push(`${tooBig.length} file${tooBig.length === 1 ? " was" : "s were"} too big to read, so these weeks are partial and do not reach the rules.`);
@@ -529,8 +583,10 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
             if (!Number.isFinite(us)) continue;
             const at = Math.round(us / 1000);
             // A search page is scored once, by its search words; any other page by its title.
-            const words = searchWords(str(o.url) ?? "");
-            await content(words ?? str(o.title) ?? "", at, words != null);
+            // A news site visit is marked yes or no; the address is dropped.
+            const url = str(o.url) ?? "";
+            const words = searchWords(url);
+            await content(words ?? str(o.title) ?? "", at, words != null, isNewsVisit(url));
           }
         },
       };

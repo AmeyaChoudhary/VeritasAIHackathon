@@ -1,0 +1,106 @@
+{
+ "short_term": {
+  "items": [
+   {
+    "id": "3JvKfv6T31zO0ini8iNItO",
+    "name": "Another Love",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "Tom Odell"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   },
+   {
+    "id": "6Uj1ctrBOjOas8xZXGqKk4",
+    "name": "Woman",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "Doja Cat"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   },
+   {
+    "id": "2QjOHCTQ1Jl3zawyYOpxh6",
+    "name": "Sweater Weather",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "The Neighbourhood"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   },
+   {
+    "id": "DDDDDDDDDDDDDDDDDDDDDD",
+    "name": "Nothing Like It",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "Fixture Band"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   }
+  ],
+  "total": 4,
+  "limit": 50,
+  "offset": 0
+ },
+ "medium_term": {
+  "items": [
+   {
+    "id": "7ef4DlsgrMEH11cDZd32M6",
+    "name": "One Kiss (with Dua Lipa)",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "Calvin Harris"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   },
+   {
+    "id": "EEEEEEEEEEEEEEEEEEEEEE",
+    "name": "Second Song",
+    "type": "track",
+    "duration_ms": 200000,
+    "is_local": false,
+    "artists": [
+     {
+      "name": "Fixture Band"
+     }
+    ],
+    "album": {
+     "name": "(fixture album)"
+    }
+   }
+  ],
+  "total": 2,
+  "limit": 50,
+  "offset": 0
+ }
+}

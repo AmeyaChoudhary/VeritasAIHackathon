@@ -64,6 +64,8 @@ export interface OwnEvent {
   lowContent?: boolean | null;
   /** A post or video the teen was shown or watched: a time only, nothing about what it was. */
   view?: boolean;
+  /** A visit to a major news site (Chrome). Only this yes/no mark is kept, never the address. */
+  news?: boolean;
 }
 
 /** Score one own message's words, check for self-harm words if it is recent, and return
@@ -109,7 +111,7 @@ export function eventWeeks(
   range: { from: number; to: number },
   time: TimeFns = localTime,
   cfg: Config = CONFIG,
-  keys: { messages: boolean; activity: boolean; content?: boolean; views?: boolean } = { messages: true, activity: true },
+  keys: { messages: boolean; activity: boolean; content?: boolean; views?: boolean; news?: boolean } = { messages: true, activity: true },
 ): AggWeek[] {
   return weeksBetween(range.from, range.to, time).map(({ weekOf, complete }, i) => {
     // The first week of a range is partial: the source may start part way through it.
@@ -140,6 +142,12 @@ export function eventWeeks(
           ? { harmContent: xs.filter((e) => e.harm).length, lowMoodContent: xs.filter((e) => e.lowContent).length, searches: xs.filter((e) => e.search).length }
           : {}),
         ...(keys.views ? { viewed: xs.filter((e) => e.view).length } : {}),
+        ...(keys.news
+          ? {
+              news: xs.filter((e) => e.news).length,
+              newsLate: xs.filter((e) => e.news && isLateNight(time.hour(e.at), cfg)).length,
+            }
+          : {}),
       },
     };
   });

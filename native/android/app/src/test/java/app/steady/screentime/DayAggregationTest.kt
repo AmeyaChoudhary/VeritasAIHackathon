@@ -72,7 +72,7 @@ class DayAggregationTest {
         val days = listOf(
             DayExport(
                 date = day("2026-11-12"),
-                screen = DaySummary(day("2026-11-12"), 245, 31, LocalTime.of(0, 0), LocalTime.of(23, 59)),
+                screen = DaySummary(day("2026-11-12"), 245, 31, LocalTime.of(0, 0), LocalTime.of(23, 59), gameMinutes = 64, nightGameMinutes = 22),
                 health = HealthDay(day("2026-11-12"), 412, LocalTime.of(0, 40), 6120),
                 keyboard = KeyboardDay(
                     day("2026-11-12"), messages = 3, chars = 120, corrections = 7, gaps = 117, pauses = 9,
@@ -89,14 +89,17 @@ class DayAggregationTest {
         assertEquals("2026-11-14T08:00:00Z", root.getString("generated"))
 
         val keys = setOf(
-            "date", "screen_minutes", "night_minutes", "first_use", "last_use", "sleep_minutes", "bedtime",
-            "steps", "kb_messages", "kb_chars_per_min", "kb_pause_share", "kb_correction_rate", "kb_low_mood_share",
+            "date", "screen_minutes", "night_minutes", "first_use", "last_use", "game_minutes", "night_game_minutes",
+            "sleep_minutes", "bedtime", "steps", "kb_messages", "kb_chars_per_min", "kb_pause_share", "kb_correction_rate",
+            "kb_low_mood_share",
         )
         val list = root.getJSONArray("days")
         val full = list.getJSONObject(0)
         assertEquals(keys, full.keySet())
         assertEquals(245, full.getInt("screen_minutes"))
         assertEquals("00:00", full.getString("first_use"))
+        assertEquals(64, full.getInt("game_minutes"))
+        assertEquals(22, full.getInt("night_game_minutes"))
         assertEquals(412, full.getInt("sleep_minutes"))
         assertEquals("00:40", full.getString("bedtime"))
         assertEquals(6120, full.getInt("steps"))

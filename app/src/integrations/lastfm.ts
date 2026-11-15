@@ -1,9 +1,14 @@
 // Last.fm, read with an API key and the teen's Last.fm username. Read-only, no sign-in.
-// Spotify's developer policy does not allow building user metrics from listening, so Stability
-// reads plays that the teen's Spotify sends to Last.fm. Music data from Last.fm.
+// Spotify, and most music apps, can send plays to Last.fm, so this works for any teen with no
+// approval needed from Spotify. Spotify's own sign-in (spotifyAuth.ts) runs in development mode
+// only. Music data from Last.fm.
+//
+// Music mood (musicMood.ts) is looked up by artist and title, or by artist when the song is not
+// in the list. It is shown to the teen only and never reaches the rules.
 
 import { CONFIG, DAY, type Config } from "../engine/config";
 import { isLateNight, localTime, weeksBetween, type Getter, type TimeFns } from "./common";
+import { moodOfKey, summarizeMood, type MoodTable } from "./musicMood";
 
 const BASE = "https://ws.audioscrobbler.com/2.0/";
 
@@ -32,6 +37,10 @@ export interface LastfmWeek {
   late_share: number | null;
   /** 1 - unique tracks / plays. Higher means the same songs again and again. */
   repetition: number | null;
+  /** Mean valence of the plays found in the music mood list, and how many were found. Shown to
+   *  the teen only; never part of the rules. Missing when the list was not loaded. */
+  mood?: number | null;
+  mood_matched?: number;
 }
 
 export interface LastfmResult {
@@ -63,22 +72,29 @@ export function aggregateLastfm(
   range: { from: number; to: number },
   time: TimeFns = localTime,
   cfg: Config = CONFIG,
+  mood: MoodTable | null = null,
 ): LastfmWeek[] {
   return weeksBetween(range.from, range.to, time).map(({ weekOf, complete }) => {
     const xs = plays.filter((p) => time.week(p.at) === weekOf);
-    return {
+    const w: LastfmWeek = {
       weekOf,
       complete,
       plays: xs.length,
       late_share: xs.length ? xs.filter((p) => isLateNight(time.hour(p.at), cfg)).length / xs.length : null,
       repetition: xs.length ? 1 - new Set(xs.map((p) => p.key)).size / xs.length : null,
     };
+    if (mood) {
+      const m = summarizeMood(xs.map((p) => moodOfKey(mood, p.key)));
+      w.mood = m.mood;
+      w.mood_matched = m.matched;
+    }
+    return w;
   });
 }
 
 export async function readLastfm(
   get: Getter,
-  opts: { user: string; apiKey: string; now: number; time?: TimeFns; cfg?: Config },
+  opts: { user: string; apiKey: string; now: number; time?: TimeFns; cfg?: Config; mood?: MoodTable | null },
 ): Promise<LastfmResult> {
   const cfg = opts.cfg ?? CONFIG;
   const ic = cfg.integrations;
@@ -107,5 +123,5 @@ export async function readLastfm(
   } while (page <= total && page <= ic.lastfmMaxPages);
   const truncated = page <= total;
   const covered = truncated && plays.length ? Math.max(fromMs, Math.min(...plays.map((p) => p.at))) : fromMs;
-  return { weeks: aggregateLastfm(plays, { from: covered, to: opts.now }, opts.time ?? localTime, cfg), plays: plays.length, truncated };
+  return { weeks: aggregateLastfm(plays, { from: covered, to: opts.now }, opts.time ?? localTime, cfg, opts.mood ?? null), plays: plays.length, truncated };
 }

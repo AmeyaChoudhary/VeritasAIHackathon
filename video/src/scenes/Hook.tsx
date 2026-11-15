@@ -24,7 +24,7 @@ export const Hook: React.FC = () => {
   const c = (p: string) => L(cue("hook", p));
   const oneAt = c("One in five"), depAt = c("depression"), mostAt = c("and most"), noAt = c("no treatment");
   const buildAt = c("It builds slowly"), sleepAt = c("a little less sleep"), textsAt = c("fewer texts"), plansAt = c("dropped plans");
-  const soAt = c("Nobody sees");
+  const soAt = c("Nobody knows");
   const out = exitAt(frame, r.dur + 4, 12);
 
   const aOut = interpolate(frame, [mostAt - 12, mostAt - 3], [1, 0], clamp);

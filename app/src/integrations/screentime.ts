@@ -1,6 +1,7 @@
 // The phone-data file the Stability app writes (native/). Android gives minutes; iPhone gives
 // threshold buckets such as ">=30". Version 2 (Android) adds Health Connect sleep and steps,
 // the Stability keyboard's daily numbers (no words), and self-harm flags as opaque ids.
+// Version 2 files from Nov 15, 2026 also have game minutes; older ones do not, and still read.
 
 import { CONFIG, type Config } from "../engine/config";
 import { mondayOfYmd, wallTimeToMs } from "./common";
@@ -13,6 +14,10 @@ export interface ScreenDay {
   first_use: string | null;
   last_use: string | null;
   // Version 2
+  /** Minutes in apps that call themselves games, and the part from midnight to 5 a.m. Missing
+   *  in files made before Nov 15, 2026. Display only. */
+  game_minutes?: number | null;
+  night_game_minutes?: number | null;
   sleep_minutes?: number | null;
   bedtime?: string | null;
   steps?: number | null;
@@ -72,6 +77,12 @@ export interface ScreenWeek {
   kb_pause_share?: number | null;
   kb_correction_rate?: number | null;
   kb_low_mood_share?: number | null;
+  /** Display only: shown to the teen, never read by the rules or put in a parent's note.
+   *  Minutes in games in the week, the mean per day with game numbers times 7, as with
+   *  kb_messages, and the part from midnight to 5 a.m. Null when no day had game numbers. */
+  game_minutes?: number | null;
+  night_game_minutes?: number | null;
+  game_days?: number;
 }
 
 /** Minutes from a number, a numeric string, or an iPhone bucket: "A-B" is the middle,
@@ -109,6 +120,8 @@ function nextDay(ymd: string): string {
 }
 
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
+/** A week's total from the days that have the number: the daily mean times 7. */
+const weekly = (xs: number[]) => (xs.length ? (xs.reduce((a, b) => a + b, 0) / xs.length) * 7 : null);
 
 function bounded(v: number | null, max: number): number | null {
   return v != null && Number.isFinite(v) && v >= 0 && v <= max ? v : null;
@@ -166,8 +179,8 @@ export function parseScreenTime(
   }
   const byDate = new Map(days.map((d) => [d.date, d]));
   const ic = cfg.integrations;
-  type Acc = Record<"screen" | "night" | "free" | "sleep" | "bed" | "steps" | "kbMsg" | "kbSpeed" | "kbPause" | "kbCorr" | "kbLow", number[]> & { n: number };
-  const empty = (): Acc => ({ screen: [], night: [], free: [], sleep: [], bed: [], steps: [], kbMsg: [], kbSpeed: [], kbPause: [], kbCorr: [], kbLow: [], n: 0 });
+  type Acc = Record<"screen" | "night" | "free" | "sleep" | "bed" | "steps" | "kbMsg" | "kbSpeed" | "kbPause" | "kbCorr" | "kbLow" | "game" | "nightGame", number[]> & { n: number };
+  const empty = (): Acc => ({ screen: [], night: [], free: [], sleep: [], bed: [], steps: [], kbMsg: [], kbSpeed: [], kbPause: [], kbCorr: [], kbLow: [], game: [], nightGame: [], n: 0 });
   const by = new Map<string, Acc>();
   const push = (xs: number[], v: number | null) => v != null && xs.push(v);
   for (const d of days) {
@@ -189,6 +202,15 @@ export function parseScreenTime(
         push(w.kbPause, finite(d.kb_pause_share, 0, 1));
         push(w.kbCorr, finite(d.kb_correction_rate, 0, 1));
         push(w.kbLow, finite(d.kb_low_mood_share, 0, 1));
+      }
+      // A day's game minutes are part of its screen minutes, and the night part is part of both.
+      // A number that breaks that is not read.
+      const screenDay = bounded(parseBucket(d.screen_minutes, cfg), ic.screenMinutesMax);
+      const nightDay = bounded(parseBucket(d.night_minutes, cfg), ic.nightMinutesMax);
+      const games = finite(d.game_minutes, 0, screenDay ?? ic.screenMinutesMax);
+      if (games != null) {
+        push(w.game, games);
+        push(w.nightGame, finite(d.night_game_minutes, 0, Math.min(games, nightDay ?? ic.nightMinutesMax)));
       }
     }
     by.set(k, w);
@@ -228,6 +250,10 @@ export function parseScreenTime(
         kb_pause_share: mean(w.kbPause),
         kb_correction_rate: mean(w.kbCorr),
         kb_low_mood_share: mean(w.kbLow),
+        game_minutes: weekly(w.game),
+        // Only when every game day has its night part, so the night part can't pass the total.
+        night_game_minutes: w.nightGame.length === w.game.length ? weekly(w.nightGame) : null,
+        game_days: w.game.length,
       };
     });
   const flags =

@@ -65,7 +65,7 @@ export const Bar: React.FC<{ at: number; label: string; value: number; max: numb
 };
 
 /** Simple line icons, 24-unit box. */
-export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" | "tap" | "model" | "doctor" | "note" | "music" | "play" | "globe" | "photo" | "clip" | "game"; size?: number; color?: string; stroke?: number }> = ({ name, size = 40, color = C.ink, stroke = 1.75 }) => {
+export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" | "tap" | "model" | "doctor" | "note" | "music" | "play" | "globe" | "photo" | "clip" | "game" | "news"; size?: number; color?: string; stroke?: number }> = ({ name, size = 40, color = C.ink, stroke = 1.75 }) => {
   const p = { fill: "none", stroke: color, strokeWidth: stroke, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   return (
     <svg width={size} height={size} viewBox="0 0 24 24">
@@ -83,6 +83,7 @@ export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" |
       {name === "photo" && (<><rect {...p} x="4" y="4" width="16" height="16" rx="4.5" /><circle {...p} cx="12" cy="12" r="3.6" /><path {...p} d="M16.6 7.4h.01" /></>)}
       {name === "clip" && (<><rect {...p} x="7" y="3" width="10" height="18" rx="2.5" /><path {...p} d="M10.8 9.5v5l3.6-2.5Z" /></>)}
       {name === "game" && (<><path {...p} d="M7.5 8h9a4.5 4.5 0 0 1 4.4 5.4l-.5 2.4a2.3 2.3 0 0 1-4 1L15 15H9l-1.4 1.8a2.3 2.3 0 0 1-4-1l-.5-2.4A4.5 4.5 0 0 1 7.5 8Z" /><path {...p} d="M8 10.7v2.6M6.7 12h2.6M15.5 11h.01M17.3 12.8h.01" /></>)}
+      {name === "news" && (<><path {...p} d="M5 5.5h11.5v13H6.5A1.5 1.5 0 0 1 5 17V5.5Z" /><path {...p} d="M16.5 9H19v8.5a1.5 1.5 0 0 1-3 0" /><path {...p} d="M8 9h5.5M8 12h5.5M8 15h3.5" /></>)}
       {name === "globe" && (<><circle {...p} cx="12" cy="12" r="8.5" /><path {...p} d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5Z" /></>)}
     </svg>
   );

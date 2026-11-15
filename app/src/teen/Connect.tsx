@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSnap, useStore } from "../store/hooks";
 import type { Store } from "../store/store";
 import { SOURCES, type ContribKey, type SourceId } from "../engine/types";
@@ -13,7 +13,7 @@ import {
   MS_CLIENT_ID,
 } from "../integrations/env";
 import { loadGis, requestToken, revokeToken } from "../integrations/google";
-import { bearerGetter, bearerPoster, headerGetter, plainGetter, weekWords } from "../integrations/common";
+import { bearerGetter, bearerPoster, headerGetter, localTime, plainGetter, weekWords } from "../integrations/common";
 import { readGmail } from "../integrations/gmail";
 import { readCalendar } from "../integrations/calendar";
 import { readLastfm } from "../integrations/lastfm";
@@ -23,8 +23,11 @@ import { readDriveActivity } from "../integrations/drive";
 import { loadMsal, msForget, msToken, readOutlook } from "../integrations/microsoft";
 import { fitbitSignIn, pkcePair, readFitbit } from "../integrations/fitbit";
 import { importExport, type ExportPlatform } from "../integrations/exports";
-import { importSpotify } from "../integrations/spotify";
-import { sampleCalendar, sampleGmail, sampleLastfm, samplePhoneV2, sampleSource } from "../integrations/sample";
+import { importSpotify, sampleSpotify } from "../integrations/spotify";
+import { SPOTIFY_CLIENT_ID, spotifyNeeds127, spotifyPkce, spotifySignIn, type Pkce } from "../integrations/spotifyAuth";
+import { readSpotifyLive, spotifyGetter, type SpotifyLiveResult } from "../integrations/spotifyLive";
+import { loadMusicMood } from "../integrations/musicMood";
+import { lastfmFixtureGetter, sampleCalendar, sampleGmail, samplePhoneV2, sampleSource, SAMPLE_NOW } from "../integrations/sample";
 import { getAccounts, saveAccount, useAccounts, type Accounts, type GenericAccount } from "../integrations/accounts";
 import { liveWeekFrom } from "../integrations/live";
 import { ledgerAdd, ledgerHas } from "../integrations/ledger";
@@ -85,7 +88,8 @@ function realProvides(source: SourceId): ContribKey[] {
 function genericFrom(r: object): Omit<GenericAccount, "mode" | "fetchedAt"> {
   const o = r as Record<string, unknown>;
   const counts: Record<string, number> = {};
-  for (const k of ["othersSkipped", "skipped", "unreadable", "ownMessages", "activity", "read", "edits", "courses", "nights", "plays"]) if (typeof o[k] === "number") counts[k] = o[k] as number;
+  for (const k of ["othersSkipped", "skipped", "unreadable", "ownMessages", "activity", "read", "edits", "courses", "nights", "plays", "moodMatched", "since"])
+    if (typeof o[k] === "number") counts[k] = o[k] as number;
   return {
     weeks: (o.weeks as GenericAccount["weeks"]) ?? [],
     truncated: o.truncated === true,
@@ -96,7 +100,36 @@ function genericFrom(r: object): Omit<GenericAccount, "mode" | "fetchedAt"> {
   };
 }
 
+/** A live Spotify read as an account: weekly numbers, and the top songs' music mood as counts. */
+function liveSpotifyAccount(r: SpotifyLiveResult): Omit<GenericAccount, "mode" | "fetchedAt"> {
+  const g = genericFrom(r);
+  const counts: Record<string, number> = { ...g.counts, live: 1 };
+  for (const [name, m] of [["topShort", r.topShort], ["topMedium", r.topMedium]] as const) {
+    if (!m) continue;
+    counts[`${name}Songs`] = m.plays;
+    counts[`${name}Matched`] = m.matched;
+    if (m.mood != null) counts[`${name}Mood`] = m.mood;
+  }
+  return { ...g, counts };
+}
+
 const round = (n: number) => Math.round(n);
+const mood2 = (v: number) => v.toFixed(2);
+
+/** One line on the music mood of a set of weeks: the mean valence of the songs found, and how
+ *  many were found. Shown to the teen only. Null when the list was not used. */
+function moodLine(weeks: { plays: number; mood?: number | null; matched?: number }[]): string | null {
+  const ws = weeks.filter((w) => typeof w.matched === "number");
+  if (!ws.length) return null;
+  const plays = ws.reduce((t, w) => t + w.plays, 0);
+  const matched = ws.reduce((t, w) => t + (w.matched ?? 0), 0);
+  if (!matched) return "Music mood: none of these songs are in the song list, so there is no music mood.";
+  const mean = ws.reduce((t, w) => t + (typeof w.mood === "number" ? w.mood * (w.matched ?? 0) : 0), 0) / matched;
+  return `Music mood ${mood2(mean)}, on a scale from 0 to 1 where higher sounds happier, from ${matched} of ${plays} songs (${Math.round((matched / Math.max(plays, 1)) * 100)}%) found in a public list of 114,000 songs. Only you see this. It doesn't change when Stability asks and never goes to a parent.`;
+}
+
+const weekMood = (mood: unknown, matched: unknown, plays: number) =>
+  typeof matched === "number" ? (typeof mood === "number" && matched ? `, music mood ${mood2(mood)} from ${matched} of ${plays}` : ", no songs in the mood list") : "";
 
 function hoursWords(h: number): string {
   const r = Math.round(h * 2) / 2;
@@ -139,12 +172,18 @@ function genericLine(source: SourceId, w: GenericAccount["weeks"][number]): stri
       if (!n("events")) return null;
       const what = source === "youtube" ? "watched or searched" : `${plural(n("events"), "page")} visited, ${plural(n("searches"), "search", "searches")}`;
       const harm = n("harmContent") ? `, ${n("harmContent")} about self-harm` : "";
-      return `${head} ${source === "youtube" ? `${n("events")} ${what}` : what}, ${n("late")} after midnight${harm}.`;
+      const news = n("news") ? `, ${n("news")} on news sites (${n("newsLate")} between midnight and 5 a.m.)` : "";
+      return `${head} ${source === "youtube" ? `${n("events")} ${what}` : what}, ${n("late")} after midnight${harm}${news}.`;
     }
-    case "spotify":
-      return n("plays")
-        ? `${head} ${plural(n("plays"), "song")}, ${hoursWords(n("minutes") / 60)}, ${n("late")} after midnight, ${n("skips")} skipped, ${repeatWords(typeof s.repeats === "number" ? s.repeats : 0)}.`
-        : `${head} no songs.`;
+    case "spotify": {
+      if (!n("plays")) return `${head} no songs.`;
+      const parts = [plural(n("plays"), "song")];
+      if (typeof s.minutes === "number") parts.push(hoursWords(s.minutes / 60));
+      parts.push(`${n("late")} after midnight`);
+      if (typeof s.skips === "number") parts.push(`${n("skips")} skipped`);
+      parts.push(repeatWords(typeof s.repeats === "number" ? s.repeats : 0));
+      return `${head} ${parts.join(", ")}${weekMood(s.mood, s.moodMatched, n("plays"))}.`;
+    }
     case "instagram":
     case "tiktok": {
       if (!n("events")) return null;
@@ -182,9 +221,11 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
       .filter((w) => w.complete || w.plays > 0)
       .map((w) =>
         w.plays
-          ? `Week of ${weekWords(w.weekOf)}${partWeek(w.complete)}: ${w.plays} plays, ${round((w.late_share ?? 0) * w.plays)} after midnight, ${repeatWords(w.repetition ?? 0)}.`
+          ? `Week of ${weekWords(w.weekOf)}${partWeek(w.complete)}: ${w.plays} plays, ${round((w.late_share ?? 0) * w.plays)} after midnight, ${repeatWords(w.repetition ?? 0)}${weekMood(w.mood, w.mood_matched, w.plays)}.`
           : `Week of ${weekWords(w.weekOf)}${partWeek(w.complete)}: no plays.`,
       );
+    const ml = moodLine(a.lastfm.weeks.map((w) => ({ plays: w.plays, mood: w.mood, matched: w.mood_matched })));
+    if (ml) lines.unshift(ml);
     if (a.lastfm.truncated) lines.push("There were more plays than Stability reads at once, so the oldest weeks are partial.");
     return lines;
   }
@@ -196,6 +237,9 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
         w.sleep_hours != null ? `${hoursWords(w.sleep_hours)} of sleep` : w.phone_free_hours != null ? `${hoursWords(w.phone_free_hours)} phone-free at night` : null,
         w.steps != null ? `about ${round(w.steps / 100) * 100} steps a day` : null,
         w.kb_messages != null ? `${w.kb_messages} messages typed` : null,
+        w.game_minutes != null
+          ? `${hoursWords(w.game_minutes / 60)} of games in the week${w.night_game_minutes != null ? `, ${round(w.night_game_minutes)} minutes of it after midnight` : ""}`
+          : null,
       ].filter(Boolean);
       return `Week of ${weekWords(w.weekOf)}: ${parts.join(", ") || "no data"}.`;
     });
@@ -213,6 +257,32 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
     lines.unshift(
       `${plural(g.weeks.length, "week")} read. ${harm ? `${harm} ${what} about self-harm. A recent search like that brings up "Are you safe right now?"` : `No ${what} about self-harm.`} Titles were dropped after reading.`,
     );
+  }
+  if (source === "chrome") {
+    const sum = (k: string) => g.weeks.reduce((t, w) => t + (typeof w.show[k] === "number" ? (w.show[k] as number) : 0), 0);
+    if (g.weeks.some((w) => typeof w.show.news === "number"))
+      lines.splice(
+        1,
+        0,
+        sum("news")
+          ? `News sites: ${plural(sum("news"), "visit")}, ${sum("newsLate")} of them between midnight and 5 a.m. Only you see this. It doesn't change when Stability asks and never goes to a parent.`
+          : "No visits to the major news sites on Stability's list.",
+      );
+  }
+  if (source === "spotify") {
+    const c = g.counts ?? {};
+    const ml = moodLine(g.weeks.map((w) => ({ plays: typeof w.show.plays === "number" ? w.show.plays : 0, mood: w.show.mood, matched: typeof w.show.moodMatched === "number" ? w.show.moodMatched : undefined })));
+    const top = (name: "topShort" | "topMedium", span: string) =>
+      typeof c[`${name}Songs`] === "number"
+        ? typeof c[`${name}Mood`] === "number"
+          ? `${mood2(c[`${name}Mood`])} for ${span} (${c[`${name}Matched`]} of ${c[`${name}Songs`]} found)`
+          : `none found for ${span}`
+        : null;
+    const tops = [top("topShort", "about the last 4 weeks"), top("topMedium", "about the last 6 months")].filter(Boolean);
+    if (tops.length) lines.unshift(`Your top songs on Spotify, music mood: ${tops.join(", ")}.`);
+    if (ml) lines.unshift(ml);
+    if (c.live && typeof c.since === "number")
+      lines.unshift(`From your Spotify account: your last ${plural(c.plays ?? 0, "play")}, back to ${new Date(c.since).toLocaleDateString(undefined, { month: "short", day: "numeric" })}.`);
   }
   if (source === "instagram" || source === "tiktok") {
     const sum = (k: string) => g.weeks.reduce((t, w) => t + (typeof w.show[k] === "number" ? (w.show[k] as number) : 0), 0);
@@ -241,7 +311,14 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
   const [err, setErr] = useState<string | null>(null);
   const [user, setUser] = useState("");
   const [pkce, setPkce] = useState<{ verifier: string; challenge: string; state: string } | null>(null);
+  const liveSpotify = source === "spotify" && !!SPOTIFY_CLIENT_ID;
+  const [spPkce, setSpPkce] = useState<Pkce | null>(null);
+  const needs127 = liveSpotify && typeof window !== "undefined" && spotifyNeeds127(window.location.href);
   const missing = keyMissing(source);
+  // Ready Spotify's PKCE pair as the screen opens, so one tap opens the sign-in window.
+  useEffect(() => {
+    if (liveSpotify) void spotifyPkce().then(setSpPkce, () => setSpPkce(null));
+  }, [liveSpotify]);
   const signs = info.kind === "google" || info.kind === "microsoft" || info.kind === "fitbit";
   const isFile = info.kind === "file" || info.kind === "phone";
 
@@ -267,7 +344,9 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
     run(async () => {
       if (source === "gmail") finish("sample", await sampleGmail(store.toneModel));
       else if (source === "calendar") finish("sample", await sampleCalendar());
-      else if (source === "lastfm") finish("sample", await sampleLastfm());
+      else if (source === "lastfm")
+        finish("sample", await readLastfm(lastfmFixtureGetter(), { user: "maya_fixture", apiKey: "sample", now: SAMPLE_NOW, mood: await loadMusicMood() }));
+      else if (source === "spotify") finish("sample", genericFrom(await sampleSpotify(SAMPLE_NOW, localTime, await loadMusicMood())));
       else if (source === "screentime") {
         const r = samplePhoneV2();
         finish("sample", { weeks: r.weeks, source: r.source, version: r.version });
@@ -321,7 +400,7 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
     run(async () => {
       const name = user.trim();
       if (!name) throw new Error("Type your Last.fm username first.");
-      const r = await readLastfm(plainGetter(), { user: name, apiKey: LASTFM_API_KEY, now: Date.now() });
+      const r = await readLastfm(plainGetter(), { user: name, apiKey: LASTFM_API_KEY, now: Date.now(), mood: await loadMusicMood() });
       setUser("");
       finish("real", { weeks: r.weeks, plays: r.plays, truncated: r.truncated });
     });
@@ -334,9 +413,22 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
       // Several Spotify files, or one zip. Each is parsed and dropped; only weeks are kept.
       const r = await importSpotify(
         files.map((f) => ({ blob: f, name: f.name })),
-        { now: Date.now() },
+        { now: Date.now(), mood: await loadMusicMood() },
       );
       finish("real", genericFrom(r));
+    });
+  };
+
+  // Spotify's own sign-in, from a tap. The token is used for this one read and then dropped.
+  const signInSpotify = () => {
+    if (!spPkce) return;
+    const tokenP = spotifySignIn(SPOTIFY_CLIENT_ID, spPkce);
+    setSpPkce(null);
+    void spotifyPkce().then(setSpPkce, () => setSpPkce(null));
+    run(async () => {
+      const token = await tokenP;
+      const r = await readSpotifyLive(spotifyGetter(token), { now: Date.now(), mood: await loadMusicMood() });
+      finish("real", liveSpotifyAccount(r));
     });
   };
 
@@ -427,6 +519,28 @@ function Account({ source, onClose }: { source: SourceId; onClose: () => void })
         </section>
       ) : (
         <section className="card">
+          {liveSpotify && (
+            <div style={{ marginBottom: 14 }}>
+              <button className="btn btn-primary" onClick={signInSpotify} disabled={phase !== "idle" || !spPkce || needs127}>
+                Sign in with Spotify
+              </button>
+              {needs127 ? (
+                <p className="small" style={{ marginBottom: 0 }}>
+                  Spotify doesn't accept "localhost" as an address.{" "}
+                  <a href={window.location.href.replace("//localhost", "//127.0.0.1")}>Open this page at 127.0.0.1</a> to sign in.
+                </p>
+              ) : (
+                <p className="small muted" style={{ marginBottom: 0 }}>
+                  You sign in on Spotify's own screen. Stability never sees your password. Or choose your data file below.
+                </p>
+              )}
+            </div>
+          )}
+          {source === "spotify" && !liveSpotify && (
+            <p className="small muted" style={{ marginTop: 0 }}>
+              This copy of Stability has no Spotify app key, so it reads the data file only.
+            </p>
+          )}
           {info.kind === "lastfm" && (
             <label className="field" style={{ marginTop: 0 }}>
               <span className="label">Your Last.fm username</span>
@@ -531,7 +645,9 @@ export function Connect({ initial }: { initial?: SourceId | null }) {
                 ? "Needs the phone app or a server"
                 : keyMissing(k)
                   ? "Not set up yet"
-                  : info.kind === "file" || info.kind === "phone"
+                  : k === "spotify" && SPOTIFY_CLIENT_ID
+                    ? "Sign in or add a file"
+                    : info.kind === "file" || info.kind === "phone"
                     ? "Add a file"
                     : "Not connected";
             return (

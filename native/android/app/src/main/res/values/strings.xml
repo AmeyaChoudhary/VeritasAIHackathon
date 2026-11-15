@@ -3,7 +3,7 @@
     <string name="app_name">Stability</string>
 
     <string name="intro_heading">What this app reads</string>
-    <string name="intro_reads">Screen time. Stability looks at when your screen turns on and off. For each of the last 28 days it adds up how long the screen was on. It also counts the minutes between midnight and 5 a.m., and notes the first and last time you used your phone. It does not save which apps you used.</string>
+    <string name="intro_reads">Screen time. Stability looks at when your screen turns on and off. For each of the last 28 days it adds up how long the screen was on. It also counts the minutes between midnight and 5 a.m., and notes the first and last time you used your phone. It adds up time in games. An app counts as a game only if the app itself tells Android it is one. It does not save which apps you used.</string>
     <string name="intro_health">Health Connect, if you connect it. Stability reads the sleep and steps your phone or watch recorded. It keeps how long you slept each night and when you went to bed. It also keeps your steps each day.</string>
     <string name="intro_keyboard">The Stability keyboard, if you turn it on. It reads what you type as you type it and never saves the words. When a message ends, it counts your typing speed and pauses. It counts how often you went back to fix something, and whether the message read as low mood. Then the words are dropped.</string>
     <string name="intro_keyboard_help">If a message sounds like you might hurt yourself, the keyboard opens a screen with 988. This includes words you typed and then deleted before sending. It may ask if you are safe right now. It saves the time and your answer, never the words.</string>
@@ -109,6 +109,7 @@
     <string name="week_short">Under 4 days, so Stability would leave this week out.</string>
     <string name="week_screen">Screen on: %1$s a day</string>
     <string name="week_night">Midnight to 5 a.m.: %1$s a night</string>
+    <string name="week_games">Games: %1$s a day, %2$s of it from midnight to 5 a.m.</string>
     <string name="week_times">Usual first use %1$s, last use %2$s</string>
     <string name="week_sleep">Sleep: %1$s a night, usual bedtime %2$s</string>
     <string name="week_steps">Steps: %1$s a day</string>

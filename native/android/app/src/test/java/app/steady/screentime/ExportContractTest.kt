@@ -11,8 +11,9 @@ import java.time.LocalDate
 // checks the sample file in native/sample against the same rules.
 class ExportContractTest {
     private val dayKeys = setOf(
-        "date", "screen_minutes", "night_minutes", "first_use", "last_use", "sleep_minutes", "bedtime",
-        "steps", "kb_messages", "kb_chars_per_min", "kb_pause_share", "kb_correction_rate", "kb_low_mood_share",
+        "date", "screen_minutes", "night_minutes", "first_use", "last_use", "game_minutes", "night_game_minutes",
+        "sleep_minutes", "bedtime", "steps", "kb_messages", "kb_chars_per_min", "kb_pause_share", "kb_correction_rate",
+        "kb_low_mood_share",
     )
     private val kbShares = listOf("kb_pause_share", "kb_correction_rate", "kb_low_mood_share")
 
@@ -29,6 +30,17 @@ class ExportContractTest {
                     val v = d.getDouble(key)
                     assertTrue("$key is $v on ${d.getString("date")}", v in 0.0..1.0)
                 }
+            }
+            // Game minutes are part of screen time: never without it, never more than it.
+            if (!d.isNull("game_minutes")) {
+                val date = d.getString("date")
+                assertTrue("game_minutes without screen_minutes on $date", !d.isNull("screen_minutes"))
+                assertTrue("game_minutes over screen_minutes on $date", d.getInt("game_minutes") <= d.getInt("screen_minutes"))
+                val night = d.getInt("night_game_minutes")
+                assertTrue("night_game_minutes over game_minutes on $date", night <= d.getInt("game_minutes"))
+                assertTrue("night_game_minutes over night_minutes on $date", night <= d.getInt("night_minutes"))
+            } else {
+                assertTrue(d.isNull("night_game_minutes"))
             }
             // 0 messages means the keyboard was open but quiet: no rhythm or tone that day.
             if (!d.isNull("kb_messages") && d.getInt("kb_messages") == 0) {
@@ -83,5 +95,9 @@ class ExportContractTest {
             .map { if (it.isNull("kb_messages")) null else it.getInt("kb_messages") }
         assertTrue("the sample shows a quiet day", 0 in messages)
         assertTrue("the sample shows a day without the keyboard", null in messages)
+        val games = (0 until days.length()).map { days.getJSONObject(it) }
+            .map { if (it.isNull("game_minutes")) null else it.getInt("game_minutes") }
+        assertTrue("the sample shows game minutes", games.any { it != null && it > 0 })
+        assertTrue("the sample shows days saved before games were counted", null in games)
     }
 }

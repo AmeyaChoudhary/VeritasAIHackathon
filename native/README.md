@@ -2,7 +2,7 @@
 
 Two small phone apps that collect Stability's phone signals and save them as a file the Stability web app can import. On both phones that means screen time: how long the phone is used each day, and how much of that is between midnight and 5 a.m. On Android it also means sleep and steps from Health Connect, and the Stability keyboard.
 
-**Status.** The Android app builds, and its 72 JVM tests pass. These include tone and self-harm results that match the web app's own code exactly. Its first version worked on an Android 15 emulator: the Health Connect permission flow, the keyboard, the 988 screen and the version 2 export. The review fixes since then have been unit tested but not run on a device. They include the safety question, cursor tracking, message counting, sleep merging and the keyboard notification. Health Connect with real records, and any real phone, have not been tried yet. The iOS app and both extensions build with no warnings in Xcode 27.2 (iOS 27.2 SDK), for iPhone and for the Simulator. In the Simulator the app opens, shows its disclosure, and reports "Screen Time access was not turned on" when asked, because the Simulator cannot grant Screen Time access. Nothing has run on a real iPhone yet. The details are in each app's README.
+**Status.** The Android app builds, and its 80 JVM tests pass. These include tone and self-harm results that match the web app's own code exactly. Its first version worked on an Android 15 emulator: the Health Connect permission flow, the keyboard, the 988 screen and the version 2 export. The review fixes since then have been unit tested but not run on a device. They include the safety question, cursor tracking, message counting, sleep merging, the keyboard notification and game minutes. Health Connect with real records, and any real phone, have not been tried yet. The iOS app and both extensions build with no warnings in Xcode 27.2 (iOS 27.2 SDK), for iPhone and for the Simulator. In the Simulator the app opens, shows its disclosure, and reports "Screen Time access was not turned on" when asked, because the Simulator cannot grant Screen Time access. Nothing has run on a real iPhone yet. The details are in each app's README.
 
 | Folder | What it is |
 | --- | --- |
@@ -13,7 +13,7 @@ Two small phone apps that collect Stability's phone signals and save them as a f
 
 ## What each app reads
 
-**Android** reads the times the screen turned on and off, from the phone's own usage log. From those it works out, for each day, the minutes the screen was on and the minutes between midnight and 5 a.m. It also notes when the phone was first and last used. On Android 9 and later it never reads app names. On Android 8 it uses them in memory to pair events and never keeps them.
+**Android** reads the times the screen turned on and off, from the phone's own usage log. From those it works out, for each day, the minutes the screen was on and the minutes between midnight and 5 a.m. It also notes when the phone was first and last used. It adds up minutes in games, all day and between midnight and 5 a.m. An app counts as a game only when its own manifest sets the game category; apps that set no category are not counted. App names are used in memory to look up each app's category, and on Android 8 to pair events. They are never kept or saved in the file.
 
 If the teen connects Health Connect, the Android app also reads sleep sessions and steps. It keeps each night's sleep minutes and bedtime, and each day's steps.
 
@@ -45,6 +45,8 @@ The file has one entry per day. The web app works out the weeks, as the Stabilit
       "night_minutes": 52,
       "first_use": "01:32",
       "last_use": "23:59",
+      "game_minutes": 87,
+      "night_game_minutes": 35,
       "sleep_minutes": 359,
       "bedtime": "01:03",
       "steps": 6121,
@@ -64,14 +66,16 @@ The file has one entry per day. The web app works out the weeks, as the Stabilit
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `source` | string | Always `"android_usage_stats"`. |
-| `version` | int | `2`. Version 1 files have only the first five day fields and no `flags`. |
+| `version` | int | `2`. Version 1 files have only the first five day fields and no `flags`. Version 2 files made before Nov 15, 2026 have no `game_minutes` or `night_game_minutes`; read those as missing. The version did not change for them because both fields are optional, and the web app refuses versions it does not know. |
 | `generated` | string | When the file was made, ISO 8601 in UTC, to the second. |
-| `days` | array | Up to 28 complete days, oldest first. Today is never included. A day appears if any source has something for it. Every day has every key below. |
+| `days` | array | Up to 28 complete days, oldest first. Today is never included. A day appears if any source has something for it. Every day has every key below, apart from the two game keys in older files. |
 | `date` | string | `YYYY-MM-DD`, a calendar day in the phone's time zone. |
 | `screen_minutes` | int or null | Minutes the screen was on that day. Null when Android had no screen record for the day. |
 | `night_minutes` | int or null | Minutes the screen was on from 00:00 to 05:00 of that date, the night that ends that morning. Never more than `screen_minutes`. |
 | `first_use` | `"HH:MM"` or null | First time the screen came on that day. Glances under a minute do not count. |
 | `last_use` | `"HH:MM"` or null | Last time the screen went off that day. `"23:59"` when use ran past midnight, and then the next day's `first_use` is `"00:00"`. |
+| `game_minutes` | int or null | Minutes that day with a game in front, cut to screen-on time, so never more than `screen_minutes`. A game is an app whose `ApplicationInfo.category` is `CATEGORY_GAME`, set by the app itself. Apps with no category are not counted. Null when `screen_minutes` is null, or the day was saved before games were counted. |
+| `night_game_minutes` | int or null | The part of `game_minutes` from 00:00 to 05:00 of that date, the same night as `night_minutes`. Never more than `game_minutes` or `night_minutes`. Null when `game_minutes` is. |
 | `sleep_minutes` | int or null | Minutes asleep in the main sleep of the night that ended this morning: the longest Health Connect session ending that date, minus time marked awake or out of bed. |
 | `bedtime` | `"HH:MM"` or null | When that sleep started. `"23:40"` on Nov 10 means 23:40 on Nov 9. |
 | `steps` | int or null | Steps that day from Health Connect, with overlap between phone and watch removed. |
@@ -115,12 +119,13 @@ Same keys. `screen_minutes` and `night_minutes` are strings that name a bucket, 
 - A week counts only with at least 4 days of data, the rule in [docs/parent-alerts.md](../docs/parent-alerts.md).
 - A missing day means no data. A day with `0` means the phone was not used, or was off.
 - In version 2, read each source's fields on their own. A day can have keyboard numbers and no screen numbers, or the reverse.
+- The Stability web app shows game minutes to the teen as weekly numbers only. They do not feed its rules or a note to a parent.
 
 ## The sample files
 
-`sample/steady_android_v2_sample.json` is made up. It has the same screen days as the version 1 sample, with sleep, steps and keyboard numbers added. From Nov 3, sleep gets shorter and starts after midnight, steps drop, and typing gets slower. Typing also has more pauses and corrections, and more messages read as low mood. Two nights have no sleep record. One day has no keyboard numbers, and Nov 8 has `kb_messages` 0, so both kinds of empty keyboard day can be tested. It has two flags: one answered "yes", one not answered.
+`sample/steady_android_v2_sample.json` is made up. It has the same screen days as the version 1 sample, with game minutes, sleep, steps and keyboard numbers added. From Nov 3, sleep gets shorter and starts after midnight, steps drop, and typing gets slower. Typing also has more pauses and corrections, and more messages read as low mood. Game minutes go from under an hour on school days to about 2 hours, and up to 46 minutes of games fall between midnight and 5 a.m. The first two days, Oct 17 and 18, have null game minutes, as on a phone whose older days were saved before games were counted. Two nights have no sleep record. One day has no keyboard numbers, and Nov 8 has `kb_messages` 0, so both kinds of empty keyboard day can be tested. It has two flags: one answered "yes", one not answered.
 
-`sample/screen_time_android_sample.json` is made up too. It covers Oct 17 to Nov 13, 2026. The first two and a half weeks are a steady routine with almost no use after midnight. School days have about 3 to 4 hours of use, and weekends have more. From Nov 3 use after midnight climbs to 30 to 70 minutes most nights, and use often runs past midnight. It follows the field rules above, so it can be used to test an importer.
+`sample/screen_time_android_sample.json` is made up too. It stays in the version 1 format, so it has no game minutes. It covers Oct 17 to Nov 13, 2026. The first two and a half weeks are a steady routine with almost no use after midnight. School days have about 3 to 4 hours of use, and weekends have more. From Nov 3 use after midnight climbs to 30 to 70 minutes most nights, and use often runs past midnight. It follows the field rules above, so it can be used to test an importer.
 
 ## Building
 

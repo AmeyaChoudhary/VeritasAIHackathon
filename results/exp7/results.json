@@ -1,0 +1,1547 @@
+{
+  "generated": "2026-11-15",
+  "seed": 7,
+  "reps": 2000,
+  "yrbs": {
+    "layout": {
+      "2023": {
+        "items": {
+          "sex": {
+            "variable": "Q2",
+            "column": 18,
+            "width": 1,
+            "label": "What is your sex"
+          },
+          "grade": {
+            "variable": "Q3",
+            "column": 19,
+            "width": 1,
+            "label": "In what grade are you"
+          },
+          "ebully": {
+            "variable": "Q25",
+            "column": 56,
+            "width": 1,
+            "label": "Electronic bullying"
+          },
+          "social": {
+            "variable": "Q80",
+            "column": 111,
+            "width": 1,
+            "label": "Social media"
+          },
+          "sleep": {
+            "variable": "Q85",
+            "column": 116,
+            "width": 1,
+            "label": "Hours of sleep on school night"
+          },
+          "sad": {
+            "variable": "QN26",
+            "column": 203,
+            "width": 1,
+            "label": "Felt sad or hopeless"
+          },
+          "suicide": {
+            "variable": "QN27",
+            "column": 204,
+            "width": 1,
+            "label": "Seriously considered attempting suicide"
+          },
+          "mental": {
+            "variable": "QN84",
+            "column": 261,
+            "width": 1,
+            "label": "Reported that their mental health was most of the time or always not good"
+          },
+          "sad_raw": {
+            "variable": "Q26",
+            "column": 57,
+            "width": 1,
+            "label": "Sad or hopeless"
+          },
+          "suicide_raw": {
+            "variable": "Q27",
+            "column": 58,
+            "width": 1,
+            "label": "Considered suicide"
+          },
+          "ebully_qn": {
+            "variable": "QN25",
+            "column": 202,
+            "width": 1,
+            "label": "Were electronically bullied"
+          },
+          "social_qn": {
+            "variable": "QN80",
+            "column": 257,
+            "width": 1,
+            "label": "Used social media several times a day"
+          },
+          "sleep_qn": {
+            "variable": "QN85",
+            "column": 262,
+            "width": 1,
+            "label": "Got 8 or more hours of sleep"
+          },
+          "race": {
+            "variable": "RACEETH",
+            "column": 414,
+            "width": 2,
+            "label": "Race/Ethnicity"
+          },
+          "weight": {
+            "variable": "WEIGHT",
+            "column": 388,
+            "width": 10,
+            "label": "Overall Analysis Weight"
+          },
+          "stratum": {
+            "variable": "STRATUM",
+            "column": 398,
+            "width": 3,
+            "label": "Sampling Strata"
+          },
+          "psu": {
+            "variable": "PSU",
+            "column": 401,
+            "width": 6,
+            "label": "Primary Sampling Unit"
+          }
+        },
+        "screen_time_or_gaming_items": [],
+        "race_codes": {
+          "1": "Am Indian/Alaska Native",
+          "2": "Asian",
+          "3": "Black or African American",
+          "4": "Native Hawaiian/Other PI",
+          "5": "White",
+          "6": "Hispanic/Latino",
+          "7": "Multiple - Hispanic",
+          "8": "Multiple - Non-Hispanic"
+        },
+        "students_in_file": 20103,
+        "agreement_with_cdc_flags": {
+          "sad (Q26 yes vs QN26)": 1.0,
+          "suicide (Q27 yes vs QN27)": 1.0,
+          "electronic bullying yes vs CDC flag": 1.0,
+          "social media several times a day or more vs CDC flag": 1.0,
+          "8 or more hours of sleep vs CDC flag": 1.0
+        }
+      },
+      "2025": {
+        "items": {
+          "sex": {
+            "variable": "Q2",
+            "column": 18,
+            "width": 1,
+            "label": "What is your sex"
+          },
+          "grade": {
+            "variable": "Q3",
+            "column": 19,
+            "width": 1,
+            "label": "In what grade are you"
+          },
+          "ebully": {
+            "variable": "Q24",
+            "column": 55,
+            "width": 1,
+            "label": "Electronic bullying"
+          },
+          "social": {
+            "variable": "Q77",
+            "column": 108,
+            "width": 1,
+            "label": "Social media"
+          },
+          "sleep": {
+            "variable": "Q83",
+            "column": 114,
+            "width": 1,
+            "label": "Sleep"
+          },
+          "sad": {
+            "variable": "QN26",
+            "column": 204,
+            "width": 1,
+            "label": "Felt sad or hopeless"
+          },
+          "suicide": {
+            "variable": "QN27",
+            "column": 205,
+            "width": 1,
+            "label": "Seriously considered attempting suicide"
+          },
+          "mental": {
+            "variable": "QN81",
+            "column": 259,
+            "width": 1,
+            "label": "Reported that their mental health was most of the time or always not good"
+          },
+          "sad_raw": {
+            "variable": "Q26",
+            "column": 57,
+            "width": 1,
+            "label": "Sad or hopeless"
+          },
+          "suicide_raw": {
+            "variable": "Q27",
+            "column": 58,
+            "width": 1,
+            "label": "Considered suicide"
+          },
+          "ebully_qn": {
+            "variable": "QN24",
+            "column": 202,
+            "width": 1,
+            "label": "Were electronically bullied"
+          },
+          "social_qn": {
+            "variable": "QN77",
+            "column": 255,
+            "width": 1,
+            "label": "Used social media several times a day"
+          },
+          "sleep_qn": {
+            "variable": "QN83",
+            "column": 261,
+            "width": 1,
+            "label": "Got 8 or more hours of sleep"
+          },
+          "race": {
+            "variable": "RACEETH",
+            "column": 415,
+            "width": 2,
+            "label": "Race/Ethnicity"
+          },
+          "weight": {
+            "variable": "WEIGHT",
+            "column": 389,
+            "width": 10,
+            "label": "Overall Analysis Weight"
+          },
+          "stratum": {
+            "variable": "STRATUM",
+            "column": 399,
+            "width": 3,
+            "label": "Sampling Strata"
+          },
+          "psu": {
+            "variable": "PSU",
+            "column": 402,
+            "width": 6,
+            "label": "Primary Sampling Unit"
+          }
+        },
+        "screen_time_or_gaming_items": [],
+        "race_codes": {
+          "1": "Am Indian/Alaska Native",
+          "2": "Asian",
+          "3": "Black or African American",
+          "4": "Hispanic or Latino",
+          "5": "Mideast/N African",
+          "6": "Native Hawaiian/PI",
+          "7": "White",
+          "8": "Multiple - Hispanic",
+          "9": "Multiple - Non-Hispanic"
+        },
+        "students_in_file": 10710,
+        "agreement_with_cdc_flags": {
+          "sad (Q26 yes vs QN26)": 1.0,
+          "suicide (Q27 yes vs QN27)": 1.0,
+          "electronic bullying yes vs CDC flag": 1.0,
+          "social media several times a day or more vs CDC flag": 1.0,
+          "8 or more hours of sleep vs CDC flag": 1.0
+        }
+      }
+    },
+    "outcomes": {
+      "sad": {
+        "train_students": 19863,
+        "test_students": 10483,
+        "train_rate_weighted": 0.3972130368359181,
+        "test_rate_weighted": 0.33291440314514803,
+        "test_rate_unweighted": 0.3456071735190308,
+        "models": {
+          "digital": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully"
+            ],
+            "train_auc_2023": 0.6967011801756676,
+            "test_auc": 0.6546749226878165,
+            "test_auc_weighted": 0.6718023906227406,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 0.9983151309114295,
+              "social=About once a week": 1.131955358041725,
+              "social=A few times a week": 1.3996647374603908,
+              "social=About once a day": 1.0968240250342238,
+              "social=Several times a day": 1.562685025655009,
+              "social=About once an hour": 1.56407092446837,
+              "social=More than once an hour": 1.9323864198235527,
+              "social=missing": 1.3473870380988904,
+              "sleep=4 or less hours": 4.570303870434692,
+              "sleep=5 hours": 3.5640831890205913,
+              "sleep=6 hours": 2.1861284915907473,
+              "sleep=7 hours": 1.4887163824631295,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.253677462454594,
+              "sleep=10 or more hours": 1.7711439609499535,
+              "sleep=missing": 2.002776483800051,
+              "ebully=Yes": 4.058416936873995,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.6781563628046152
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No"
+            },
+            "test_auc_ci": [
+              0.6440524077977934,
+              0.6663474704748363
+            ]
+          },
+          "digital_plus_sex_grade": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully",
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.7331995254619842,
+            "test_auc": 0.7015284194195008,
+            "test_auc_weighted": 0.7085098451645622,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 1.037640275921473,
+              "social=About once a week": 1.0260894750093288,
+              "social=A few times a week": 1.278326868979272,
+              "social=About once a day": 1.0859682069869598,
+              "social=Several times a day": 1.3443791413858677,
+              "social=About once an hour": 1.4238207021318767,
+              "social=More than once an hour": 1.6516902060120358,
+              "social=missing": 1.180499749410981,
+              "sleep=4 or less hours": 4.777162696044594,
+              "sleep=5 hours": 3.51454728860299,
+              "sleep=6 hours": 2.163924533181562,
+              "sleep=7 hours": 1.4900881382606364,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.1965535652188946,
+              "sleep=10 or more hours": 1.762013743739345,
+              "sleep=missing": 2.004208619969117,
+              "ebully=Yes": 3.7048859968218073,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.48420963458152,
+              "sex=Female": 2.6154462309264597,
+              "sex=Male": 1.0,
+              "sex=missing": 1.802374205702897,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 0.9964426727181207,
+              "grade=11th grade": 1.1150767088122828,
+              "grade=12th grade": 1.1105054884889471,
+              "grade=Ungraded or other grade": 1.3071504444610087,
+              "grade=missing": 1.3256567979986615
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No",
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.6920084098548238,
+              0.7109733269147571
+            ]
+          },
+          "sex_grade_only": {
+            "features": [
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.6345842661710464,
+            "test_auc": 0.6184346405255056,
+            "test_auc_weighted": 0.6086106672442413,
+            "odds_ratios_vs_reference": {
+              "sex=Female": 2.853372807254331,
+              "sex=Male": 1.0,
+              "sex=missing": 2.146411717619484,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 1.0064837355928256,
+              "grade=11th grade": 1.1212018082407456,
+              "grade=12th grade": 1.124523150278332,
+              "grade=Ungraded or other grade": 1.9694182444239983,
+              "grade=missing": 1.1391349838423588
+            },
+            "reference": {
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.606232207793629,
+              0.6301951908119937
+            ]
+          },
+          "sleep_social": {
+            "features": [
+              "sleep",
+              "social"
+            ],
+            "train_auc_2023": 0.6440413782292937,
+            "test_auc": 0.6059014162030888,
+            "test_auc_weighted": 0.6270663434687687,
+            "odds_ratios_vs_reference": {
+              "sleep=4 or less hours": 5.203695346668913,
+              "sleep=5 hours": 3.8341102165368537,
+              "sleep=6 hours": 2.2800496257449243,
+              "sleep=7 hours": 1.5363299440260882,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.3184022692008748,
+              "sleep=10 or more hours": 1.8878427895144272,
+              "sleep=missing": 2.1014425560421177,
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 1.0131829292481587,
+              "social=About once a week": 1.1852492760435283,
+              "social=A few times a week": 1.2693579742859056,
+              "social=About once a day": 1.076398647424069,
+              "social=Several times a day": 1.513317912192169,
+              "social=About once an hour": 1.577772512247752,
+              "social=More than once an hour": 2.0395707507361966,
+              "social=missing": 1.3479171069620988
+            },
+            "reference": {
+              "sleep": "8 hours",
+              "social": "I do not use social media"
+            },
+            "test_auc_ci": [
+              0.5944615675100149,
+              0.6184533544346962
+            ]
+          },
+          "sleep_only": {
+            "features": [
+              "sleep"
+            ],
+            "train_auc_2023": 0.6308652365754782,
+            "test_auc": 0.5952574618428264,
+            "test_auc_weighted": 0.6194637054016482,
+            "odds_ratios_vs_reference": {
+              "sleep=4 or less hours": 5.230435781120292,
+              "sleep=5 hours": 3.9237082580161475,
+              "sleep=6 hours": 2.330657758334065,
+              "sleep=7 hours": 1.5395280762065424,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.2958432809179121,
+              "sleep=10 or more hours": 1.8416888455526916,
+              "sleep=missing": 2.021535485875619
+            },
+            "reference": {
+              "sleep": "8 hours"
+            },
+            "test_auc_ci": [
+              0.580584348165248,
+              0.6091573042019021
+            ]
+          },
+          "social_only": {
+            "features": [
+              "social"
+            ],
+            "train_auc_2023": 0.5606304206273579,
+            "test_auc": 0.5496677366581663,
+            "test_auc_weighted": 0.547519394692555,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 1.0670395219244742,
+              "social=About once a week": 1.2049148643421235,
+              "social=A few times a week": 1.2571108373453126,
+              "social=About once a day": 0.9952251469382901,
+              "social=Several times a day": 1.4636497369294925,
+              "social=About once an hour": 1.5160162101462762,
+              "social=More than once an hour": 2.086688337077932,
+              "social=missing": 1.3071414197941955
+            },
+            "reference": {
+              "social": "I do not use social media"
+            },
+            "test_auc_ci": [
+              0.5366109625936372,
+              0.5620023260634023
+            ]
+          },
+          "ebully_only": {
+            "features": [
+              "ebully"
+            ],
+            "train_auc_2023": 0.6050676354119429,
+            "test_auc": 0.5871186193810357,
+            "test_auc_weighted": 0.5908468799543105,
+            "odds_ratios_vs_reference": {
+              "ebully=Yes": 4.431689725186428,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.6024712476719212
+            },
+            "reference": {
+              "ebully": "No"
+            },
+            "test_auc_ci": [
+              0.5773026764239745,
+              0.596328198219528
+            ]
+          }
+        },
+        "gaps": {
+          "plus_sex_grade_minus_digital": {
+            "auc": 0.046853496731684374,
+            "ci": [
+              0.03833918664757668,
+              0.054344533852031786
+            ]
+          },
+          "digital_minus_sex_grade_only": {
+            "auc": 0.0362402821623109,
+            "ci": [
+              0.01847010852969033,
+              0.05434318440772216
+            ]
+          }
+        }
+      },
+      "suicide": {
+        "train_students": 19667,
+        "test_students": 10454,
+        "train_rate_weighted": 0.20428621513185716,
+        "test_rate_weighted": 0.1446546718473541,
+        "test_rate_unweighted": 0.14874689114214654,
+        "models": {
+          "digital": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully"
+            ],
+            "train_auc_2023": 0.6975565343183862,
+            "test_auc": 0.6611294523861745,
+            "test_auc_weighted": 0.6817892633507998,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 0.912528570812824,
+              "social=About once a week": 1.3393161707007668,
+              "social=A few times a week": 1.0321175593423983,
+              "social=About once a day": 0.9707030555662824,
+              "social=Several times a day": 1.0682312733366182,
+              "social=About once an hour": 1.2212658061318193,
+              "social=More than once an hour": 1.178529964219133,
+              "social=missing": 1.0648017177670028,
+              "sleep=4 or less hours": 4.346223289771547,
+              "sleep=5 hours": 3.088656203915882,
+              "sleep=6 hours": 2.077562672267408,
+              "sleep=7 hours": 1.4220983192056766,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.1239172065230234,
+              "sleep=10 or more hours": 1.8404491113208268,
+              "sleep=missing": 2.1122335139981336,
+              "ebully=Yes": 3.8179007205773874,
+              "ebully=No": 1.0,
+              "ebully=missing": 2.031335120045668
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No"
+            },
+            "test_auc_ci": [
+              0.6479163032715725,
+              0.6739529663557801
+            ]
+          },
+          "digital_plus_sex_grade": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully",
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.7181769476537258,
+            "test_auc": 0.6875009620286827,
+            "test_auc_weighted": 0.6974400784919982,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 0.9303580902967372,
+              "social=About once a week": 1.2488036307211767,
+              "social=A few times a week": 0.9647968461418308,
+              "social=About once a day": 0.9564747877686746,
+              "social=Several times a day": 0.9468855538965693,
+              "social=About once an hour": 1.1182132780224443,
+              "social=More than once an hour": 1.0342167003540579,
+              "social=missing": 0.9496278159533222,
+              "sleep=4 or less hours": 4.344504919576119,
+              "sleep=5 hours": 3.0020109420392007,
+              "sleep=6 hours": 2.037028647311736,
+              "sleep=7 hours": 1.4075600413595117,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.0717598937443302,
+              "sleep=10 or more hours": 1.8267183539967995,
+              "sleep=missing": 2.0773127263996742,
+              "ebully=Yes": 3.5063631193683387,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.8368882793688448,
+              "sex=Female": 1.952664961045117,
+              "sex=Male": 1.0,
+              "sex=missing": 2.5385943355536695,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 1.0218870860656286,
+              "grade=11th grade": 1.0592146173625772,
+              "grade=12th grade": 1.0270744865729307,
+              "grade=Ungraded or other grade": 1.298575284520563,
+              "grade=missing": 1.5929421105382018
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No",
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.6734594690975864,
+              0.6999926523330012
+            ]
+          },
+          "sex_grade_only": {
+            "features": [
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.6021885690341836,
+            "test_auc": 0.5877519386007098,
+            "test_auc_weighted": 0.5737105740465208,
+            "odds_ratios_vs_reference": {
+              "sex=Female": 2.2164376597543622,
+              "sex=Male": 1.0,
+              "sex=missing": 3.226070427077173,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 1.0115169499643237,
+              "grade=11th grade": 1.0431010230153461,
+              "grade=12th grade": 1.0061367430058559,
+              "grade=Ungraded or other grade": 1.9483250246943256,
+              "grade=missing": 1.519407835965626
+            },
+            "reference": {
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.5723814893500572,
+              0.6024818535408948
+            ]
+          }
+        },
+        "gaps": {
+          "plus_sex_grade_minus_digital": {
+            "auc": 0.02637150964250823,
+            "ci": [
+              0.018367993659332605,
+              0.033568445347344295
+            ]
+          },
+          "digital_minus_sex_grade_only": {
+            "auc": 0.07337751378546464,
+            "ci": [
+              0.05405238674609989,
+              0.09448250422159742
+            ]
+          }
+        }
+      },
+      "mental": {
+        "train_students": 15705,
+        "test_students": 8802,
+        "train_rate_weighted": 0.28537488495028823,
+        "test_rate_weighted": 0.23254926835437797,
+        "test_rate_unweighted": 0.23165189729606908,
+        "models": {
+          "digital": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully"
+            ],
+            "train_auc_2023": 0.6716714151584562,
+            "test_auc": 0.6401096117937394,
+            "test_auc_weighted": 0.6539203431963617,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 0.7839703649020124,
+              "social=About once a week": 1.0545472690874804,
+              "social=A few times a week": 1.4867690488141037,
+              "social=About once a day": 1.4505128658611133,
+              "social=Several times a day": 1.8299441180536835,
+              "social=About once an hour": 1.9829635553719391,
+              "social=More than once an hour": 2.0122220803044435,
+              "social=missing": 1.9898556296864196,
+              "sleep=4 or less hours": 4.26284713068256,
+              "sleep=5 hours": 2.7354825177806,
+              "sleep=6 hours": 1.9601099266579727,
+              "sleep=7 hours": 1.280010518152193,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 1.0133070120327012,
+              "sleep=10 or more hours": 2.006482055492901,
+              "sleep=missing": 1.210013210103115,
+              "ebully=Yes": 2.588809542056848,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.243780319643888
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No"
+            },
+            "test_auc_ci": [
+              0.6204274365798327,
+              0.6648734177181048
+            ]
+          },
+          "digital_plus_sex_grade": {
+            "features": [
+              "social",
+              "sleep",
+              "ebully",
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.7136756888010669,
+            "test_auc": 0.6845464717035986,
+            "test_auc_weighted": 0.6920368210751071,
+            "odds_ratios_vs_reference": {
+              "social=I do not use social media": 1.0,
+              "social=A few times a month": 0.8288677157850115,
+              "social=About once a week": 0.9552272756811971,
+              "social=A few times a week": 1.3830419670490228,
+              "social=About once a day": 1.4947201013617353,
+              "social=Several times a day": 1.6118460552904514,
+              "social=About once an hour": 1.877991174853496,
+              "social=More than once an hour": 1.7509244244684463,
+              "social=missing": 1.7698918941220598,
+              "sleep=4 or less hours": 4.427448399042384,
+              "sleep=5 hours": 2.659923547020739,
+              "sleep=6 hours": 1.9207224396382012,
+              "sleep=7 hours": 1.2641915330816753,
+              "sleep=8 hours": 1.0,
+              "sleep=9 hours": 0.9406031752775958,
+              "sleep=10 or more hours": 1.9655921991844143,
+              "sleep=missing": 1.1623337722408178,
+              "ebully=Yes": 2.3076045129293776,
+              "ebully=No": 1.0,
+              "ebully=missing": 1.0417644676263509,
+              "sex=Female": 2.6116599137778693,
+              "sex=Male": 1.0,
+              "sex=missing": 2.2085645254246136,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 1.066059195786948,
+              "grade=11th grade": 1.099192391722711,
+              "grade=12th grade": 1.0158767190093538,
+              "grade=Ungraded or other grade": 1.3252371405266814,
+              "grade=missing": 1.1409907430123032
+            },
+            "reference": {
+              "social": "I do not use social media",
+              "sleep": "8 hours",
+              "ebully": "No",
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.6660306583012437,
+              0.7078940675707707
+            ]
+          },
+          "sex_grade_only": {
+            "features": [
+              "sex",
+              "grade"
+            ],
+            "train_auc_2023": 0.6313725197534866,
+            "test_auc": 0.6215679145034971,
+            "test_auc_weighted": 0.6197963447929986,
+            "odds_ratios_vs_reference": {
+              "sex=Female": 2.819200926653526,
+              "sex=Male": 1.0,
+              "sex=missing": 2.452225034810954,
+              "grade=9th grade": 1.0,
+              "grade=10th grade": 1.0840450945662503,
+              "grade=11th grade": 1.1293223495981177,
+              "grade=12th grade": 1.051310655483088,
+              "grade=Ungraded or other grade": 1.9139721740714366,
+              "grade=missing": 1.0167863311336898
+            },
+            "reference": {
+              "sex": "Male",
+              "grade": "9th grade"
+            },
+            "test_auc_ci": [
+              0.606967296346063,
+              0.637680436520617
+            ]
+          }
+        },
+        "gaps": {
+          "plus_sex_grade_minus_digital": {
+            "auc": 0.04443685990985924,
+            "ci": [
+              0.03419217228653988,
+              0.05424037672663735
+            ]
+          },
+          "digital_minus_sex_grade_only": {
+            "auc": 0.018541697290242243,
+            "ci": [
+              -0.003538996337565048,
+              0.04461191354589787
+            ]
+          }
+        }
+      }
+    },
+    "groups": {
+      "by_sex": {
+        "Boys": {
+          "students": 5314,
+          "sad": 1282,
+          "sad_share_weighted": 0.23893669692741118,
+          "auc_digital": 0.6594607608709111,
+          "auc_digital_ci": [
+            0.6431500159130858,
+            0.6749852885217957
+          ],
+          "auc_digital_plus_sex_grade": 0.6605062193559171,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6447485169666262,
+            0.6753864756021346
+          ]
+        },
+        "Girls": {
+          "students": 5132,
+          "sad": 2334,
+          "sad_share_weighted": 0.4341822034322761,
+          "auc_digital": 0.6439792347698472,
+          "auc_digital_ci": [
+            0.6294378986707434,
+            0.6591047215379434
+          ],
+          "auc_digital_plus_sex_grade": 0.6419383596925948,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6273748282304475,
+            0.6570568264665125
+          ]
+        }
+      },
+      "by_race_ethnicity": {
+        "Am Indian/Alaska Native": {
+          "students": 77,
+          "sad": 34,
+          "sad_share_weighted": 0.394846511490387,
+          "auc_digital": 0.6323529411764707,
+          "auc_digital_ci": [
+            0.4914763396208709,
+            0.7448732900136799
+          ],
+          "auc_digital_plus_sex_grade": 0.7828317373461011,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6493548387096775,
+            0.8653203125
+          ]
+        },
+        "Asian": {
+          "students": 508,
+          "sad": 146,
+          "sad_share_weighted": 0.23885332815169344,
+          "auc_digital": 0.6868046620752289,
+          "auc_digital_ci": [
+            0.645242312310069,
+            0.7360266362122095
+          ],
+          "auc_digital_plus_sex_grade": 0.7128963899190192,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6519650764538415,
+            0.7646275969994307
+          ]
+        },
+        "Black or African American": {
+          "students": 2122,
+          "sad": 722,
+          "sad_share_weighted": 0.34301778160321844,
+          "auc_digital": 0.6102176493866245,
+          "auc_digital_ci": [
+            0.5853946597602372,
+            0.6328335191548125
+          ],
+          "auc_digital_plus_sex_grade": 0.6736832212109221,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6484595571368239,
+            0.6965390235397646
+          ]
+        },
+        "Hispanic or Latino": {
+          "students": 2341,
+          "sad": 835,
+          "sad_share_weighted": 0.35979707933352384,
+          "auc_digital": 0.6317512385587392,
+          "auc_digital_ci": [
+            0.6141052579502001,
+            0.6513358418686918
+          ],
+          "auc_digital_plus_sex_grade": 0.6929002552663598,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6735032256020831,
+            0.7137746622679619
+          ]
+        },
+        "Multiple - Hispanic": {
+          "students": 922,
+          "sad": 372,
+          "sad_share_weighted": 0.3965965980220938,
+          "auc_digital": 0.6734530791788856,
+          "auc_digital_ci": [
+            0.64100573805552,
+            0.7076884294839535
+          ],
+          "auc_digital_plus_sex_grade": 0.7001857282502444,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6718093546639905,
+            0.7313793656629423
+          ]
+        },
+        "Multiple - Non-Hispanic": {
+          "students": 746,
+          "sad": 306,
+          "sad_share_weighted": 0.3930440650125061,
+          "auc_digital": 0.650222816399287,
+          "auc_digital_ci": [
+            0.6160264022753367,
+            0.6880877002459073
+          ],
+          "auc_digital_plus_sex_grade": 0.7058786393345216,
+          "auc_digital_plus_sex_grade_ci": [
+            0.6703115342798499,
+            0.7436511773812385
+          ]
+        },
+        "White": {
+          "students": 3549,
+          "sad": 1142,
+          "sad_share_weighted": 0.3147520139799625,
+          "auc_digital": 0.6849776665694118,
+          "auc_digital_ci": [
+            0.6639360844333875,
+            0.7062943773163665
+          ],
+          "auc_digital_plus_sex_grade": 0.7190113191457781,
+          "auc_digital_plus_sex_grade_ci": [
+            0.7004931437536569,
+            0.7373980815896364
+          ]
+        }
+      },
+      "too_small": [
+        {
+          "group": "Mideast/N African",
+          "students": 102,
+          "sad": 26
+        },
+        {
+          "group": "Native Hawaiian/PI",
+          "students": 32,
+          "sad": 12
+        }
+      ]
+    },
+    "dose_response": {
+      "social": [
+        {
+          "level": "I do not use social media",
+          "code": "1",
+          "students_2025": 620,
+          "sad_2025": 0.23037338492672405,
+          "sad_2025_ci": [
+            0.18172345466638717,
+            0.2835721025975673
+          ],
+          "sad_2025_girls": 0.3037410272316398,
+          "sad_2025_boys": 0.19120300658160203,
+          "sad_2023": 0.31608333186955184,
+          "students_2023": 1060,
+          "suicide_2025": 0.10039714497359152
+        },
+        {
+          "level": "A few times a month",
+          "code": "2",
+          "students_2025": 216,
+          "sad_2025": 0.2914600574584831,
+          "sad_2025_ci": [
+            0.20847378498533936,
+            0.38748735232276826
+          ],
+          "sad_2025_girls": 0.3762620558805593,
+          "sad_2025_boys": 0.23750401838779217,
+          "sad_2023": 0.3306789536554045,
+          "students_2023": 396,
+          "suicide_2025": 0.13292973917397777
+        },
+        {
+          "level": "About once a week",
+          "code": "3",
+          "students_2025": 116,
+          "sad_2025": 0.27879973866653346,
+          "sad_2025_ci": [
+            0.17144479549816652,
+            0.3997995555788157
+          ],
+          "sad_2025_girls": 0.34369933974298056,
+          "sad_2025_boys": 0.24314773794371605,
+          "sad_2023": 0.37703804431125537,
+          "students_2023": 221,
+          "suicide_2025": 0.21174454584207278
+        },
+        {
+          "level": "A few times a week",
+          "code": "4",
+          "students_2025": 440,
+          "sad_2025": 0.25169304835245937,
+          "sad_2025_ci": [
+            0.19442027217238425,
+            0.3138999403255179
+          ],
+          "sad_2025_girls": 0.39013781934758895,
+          "sad_2025_boys": 0.14372267552473975,
+          "sad_2023": 0.35224318295827983,
+          "students_2023": 699,
+          "suicide_2025": 0.13725241328394336
+        },
+        {
+          "level": "About once a day",
+          "code": "5",
+          "students_2025": 475,
+          "sad_2025": 0.2927840099107292,
+          "sad_2025_ci": [
+            0.2354898587682747,
+            0.35095605296847526
+          ],
+          "sad_2025_girls": 0.36355590881020133,
+          "sad_2025_boys": 0.23861785708199126,
+          "sad_2023": 0.27700112720751763,
+          "students_2023": 901,
+          "suicide_2025": 0.10793190900795915
+        },
+        {
+          "level": "Several times a day",
+          "code": "6",
+          "students_2025": 4151,
+          "sad_2025": 0.320922591061411,
+          "sad_2025_ci": [
+            0.2991636590764248,
+            0.34489822058721015
+          ],
+          "sad_2025_girls": 0.41609941862057004,
+          "sad_2025_boys": 0.21818878291580546,
+          "sad_2023": 0.40345329788458734,
+          "students_2023": 5858,
+          "suicide_2025": 0.12921351912633644
+        },
+        {
+          "level": "About once an hour",
+          "code": "7",
+          "students_2025": 653,
+          "sad_2025": 0.30799598088637437,
+          "sad_2025_ci": [
+            0.25386541774519733,
+            0.3634284325992753
+          ],
+          "sad_2025_girls": 0.4018822541648476,
+          "sad_2025_boys": 0.2366619255431316,
+          "sad_2023": 0.3774843812487249,
+          "students_2023": 1171,
+          "suicide_2025": 0.147176305665204
+        },
+        {
+          "level": "More than once an hour",
+          "code": "8",
+          "students_2025": 3015,
+          "sad_2025": 0.39919536259350313,
+          "sad_2025_ci": [
+            0.3755291766655747,
+            0.42644283591485793
+          ],
+          "sad_2025_girls": 0.5131872407962951,
+          "sad_2025_boys": 0.28750581776928885,
+          "sad_2023": 0.4679648675526536,
+          "students_2023": 4769,
+          "suicide_2025": 0.18763318981374746
+        },
+        {
+          "level": "Did not answer",
+          "code": "missing",
+          "students_2025": 797,
+          "sad_2025": 0.35787731434255127,
+          "sad_2025_ci": [
+            0.21505223441615623,
+            0.38740027200763894
+          ],
+          "sad_2025_girls": 0.4491979693673562,
+          "sad_2025_boys": 0.27393526405451446,
+          "sad_2023": 0.38070515663209775,
+          "students_2023": 4788,
+          "suicide_2025": 0.13967010361291252
+        }
+      ],
+      "sleep": [
+        {
+          "level": "4 or less hours",
+          "code": "1",
+          "students_2025": 738,
+          "sad_2025": 0.5361682916848006,
+          "sad_2025_ci": [
+            0.481551649151039,
+            0.5922190076168374
+          ],
+          "sad_2025_girls": 0.6171593400842207,
+          "sad_2025_boys": 0.47107618841368676,
+          "sad_2023": 0.6071242809098236,
+          "students_2023": 1646,
+          "suicide_2025": 0.26848717586845583
+        },
+        {
+          "level": "5 hours",
+          "code": "2",
+          "students_2025": 1185,
+          "sad_2025": 0.48010117740161257,
+          "sad_2025_ci": [
+            0.44688315962843106,
+            0.5111891899585276
+          ],
+          "sad_2025_girls": 0.5593386653176743,
+          "sad_2025_boys": 0.38305281134727115,
+          "sad_2023": 0.5702109725544566,
+          "students_2023": 2529,
+          "suicide_2025": 0.21457221125620954
+        },
+        {
+          "level": "6 hours",
+          "code": "3",
+          "students_2025": 2136,
+          "sad_2025": 0.39615954522491237,
+          "sad_2025_ci": [
+            0.36177726565388074,
+            0.43433384743813824
+          ],
+          "sad_2025_girls": 0.4827250943286799,
+          "sad_2025_boys": 0.3003924951732105,
+          "sad_2023": 0.4346354273373348,
+          "students_2023": 4300,
+          "suicide_2025": 0.1586817791623041
+        },
+        {
+          "level": "7 hours",
+          "code": "4",
+          "students_2025": 2418,
+          "sad_2025": 0.26798310820379045,
+          "sad_2025_ci": [
+            0.24065824052424273,
+            0.29616056160485327
+          ],
+          "sad_2025_girls": 0.35361471245885673,
+          "sad_2025_boys": 0.1954212000680978,
+          "sad_2023": 0.34438968928164687,
+          "students_2023": 4819,
+          "suicide_2025": 0.12148587267043937
+        },
+        {
+          "level": "8 hours",
+          "code": "5",
+          "students_2025": 1576,
+          "sad_2025": 0.24063818921825275,
+          "sad_2025_ci": [
+            0.21322248658986917,
+            0.26813172788465733
+          ],
+          "sad_2025_girls": 0.3601176502217217,
+          "sad_2025_boys": 0.13993101764634716,
+          "sad_2023": 0.2584775254445015,
+          "students_2023": 2985,
+          "suicide_2025": 0.07918414698068504
+        },
+        {
+          "level": "9 hours",
+          "code": "6",
+          "students_2025": 345,
+          "sad_2025": 0.16704225762885258,
+          "sad_2025_ci": [
+            0.12194823191282751,
+            0.2161153558414926
+          ],
+          "sad_2025_girls": 0.2750455779748763,
+          "sad_2025_boys": 0.10586861160686102,
+          "sad_2023": 0.2774697402032607,
+          "students_2023": 727,
+          "suicide_2025": 0.10273603848354776
+        },
+        {
+          "level": "10 or more hours",
+          "code": "7",
+          "students_2025": 157,
+          "sad_2025": 0.20358552154025947,
+          "sad_2025_ci": [
+            0.11890788170095944,
+            0.30812769549142677
+          ],
+          "sad_2025_girls": 0.31004562994676504,
+          "sad_2025_boys": 0.1119091312565139,
+          "sad_2023": 0.3445946098377717,
+          "students_2023": 260,
+          "suicide_2025": 0.06694173671879665
+        },
+        {
+          "level": "Did not answer",
+          "code": "missing",
+          "students_2025": 1928,
+          "sad_2025": 0.2953406941233771,
+          "sad_2025_ci": [
+            0.2520241518222954,
+            0.32342244984951135
+          ],
+          "sad_2025_girls": 0.4250653763658123,
+          "sad_2025_boys": 0.17902695620350934,
+          "sad_2023": 0.33688690639428076,
+          "students_2023": 2597,
+          "suicide_2025": 0.14404704368891408
+        }
+      ],
+      "ebully": [
+        {
+          "level": "Yes",
+          "code": "1",
+          "students_2025": 1404,
+          "sad_2025": 0.6101259495206904,
+          "sad_2025_ci": [
+            0.5832588888017409,
+            0.6374069919952612
+          ],
+          "sad_2025_girls": 0.6649718783529461,
+          "sad_2025_boys": 0.5355167453174667,
+          "sad_2023": 0.7152123867647917,
+          "students_2023": 3386,
+          "suicide_2025": 0.3410479695585653
+        },
+        {
+          "level": "No",
+          "code": "2",
+          "students_2025": 9038,
+          "sad_2025": 0.2856887113966072,
+          "sad_2025_ci": [
+            0.2639884857228858,
+            0.3084212481102065
+          ],
+          "sad_2025_girls": 0.3847472839475083,
+          "sad_2025_boys": 0.19954126628013003,
+          "sad_2023": 0.3346538669445747,
+          "students_2023": 16331,
+          "suicide_2025": 0.11104328001996322
+        },
+        {
+          "level": "Did not answer",
+          "code": "missing",
+          "students_2025": 41,
+          "sad_2025": 0.3588484127498134,
+          "sad_2025_ci": [
+            0.1062403656279088,
+            0.6198372149625334
+          ],
+          "sad_2025_girls": 0.5120061594725952,
+          "sad_2025_boys": 0.3335689635315936,
+          "sad_2023": 0.4746651744646785,
+          "students_2023": 146,
+          "suicide_2025": 0.235912245188528
+        }
+      ]
+    },
+    "missing_share_2025": {
+      "social": 0.07936507936507936,
+      "sleep": 0.18534080298786182,
+      "ebully": 0.005788982259570495,
+      "sex": 0.003734827264239029,
+      "grade": 0.002147525676937442,
+      "sad": 0.02119514472455649
+    }
+  },
+  "nhanes": {
+    "phq9_ages": [
+      18,
+      80
+    ],
+    "teens_12_to_17_with_phq9": 0,
+    "rows_in_dpq": 6337,
+    "age_18_to_24": {
+      "people_with_all_nine_items": 515,
+      "psus": 30,
+      "girls_women": 265,
+      "boys_men": 250,
+      "phq9_10_or_more": {
+        "weighted": 0.2020350852821927,
+        "ci": [
+          0.16500701496222567,
+          0.2419484692870317
+        ],
+        "count": 120,
+        "of": 515
+      },
+      "phq2_step": {
+        "sensitivity": {
+          "weighted": 0.5914857032037526,
+          "ci": [
+            0.5081894445096623,
+            0.6801416837985611
+          ],
+          "count": 73,
+          "of": 120
+        },
+        "specificity": {
+          "weighted": 0.9437077194106325,
+          "ci": [
+            0.913036427777167,
+            0.9709410470066873
+          ],
+          "count": 368,
+          "of": 395
+        },
+        "share_flagged": {
+          "weighted": 0.1644201293697333,
+          "ci": [
+            0.1294065535228345,
+            0.20196399657880054
+          ],
+          "count": 100,
+          "of": 515
+        },
+        "ppv": {
+          "weighted": 0.7268019125641545,
+          "ci": [
+            0.6127254166145609,
+            0.8441040802254397
+          ],
+          "count": 73,
+          "of": 100
+        }
+      },
+      "phq8_vs_phq9": {
+        "sensitivity": {
+          "weighted": 0.9370603817096301,
+          "ci": [
+            0.8894562150886808,
+            0.9791791418382085
+          ],
+          "count": 112,
+          "of": 120
+        },
+        "specificity": {
+          "weighted": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "count": 395,
+          "of": 395
+        },
+        "agreement": {
+          "weighted": 0.9872839888510764,
+          "ci": [
+            0.9756461555708598,
+            0.9961823312961514
+          ],
+          "count": 507,
+          "of": 515
+        },
+        "phq9_only": 8,
+        "phq8_only": 0,
+        "kappa_unweighted": 0.9555075593952482
+      },
+      "both_steps": {
+        "sensitivity": {
+          "weighted": 0.5677400893890631,
+          "ci": [
+            0.47847418725222607,
+            0.6688457404048745
+          ],
+          "count": 71,
+          "of": 120
+        },
+        "specificity": {
+          "weighted": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "count": 395,
+          "of": 395
+        },
+        "share_flagged": {
+          "weighted": 0.11470341737783905,
+          "ci": [
+            0.08871148044973741,
+            0.13967581894088357
+          ],
+          "count": 71,
+          "of": 515
+        }
+      },
+      "item9_any": {
+        "share": {
+          "weighted": 0.1364036578700836,
+          "ci": [
+            0.10997718937827412,
+            0.16638025120353483
+          ],
+          "count": 77,
+          "of": 515
+        },
+        "caught_by_both_steps": 43,
+        "caught_by_phq2_step": 45,
+        "people": 77
+      }
+    },
+    "all_adults": {
+      "people_with_all_nine_items": 5455,
+      "psus": 30,
+      "girls_women": 2968,
+      "boys_men": 2487,
+      "phq9_10_or_more": {
+        "weighted": 0.1263696448340994,
+        "ci": [
+          0.11400941920323492,
+          0.1405788610717472
+        ],
+        "count": 723,
+        "of": 5455
+      },
+      "phq2_step": {
+        "sensitivity": {
+          "weighted": 0.626731305226373,
+          "ci": [
+            0.5729319608018192,
+            0.6840376242983734
+          ],
+          "count": 480,
+          "of": 723
+        },
+        "specificity": {
+          "weighted": 0.963432788896478,
+          "ci": [
+            0.9539519071710784,
+            0.9716892590993755
+          ],
+          "count": 4546,
+          "of": 4732
+        },
+        "share_flagged": {
+          "weighted": 0.11114603807166464,
+          "ci": [
+            0.09787329478103751,
+            0.12529401075373278
+          ],
+          "count": 666,
+          "of": 5455
+        },
+        "ppv": {
+          "weighted": 0.7125743195344661,
+          "ci": [
+            0.6561473540054367,
+            0.7668929061669486
+          ],
+          "count": 480,
+          "of": 666
+        }
+      },
+      "phq8_vs_phq9": {
+        "sensitivity": {
+          "weighted": 0.9678230728611718,
+          "ci": [
+            0.9527338957010107,
+            0.9817526093154597
+          ],
+          "count": 701,
+          "of": 723
+        },
+        "specificity": {
+          "weighted": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "count": 4732,
+          "of": 4732
+        },
+        "agreement": {
+          "weighted": 0.9959338131456136,
+          "ci": [
+            0.9936530348000819,
+            0.9978162074709109
+          ],
+          "count": 5433,
+          "of": 5455
+        },
+        "phq9_only": 22,
+        "phq8_only": 0,
+        "kappa_unweighted": 0.9822319911806956
+      },
+      "both_steps": {
+        "sensitivity": {
+          "weighted": 0.6191816730213592,
+          "ci": [
+            0.5645853419947063,
+            0.6797858909419918
+          ],
+          "count": 474,
+          "of": 723
+        },
+        "specificity": {
+          "weighted": 1.0,
+          "ci": [
+            1.0,
+            1.0
+          ],
+          "count": 4732,
+          "of": 4732
+        },
+        "share_flagged": {
+          "weighted": 0.07824576810749263,
+          "ci": [
+            0.06839400056726104,
+            0.08948892966482831
+          ],
+          "count": 474,
+          "of": 5455
+        }
+      },
+      "item9_any": {
+        "share": {
+          "weighted": 0.053120959010127526,
+          "ci": [
+            0.04441300484398393,
+            0.06242101121705912
+          ],
+          "count": 292,
+          "of": 5455
+        },
+        "caught_by_both_steps": 174,
+        "caught_by_phq2_step": 186,
+        "people": 292
+      }
+    }
+  },
+  "run_seconds": 61.7
+}

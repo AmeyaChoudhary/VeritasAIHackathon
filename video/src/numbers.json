@@ -30,12 +30,17 @@
   "random": 41
  },
  "pitch": {
-  "examples": 350000,
+  "examples": 400000,
   "times": 3.4,
   "teenAuc": 0.9,
   "topAsks": 92,
   "selfHarmFound": 13,
   "selfHarmTotal": 15,
   "sources": 17
+ },
+ "sleep": {
+  "students": 30346,
+  "short": 54,
+  "eight": 24
  }
 }

@@ -1,0 +1,137 @@
+{
+  "generated": "2026-11-15",
+  "headline": "Across people, music habits lined up with high self-rated depression only weakly: AUC 0.57, 95% interval 0.53 to 0.61, where 0.50 is chance. Gaming habits lined up with moderate anxiety at 0.59 (0.58 to 0.61). Social media use alone lined up with often feeling down at 0.67 (0.63 to 0.72). A word model trained on stressed Reddit posts scored 0.82 on new posts. The app's own tone model, never trained on stress, scored 0.75 (0.71 to 0.78). All four are one-time snapshots, so none shows that a signal predicts one teen's week.",
+  "music": {
+    "outcome": "self-rated depression 7+ of 10",
+    "music_habits": {
+      "auc": 0.5701171875000001,
+      "auc_ci": [
+        0.5259722251686542,
+        0.611254377525038
+      ],
+      "n": 736,
+      "base_rate": 0.34782608695652173
+    },
+    "mood_and_hours": {
+      "auc": 0.5991292317708333,
+      "auc_ci": [
+        0.5573768219467186,
+        0.6400582219915698
+      ],
+      "n": 736,
+      "base_rate": 0.34782608695652173
+    },
+    "age_only": {
+      "auc": 0.48430989583333334,
+      "auc_ci": [
+        0.4399700230264321,
+        0.5288991324657991
+      ],
+      "n": 736,
+      "base_rate": 0.34782608695652173
+    },
+    "valence_vs_depression_rho": -0.028256017271470316,
+    "valence_vs_depression_ci": [
+      -0.10265021667194917,
+      0.04425614329647699
+    ],
+    "teen_n": 299,
+    "teen_music_habits_auc": 0.558908507223114,
+    "teen_music_habits_auc_ci": [
+      0.4859643583120513,
+      0.6331643598664429
+    ]
+  },
+  "gaming": {
+    "outcome": "GAD-7 10+ (an anxiety scale; says nothing direct about depression)",
+    "gaming_habits": {
+      "auc": 0.594873694603381,
+      "auc_ci": [
+        0.582066759005701,
+        0.6078302634389883
+      ],
+      "n": 13413,
+      "base_rate": 0.17490494296577946
+    },
+    "hours_only_auc": 0.5498441215718474,
+    "rate_by_hours_per_week": [
+      {
+        "hours": "0 to 9",
+        "n": 1637,
+        "rate": 0.15455100794135615
+      },
+      {
+        "hours": "10 to 19",
+        "n": 4367,
+        "rate": 0.15433936340737348
+      },
+      {
+        "hours": "20 to 29",
+        "n": 4108,
+        "rate": 0.16358325219084713
+      },
+      {
+        "hours": "30 to 39",
+        "n": 1749,
+        "rate": 0.18524871355060035
+      },
+      {
+        "hours": "40 to 49",
+        "n": 809,
+        "rate": 0.23856613102595797
+      },
+      {
+        "hours": "50 to 69",
+        "n": 520,
+        "rate": 0.2903846153846154
+      },
+      {
+        "hours": "70 or more",
+        "n": 191,
+        "rate": 0.34554973821989526
+      }
+    ]
+  },
+  "social_media": {
+    "outcome": "feels depressed or down 4+ of 5",
+    "usage_only": {
+      "auc": 0.6743995823181343,
+      "auc_ci": [
+        0.6257193332705754,
+        0.7215668857201373
+      ],
+      "n": 481,
+      "base_rate": 0.4594594594594595
+    },
+    "age_only_auc": 0.6040723981900452,
+    "usage_plus_feelings_auc_not_fair": 0.7960842325095718
+  },
+  "stress_language": {
+    "trained_on_dreaddit_auc": 0.8243886774127857,
+    "trained_on_dreaddit_auc_ci": [
+      0.7912926972676153,
+      0.8543745234599813
+    ],
+    "trained_on_dreaddit_f1": 0.7559449311639549,
+    "app_tone_model_auc": 0.7452182903331924,
+    "app_tone_model_auc_ci": [
+      0.7079455103683442,
+      0.7813765546280939
+    ],
+    "test_posts": 715
+  },
+  "plain_sentences": {
+    "music": "In an open survey of 736 music listeners, listening habits told apart people with high self-rated depression only a little better than chance (AUC 0.57, where 0.50 is chance). People who listened more hours a day, and to higher-energy genres like metal and rock, rated their depression a little higher. How happy their genres sound made no clear difference.",
+    "gaming": "Among 13,413 mostly adult male gamers, play habits weakly told apart those with moderate anxiety (AUC 0.59). The scale measures anxiety and says nothing direct about depression. The share with moderate anxiety was about 15% at 10 to 19 hours of play a week and 35% at 70 hours or more.",
+    "social": "In a survey of 481 people, how much and how aimlessly they used social media told apart those who often feel down at an AUC of 0.67. Of people on social media more than five hours a day, 62% said they often feel down, against 12% of those under an hour.",
+    "stress": "A simple word model trained on stressed Reddit posts scored an AUC of 0.82 on posts it never saw. The app's own tone model, built to spot low mood, scored 0.75 on the same posts with no retraining."
+  },
+  "caveats": [
+    "Every dataset here is a one-time survey or a single post. Each result shows how a signal relates to distress across people at one moment. None shows that a change in a teen's music, gaming or scrolling comes before a bad week.",
+    "All three surveys are self-selected online samples. The music survey was an open online form (median age 21). The gaming survey is 94% male, all aged 18 or older, 84% League of Legends players. The social media survey has only 51 people aged 19 or under.",
+    "The outcomes are single self-ratings (depression 0 to 10, \"feel depressed or down\" 1 to 5) or a screening score (GAD-7). None is a diagnosis. The gaming outcome measures anxiety and says nothing direct about depression.",
+    "Listening valence comes from genre averages. Two people who both play pop \"very frequently\" get the same value even if one plays sad songs. Real Spotify data would give per-track valence; this test cannot say whether that would do better.",
+    "Dreaddit posts are long posts from Reddit users, most likely adults, in support subreddits such as anxiety, PTSD and relationships. Teens writing a short check-in note may write differently.",
+    "The tone model's threshold was set for low mood on GoEmotions. On Dreaddit it flags many posts that are not labelled stressed, so its flag should not be read as a stress alarm."
+  ]
+}

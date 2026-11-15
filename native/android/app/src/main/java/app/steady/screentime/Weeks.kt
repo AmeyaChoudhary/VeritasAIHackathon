@@ -15,6 +15,9 @@ data class WeekSummary(
     val nightMinutesPerDay: Int?,
     val usualFirstUse: LocalTime?,
     val usualLastUse: LocalTime?,
+    /** Over the days that have game numbers. Days saved before games were counted are left out. */
+    val gameMinutesPerDay: Int?,
+    val nightGameMinutesPerDay: Int?,
     val sleepMinutesPerNight: Int?,
     val usualBedtime: LocalTime?,
     val stepsPerDay: Long?,
@@ -42,6 +45,8 @@ object Weeks {
                     nightMinutesPerDay = roundedMean(screen.map { it.nightMinutes.toLong() })?.toInt(),
                     usualFirstUse = median(screen.mapNotNull { it.firstUse }),
                     usualLastUse = median(screen.mapNotNull { it.lastUse }),
+                    gameMinutesPerDay = roundedMean(screen.mapNotNull { it.gameMinutes?.toLong() })?.toInt(),
+                    nightGameMinutesPerDay = roundedMean(screen.mapNotNull { it.nightGameMinutes?.toLong() })?.toInt(),
                     sleepMinutesPerNight = roundedMean(sleep.map { it.toLong() })?.toInt(),
                     usualBedtime = SleepMath.medianBedtime(health.mapNotNull { it.bedtime }),
                     stepsPerDay = roundedMean(steps),

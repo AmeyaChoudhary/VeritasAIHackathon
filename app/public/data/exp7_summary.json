@@ -1,0 +1,256 @@
+{
+  "generated": "2026-11-15",
+  "headline": "On 10,483 US high school students in 2025, a model trained on 2023 students using only digital-life answers (social media use, sleep and online bullying) sorted who had felt sad or hopeless with an AUC of 0.65 (0.64 to 0.67). Sex and grade alone scored 0.62. Sleep showed the clearest steps: 54% of students sleeping 4 hours or less felt sad or hopeless, against 24% at 8 hours. 40% of those on social media more than once an hour did, against 23% of non-users and 25% to 32% in between. In NHANES adults aged 18 to 24 (the public file has no PHQ-9 answers under 18), a PHQ-2 of 3 or more caught 59% (51% to 68%) of those with a PHQ-9 of 10 or more.",
+  "students_train_2023": 19863,
+  "students_test_2025": 10483,
+  "sad_share_2025": 0.33291440314514803,
+  "auc": 0.6546749226878165,
+  "auc_ci": [
+    0.6440524077977934,
+    0.6663474704748363
+  ],
+  "auc_plus_sex_grade": 0.7015284194195008,
+  "auc_plus_sex_grade_ci": [
+    0.6920084098548238,
+    0.7109733269147571
+  ],
+  "auc_sex_grade_only": 0.6184346405255056,
+  "auc_sex_grade_only_ci": [
+    0.606232207793629,
+    0.6301951908119937
+  ],
+  "auc_sleep_social_only": 0.6059014162030888,
+  "auc_sleep_social_only_ci": [
+    0.5944615675100149,
+    0.6184533544346962
+  ],
+  "auc_considered_suicide": 0.6611294523861745,
+  "auc_considered_suicide_ci": [
+    0.6479163032715725,
+    0.6739529663557801
+  ],
+  "dose_response": {
+    "social": [
+      {
+        "level": "I do not use social media",
+        "students": 620,
+        "sad_share": 0.23037338492672405,
+        "sad_share_ci": [
+          0.18172345466638717,
+          0.2835721025975673
+        ]
+      },
+      {
+        "level": "A few times a month",
+        "students": 216,
+        "sad_share": 0.2914600574584831,
+        "sad_share_ci": [
+          0.20847378498533936,
+          0.38748735232276826
+        ]
+      },
+      {
+        "level": "About once a week",
+        "students": 116,
+        "sad_share": 0.27879973866653346,
+        "sad_share_ci": [
+          0.17144479549816652,
+          0.3997995555788157
+        ]
+      },
+      {
+        "level": "A few times a week",
+        "students": 440,
+        "sad_share": 0.25169304835245937,
+        "sad_share_ci": [
+          0.19442027217238425,
+          0.3138999403255179
+        ]
+      },
+      {
+        "level": "About once a day",
+        "students": 475,
+        "sad_share": 0.2927840099107292,
+        "sad_share_ci": [
+          0.2354898587682747,
+          0.35095605296847526
+        ]
+      },
+      {
+        "level": "Several times a day",
+        "students": 4151,
+        "sad_share": 0.320922591061411,
+        "sad_share_ci": [
+          0.2991636590764248,
+          0.34489822058721015
+        ]
+      },
+      {
+        "level": "About once an hour",
+        "students": 653,
+        "sad_share": 0.30799598088637437,
+        "sad_share_ci": [
+          0.25386541774519733,
+          0.3634284325992753
+        ]
+      },
+      {
+        "level": "More than once an hour",
+        "students": 3015,
+        "sad_share": 0.39919536259350313,
+        "sad_share_ci": [
+          0.3755291766655747,
+          0.42644283591485793
+        ]
+      },
+      {
+        "level": "Did not answer",
+        "students": 797,
+        "sad_share": 0.35787731434255127,
+        "sad_share_ci": [
+          0.21505223441615623,
+          0.38740027200763894
+        ]
+      }
+    ],
+    "sleep": [
+      {
+        "level": "4 or less hours",
+        "students": 738,
+        "sad_share": 0.5361682916848006,
+        "sad_share_ci": [
+          0.481551649151039,
+          0.5922190076168374
+        ]
+      },
+      {
+        "level": "5 hours",
+        "students": 1185,
+        "sad_share": 0.48010117740161257,
+        "sad_share_ci": [
+          0.44688315962843106,
+          0.5111891899585276
+        ]
+      },
+      {
+        "level": "6 hours",
+        "students": 2136,
+        "sad_share": 0.39615954522491237,
+        "sad_share_ci": [
+          0.36177726565388074,
+          0.43433384743813824
+        ]
+      },
+      {
+        "level": "7 hours",
+        "students": 2418,
+        "sad_share": 0.26798310820379045,
+        "sad_share_ci": [
+          0.24065824052424273,
+          0.29616056160485327
+        ]
+      },
+      {
+        "level": "8 hours",
+        "students": 1576,
+        "sad_share": 0.24063818921825275,
+        "sad_share_ci": [
+          0.21322248658986917,
+          0.26813172788465733
+        ]
+      },
+      {
+        "level": "9 hours",
+        "students": 345,
+        "sad_share": 0.16704225762885258,
+        "sad_share_ci": [
+          0.12194823191282751,
+          0.2161153558414926
+        ]
+      },
+      {
+        "level": "10 or more hours",
+        "students": 157,
+        "sad_share": 0.20358552154025947,
+        "sad_share_ci": [
+          0.11890788170095944,
+          0.30812769549142677
+        ]
+      },
+      {
+        "level": "Did not answer",
+        "students": 1928,
+        "sad_share": 0.2953406941233771,
+        "sad_share_ci": [
+          0.2520241518222954,
+          0.32342244984951135
+        ]
+      }
+    ],
+    "ebully": [
+      {
+        "level": "Yes",
+        "students": 1404,
+        "sad_share": 0.6101259495206904,
+        "sad_share_ci": [
+          0.5832588888017409,
+          0.6374069919952612
+        ]
+      },
+      {
+        "level": "No",
+        "students": 9038,
+        "sad_share": 0.2856887113966072,
+        "sad_share_ci": [
+          0.2639884857228858,
+          0.3084212481102065
+        ]
+      },
+      {
+        "level": "Did not answer",
+        "students": 41,
+        "sad_share": 0.3588484127498134,
+        "sad_share_ci": [
+          0.1062403656279088,
+          0.6198372149625334
+        ]
+      }
+    ]
+  },
+  "nhanes_age_group": "18 to 24 (the public NHANES file has no PHQ-9 answers under 18)",
+  "nhanes_people": 515,
+  "nhanes_phq9_10_or_more": 0.2020350852821927,
+  "phq2_sensitivity": 0.5914857032037526,
+  "phq2_sensitivity_ci": [
+    0.5081894445096623,
+    0.6801416837985611
+  ],
+  "phq2_specificity": 0.9437077194106325,
+  "phq2_specificity_ci": [
+    0.913036427777167,
+    0.9709410470066873
+  ],
+  "phq2_share_flagged": 0.1644201293697333,
+  "phq8_sensitivity_vs_phq9": 0.9370603817096301,
+  "phq8_specificity_vs_phq9": 1.0,
+  "phq8_agreement_with_phq9": 0.9872839888510764,
+  "both_steps_sensitivity": 0.5677400893890631,
+  "groups": {
+    "Boys": 0.6594607608709111,
+    "Girls": 0.6439792347698472,
+    "Am Indian/Alaska Native": 0.6323529411764707,
+    "Asian": 0.6868046620752289,
+    "Black or African American": 0.6102176493866245,
+    "Hispanic or Latino": 0.6317512385587392,
+    "Multiple - Hispanic": 0.6734530791788856,
+    "Multiple - Non-Hispanic": 0.650222816399287,
+    "White": 0.6849776665694118
+  },
+  "caveats": [
+    "This is a one-time survey of many teens. It shows that these signals go with depression signs across teens. It does not show that a change in one teen's week predicts that teen's mood. Experiments 1 and 1b found that passive weekly phone data scored only an AUC of 0.57 to 0.61 for that.",
+    "Everything in the YRBS is self-reported on one day, including the social media, sleep and bullying answers. The app reads sleep and screen time from the phone, which may not match what teens report. The app does not read bullying, and social media frequency is only a stand-in for screen time.",
+    "The design is cross-sectional, so it cannot say which comes first. Poor sleep may follow low mood as much as cause it.",
+    "The public NHANES file has PHQ-9 answers only for ages 18 and over, so the cut-off check uses ages 18 to 24 (515 people), not teens. The interval is wide. The app also opens the other six questions after two weeks of signals outside the usual range, even with a low PHQ-2, and that path is not tested here.",
+    "The PHQ-8 leaves out the self-harm question. In the 18 to 24 group, 77 people answered it above zero and 32 of them did not pass the PHQ-2 step. The app watches for self-harm language in what the teen types instead, and that check is not tested here."
+  ]
+}

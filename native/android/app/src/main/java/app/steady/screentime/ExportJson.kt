@@ -63,6 +63,9 @@ object ExportJson {
             o.put("night_minutes", screen?.nightMinutes.orNull())
             o.put("first_use", screen?.firstUse?.let { ClockText.format(it) }.orNull())
             o.put("last_use", screen?.lastUse?.let { ClockText.format(it) }.orNull())
+            // Minutes only. Which apps were games is never written.
+            o.put("game_minutes", screen?.gameMinutes.orNull())
+            o.put("night_game_minutes", screen?.nightGameMinutes.orNull())
             val health = day.health
             o.put("sleep_minutes", health?.sleepMinutes.orNull())
             o.put("bedtime", health?.bedtime?.let { ClockText.format(it) }.orNull())
@@ -108,7 +111,8 @@ object ExportJson {
 
 /**
  * The app's own copy of past screen days, in days.json, because Android keeps raw events for a
- * few days only. Same shape as the version 1 export, so older copies still load.
+ * few days only. Same shape as the version 1 export plus the two game fields, so older copies
+ * still load. A day saved before games were counted loads with null game minutes.
  */
 object ScreenCache {
     fun build(days: List<DaySummary>, generated: Instant): String {
@@ -120,6 +124,8 @@ object ScreenCache {
             item.put("night_minutes", day.nightMinutes)
             item.put("first_use", day.firstUse?.let { ClockText.format(it) } ?: JSONObject.NULL)
             item.put("last_use", day.lastUse?.let { ClockText.format(it) } ?: JSONObject.NULL)
+            item.put("game_minutes", day.gameMinutes ?: JSONObject.NULL)
+            item.put("night_game_minutes", day.nightGameMinutes ?: JSONObject.NULL)
             list.put(item)
         }
         val root = JSONObject()
@@ -140,9 +146,14 @@ object ScreenCache {
                 nightMinutes = item.getInt("night_minutes"),
                 firstUse = clock(item, "first_use"),
                 lastUse = clock(item, "last_use"),
+                gameMinutes = optionalInt(item, "game_minutes"),
+                nightGameMinutes = optionalInt(item, "night_game_minutes"),
             )
         }
     }
+
+    private fun optionalInt(item: JSONObject, key: String): Int? =
+        if (!item.has(key) || item.isNull(key)) null else item.getInt(key)
 
     private fun clock(item: JSONObject, key: String): LocalTime? =
         if (item.isNull(key)) null else ClockText.parse(item.getString(key))

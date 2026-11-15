@@ -12,7 +12,7 @@ const M = rec.marks as Record<string, number>;
 const TOP = 92;
 
 /** One signal named beside the phone; it lights up when it is spoken. */
-const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone" | "tap" | "music" | "play" | "globe" | "photo" | "clip" | "game"; label: string; base: number }> = ({ at, icon, label, base }) => {
+const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone" | "tap" | "music" | "play" | "globe" | "photo" | "clip" | "game" | "news"; label: string; base: number }> = ({ at, icon, label, base }) => {
   const frame = useCurrentFrame();
   const vis = ramp(frame, base, 14);
   const on = ramp(frame, at - 3, 12);
@@ -83,8 +83,8 @@ export const Demo: React.FC = () => {
 
   // cues
   const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
-  const learnAt = G(q("learn", "Stability connects")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing"));
-  const musicAt = G(q("learn", "music")), gameAt = G(q("learn", "gaming chats")), msgAt = G(q("learn", "messages")), readsAt = G(q("learn", "It reads it all")), onceAt = G(q("learn", "Once a week"));
+  const learnAt = G(q("learn", "Stability connects")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing")), newsAt = G(q("learn", "news feeds"));
+  const musicAt = G(q("learn", "Spotify")), gameAt = G(q("learn", "games")), msgAt = G(q("learn", "chats")), readsAt = G(q("learn", "It reads it all")), onceAt = G(q("learn", "Once a week"));
   const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
   const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two questions")), wordAt = G(q("drift", "takes her at"));
   const finalsAt = G(q("drift", "Then finals")), modelAt = G(q("drift", "and our model")), againAt = G(q("drift", "It asks again"));
@@ -182,9 +182,10 @@ export const Demo: React.FC = () => {
       {frame >= learnAt && frame < driftAt ? (
         <div style={{ position: "absolute", left: 130, top: 430, display: "flex", flexDirection: "column", gap: 14, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
           <SignalRow base={learnAt + 8} at={igAt} icon="photo" label="Instagram" />
-          <SignalRow base={learnAt + 11} at={ytAt} icon="play" label="YouTube" />
-          <SignalRow base={learnAt + 14} at={ttAt} icon="clip" label="TikTok" />
+          <SignalRow base={learnAt + 11} at={ttAt} icon="clip" label="TikTok" />
+          <SignalRow base={learnAt + 14} at={ytAt} icon="play" label="YouTube" />
           <SignalRow base={learnAt + 17} at={webAt} icon="globe" label="Browsing" />
+          <SignalRow base={learnAt + 20} at={newsAt} icon="news" label="News feeds" />
           {frame >= onceAt - 6 ? <SignalRow base={onceAt - 4} at={tapsAt} icon="tap" label="A two-tap check-in" /> : null}
         </div>
       ) : null}
@@ -193,9 +194,9 @@ export const Demo: React.FC = () => {
           <Mono size={20}>Read on her phone</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 190, lineHeight: 0.95, letterSpacing: -8, color: C.ink, fontVariantNumeric: "tabular-nums", marginTop: 6 }}>{numbers.pitch.sources}<span style={{ fontSize: 66, letterSpacing: -2.2, color: C.inkSoft, fontWeight: 500 }}> sources</span></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 34 }}>
-            <SignalRow base={learnAt + 20} at={musicAt} icon="music" label="Music" />
-            <SignalRow base={learnAt + 23} at={gameAt} icon="game" label="Gaming chats" />
-            <SignalRow base={learnAt + 26} at={msgAt} icon="chat" label="Messages" />
+            <SignalRow base={learnAt + 23} at={musicAt} icon="music" label="Spotify" />
+            <SignalRow base={learnAt + 26} at={gameAt} icon="game" label="Games" />
+            <SignalRow base={learnAt + 29} at={msgAt} icon="chat" label="Chats" />
           </div>
           <div style={{ fontFamily: F.body, fontSize: 27, color: C.inkSoft, marginTop: 26, lineHeight: 1.36, ...enter(frame, readsAt, 18, 12) }}>Plus sleep, steps, screen time and school. Nothing leaves the phone.</div>
         </div>

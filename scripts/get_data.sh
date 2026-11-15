@@ -100,4 +100,52 @@ for f in ch_ado.xlsx RKI_ado_baseline.csv RKI_ado_followUp.csv; do
   [ -s "data/corona_health_ado/$f" ] || fetch_optional "https://zenodo.org/records/15101756/files/$f?download=1" "data/corona_health_ado/$f"
 done
 
+# CDC's server refuses the browser-style user agent above, so CDC files are fetched with curl's own.
+fetch_cdc() {  # url, output file
+  echo "get   $2"
+  if curl -sS -L --fail --retry 3 -o "$2" "$1"; then return 0; fi
+  rm -f "$2"
+  echo "skip  $2: the download failed"
+  return 0
+}
+
+# Experiment 7: Youth Risk Behavior Survey (CDC), national high school data, public domain.
+# 2023 (20,103 students) and 2025, each a fixed-width .dat read with CDC's SAS input program.
+mkdir -p data/yrbs
+for y in 2023 2025; do
+  [ -s "data/yrbs/XXH${y}_YRBS_Data.dat" ] || fetch_cdc "https://www.cdc.gov/yrbs/files/${y}/XXH${y}_YRBS_Data.dat" "data/yrbs/XXH${y}_YRBS_Data.dat"
+  [ -s "data/yrbs/${y}XXH-SAS-Input-Program.sas" ] || fetch_cdc "https://www.cdc.gov/yrbs/files/${y}/${y}XXH-SAS-Input-Program.sas" "data/yrbs/${y}XXH-SAS-Input-Program.sas"
+  [ -s "data/yrbs/${y}XXH-Formats-Program.sas" ] || fetch_cdc "https://www.cdc.gov/yrbs/files/${y}/${y}XXH-Formats-Program.sas" "data/yrbs/${y}XXH-Formats-Program.sas"
+done
+
+# Experiment 7: NHANES August 2021 to August 2023 (CDC), PHQ-9 and demographics, public domain.
+mkdir -p data/nhanes
+for f in DPQ_L DEMO_L; do
+  [ -s "data/nhanes/$f.xpt" ] || fetch_cdc "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2021/DataFiles/$f.xpt" "data/nhanes/$f.xpt"
+done
+
+# Experiment 8 (music and gaming), from Kaggle's and Hugging Face's public download endpoints.
+# Music & Mental Health survey (Rasgaitis, 2022). About 160 KB.
+mkdir -p data/mxmh
+[ -s data/mxmh/mxmh_survey_results.csv ] || fetch_optional "https://www.kaggle.com/api/v1/datasets/download/catherinerasgaitis/mxmh-survey-results/mxmh_survey_results.csv" data/mxmh/mxmh_survey_results.csv
+# Spotify Tracks Dataset (Pandya): 114,000 tracks with Spotify's audio features (valence, energy). About 20 MB.
+mkdir -p data/spotify_tracks
+[ -s data/spotify_tracks/dataset.csv ] || fetch_optional "https://huggingface.co/datasets/maharshipandya/spotify-tracks-dataset/resolve/main/dataset.csv" data/spotify_tracks/dataset.csv
+# Online Gaming Anxiety Data (Sauter and Draschkow survey, posted by Divyansh). About 3 MB zipped.
+mkdir -p data/gaming
+if [ ! -s data/gaming/GamingStudy_data.csv ]; then
+  fetch_optional "https://www.kaggle.com/api/v1/datasets/download/divyansh22/online-gaming-anxiety-data/GamingStudy_data.csv" data/gaming/GamingStudy_data.zip
+  if [ -s data/gaming/GamingStudy_data.zip ]; then
+    unzip -q -o data/gaming/GamingStudy_data.zip -d data/gaming && rm -f data/gaming/GamingStudy_data.zip
+  fi
+fi
+# Social Media and Mental Health survey (Ahmed). Under 100 KB.
+mkdir -p data/smmh
+[ -s data/smmh/smmh.csv ] || fetch_optional "https://www.kaggle.com/api/v1/datasets/download/souvikahmed071/social-media-and-mental-health/smmh.csv" data/smmh/smmh.csv
+# Dreaddit (Turcan and McKeown, 2019): Reddit posts labelled for stress. Hugging Face copy. About 2 MB.
+mkdir -p data/dreaddit
+for s in train test; do
+  [ -s "data/dreaddit/$s.parquet" ] || fetch_optional "https://huggingface.co/datasets/andreagasparini/dreaddit/resolve/main/data/$s-00000-of-00001.parquet" "data/dreaddit/$s.parquet"
+done
+
 echo "Done."

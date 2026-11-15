@@ -237,6 +237,10 @@ class MainActivity : ComponentActivity() {
             if (week.days < 4) lines += getString(R.string.week_short)
             week.screenMinutesPerDay?.let { lines += getString(R.string.week_screen, duration(it)) }
             week.nightMinutesPerDay?.let { lines += getString(R.string.week_night, duration(it)) }
+            week.gameMinutesPerDay?.let { games ->
+                val night = week.nightGameMinutesPerDay ?: 0
+                lines += getString(R.string.week_games, duration(games), duration(night))
+            }
             val first = week.usualFirstUse
             val last = week.usualLastUse
             if (first != null && last != null) {
