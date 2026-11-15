@@ -51,7 +51,8 @@ export type SourceId =
   | "tiktok"
   | "snapchat"
   | "discord"
-  | "youtube";
+  | "youtube"
+  | "chrome";
 
 export const SOURCES: SourceId[] = [
   "gmail",
@@ -70,6 +71,7 @@ export const SOURCES: SourceId[] = [
   "snapchat",
   "discord",
   "youtube",
+  "chrome",
 ];
 
 /** What one source tells the rules about one week. sleep: hours a night; steps: a day;

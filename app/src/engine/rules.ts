@@ -689,6 +689,8 @@ const SOURCE_WORDS: Record<string, string> = {
   tiktok: "A TikTok message",
   snapchat: "A Snapchat message",
   discord: "A Discord message",
+  youtube: "A YouTube search",
+  chrome: "A web search",
   android: "The Stability keyboard on Android",
   email: "A message",
 };

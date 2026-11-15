@@ -22,6 +22,7 @@ import tiktokFx from "./fixtures/tiktok.json";
 import snapchatFx from "./fixtures/snapchat.json";
 import discordFx from "./fixtures/discord.json";
 import youtubeFx from "./fixtures/youtube.json";
+import chromeFx from "./fixtures/chrome.json";
 import phoneV2Fx from "./fixtures/phone_data_android_v2.json";
 import { readClassroom } from "./classroom";
 import { readDriveActivity } from "./drive";
@@ -166,6 +167,7 @@ const EXPORT_FX: Record<ExportPlatform, { entries: Record<string, unknown> }> = 
   snapchat: snapchatFx as unknown as { entries: Record<string, unknown> },
   discord: discordFx as unknown as { entries: Record<string, unknown> },
   youtube: youtubeFx as unknown as { entries: Record<string, unknown> },
+  chrome: chromeFx as unknown as { entries: Record<string, unknown> },
 };
 
 export async function sampleSource(source: string, tone: ToneModel | null, time: TimeFns = localTime) {
@@ -192,7 +194,8 @@ export async function sampleSource(source: string, tone: ToneModel | null, time:
     case "tiktok":
     case "snapchat":
     case "discord":
-    case "youtube": {
+    case "youtube":
+    case "chrome": {
       const r = await PARSERS[source](fixtureEntries(EXPORT_FX[source].entries), { now, tone, time });
       return { ...r, flags: [] };
     }

@@ -41,6 +41,7 @@ export const SOURCE_PROVIDES: Record<SourceId, ContribKey[]> = {
   snapchat: ["messages", "lowMood", "lateEvents", "events"],
   discord: ["messages", "lowMood", "lateEvents", "events"],
   youtube: ["lateEvents", "events"],
+  chrome: ["lateEvents", "events"],
 };
 
 /** Sources that give exam weeks (context only). */

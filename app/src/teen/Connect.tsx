@@ -135,11 +135,24 @@ function genericLine(source: SourceId, w: GenericAccount["weeks"][number]): stri
           }.`
         : null;
     case "youtube":
-      return n("events") ? `${head} ${n("events")} watched or searched, ${n("late")} after midnight.` : null;
+    case "chrome": {
+      if (!n("events")) return null;
+      const what = source === "youtube" ? "watched or searched" : `${plural(n("events"), "page")} visited, ${plural(n("searches"), "search", "searches")}`;
+      const harm = n("harmContent") ? `, ${n("harmContent")} about self-harm` : "";
+      return `${head} ${source === "youtube" ? `${n("events")} ${what}` : what}, ${n("late")} after midnight${harm}.`;
+    }
     case "spotify":
       return n("plays")
         ? `${head} ${plural(n("plays"), "song")}, ${hoursWords(n("minutes") / 60)}, ${n("late")} after midnight, ${n("skips")} skipped, ${repeatWords(typeof s.repeats === "number" ? s.repeats : 0)}.`
         : `${head} no songs.`;
+    case "instagram":
+    case "tiktok": {
+      if (!n("events")) return null;
+      const seen = n("viewed") ? `, ${n("viewed")} ${source === "tiktok" ? "watched" : "viewed"}` : "";
+      const looked = n("searches") ? `, ${plural(n("searches"), "search", "searches")}` : "";
+      const harm = n("harmContent") ? `, ${n("harmContent")} about self-harm` : "";
+      return `${head} ${plural(n("messages"), "message")} sent${seen}${looked}${harm}, ${n("late")} of ${n("events")} actions after midnight.`;
+    }
     default:
       return n("events") ? `${head} ${plural(n("messages"), "message")} sent, ${n("late")} of ${n("events")} actions after midnight.` : null;
   }
@@ -194,6 +207,22 @@ function summaryLines(source: SourceId, a: Accounts): string[] {
     .filter((l): l is string => !!l)
     .slice(-4);
   if (!lines.length) lines.push("Nothing in the last weeks.");
+  if (source === "youtube" || source === "chrome") {
+    const harm = g.weeks.reduce((t, w) => t + (typeof w.show.harmContent === "number" ? w.show.harmContent : 0), 0);
+    const what = source === "youtube" ? "videos or searches" : "pages or searches";
+    lines.unshift(
+      `${plural(g.weeks.length, "week")} read. ${harm ? `${harm} ${what} about self-harm. A recent search like that brings up "Are you safe right now?"` : `No ${what} about self-harm.`} Titles were dropped after reading.`,
+    );
+  }
+  if (source === "instagram" || source === "tiktok") {
+    const sum = (k: string) => g.weeks.reduce((t, w) => t + (typeof w.show[k] === "number" ? (w.show[k] as number) : 0), 0);
+    if (sum("searches") || sum("viewed")) {
+      const harm = sum("harmContent");
+      lines.unshift(
+        `${plural(g.weeks.length, "week")} read. ${harm ? `${plural(harm, "search", "searches")} about self-harm. A recent search like that brings up "Are you safe right now?"` : "No searches about self-harm."} Search words, usernames and links were dropped after reading.`,
+      );
+    }
+  }
   if (g.examWeeks?.length) lines.push(`An exam or test in the week${g.examWeeks.length > 1 ? "s" : ""} of ${g.examWeeks.map(weekWords).join(", ")}.`);
   if (g.counts?.othersSkipped) lines.push(`${plural(g.counts.othersSkipped, "message")} from other people skipped without being read.`);
   if (g.counts?.skipped) lines.push(`${plural(g.counts.skipped, "email was", "emails were")} skipped: their own words couldn't be separated from quoted text.`);

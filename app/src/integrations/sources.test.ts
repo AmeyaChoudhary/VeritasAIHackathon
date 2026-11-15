@@ -178,7 +178,7 @@ describe("data files", () => {
     await expect(PARSERS.instagram(fixtureEntries(entries), opts)).rejects.toThrow(ExportError);
   });
 
-  it("TikTok: the owner's messages and activity; others' messages and search terms are never scored", async () => {
+  it("TikTok: the owner's messages and activity; others' messages are never scored, and an old search is only counted", async () => {
     const r = await PARSERS.tiktok(fixtureEntries((tiktokFx as Fx).entries), opts);
     expect(r.othersSkipped).toBe(1);
     expect(r.flags).toEqual([]);
@@ -212,7 +212,7 @@ describe("data files", () => {
     ]);
   });
 
-  it("YouTube: times only, no titles or search terms, and an HTML Takeout imports nothing", async () => {
+  it("YouTube: titles are scored and dropped, the rules get times only, and an HTML Takeout imports nothing", async () => {
     const fx = youtubeFx as unknown as Fx & { htmlNames: string[] };
     const r = await PARSERS.youtube(fixtureEntries(fx.entries), opts);
     expect(r.ownMessages).toBe(0);

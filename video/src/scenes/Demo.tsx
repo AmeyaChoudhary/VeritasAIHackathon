@@ -12,7 +12,7 @@ const M = rec.marks as Record<string, number>;
 const TOP = 92;
 
 /** One signal named beside the phone; it lights up when it is spoken. */
-const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone" | "tap"; label: string; base: number }> = ({ at, icon, label, base }) => {
+const SignalRow: React.FC<{ at: number; icon: "moon" | "chat" | "move" | "tone" | "tap" | "music" | "play" | "globe" | "photo" | "clip" | "game"; label: string; base: number }> = ({ at, icon, label, base }) => {
   const frame = useCurrentFrame();
   const vis = ramp(frame, base, 14);
   const on = ramp(frame, at - 3, 12);
@@ -83,13 +83,14 @@ export const Demo: React.FC = () => {
 
   // cues
   const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
-  const learnAt = G(q("learn", "For four weeks")), sleepAt = G(q("learn", "sleep")), reachAt = G(q("learn", "reaching out")), moveAt = G(q("learn", "movement")), toneAt = G(q("learn", "the tone")), onceAt = G(q("learn", "Once a week"));
+  const learnAt = G(q("learn", "Stability connects")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing"));
+  const musicAt = G(q("learn", "music")), gameAt = G(q("learn", "gaming chats")), msgAt = G(q("learn", "messages")), readsAt = G(q("learn", "It reads it all")), onceAt = G(q("learn", "Once a week"));
   const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
-  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks two questions")), wordAt = G(q("drift", "takes her at"));
+  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two questions")), wordAt = G(q("drift", "takes her at"));
   const finalsAt = G(q("drift", "Then finals")), modelAt = G(q("drift", "and our model")), againAt = G(q("drift", "It asks again"));
   const passAt = G(q("note", "But at week eight")), nudgeAt = G(q("note", "Maya sees")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "what changed")), longAt = G(q("note", "for how long")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
   const helpAt = G(q("private", "988 is"));
-  const privAt = G(q("private", "What Maya types")), smallAt = G(q("private", "A small model")), dotAt = G(q("private", "keeps one dot"));
+  const privAt = G(q("private", "Nothing she types")), smallAt = G(q("private", "Small models")), dotAt = G(q("private", "keep only numbers"));
 
   // brand: big in the centre, then tucked into the corner for the rest of the walkthrough
   const draw = ramp(frame, builtAt - 2, 30);
@@ -116,7 +117,7 @@ export const Demo: React.FC = () => {
   const off = (rec as { parentOffset?: number }).parentOffset ?? 0;   // the parent recording started this much later
   const W = (id: string, from: string, until: string | number) => [q(id, from), typeof until === "number" ? until : q(id, until)] as const;
   const seg = (from: number, to: number, win: readonly [number, number], lead = 0.1): Seg => ({ clip: "teen", from, to, at: S(win[0]) - lead, rate: fit(from, to, win[0] - lead, win[1]) });
-  const learnSeg = seg(M.w2 - 0.25, M.w3 + 1.7, W("learn", "For four weeks", "her sleep"));
+  const learnSeg = seg(M.w2 - 0.25, M.w3 + 1.7, W("learn", "Stability connects", "It reads it all"));
   const teenSegs: Seg[] = rec.ready ? [
     { clip: "teen", from: 0.5, to: 1.3, at: 0 },
     learnSeg,
@@ -129,8 +130,8 @@ export const Demo: React.FC = () => {
     seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "But at week eight", "her answers")),
     seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "her answers", "Maya sees"), 0.1),
     { clip: "teen", from: M.ask3_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya sees")) - 0.15 },
-    seg(M.type_open - 0.2, M.type1_start - 0.1, W("private", "What Maya types", "A small model"), 0.2),
-    seg(M.type1_start - 0.1, M.type1_send + 2.7, W("private", "A small model", sec("private").end + 0.4), 0.4),
+    seg(M.type_open - 0.2, M.type1_start - 0.1, W("private", "Nothing she types", "Small models"), 0.2),
+    seg(M.type1_start - 0.1, M.type1_send + 2.7, W("private", "Small models", sec("private").end + 0.4), 0.4),
   ] : [];
   const parentSegs: Seg[] = rec.ready ? [
     { clip: "parent", from: 0.5, to: 1.3, at: 0 },
@@ -143,8 +144,6 @@ export const Demo: React.FC = () => {
   const flyY = 430 - Math.sin(fly * Math.PI) * 120;
 
   // the week counter follows the recording: week k shows once the clip passes that tap
-  const clipT = learnSeg.from + Math.max(0, frame / 30 - learnSeg.at) * (learnSeg.rate ?? 1);
-  const weekN = clipT >= M.w3 + 0.25 ? 3 : clipT >= M.w2 + 0.25 ? 2 : 1;
 
   return (
     <AbsoluteFill style={{ opacity: sceneOut }}>
@@ -178,22 +177,27 @@ export const Demo: React.FC = () => {
         </svg>
       ) : null}
 
-      {/* 01 learn */}
-      <Callout at={learnAt} until={driftAt - 2} tag="01 · Learn" title={<>Learns<br />her normal</>} style={{ position: "absolute", left: 130, top: 190, width: 580 }} size={88} />
+      {/* 01 her whole digital life */}
+      <Callout at={learnAt} until={driftAt - 2} tag="01 · Her digital life" title={<>Sees the<br />whole picture</>} style={{ position: "absolute", left: 130, top: 170, width: 600 }} size={84} />
       {frame >= learnAt && frame < driftAt ? (
-        <div style={{ position: "absolute", left: 130, top: 470, display: "flex", flexDirection: "column", gap: 20, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
-          <SignalRow base={learnAt + 8} at={sleepAt} icon="moon" label="Sleep" />
-          <SignalRow base={learnAt + 11} at={reachAt} icon="chat" label="Reaching out" />
-          <SignalRow base={learnAt + 14} at={moveAt} icon="move" label="Activity" />
-          <SignalRow base={learnAt + 17} at={toneAt} icon="tone" label="Tone" />
+        <div style={{ position: "absolute", left: 130, top: 430, display: "flex", flexDirection: "column", gap: 14, opacity: interpolate(frame, [driftAt - 10, driftAt - 2], [1, 0], clamp) }}>
+          <SignalRow base={learnAt + 8} at={igAt} icon="photo" label="Instagram" />
+          <SignalRow base={learnAt + 11} at={ytAt} icon="play" label="YouTube" />
+          <SignalRow base={learnAt + 14} at={ttAt} icon="clip" label="TikTok" />
+          <SignalRow base={learnAt + 17} at={webAt} icon="globe" label="Browsing" />
           {frame >= onceAt - 6 ? <SignalRow base={onceAt - 4} at={tapsAt} icon="tap" label="A two-tap check-in" /> : null}
         </div>
       ) : null}
       {frame >= learnAt && frame < onceAt + 2 ? (
-        <div style={{ position: "absolute", left: 1270, top: 300, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [onceAt - 8, onceAt], [1, 0], clamp) }}>
-          <Mono size={20}>Week</Mono>
-          <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 330, lineHeight: 0.9, letterSpacing: -14, color: C.ink, fontVariantNumeric: "tabular-nums" }}>{weekN}<span style={{ fontSize: 92, letterSpacing: -3, color: C.inkSoft, fontWeight: 500 }}> of 4</span></div>
-          <div style={{ fontFamily: F.body, fontSize: 30, color: C.inkSoft, marginTop: 20, maxWidth: 480, lineHeight: 1.36 }}>Her own range, not an average of everyone.</div>
+        <div style={{ position: "absolute", left: 1270, top: 190, width: 560, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [onceAt - 8, onceAt], [1, 0], clamp) }}>
+          <Mono size={20}>Read on her phone</Mono>
+          <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 190, lineHeight: 0.95, letterSpacing: -8, color: C.ink, fontVariantNumeric: "tabular-nums", marginTop: 6 }}>{numbers.pitch.sources}<span style={{ fontSize: 66, letterSpacing: -2.2, color: C.inkSoft, fontWeight: 500 }}> sources</span></div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 34 }}>
+            <SignalRow base={learnAt + 20} at={musicAt} icon="music" label="Music" />
+            <SignalRow base={learnAt + 23} at={gameAt} icon="game" label="Gaming chats" />
+            <SignalRow base={learnAt + 26} at={msgAt} icon="chat" label="Messages" />
+          </div>
+          <div style={{ fontFamily: F.body, fontSize: 27, color: C.inkSoft, marginTop: 26, lineHeight: 1.36, ...enter(frame, readsAt, 18, 12) }}>Plus sleep, steps, screen time and school. Nothing leaves the phone.</div>
         </div>
       ) : null}
       {frame >= onceAt - 2 && frame < driftAt ? (
@@ -281,7 +285,7 @@ export const Demo: React.FC = () => {
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 330, lineHeight: 0.9, letterSpacing: -14, color: C.ink }}>0<span style={{ fontSize: 84, letterSpacing: -3, color: C.inkSoft, fontWeight: 500 }}> bytes</span></div>
           <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 30, opacity: ramp(frame, dotAt - 2, 14) }}>
             <span style={{ width: 22, height: 22, borderRadius: 14, background: C.ink }} />
-            <span style={{ fontFamily: F.body, fontSize: 32, color: C.inkSoft }}>One dot is kept. The words are gone.</span>
+            <span style={{ fontFamily: F.body, fontSize: 32, color: C.inkSoft }}>Only numbers are kept. The words are gone.</span>
           </div>
           <div style={{ marginTop: 40, display: "inline-flex", alignItems: "center", gap: 14, padding: "18px 28px", borderRadius: 999, background: C.card, boxShadow: "0 0 0 1px rgba(21,23,26,0.07), 0 10px 26px rgba(21,23,26,0.07)", ...enter(frame, helpAt - 2, 20, 14) }}>
             <span style={{ width: 12, height: 12, borderRadius: 8, background: C.amber }} />

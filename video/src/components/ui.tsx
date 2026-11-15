@@ -65,7 +65,7 @@ export const Bar: React.FC<{ at: number; label: string; value: number; max: numb
 };
 
 /** Simple line icons, 24-unit box. */
-export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" | "tap" | "model" | "doctor" | "note"; size?: number; color?: string; stroke?: number }> = ({ name, size = 40, color = C.ink, stroke = 1.75 }) => {
+export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" | "tap" | "model" | "doctor" | "note" | "music" | "play" | "globe" | "photo" | "clip" | "game"; size?: number; color?: string; stroke?: number }> = ({ name, size = 40, color = C.ink, stroke = 1.75 }) => {
   const p = { fill: "none", stroke: color, strokeWidth: stroke, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
   return (
     <svg width={size} height={size} viewBox="0 0 24 24">
@@ -78,6 +78,12 @@ export const Icon: React.FC<{ name: "moon" | "chat" | "move" | "tone" | "lock" |
       {name === "model" && (<><circle {...p} cx="6" cy="7" r="2" /><circle {...p} cx="6" cy="17" r="2" /><circle {...p} cx="18" cy="12" r="2" /><path {...p} d="M8 7.8 16 11.2M8 16.2l8-3.4" /></>)}
       {name === "doctor" && (<><path {...p} d="M6 4v5a4 4 0 0 0 8 0V4" /><path {...p} d="M10 13v2.5a4.5 4.5 0 0 0 9 0V14" /><circle {...p} cx="19" cy="12" r="2" /></>)}
       {name === "note" && (<><rect {...p} x="5" y="4" width="14" height="16" rx="3" /><path {...p} d="M8.5 9h7M8.5 12.5h7M8.5 16h4" /></>)}
+      {name === "music" && <path {...p} d="M9 17.5V6l10-2v11.5M9 17.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm10-2a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />}
+      {name === "play" && (<><rect {...p} x="3" y="5.5" width="18" height="13" rx="3.5" /><path {...p} d="M10.5 9.5v5l4.2-2.5Z" /></>)}
+      {name === "photo" && (<><rect {...p} x="4" y="4" width="16" height="16" rx="4.5" /><circle {...p} cx="12" cy="12" r="3.6" /><path {...p} d="M16.6 7.4h.01" /></>)}
+      {name === "clip" && (<><rect {...p} x="7" y="3" width="10" height="18" rx="2.5" /><path {...p} d="M10.8 9.5v5l3.6-2.5Z" /></>)}
+      {name === "game" && (<><path {...p} d="M7.5 8h9a4.5 4.5 0 0 1 4.4 5.4l-.5 2.4a2.3 2.3 0 0 1-4 1L15 15H9l-1.4 1.8a2.3 2.3 0 0 1-4-1l-.5-2.4A4.5 4.5 0 0 1 7.5 8Z" /><path {...p} d="M8 10.7v2.6M6.7 12h2.6M15.5 11h.01M17.3 12.8h.01" /></>)}
+      {name === "globe" && (<><circle {...p} cx="12" cy="12" r="8.5" /><path {...p} d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5Z" /></>)}
     </svg>
   );
 };

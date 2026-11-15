@@ -1,0 +1,105 @@
+{
+ "referenceTime": "2026-11-14T18:00:00Z",
+ "entries": {
+  "Takeout/Chrome/History.json": {
+   "Browser History": [
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Khan Academy | Free Online Courses",
+     "url": "https://www.khanacademy.org/",
+     "client_id": "sample",
+     "time_usec": 1793128200000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "chem worksheet answers - Google Search",
+     "url": "https://www.google.com/search?q=chem+worksheet+answers",
+     "client_id": "sample",
+     "time_usec": 1793230800000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Spotify - Web Player",
+     "url": "https://open.spotify.com/",
+     "client_id": "sample",
+     "time_usec": 1793390700000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Pinterest",
+     "url": "https://www.pinterest.com/",
+     "client_id": "sample",
+     "time_usec": 1793644200000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "why can't i sleep - Google Search",
+     "url": "https://www.google.com/search?q=why+can%27t+i+sleep",
+     "client_id": "sample",
+     "time_usec": 1793755200000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "YouTube",
+     "url": "https://www.youtube.com/results?search_query=sad+songs+to+cry+to",
+     "client_id": "sample",
+     "time_usec": 1793846700000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Finals study schedule - Google Docs",
+     "url": "https://docs.google.com/document/d/x",
+     "client_id": "sample",
+     "time_usec": 1793998800000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "i want to die - Google Search",
+     "url": "https://www.google.com/search?q=i+want+to+die",
+     "client_id": "sample",
+     "time_usec": 1794190200000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "nothing feels fun anymore - Google Search",
+     "url": "https://www.google.com/search?q=nothing+feels+fun+anymore",
+     "client_id": "sample",
+     "time_usec": 1794274200000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Common App",
+     "url": "https://www.commonapp.org/",
+     "client_id": "sample",
+     "time_usec": 1794423600000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "Netflix",
+     "url": "https://www.netflix.com/browse",
+     "client_id": "sample",
+     "time_usec": 1794522600000000
+    },
+    {
+     "favicon_url": "",
+     "page_transition": "LINK",
+     "title": "calc homework help - DuckDuckGo",
+     "url": "https://duckduckgo.com/?q=calc+homework+help",
+     "client_id": "sample",
+     "time_usec": 1794592800000000
+    }
+   ]
+  }
+ }
+}

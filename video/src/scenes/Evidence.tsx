@@ -66,8 +66,8 @@ export const Evidence: React.FC = () => {
   const h = (ph: string) => L(cue("how", ph));
   const p = (ph: string) => L(cue("proof", ph));
 
-  const hoodAt = h("Under the hood"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("our ask model"), whenAt = h("decides when to ask");
-  const highAt = h("High answers"), eightAt = h("full eight"), parentAt = h("a parent"), deviceAt = h("Two on-device"), moodAt = h("mood"), harmAt = h("self-harm risk"), noWordsAt = h("no words ever");
+  const hoodAt = h("Under the hood"), lifeAt = h("her digital life"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our engine"), whenAt = h("decides when to ask");
+  const highAt = h("High answers"), eightAt = h("full eight"), parentAt = h("a parent"), noWordsAt = h("No words ever");
   const worksAt = p("And it works"), examplesAt = p("three hundred fifty thousand"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
   const nineAt = p("nine in ten"), twiceAt = p("twice");
   const end = r1.from + r1.dur - r0.from;
@@ -78,33 +78,32 @@ export const Evidence: React.FC = () => {
   const count = Math.round(350000 * interpolate(frame, [examplesAt - 6, examplesAt + 34], [0, 1], { ...clamp, easing: ease }));
 
   // engine layout
-  const Y1 = 330, Y2 = 470, YM = 395, Y3 = 720;
+  const YA = 300, YB = 440, YC = 580, YM = 430, Y3 = 790;
   return (
     <AbsoluteFill style={{ opacity: out }}>
       {/* under the hood */}
       <AbsoluteFill style={{ opacity: hoodOut }}>
-        <div style={{ position: "absolute", left: 150, top: 120, ...enter(frame, hoodAt - 2, 24, 16) }}>
+        <div style={{ position: "absolute", left: 150, top: 100, ...enter(frame, hoodAt - 2, 24, 16) }}>
           <Mono size={20}>Under the hood</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 104, letterSpacing: -4.4, color: C.ink, lineHeight: 1, marginTop: 14 }}>The engine</div>
         </div>
-        <Node at={tapsAt} x={150} y={Y1} w={330} title="Two taps" sub="from Stable, weekly" icon={<StableMascot size={56} />} />
-        <Node at={pastAt} x={150} y={Y2} w={330} title="Past answers" sub="her own history" />
-        <Wire at={modelAt - 2} x1={480} y1={Y1 + 52} x2={600} y2={YM + 60} />
-        <Wire at={modelAt - 2} x1={480} y1={Y2 + 52} x2={600} y2={YM + 60} />
-        <Node at={modelAt} x={600} y={YM} w={330} title="Ask model" sub="decides when to ask" dark accent={frame >= whenAt ? C.sage : undefined} />
-        <Wire at={highAt - 4} x1={930} y1={YM + 60} x2={970} y2={YM + 60} />
-        <Node at={highAt} x={970} y={YM} w={240} title="2 questions" sub="the PHQ-2" />
-        <Wire at={eightAt - 4} x1={1210} y1={YM + 60} x2={1250} y2={YM + 60} color={C.amber} />
-        <Node at={eightAt} x={1250} y={YM} w={240} title="All 8" sub="if answers are high" accent={C.amber} />
-        <Wire at={parentAt - 4} x1={1490} y1={YM + 60} x2={1530} y2={YM + 60} color={C.amber} />
-        <Node at={parentAt} x={1530} y={YM} w={270} title="A note" sub="to a parent" icon={<Icon name="note" size={34} />} />
-        <Node at={deviceAt} x={150} y={Y3} w={330} title="What she types" sub="stays on the phone" icon={<Icon name="tone" size={34} />} />
-        <Wire at={moodAt - 4} x1={480} y1={Y3 + 52} x2={600} y2={Y3 + 52} />
-        <Node at={moodAt} x={600} y={Y3} w={330} title="Mood model" sub="one dot per message" dark />
-        <Wire at={harmAt - 4} x1={930} y1={Y3 + 52} x2={1000} y2={Y3 + 52} />
-        <Node at={harmAt} x={1000} y={Y3} w={330} title="Self-harm model" sub="988, one tap away" dark accent={C.amber} />
+        <Node at={lifeAt} x={150} y={YA} w={350} title="Her digital life" sub={`${numbers.pitch.sources} sources, read on her phone`} icon={<Icon name="globe" size={34} />} />
+        <Node at={tapsAt} x={150} y={YB} w={350} title="Two taps" sub="from Stable, weekly" icon={<StableMascot size={52} />} />
+        <Node at={pastAt} x={150} y={YC} w={350} title="Past answers" sub="her own history" />
+        <Wire at={modelAt - 2} x1={500} y1={YA + 52} x2={610} y2={YM + 62} />
+        <Wire at={modelAt - 2} x1={500} y1={YB + 52} x2={610} y2={YM + 62} />
+        <Wire at={modelAt - 2} x1={500} y1={YC + 52} x2={610} y2={YM + 62} />
+        <Node at={modelAt} x={610} y={YM} w={330} title="Stability engine" sub={frame >= whenAt ? "decides when to ask" : "tracks how she's doing"} dark accent={frame >= whenAt ? C.sage : undefined} />
+        <Wire at={highAt - 4} x1={940} y1={YM + 62} x2={980} y2={YM + 62} />
+        <Node at={highAt} x={980} y={YM} w={240} title="2 questions" sub="the PHQ-2" />
+        <Wire at={eightAt - 4} x1={1220} y1={YM + 62} x2={1260} y2={YM + 62} color={C.amber} />
+        <Node at={eightAt} x={1260} y={YM} w={240} title="All 8" sub="if answers are high" accent={C.amber} />
+        <Wire at={parentAt - 4} x1={1500} y1={YM + 62} x2={1540} y2={YM + 62} color={C.amber} />
+        <Node at={parentAt} x={1540} y={YM} w={270} title="A note" sub="to a parent" icon={<Icon name="note" size={34} />} />
+        <Node at={lifeAt + 14} x={610} y={Y3} w={330} title="Mood model" sub="reads tone, on the phone" dark />
+        <Node at={lifeAt + 20} x={980} y={Y3} w={330} title="Self-harm model" sub="988, one tap away" dark accent={C.amber} />
         {frame >= noWordsAt - 2 ? (
-          <div style={{ position: "absolute", left: 1400, top: Y3 + 18, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
+          <div style={{ position: "absolute", left: 1380, top: Y3 + 18, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
             <Icon name="lock" size={46} />
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 40, letterSpacing: -1.2, color: C.ink, lineHeight: 1.05 }}>0 words<br />leave the phone</span>
           </div>

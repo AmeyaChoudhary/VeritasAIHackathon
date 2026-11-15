@@ -56,6 +56,14 @@ export interface OwnEvent {
   /** For sent messages: scored on the phone, then dropped by the caller. */
   lowMood?: boolean | null;
   message?: boolean;
+  /** For a video title, page title or search: whether it was scored, and what it read as.
+   *  Only these yes/no marks are kept; the text is dropped by the caller. */
+  content?: boolean;
+  search?: boolean;
+  harm?: boolean;
+  lowContent?: boolean | null;
+  /** A post or video the teen was shown or watched: a time only, nothing about what it was. */
+  view?: boolean;
 }
 
 /** Score one own message's words, check for self-harm words if it is recent, and return
@@ -75,6 +83,25 @@ export function scoreOwnWords(
   return { lowMood, level: lv === "check" ? "none" : lv, hash: textHash(t) };
 }
 
+/** Score one title or search someone else wrote or the teen typed into a search box: the tone
+ *  model and the self-harm check (phrase list and model). Returns yes/no marks only.
+ *  A search from the last 24 hours that the phrase list flags becomes an item flag, the same as
+ *  an email; a model-only flag, and anything watched or visited, only counts toward the week. */
+export function scoreContent(
+  text: string,
+  at: number,
+  opts: { now: number; tone: ToneModel | null; cfg?: Config; search: boolean },
+): { harm: boolean; lowContent: boolean | null; level: "none" | "concern" | "plan"; hash: string } {
+  const cfg = opts.cfg ?? CONFIG;
+  const t = text.trim();
+  if (!t) return { harm: false, lowContent: null, level: "none", hash: "" };
+  const lowContent = opts.tone ? isLowMood(opts.tone, t) : null;
+  const lv = checkSelfHarm(t).level;
+  const recent = opts.now - at >= 0 && opts.now - at <= cfg.integrations.selfHarmEmailHours * HOUR;
+  const level = opts.search && recent && (lv === "concern" || lv === "plan") ? lv : "none";
+  return { harm: lv !== "none", lowContent, level, hash: textHash(t) };
+}
+
 /** Weeks from events: messages sent, the share of activity after midnight, and the low-mood
  *  share of own messages. */
 export function eventWeeks(
@@ -82,7 +109,7 @@ export function eventWeeks(
   range: { from: number; to: number },
   time: TimeFns = localTime,
   cfg: Config = CONFIG,
-  keys: { messages: boolean; activity: boolean } = { messages: true, activity: true },
+  keys: { messages: boolean; activity: boolean; content?: boolean; views?: boolean } = { messages: true, activity: true },
 ): AggWeek[] {
   return weeksBetween(range.from, range.to, time).map(({ weekOf, complete }, i) => {
     // The first week of a range is partial: the source may start part way through it.
@@ -104,7 +131,16 @@ export function eventWeeks(
       weekOf,
       complete,
       contrib,
-      show: { messages: keys.messages ? msgs.length : null, events: xs.length, late },
+      show: {
+        messages: keys.messages ? msgs.length : null,
+        events: xs.length,
+        late,
+        // Shown to the teen only. These never reach the rules or a parent's note.
+        ...(keys.content
+          ? { harmContent: xs.filter((e) => e.harm).length, lowMoodContent: xs.filter((e) => e.lowContent).length, searches: xs.filter((e) => e.search).length }
+          : {}),
+        ...(keys.views ? { viewed: xs.filter((e) => e.view).length } : {}),
+      },
     };
   });
 }

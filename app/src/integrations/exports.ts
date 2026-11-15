@@ -6,6 +6,8 @@
 // For each export: work out whose account it is from the export's own profile file, keep only
 // that person's sent messages and own activity times, and skip other people's messages unread.
 // Own messages are scored on the phone and dropped. Only weekly numbers are kept.
+// Instagram and TikTok searches are scored on the phone like YouTube searches and dropped; posts
+// and videos viewed are counted by time only. No username, link or search word is kept.
 // A zip is read in two passes: first the small profile files, then each data file as it is
 // unpacked, parsed and dropped, so a large export never sits in memory whole.
 // The JSON forms are read. HTML files are never unpacked; an HTML-only export, a layout not
@@ -14,23 +16,35 @@
 // Layouts (checked against the apps' help pages and known exports, Nov 2026):
 // Instagram: personal_information/personal_information(.../)personal_information.json, and
 //   (your_instagram_activity/)messages/inbox/<thread>/message_N.json; likes in likes/liked_posts.json.
+//   Searches: (logged_information/)recent_searches/*.json, lists named searches_user, searches_keyword
+//   and the like, each item with string_map_data {Search: {value}, Time: {timestamp}} (older) or
+//   string_list_data [{value, timestamp}] (newer). Views: ads_information/ads_and_topics/
+//   posts_viewed.json, videos_watched.json and suggested_*_viewed.json, each item with an author
+//   name and a time; only the time is read.
 //   Instagram writes UTF-8 bytes as \u00XX escapes; the text is repaired before use.
 // TikTok: user_data_tiktok.json (older: user_data.json), keys "Profile"/"Profile And Settings",
 //   "Direct Message(s)" > "Direct Messages" > "ChatHistory", "Activity"/"Your Activity" >
-//   "Video Browsing History" > "VideoList", "Search History" > "SearchList", "Like List".
+//   "Video Browsing History" (newer: "Watch History") > "VideoList" {Date, Link},
+//   "Search History" > "SearchList" {Date, SearchTerm}, "Like List".
 // Snapchat: json/account.json ("Basic Information" > "Username") and json/chat_history.json, either
 //   keyed by conversation with "IsSender", or the older "Sent/Received Saved Chat History" lists.
 // Discord: account/user.json and messages/c<id>/messages.json (newer) or messages/<id>/messages.csv
 //   (older); folder names may be capitalised. The package holds only the owner's own messages.
 // YouTube (Takeout): .../history/watch-history.json and search-history.json, if JSON was chosen.
+//   Entries are {title: "Watched <video>" | "Searched for <words>", time}. Ads are counted but
+//   not scored.
+// Chrome (Takeout): Chrome/History.json, {"Browser History": [{title, url, time_usec}]}. Search
+//   words are taken from Google, Bing, DuckDuckGo and YouTube search addresses.
+// YouTube and Chrome titles and searches are scored on the phone (tone model and self-harm
+// check) and dropped; only weekly counts are kept, and addresses are never kept.
 
 import { CONFIG, type Config } from "../engine/config";
 import type { ToneModel } from "../engine/tone";
 import { localTime, type TimeFns } from "./common";
-import { chatOwnWords, eventWeeks, exportRange, flagKey, scoreOwnWords, type AggWeek, type ItemFlag, type OwnEvent } from "./agg";
+import { chatOwnWords, eventWeeks, exportRange, flagKey, scoreContent, scoreOwnWords, type AggWeek, type ItemFlag, type OwnEvent } from "./agg";
 import { readEntries, streamEntries, type Entries } from "./zip";
 
-export type ExportPlatform = "instagram" | "tiktok" | "snapchat" | "discord" | "youtube";
+export type ExportPlatform = "instagram" | "tiktok" | "snapchat" | "discord" | "youtube" | "chrome";
 
 export interface ExportResult {
   platform: ExportPlatform;
@@ -138,12 +152,15 @@ interface Collector {
 const IG_PROFILE = /personal_information\.json$/i;
 const IG_THREAD = /messages\/inbox\/[^/]+\/message_\d+\.json$/i;
 const IG_LIKES = /likes\/liked_posts\.json$/i;
+const IG_SEARCHES = /(^|\/)recent_searches\/[^/]+\.json$/i;
+const IG_VIEWS = /(^|\/)ads_and_topics\/(posts_viewed|videos_watched|suggested_(accounts|profiles)_viewed)\.json$/i;
 const TT_DATA = /(^|\/)user_data(_tiktok)?\.json$/i;
 const SC_ACCOUNT = /(^|\/)json\/account\.json$/i;
 const SC_CHATS = /(^|\/)json\/chat_history\.json$/i;
 const DC_USER = /(^|\/)account\/user\.json$/i;
 const DC_MSGS = /(^|\/)messages\/c?\d+\/messages\.(json|csv)$/i;
 const YT_HISTORY = /(^|\/)(watch|search)-history\.json$/i;
+const CHROME_HISTORY = /(^|\/)History\.json$/;
 
 const TITLE: Record<ExportPlatform, string> = {
   instagram: "an Instagram export",
@@ -151,7 +168,50 @@ const TITLE: Record<ExportPlatform, string> = {
   snapchat: "a Snapchat export",
   discord: "a Discord data package",
   youtube: "a YouTube Takeout",
+  chrome: "a Chrome history Takeout",
 };
+
+/** The words of a search, from a search page's address. Google, Bing, DuckDuckGo, YouTube. */
+export function searchWords(url: string): string | null {
+  let u: URL;
+  try {
+    u = new URL(url);
+  } catch {
+    return null;
+  }
+  const host = u.hostname.toLowerCase().replace(/^www\./, "");
+  const q = (k: string) => {
+    const v = u.searchParams.get(k);
+    return v && v.trim() ? v.trim() : null;
+  };
+  if (/^google\.[a-z.]+$/.test(host) && u.pathname === "/search") return q("q");
+  if (host === "bing.com" && u.pathname === "/search") return q("q");
+  if (host === "duckduckgo.com" || host === "html.duckduckgo.com") return q("q");
+  if ((host === "youtube.com" || host === "m.youtube.com") && u.pathname === "/results") return q("search_query");
+  return null;
+}
+
+/** One item of an Instagram list: its time, and its text if it has one. Both layouts. The keys of
+ *  string_map_data are translated in non-English exports, so they are not relied on. */
+function igItem(item: unknown): { at: number; text?: string } {
+  const o = obj(item);
+  let at = NaN;
+  let text: string | undefined;
+  for (const v of Object.values(obj(o.string_map_data))) {
+    const e = obj(v);
+    const ts = Number(e.timestamp);
+    if (Number.isFinite(ts) && ts > 0 && !Number.isFinite(at)) at = exportTime(ts);
+    else if (!text && str(e.value)) text = str(e.value);
+  }
+  for (const v of arr(o.string_list_data)) {
+    const e = obj(v);
+    const ts = Number(e.timestamp);
+    if (Number.isFinite(ts) && ts > 0 && !Number.isFinite(at)) at = exportTime(ts);
+    if (!text && str(e.value)) text = str(e.value);
+  }
+  if (!Number.isFinite(at) && Number(o.timestamp) > 0) at = exportTime(Number(o.timestamp));
+  return { at, text: text ? repairText(text) : undefined };
+}
 
 function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
   const cfg = opts.cfg ?? CONFIG;
@@ -178,6 +238,17 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
     events.push({ at, message: true, lowMood });
   };
 
+  /** Score a title or a search on the phone, keep yes/no marks, and drop the words. */
+  const content = async (text: string | undefined, at: number, search: boolean): Promise<void> => {
+    if (!text) {
+      events.push({ at });
+      return;
+    }
+    const r = scoreContent(text, at, { now: opts.now, tone: opts.tone, cfg, search });
+    if (r.level !== "none") flags.push({ at, level: r.level, key: await flagKey(platform, owner, at, r.hash), textHash: r.hash });
+    events.push({ at, content: true, search, harm: r.harm, lowContent: r.lowContent });
+  };
+
   const finish = (allNames: string[], tooBig: string[]): ExportResult => {
     if (!sawData) {
       if (allNames.some((n) => /\.html?$/i.test(n))) throw new ExportError("This is an HTML export. Request it again and choose JSON. Nothing was imported.");
@@ -192,7 +263,10 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
       );
     const inRange = events.filter((e) => e.at >= range.from && e.at <= range.to);
     const truncated = tooBig.length > 0;
-    let weeks: AggWeek[] = eventWeeks(inRange, range, opts.time ?? localTime, cfg, { messages: platform !== "youtube", activity: true });
+    const browsing = platform === "youtube" || platform === "chrome";
+    // Instagram and TikTok carry messages, searches and views.
+    const social = platform === "instagram" || platform === "tiktok";
+    let weeks: AggWeek[] = eventWeeks(inRange, range, opts.time ?? localTime, cfg, { messages: !browsing, activity: true, content: browsing || social, views: social });
     if (truncated) weeks = weeks.map((w) => ({ ...w, complete: false }));
     const notes: string[] = [];
     if (truncated) notes.push(`${tooBig.length} file${tooBig.length === 1 ? " was" : "s were"} too big to read, so these weeks are partial and do not reach the rules.`);
@@ -218,7 +292,7 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
       return {
         finish,
         identityWanted: (p) => IG_PROFILE.test(p),
-        dataWanted: (p) => IG_THREAD.test(p) || IG_LIKES.test(p),
+        dataWanted: (p) => IG_THREAD.test(p) || IG_LIKES.test(p) || IG_SEARCHES.test(p) || IG_VIEWS.test(p),
         identify(files) {
           const text = [...files.entries()].find(([p]) => IG_PROFILE.test(p))?.[1];
           const map = obj(obj(arr(obj(json(text)).profile_user)[0]).string_map_data);
@@ -230,6 +304,24 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
         async consume(path, text) {
           sawData = true;
           const data = obj(json(text));
+          if (IG_SEARCHES.test(path)) {
+            // Account, keyword and tag searches: scored like a YouTube search, then dropped.
+            for (const list of Object.values(data))
+              for (const item of arr(list)) {
+                const s = igItem(item);
+                if (Number.isFinite(s.at)) await content(s.text, s.at, true);
+              }
+            return;
+          }
+          if (IG_VIEWS.test(path)) {
+            // Posts and videos shown: the time only. The author's name is never read.
+            for (const list of Object.values(data))
+              for (const item of arr(list)) {
+                const at = igItem(item).at;
+                if (Number.isFinite(at)) events.push({ at, view: true });
+              }
+            return;
+          }
           if (IG_LIKES.test(path)) {
             for (const l of arr(data.likes_media_likes))
               for (const d of arr(obj(l).string_list_data)) {
@@ -293,11 +385,20 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
             }
           }
           const act = obj(data.Activity ?? data["Your Activity"]);
-          for (const l of [obj(act["Video Browsing History"]).VideoList, obj(act["Search History"]).SearchList, obj(act["Like List"]).ItemFavoriteList]) {
-            for (const item of arr(l)) {
-              const at = exportTime(obj(item).Date ?? obj(item).date);
-              if (Number.isFinite(at)) events.push({ at });
-            }
+          // Videos watched: the time only. The link is never read.
+          for (const item of arr(obj(act["Video Browsing History"] ?? act["Watch History"]).VideoList)) {
+            const at = exportTime(obj(item).Date ?? obj(item).date);
+            if (Number.isFinite(at)) events.push({ at, view: true });
+          }
+          // Searches: scored like a YouTube search, then dropped.
+          for (const item of arr(obj(act["Search History"]).SearchList)) {
+            const o = obj(item);
+            const at = exportTime(o.Date ?? o.date);
+            if (Number.isFinite(at)) await content(str(o.SearchTerm) ?? str(o.searchTerm), at, true);
+          }
+          for (const item of arr(obj(act["Like List"]).ItemFavoriteList)) {
+            const at = exportTime(obj(item).Date ?? obj(item).date);
+            if (Number.isFinite(at)) events.push({ at });
           }
         },
       };
@@ -394,10 +495,42 @@ function makeCollector(platform: ExportPlatform, opts: Opts): Collector {
         },
         async consume(_path, text) {
           sawData = true;
-          // Titles of videos and searches are never read; only the times.
           for (const item of arr(json(text))) {
-            const at = exportTime(obj(item).time);
-            if (Number.isFinite(at)) events.push({ at });
+            const o = obj(item);
+            const at = exportTime(o.time);
+            if (!Number.isFinite(at)) continue;
+            const title = str(o.title) ?? "";
+            const ad = arr(o.details).some((d) => /google ads/i.test(str(obj(d).name) ?? ""));
+            const searched = /^Searched for /.exec(title);
+            const watched = /^Watched /.exec(title);
+            // A removed video's title is its address: count it, score nothing.
+            const words = ad ? "" : searched ? title.slice(searched[0].length) : watched ? title.slice(watched[0].length) : "";
+            await content(/^https?:\/\//i.test(words) ? "" : words, at, Boolean(searched));
+          }
+        },
+      };
+    case "chrome":
+      return {
+        finish,
+        identityWanted: () => false,
+        dataWanted: (p) => CHROME_HISTORY.test(p),
+        // Takeout is one Google account's own history.
+        identify() {
+          owner = "takeout";
+          layout = "Google Takeout Chrome history";
+        },
+        async consume(_path, text) {
+          const list = arr(obj(json(text))["Browser History"]);
+          if (!list.length) return;
+          sawData = true;
+          for (const item of list) {
+            const o = obj(item);
+            const us = typeof o.time_usec === "number" ? o.time_usec : Number(o.time_usec);
+            if (!Number.isFinite(us)) continue;
+            const at = Math.round(us / 1000);
+            // A search page is scored once, by its search words; any other page by its title.
+            const words = searchWords(str(o.url) ?? "");
+            await content(words ?? str(o.title) ?? "", at, words != null);
           }
         },
       };
@@ -437,4 +570,5 @@ export const PARSERS: Record<ExportPlatform, (e: Entries, o: Opts) => Promise<Ex
   snapchat: (e, o) => parseEntries("snapchat", e, o),
   discord: (e, o) => parseEntries("discord", e, o),
   youtube: (e, o) => parseEntries("youtube", e, o),
+  chrome: (e, o) => parseEntries("chrome", e, o),
 };

@@ -13,15 +13,15 @@
  },
  {
   "id": "learn",
-  "label": "It learns her normal",
-  "show": "Maya's phone in the centre. The ring fills over four weeks. The four signals light up as they are named. Then Stable, the mascot, floats in, drifts around, and settles into the check-in card on her phone.",
-  "text": "For four weeks, Stability learns her normal: sleep, reaching out, movement, and the tone of what she types. Once a week, our mascot, Stable, checks in with her. Two taps."
+  "label": "Her whole digital life",
+  "show": "Maya's phone in the centre. Instagram, YouTube, TikTok and browsing light up on the left; music, gaming chats and messages on the right, under '17 sources'. Then Stable floats in, drifts around, and settles into the check-in card on her phone.",
+  "text": "Stability connects to her whole digital life: Instagram, YouTube, TikTok, browsing, music, gaming chats and messages. It reads it all on her phone and learns her normal. Once a week, our mascot, Stable, checks in. Two taps."
  },
  {
   "id": "drift",
   "label": "It asks",
   "show": "Week four: the two questions come up and she answers low. Weeks five and six: the ring turns amber, her check-ins climb, the model's score crosses its line, and the questions come up again.",
-  "text": "Every month, it asks two questions, the ones doctors use. Maya says she's mostly okay, and it takes her at her word. Then finals hit. Her check-ins get tense, and our model doesn't wait a month. It asks again."
+  "text": "Every month, it asks the two questions doctors use. Maya says she's mostly okay, and it takes her at her word. Then finals hit. Her check-ins get tense, and our model doesn't wait a month. It asks again."
  },
  {
   "id": "note",
@@ -33,13 +33,13 @@
   "id": "private",
   "label": "Private, with a safety net",
   "show": "Maya types a message. It becomes a bubble, then a single dot. A counter holds at 0 bytes sent. A chip: 988, one tap away.",
-  "text": "What Maya types never leaves her phone. A small model reads each message there, keeps one dot, and lets the words go. And if she types words about self-harm, 988 is one tap away."
+  "text": "Nothing she types, watches or searches ever leaves her phone. Small models read it there and keep only numbers. And if she types or searches for self-harm, 988 is one tap away."
  },
  {
   "id": "how",
   "label": "The engine",
-  "show": "A diagram builds: two taps and past answers feed the ask model; it opens the two questions, then the eight, then the note. Below, typed words feed two on-phone models. A lock: 0 words leave the phone.",
-  "text": "Under the hood, Stable's two taps and her past answers feed our ask model, which decides when to ask. High answers unlock the full eight questions, and only then is a parent told. Two on-device language models read mood and self-harm risk, and no words ever leave the phone."
+  "show": "A diagram builds: her digital life, two taps and past answers feed the engine; it opens the two questions, then the eight, then the note. Below, the two on-phone models and a lock: 0 words leave the phone.",
+  "text": "Under the hood, her digital life, Stable's two taps and her past answers feed our engine. It tracks how she's doing and decides when to ask. High answers unlock the full eight questions, and only then is a parent told. No words ever leave the phone."
  },
  {
   "id": "proof",
