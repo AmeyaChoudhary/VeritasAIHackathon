@@ -41,7 +41,7 @@ Our own idea, with our own question: can a phone tell us when to ask a teenager 
 | Is this person at risk? | Phrase list flags 70% of at-risk users and 45% of users helping others | AUC 0.66; flags 99% of at-risk users (4 missed) but 86% of users helping others | 500 Reddit users rated by psychiatrists |
 | Which weeks should Stability ask, at 12 asks a year? | Fixed calendar: 13% of asks land on a high week; 1,670 missed, 3,391 false alarms | Ask model: 44% (AUC 0.89); 586 of 2,171 high weeks missed, 2,012 false alarms | 213 college students never seen |
 | Does the ask model hold up on teens? | Asking at random: 41% of asks land on a high answer | Same model, unchanged: 74% (AUC 0.85); 14 of 46 high answers missed, 11 false alarms | 113 teens aged 12 to 17 never seen |
-| Does her digital life go with distress? | Sex and grade alone: 0.62 | Sleep, social media and online bullying: 0.65; social media use 0.67; gaming 0.60 (anxiety); music 0.57 | 10,483 US high schoolers; 481 users; 13,464 gamers; 736 listeners |
+| Does her digital life go with distress? | Sex and grade alone: 0.62 | Sleep, social media and online bullying: 0.65; social media use 0.67; gaming 0.59 (anxiety); music 0.57 | 10,483 US high schoolers; 481 users; 13,413 gamers; 736 listeners |
 
 **Our first idea failed.** A drift rule (ask when two phone signals leave the student's range) picked weeks no better than chance: 14.6% against 14.9% for random weeks from the same student. 686 phone features reached 18%. So Stability now asks first ([Experiment 1](results/exp1/results.md), [Experiment 3](results/exp3/results.md)).
 
