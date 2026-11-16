@@ -83,11 +83,11 @@ export const Demo: React.FC = () => {
 
   // cues
   const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "an app on")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "that knows"));
-  const learnAt = G(q("learn", "With consent")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing")), newsAt = G(q("learn", "news feeds"));
+  const learnAt = G(q("learn", "With consent")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing")), newsAt = G(q("learn", "newsfeeds"));
   const musicAt = G(q("learn", "Spotify")), gameAt = G(q("learn", "games")), msgAt = G(q("learn", "chats")), readsAt = G(q("learn", "It's all read")), neverSeeAt = G(q("learn", "never see")), onceAt = G(q("learn", "Once a week"));
   const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
-  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two screening")), wordAt = G(q("drift", "taken at her"));
-  const finalsAt = G(q("drift", "During finals")), modelAt = G(q("drift", "our ask model's")), againAt = G(q("drift", "it asks again"));
+  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two screening")), wordAt = G(q("drift", "scores two of six"));
+  const finalsAt = G(q("drift", "During finals")), modelAt = G(q("drift", "our ask model")), againAt = G(q("drift", "asks again two"));
   const passAt = G(q("note", "In week eight")), nudgeAt = G(q("note", "Maya is nudged")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "sleep and messaging")), longAt = G(q("note", "for four weeks")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
   const helpAt = G(q("private", "988 is"));
   const privAt = G(q("private", "Small models")), smallAt = G(q("private", "read what she types")), dotAt = G(q("private", "keep only numbers"));
@@ -124,9 +124,9 @@ export const Demo: React.FC = () => {
     seg(M.ci4 - 0.1, M.w4 - 0.15, W("learn", "Once a week", sec("learn").end + 0.2)),                 // the two taps
     seg(M.w4 - 0.2, M.ask1_a1 - 0.1, W("drift", "Every month", "In week four")),                         // week 4: the monthly ask
     seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.0, W("drift", "In week four", "During finals"), 0.15),          // she answers low
-    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "During finals", "our ask model's")),                        // finals: amber, a tense check-in
-    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "our ask model's", "it asks again")),                 // week 6: the model asks
-    seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "it asks again", q("note", "In week eight")), 0.1),   // still under the cutoff
+    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "During finals", "our ask model")),                        // finals: amber, a tense check-in
+    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "our ask model", "asks again two")),                 // week 6: the model asks
+    seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "asks again two", q("note", "In week eight")), 0.1),   // still under the cutoff
     seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "In week eight", "so all eight")),
     seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "so all eight", "Maya is nudged"), 0.1),
     { clip: "teen", from: M.ask3_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya is nudged")) - 0.15 },
@@ -280,7 +280,7 @@ export const Demo: React.FC = () => {
         <div style={{ position: "absolute", left: 1530, top: 250, display: "flex", flexDirection: "column", gap: 22, alignItems: "flex-start", opacity: interpolate(frame, [privAt - 24, privAt - 15], [1, 0], clamp) }}>
           <Chip at={whatAt - 2}>Sleep and messaging down</Chip>
           <Chip at={longAt - 2}>For 4 weeks</Chip>
-          <Chip at={howAt - 2}>How to start talking</Chip>
+          <Chip at={howAt - 2}>How to start the conversation</Chip>
           <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 16, ...enter(frame, neverAt - 3, 20, 16) }}>
             <Icon name="lock" size={46} />
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 44, letterSpacing: -1.4, color: C.ink, lineHeight: 1.05 }}>Never her<br />messages</span>

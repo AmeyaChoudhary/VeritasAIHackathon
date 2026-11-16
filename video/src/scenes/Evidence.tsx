@@ -68,7 +68,7 @@ export const Evidence: React.FC = () => {
 
   const hoodAt = h("Under the hood"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our ask model"), whenAt = h("Past sixteen percent");
   const highAt = h("Three or more"), eightAt = h("all eight"), parentAt = h("alerts a parent"), lifeAt = hoodAt + 20, noWordsAt = parentAt + 20;
-  const worksAt = p("Does it work"), examplesAt = p("four hundred thousand"), kindsAt = p("check-ins, surveys"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
+  const worksAt = p("Does it work"), examplesAt = p("four hundred thousand"), kindsAt = examplesAt + 24, timesAt = p("three times"), aucAt = p("a hundred thirteen");
   const sleepAt = p("sleeping four hours"), twiceAt = sleepAt + 45;
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);

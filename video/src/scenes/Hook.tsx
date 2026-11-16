@@ -45,7 +45,9 @@ export const Hook: React.FC = () => {
   const bOut = interpolate(frame, [mostAt - 10, mostAt - 2], [1, 0], clamp);
   const cIn = ramp(frame, mostAt - 6, 12);
   const cOut = interpolate(frame, [nobodyAt - 8, nobodyAt], [1, 0], clamp);
-  const nobodyWords = sec("hook").words.slice(-5).map((w) => ({ w: w.w, at: L(w.s) }));
+  const hw = sec("hook").words;
+  const nobodyFrom = Math.max(0, hw.map((w) => w.w.toLowerCase().replace(/[^a-z]/g, "")).lastIndexOf("nobody"));
+  const nobodyWords = hw.slice(nobodyFrom).map((w) => ({ w: w.w, at: L(w.s) }));
 
   return (
     <AbsoluteFill style={{ opacity: out }}>

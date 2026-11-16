@@ -3,7 +3,7 @@
   "id": "hook",
   "label": "Maya, then the problem",
   "show": "Night stage. 'Maya, 16'. Three lines (Plans, Sleep, Texts) run level, then each slips amber as it is named. A quote: 'It's just finals.' Then '2 months' before anyone asked. Then five dots, one amber: 1 in 5. Then a bar: 59% get no treatment. Then 'nobody knows when to ask.'",
-  "text": "Maya is sixteen. Last fall she quit soccer. By December she slept five hours a night and texted her friends half as much. Her mom thought it was finals. Two months passed before anyone asked how she really was. Maya is one of many: one in five US teens has depression each year, and fifty-nine percent get no treatment. Nobody knows when to ask."
+  "text": "Maya is sixteen. Last fall she quit soccer. By December she slept five hours a night and texted her friends half as much. Her mom thought it was finals, but two months passed before anyone asked her how she really was. Maya is one of many: one in five US teens has depression each year, and fifty-nine percent get no treatment. Nobody knows when to really ask."
  },
  {
   "id": "steady",
@@ -15,19 +15,19 @@
   "id": "learn",
   "label": "Her digital life, with consent",
   "show": "Two chips: 'Maya agreed', 'Mom agreed'. Instagram, TikTok, YouTube, browsing and news feeds light up on the left; Spotify, games and chats on the right under '17 sources'. A line: parents never see a message, search or video. Then Stable floats in and settles into the check-in card.",
-  "text": "With consent from Maya and her parents, it connects to her digital life: Instagram, TikTok, YouTube, browsing, news feeds, Spotify, games and chats. It's all read on her phone, and her parents never see a message, search or video. Once a week, our mascot Stable checks in: two taps."
+  "text": "With consent from Maya and her parents, it connects to her digital life: Instagram, TikTok, YouTube, browsing, newsfeeds, Spotify, games and chats. It's all read on her phone, and her parents never see a message, search or video. Once a week, our mascot Stable checks in: two taps."
  },
  {
   "id": "drift",
   "label": "It asks, and asks early",
   "show": "Week 4: the two questions; she answers 'several days' to both, 2 of 6. Weeks 5 and 6: the ring turns amber, her check-in stress goes from 2 to 4, the ask model's score climbs from 0.05 past 0.16, and the questions come up again in week 6.",
-  "text": "Every month, Stable asks the two screening questions doctors use. In week four, Maya scores two of six and is taken at her word. During finals, her stress check-ins jump from two to four, our ask model's score crosses its line, and it asks again two weeks early."
+  "text": "Every month, Stable asks the two screening questions doctors use. In week four, Maya scores two of six. During finals, her stress check-ins jump from two to four, and our ask model asks again two weeks early."
  },
  {
   "id": "note",
   "label": "The note",
   "show": "Week 8: she scores 4 of 6, so all eight questions come up; total 12. Maya sees a doctor nudge. Mom's phone slides in; an amber dot crosses; chips: Sleep and messaging down, For 4 weeks, How to start the talk. 'Never her messages.'",
-  "text": "In week eight she scores four, so all eight questions come up: twelve, past the cutoff of ten. Maya is nudged to see a doctor, and her mom gets a note: sleep and messaging down for four weeks, and how to start talking. Never her messages."
+  "text": "In week eight she scores four, so all eight questions come up: twelve, past the cutoff of ten. Maya is nudged to see a doctor, and her mom gets a note: sleep and messaging down for four weeks, and how to start the conversation. Never her messages."
  },
  {
   "id": "private",
@@ -45,7 +45,7 @@
   "id": "proof",
   "label": "It works",
   "show": "A counter runs to 404,376, broken down: 282,768 posts, 54,263 comments, 30,346 surveyed teens, 16,886 student-weeks and more. Tiles: 3.4x (44% vs 13%), AUC 0.90 on 113 teens, 54% vs 24% for sleep, 2x a keyword list with 13 of 15 self-harm messages.",
-  "text": "Does it work? We tested on over four hundred thousand labelled examples: check-ins, surveys and real posts. Our ask model finds a hard week three times as often as a fixed schedule. On a hundred thirteen teens it had never seen, its AUC was point nine oh. In a CDC survey, teens sleeping four hours or less were twice as likely to feel hopeless."
+  "text": "Does it work? We tested on four hundred thousand labelled examples. Our ask model finds a hard week three times as often as a schedule. On a hundred thirteen teens it never saw, its AUC was point nine oh. Teens sleeping four hours or less were twice as likely to feel hopeless."
  },
  {
   "id": "close",

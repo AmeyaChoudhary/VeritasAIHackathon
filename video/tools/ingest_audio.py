@@ -16,6 +16,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK = f"{ROOT}/takes/_work"
 LIMIT = 120.0 - 3.0          # two minutes, less the end card
 LEAD = 0.18
+SPEED = 1.10      # every recording plays this much faster, pitch unchanged
+MAX_SPEED = 1.15
 PAUSE = {"hook": 0.55, "steady": 0.45, "learn": 0.4, "drift": 0.45, "note": 0.5, "private": 0.55,
          "proof": 0.4, "timing": 0.5, "next": 0.55, "close": 0.4}
 n = lambda w: re.sub(r"[^a-z0-9]", "", w.lower())
@@ -81,28 +83,41 @@ def main():
         picks.append((sec["id"], first, last))
         print(f"{sec['id']:8s} take at {int(words[first]['s'] // 60)}:{words[first]['s'] % 60:05.2f}  match {cover:.0%}")
 
+    MAXGAP = 0.55   # a pause longer than this inside a card (a stumble, a breath) is cut down
+    KEEP = 0.28
+
     def build(scale):
         parts, timing, t = [], [], 0.6
         for sid, first, last in picks:
-            w0, w1 = words[first], words[last]
-            nxt = words[last + 1]["s"] if last + 1 < len(words) else w1["e"] + 2
-            prv = words[first - 1]["e"] if first > 0 else 0
-            s = max(prv + 0.05, w0["s"] - LEAD)
-            tail = max(0.12, min(PAUSE.get(sid, 0.45) * scale + 0.12, nxt - w1["e"] - 0.06))
-            e = w1["e"] + tail
-            parts.append((s, e))
-            sw = [{"w": w["w"], "s": round(t + (w["s"] - s), 3), "e": round(t + (w["e"] - s), 3)} for w in words[first:last + 1]]
+            # split the take at long pauses so they can be shortened
+            runs, r0 = [], first
+            for k in range(first + 1, last + 1):
+                if words[k]["s"] - words[k - 1]["e"] > MAXGAP:
+                    runs.append((r0, k - 1)); r0 = k
+            runs.append((r0, last))
+            sw = []
+            for j, (a0, a1) in enumerate(runs):
+                w0, w1 = words[a0], words[a1]
+                prv = words[a0 - 1]["e"] if a0 > 0 else 0
+                s = max(prv + 0.05, w0["s"] - (LEAD if j == 0 else 0.06))
+                if j < len(runs) - 1:
+                    e = w1["e"] + KEEP
+                else:
+                    nxt = words[last + 1]["s"] if last + 1 < len(words) else w1["e"] + 2
+                    tail = max(0.12, min(PAUSE.get(sid, 0.45) * scale + 0.12, nxt - w1["e"] - 0.06))
+                    e = w1["e"] + tail
+                parts.append((s, e))
+                sw += [{"w": w["w"], "s": round(t + (w["s"] - s), 3), "e": round(t + (w["e"] - s), 3)} for w in words[a0:a1 + 1]]
+                t += e - s
             timing.append({"id": sid, "start": sw[0]["s"], "end": sw[-1]["e"], "words": sw})
-            t += e - s
         return parts, timing, t
 
     parts, timing, total = build(1.0)
     if total > LIMIT:
         parts, timing, total = build(0.45)
-    factor = 1.0
-    if total > LIMIT:
-        factor = min(1.06, total / LIMIT)
-        print(f"speeding up x{factor:.3f}" + ("  !! STILL OVER TWO MINUTES: read a little faster or trim the script" if total / factor > LIMIT else ""))
+    # Always a little brisker than read (SPEED), and faster still if needed to fit (up to MAX_SPEED).
+    factor = max(SPEED, min(MAX_SPEED, total / LIMIT))
+    print(f"speeding up x{factor:.3f}" + ("  !! STILL OVER TWO MINUTES: read a little faster or trim the script" if total / factor > LIMIT else ""))
 
     inputs, filt = [], []
     for i, (s, e) in enumerate(parts):
