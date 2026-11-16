@@ -51,7 +51,7 @@ const Tile: React.FC<{ at: number; x: number; y: number; big: React.ReactNode; l
   return (
     <div style={{ ...card(), left: x, top: y, width: 790, height: 250, padding: "30px 38px", ...enter(frame, at, 24, 16) }}>
       <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 118, lineHeight: 0.95, letterSpacing: -5, color, fontVariantNumeric: "tabular-nums" }}>{big}</div>
-      <div style={{ fontFamily: F.body, fontSize: 29, lineHeight: 1.3, color: C.inkSoft, marginTop: 16, maxWidth: 700 }}>{label}</div>
+      <div style={{ fontFamily: F.body, fontSize: 25, lineHeight: 1.3, color: C.inkSoft, marginTop: 14, maxWidth: 720 }}>{label}</div>
       {children}
     </div>
   );
@@ -66,10 +66,10 @@ export const Evidence: React.FC = () => {
   const h = (ph: string) => L(cue("how", ph));
   const p = (ph: string) => L(cue("proof", ph));
 
-  const hoodAt = h("Under the hood"), lifeAt = h("her digital life"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our engine"), whenAt = h("decides when to ask");
-  const highAt = h("High answers"), eightAt = h("full eight"), parentAt = h("a parent"), noWordsAt = parentAt + 24;
-  const worksAt = p("And it works"), examplesAt = p("four hundred thousand"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
-  const sleepAt = p("sleeping four hours"), twiceAt = p("catch twice");
+  const hoodAt = h("Under the hood"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our ask model"), whenAt = h("Past sixteen percent");
+  const highAt = h("Three or more"), eightAt = h("all eight"), parentAt = h("alerts a parent"), lifeAt = hoodAt + 20, noWordsAt = parentAt + 20;
+  const worksAt = p("Does it work"), examplesAt = p("four hundred thousand"), kindsAt = p("check-ins, surveys"), timesAt = p("three times"), aucAt = p("a hundred thirteen");
+  const sleepAt = p("sleeping four hours"), twiceAt = sleepAt + 45;
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);
 
@@ -78,7 +78,7 @@ export const Evidence: React.FC = () => {
   const count = Math.round(numbers.pitch.examples * interpolate(frame, [examplesAt - 6, examplesAt + 34], [0, 1], { ...clamp, easing: ease }));
 
   // engine layout
-  const YA = 300, YB = 440, YC = 580, YM = 430, Y3 = 790;
+  const YA = 330, YB = 520, YM = 425, Y3 = 790;
   return (
     <AbsoluteFill style={{ opacity: out }}>
       {/* under the hood */}
@@ -87,24 +87,24 @@ export const Evidence: React.FC = () => {
           <Mono size={20}>Under the hood</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 104, letterSpacing: -4.4, color: C.ink, lineHeight: 1, marginTop: 14 }}>The engine</div>
         </div>
-        <Node at={lifeAt} x={150} y={YA} w={350} title="Her digital life" sub={`${numbers.pitch.sources} sources, on her phone`} icon={<Icon name="globe" size={34} />} />
-        <Node at={tapsAt} x={150} y={YB} w={350} title="Two taps" sub="from Stable, weekly" icon={<StableMascot size={52} />} />
-        <Node at={pastAt} x={150} y={YC} w={350} title="Past answers" sub="her own history" />
+        <Node at={tapsAt} x={150} y={YA} w={350} title="Two taps" sub="stress, time with people" icon={<StableMascot size={52} />} />
+        <Node at={pastAt} x={150} y={YB} w={350} title="Past answers" sub="her last and average PHQ-2" />
         <Wire at={modelAt - 2} x1={500} y1={YA + 52} x2={610} y2={YM + 62} />
         <Wire at={modelAt - 2} x1={500} y1={YB + 52} x2={610} y2={YM + 62} />
-        <Wire at={modelAt - 2} x1={500} y1={YC + 52} x2={610} y2={YM + 62} />
-        <Node at={modelAt} x={610} y={YM} w={330} title="Stability engine" sub={frame >= whenAt ? "decides when to ask" : "tracks how she's doing"} dark accent={frame >= whenAt ? C.sage : undefined} />
-        <Wire at={highAt - 4} x1={940} y1={YM + 62} x2={980} y2={YM + 62} />
-        <Node at={highAt} x={980} y={YM} w={240} title="2 questions" sub="the PHQ-2" />
-        <Wire at={eightAt - 4} x1={1220} y1={YM + 62} x2={1260} y2={YM + 62} color={C.amber} />
-        <Node at={eightAt} x={1260} y={YM} w={240} title="All 8" sub="if answers are high" accent={C.amber} />
+        <Node at={modelAt} x={610} y={YM} w={330} title="Ask model" sub={frame >= whenAt ? "asks past 16%" : "logistic regression"} dark accent={frame >= whenAt ? C.sage : undefined} />
+        <Wire at={whenAt} x1={940} y1={YM + 62} x2={980} y2={YM + 62} />
+        <Node at={whenAt} x={980} y={YM} w={240} title="2 questions" sub="PHQ-2: 3+ is high" />
+        <Wire at={highAt - 4} x1={1220} y1={YM + 62} x2={1260} y2={YM + 62} color={C.amber} />
+        <Node at={eightAt - 4} x={1260} y={YM} w={240} title="All 8" sub="PHQ-8: 10+ alerts" accent={C.amber} />
         <Wire at={parentAt - 4} x1={1500} y1={YM + 62} x2={1540} y2={YM + 62} color={C.amber} />
-        <Node at={parentAt} x={1540} y={YM} w={270} title="A note" sub="to a parent" icon={<Icon name="note" size={34} />} />
-        <Node at={lifeAt + 14} x={610} y={Y3} w={330} title="Mood model" sub="reads tone, on the phone" dark />
-        <Node at={lifeAt + 20} x={980} y={Y3} w={330} title="Self-harm model" sub="988, one tap away" dark accent={C.amber} />
-        <Node at={lifeAt + 26} x={1350} y={Y3} w={330} title="Music mood" sub="how her songs sound" dark />
+        <Node at={parentAt} x={1540} y={YM} w={270} title="A note" sub="what changed, how to talk" icon={<Icon name="note" size={34} />} />
+        <Node at={lifeAt} x={150} y={Y3} w={350} title="Her digital life" sub={`${numbers.pitch.sources} sources, with consent`} icon={<Icon name="globe" size={34} />} />
+        <Wire at={lifeAt + 8} x1={500} y1={Y3 + 52} x2={610} y2={Y3 + 52} />
+        <Node at={lifeAt + 10} x={610} y={Y3} w={330} title="Mood model" sub="tone of each message" dark />
+        <Node at={lifeAt + 16} x={980} y={Y3} w={330} title="Self-harm model" sub="988, one tap away" dark accent={C.amber} />
+        <Node at={lifeAt + 22} x={1350} y={Y3} w={330} title="Music mood" sub="how her songs sound" dark />
         {frame >= noWordsAt - 2 ? (
-          <div style={{ position: "absolute", left: 1500, top: YM + 170, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
+          <div style={{ position: "absolute", left: 1540, top: YM + 160, display: "flex", alignItems: "center", gap: 16, ...enter(frame, noWordsAt, 20, 14) }}>
             <Icon name="lock" size={46} />
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 40, letterSpacing: -1.2, color: C.ink, lineHeight: 1.05 }}>0 words<br />leave the phone</span>
           </div>
@@ -114,18 +114,19 @@ export const Evidence: React.FC = () => {
       {/* it works */}
       <AbsoluteFill style={{ opacity: worksIn }}>
         <div style={{ position: "absolute", left: 150, top: 110, transform: `translateY(${(1 - worksIn) * 24}px)` }}>
-          <Mono size={20}>It works</Mono>
+          <Mono size={20}>Does it work?</Mono>
           <div style={{ display: "flex", alignItems: "baseline", gap: 30, marginTop: 14 }}>
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 128, letterSpacing: -5.5, color: C.ink, lineHeight: 1, fontVariantNumeric: "tabular-nums", minWidth: 640 }}>
-              {count.toLocaleString("en-US")}{count >= numbers.pitch.examples ? "+" : ""}
+              {count.toLocaleString("en-US")}
             </span>
-            <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 48, letterSpacing: -1.4, color: C.inkSoft, opacity: ramp(frame, examplesAt + 10, 14) }}>real examples, tested</span>
+            <span style={{ fontFamily: F.display, fontWeight: 500, fontSize: 48, letterSpacing: -1.4, color: C.inkSoft, opacity: ramp(frame, examplesAt + 10, 14) }}>labelled examples, tested</span>
           </div>
+          <Mono size={18} style={{ marginTop: 14, opacity: ramp(frame, kindsAt - 2, 14) }}>282,768 posts · 54,263 comments · 30,346 surveyed high schoolers · 16,886 student check-in weeks · 20,113 more</Mono>
         </div>
-        <Tile at={timesAt - 4} x={150} y={360} big={<>{numbers.pitch.times}×</>} label={`more hard weeks found than asking on a schedule (${numbers.timing.askModel}% vs ${numbers.timing.calendar}%)`} color={C.sage} />
-        <Tile at={aucAt} x={980} y={360} big={numbers.pitch.teenAuc.toFixed(2)} label={`AUC on ${numbers.teens.count} real teenagers the model had never seen`} />
-        <Tile at={sleepAt - 2} x={150} y={640} big={<>{numbers.sleep.short}%</>} label={`of US high schoolers sleeping 4 hours or less felt sad or hopeless, vs ${numbers.sleep.eight}% at 8 hours`} color={C.amber} />
-        <Tile at={twiceAt - 4} x={980} y={640} big="2×" label={`what keyword lists catch, and ${numbers.pitch.selfHarmFound} of ${numbers.pitch.selfHarmTotal} self-harm messages`} color={C.sage} />
+        <Tile at={timesAt - 4} x={150} y={380} big={<>{numbers.pitch.times}×</>} label={`${numbers.timing.askModel}% of its asks hit a hard week, vs ${numbers.timing.calendar}% on a fixed schedule (213 students, 16,886 weeks)`} color={C.sage} />
+        <Tile at={aucAt} x={980} y={380} big={numbers.pitch.teenAuc.toFixed(2)} label={`AUC predicting the next screening of ${numbers.teens.count} teens aged 12 to 17 it never saw. 0.5 is chance, 1.0 is perfect.`} />
+        <Tile at={sleepAt - 2} x={150} y={670} big={<>{numbers.sleep.short}%</>} label={`of US high schoolers sleeping 4 hours or less felt sad or hopeless, vs ${numbers.sleep.eight}% at 8 hours (CDC, 30,346 students)`} color={C.amber} />
+        <Tile at={twiceAt} x={980} y={670} big="2×" label={`the low-mood messages a keyword list finds (50% vs 24%). Self-harm check: ${numbers.pitch.selfHarmFound} of ${numbers.pitch.selfHarmTotal} test messages.`} color={C.sage} />
       </AbsoluteFill>
     </AbsoluteFill>
   );

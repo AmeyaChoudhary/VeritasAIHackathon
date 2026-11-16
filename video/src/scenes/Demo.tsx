@@ -82,15 +82,15 @@ export const Demo: React.FC = () => {
   const end = G(sceneRange("how").start);
 
   // cues
-  const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "It lives")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "Meet Maya"));
-  const learnAt = G(q("learn", "Stability connects")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing")), newsAt = G(q("learn", "news feeds"));
-  const musicAt = G(q("learn", "Spotify")), gameAt = G(q("learn", "games")), msgAt = G(q("learn", "chats")), readsAt = G(q("learn", "It reads it all")), onceAt = G(q("learn", "Once a week"));
+  const builtAt = G(q("steady", "we built")), livesAt = G(q("steady", "an app on")), linkedAt = G(q("steady", "linked to")), meetAt = G(q("steady", "that knows"));
+  const learnAt = G(q("learn", "With consent")), igAt = G(q("learn", "Instagram")), ytAt = G(q("learn", "YouTube")), ttAt = G(q("learn", "TikTok")), webAt = G(q("learn", "browsing")), newsAt = G(q("learn", "news feeds"));
+  const musicAt = G(q("learn", "Spotify")), gameAt = G(q("learn", "games")), msgAt = G(q("learn", "chats")), readsAt = G(q("learn", "It's all read")), neverSeeAt = G(q("learn", "never see")), onceAt = G(q("learn", "Once a week"));
   const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
-  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two questions")), wordAt = G(q("drift", "takes her at"));
-  const finalsAt = G(q("drift", "Then finals")), modelAt = G(q("drift", "and our model")), againAt = G(q("drift", "It asks again"));
-  const passAt = G(q("note", "But at week eight")), nudgeAt = G(q("note", "Maya sees")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "what changed")), longAt = G(q("note", "for how long")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
+  const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two screening")), wordAt = G(q("drift", "taken at her"));
+  const finalsAt = G(q("drift", "During finals")), modelAt = G(q("drift", "our ask model's")), againAt = G(q("drift", "it asks again"));
+  const passAt = G(q("note", "In week eight")), nudgeAt = G(q("note", "Maya is nudged")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "sleep and messaging")), longAt = G(q("note", "for four weeks")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
   const helpAt = G(q("private", "988 is"));
-  const privAt = G(q("private", "Nothing she types")), smallAt = G(q("private", "Small models")), dotAt = G(q("private", "keep only numbers"));
+  const privAt = G(q("private", "Small models")), smallAt = G(q("private", "read what she types")), dotAt = G(q("private", "keep only numbers"));
 
   // brand: big in the centre, then tucked into the corner for the rest of the walkthrough
   const draw = ramp(frame, builtAt - 2, 30);
@@ -117,21 +117,21 @@ export const Demo: React.FC = () => {
   const off = (rec as { parentOffset?: number }).parentOffset ?? 0;   // the parent recording started this much later
   const W = (id: string, from: string, until: string | number) => [q(id, from), typeof until === "number" ? until : q(id, until)] as const;
   const seg = (from: number, to: number, win: readonly [number, number], lead = 0.1): Seg => ({ clip: "teen", from, to, at: S(win[0]) - lead, rate: fit(from, to, win[0] - lead, win[1]) });
-  const learnSeg = seg(M.w2 - 0.25, M.w3 + 1.7, W("learn", "Stability connects", "It reads it all"));
+  const learnSeg = seg(M.w2 - 0.25, M.w3 + 1.7, W("learn", "With consent", "It's all read"));
   const teenSegs: Seg[] = rec.ready ? [
     { clip: "teen", from: 0.5, to: 1.3, at: 0 },
     learnSeg,
     seg(M.ci4 - 0.1, M.w4 - 0.15, W("learn", "Once a week", sec("learn").end + 0.2)),                 // the two taps
-    seg(M.w4 - 0.2, M.ask1_a1 - 0.1, W("drift", "Every month", "Maya says")),                         // week 4: the monthly ask
-    seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.0, W("drift", "Maya says", "Then finals"), 0.15),          // she answers low
-    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "Then finals", "and our model")),                        // finals: amber, a tense check-in
-    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "and our model", "It asks again")),                 // week 6: the model asks
-    seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "It asks again", q("note", "But at week eight")), 0.1),   // still under the cutoff
-    seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "But at week eight", "her answers")),
-    seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "her answers", "Maya sees"), 0.1),
-    { clip: "teen", from: M.ask3_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya sees")) - 0.15 },
-    seg(M.type_open - 0.2, M.type1_start - 0.1, W("private", "Nothing she types", "Small models"), 0.2),
-    seg(M.type1_start - 0.1, M.type1_send + 2.7, W("private", "Small models", sec("private").end + 0.4), 0.4),
+    seg(M.w4 - 0.2, M.ask1_a1 - 0.1, W("drift", "Every month", "In week four")),                         // week 4: the monthly ask
+    seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.0, W("drift", "In week four", "During finals"), 0.15),          // she answers low
+    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "During finals", "our ask model's")),                        // finals: amber, a tense check-in
+    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "our ask model's", "it asks again")),                 // week 6: the model asks
+    seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "it asks again", q("note", "In week eight")), 0.1),   // still under the cutoff
+    seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "In week eight", "so all eight")),
+    seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "so all eight", "Maya is nudged"), 0.1),
+    { clip: "teen", from: M.ask3_closed + 0.2, to: M.doctor + 3.0, at: S(q("note", "Maya is nudged")) - 0.15 },
+    seg(M.type_open - 0.2, M.type1_start - 0.1, W("private", "Small models", "read what she types"), 0.2),
+    seg(M.type1_start - 0.1, M.type1_send + 2.7, W("private", "read what she types", sec("private").end + 0.4), 0.4),
   ] : [];
   const parentSegs: Seg[] = rec.ready ? [
     { clip: "parent", from: 0.5, to: 1.3, at: 0 },
@@ -190,7 +190,14 @@ export const Demo: React.FC = () => {
         </div>
       ) : null}
       {frame >= learnAt && frame < onceAt + 2 ? (
-        <div style={{ position: "absolute", left: 1270, top: 190, width: 560, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [onceAt - 8, onceAt], [1, 0], clamp) }}>
+        <div style={{ position: "absolute", left: 1270, top: 130, width: 600, opacity: ramp(frame, learnAt + 2, 14) * interpolate(frame, [onceAt - 8, onceAt], [1, 0], clamp) }}>
+          <div style={{ display: "flex", gap: 14, marginBottom: 26 }}>
+            {["Maya agreed", "Mom agreed"].map((t, i) => (
+              <div key={t} style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "12px 20px", borderRadius: 999, background: C.card, boxShadow: "0 0 0 1px rgba(21,23,26,0.07), 0 8px 20px rgba(21,23,26,0.06)", fontFamily: F.display, fontWeight: 600, fontSize: 28, letterSpacing: -0.6, color: C.ink, ...enter(frame, learnAt + 2 + i * 6, 18, 12) }}>
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke={C.sage} strokeWidth="2.8" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>{t}
+              </div>
+            ))}
+          </div>
           <Mono size={20}>Read on her phone</Mono>
           <div style={{ fontFamily: F.display, fontWeight: 700, fontSize: 190, lineHeight: 0.95, letterSpacing: -8, color: C.ink, fontVariantNumeric: "tabular-nums", marginTop: 6 }}>{numbers.pitch.sources}<span style={{ fontSize: 66, letterSpacing: -2.2, color: C.inkSoft, fontWeight: 500 }}> sources</span></div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginTop: 34 }}>
@@ -198,7 +205,10 @@ export const Demo: React.FC = () => {
             <SignalRow base={learnAt + 26} at={gameAt} icon="game" label="Games" />
             <SignalRow base={learnAt + 29} at={msgAt} icon="chat" label="Chats" />
           </div>
-          <div style={{ fontFamily: F.body, fontSize: 27, color: C.inkSoft, marginTop: 26, lineHeight: 1.36, ...enter(frame, readsAt, 18, 12) }}>Plus sleep, steps, screen time and school. Nothing leaves the phone.</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 28, ...enter(frame, neverSeeAt - 2, 18, 12) }}>
+            <Icon name="lock" size={40} />
+            <span style={{ fontFamily: F.display, fontWeight: 600, fontSize: 32, letterSpacing: -0.8, color: C.ink, lineHeight: 1.2 }}>Parents never see a message, a search or a video.</span>
+          </div>
         </div>
       ) : null}
       {frame >= onceAt - 2 && frame < driftAt ? (
@@ -239,7 +249,7 @@ export const Demo: React.FC = () => {
           </div>
           <div style={{ marginTop: 40, display: "flex", alignItems: "center", gap: 18, ...enter(frame, wordAt - 2, 20, 16) }}>
             <svg width="44" height="44" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke={C.sage} strokeWidth="2.6" fill="none" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            <span style={{ fontFamily: F.display, fontWeight: 600, fontSize: 40, letterSpacing: -1.1, color: C.ink }}>Taken at her word</span>
+            <span style={{ fontFamily: F.display, fontWeight: 600, fontSize: 40, letterSpacing: -1.1, color: C.ink }}>2 of 6: taken at her word</span>
           </div>
         </div>
       ) : null}
@@ -268,9 +278,9 @@ export const Demo: React.FC = () => {
       <Callout at={momAt + 2} until={privAt - 14} tag="05 · A parent" title={<>The<br />note</>} style={{ position: "absolute", left: 110, top: 250, width: 300 }} size={84} />
       {frame >= whatAt - 4 && frame < privAt ? (
         <div style={{ position: "absolute", left: 1530, top: 250, display: "flex", flexDirection: "column", gap: 22, alignItems: "flex-start", opacity: interpolate(frame, [privAt - 24, privAt - 15], [1, 0], clamp) }}>
-          <Chip at={whatAt - 2}>What changed</Chip>
-          <Chip at={longAt - 2}>For how long</Chip>
-          <Chip at={howAt - 2}>How to start</Chip>
+          <Chip at={whatAt - 2}>Sleep and messaging down</Chip>
+          <Chip at={longAt - 2}>For 4 weeks</Chip>
+          <Chip at={howAt - 2}>How to start talking</Chip>
           <div style={{ marginTop: 34, display: "flex", alignItems: "center", gap: 16, ...enter(frame, neverAt - 3, 20, 16) }}>
             <Icon name="lock" size={46} />
             <span style={{ fontFamily: F.display, fontWeight: 700, fontSize: 44, letterSpacing: -1.4, color: C.ink, lineHeight: 1.05 }}>Never her<br />messages</span>
