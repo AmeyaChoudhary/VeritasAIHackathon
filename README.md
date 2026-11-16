@@ -2,7 +2,15 @@
 
 Entry for the Veritas AI International High School Hackathon 2026, AI + Health track.
 
-Stability is a concept for an app on a teenager's phone. Each week the student answers a two-tap check-in, and once a month Stability asks the two screening questions doctors use. A small model reads the check-ins and the earlier answers and asks sooner when its score is high. Stability also learns the student's own normal for sleep, activity, contact with friends and the tone of what they type, and shows where those stand. When the answers are high, or those signals stay outside the normal for four weeks while the questions go unanswered, it sends a linked parent a short note asking them to talk with their teen. Words about suicide or self-harm can send an urgent note. The student is told at setup that a parent is linked, and notes never contain their messages, answers or scores. It asks and never diagnoses.
+Maya is 16. Last fall she quit soccer. By December she slept five hours a night and texted her friends half as much. Her mom thought it was finals, and two months passed before anyone asked how she really was. She is one of many: 1 in 5 US teens has depression each year, and 59% get no treatment ([NIMH](https://www.nimh.nih.gov/health/statistics/major-depression)). Nobody knows when to ask.
+
+**Stability is an app on a teen's phone, linked to a parent's phone, that knows when to ask.**
+
+- **With consent from the teen and a parent,** it connects to her digital life: Instagram, TikTok, YouTube, browsing, newsfeeds, Spotify, games and chats, 17 sources in all. Everything is read on her phone, and parents never see a message, a search or a video.
+- **Once a week Stable, the app's mascot, checks in:** two taps, for stress and time with people.
+- **Every month it asks the two screening questions doctors use,** and the ask model asks sooner when her answers and check-ins point that way. High answers bring up all eight questions, a nudge to see a doctor, and a short note to her parent: what changed, for how long, and how to start the conversation.
+- **Small models on the phone** read what she types, watches and searches, keep only numbers, and delete the words. Words about self-harm bring up 988, one tap away.
+- **It works.** Tested on 404,376 labelled examples, the ask model finds a hard week 3.4 times as often as a fixed schedule (44% against 13%), and scored an AUC of 0.90 on 113 teens aged 12 to 17 it never saw. The mood model finds twice what a keyword list does, and the safety check caught 13 of our 15 self-harm test messages.
 
 **This project is a prototype and is not medical advice.**
 
@@ -10,7 +18,7 @@ Stability is a concept for an app on a teenager's phone. Each week the student a
 
 - **[The Stability site](https://ameyachoudhary.github.io/VeritasAIHackathon/)** tells the whole idea as you scroll, with the video and a link to the app.
 - **[The app](https://ameyachoudhary.github.io/VeritasAIHackathon/app/)** runs in a browser with nothing to install. On a laptop it shows Maya's phone and her mom's side by side: pick "Maya's 12 weeks" and press Play. On a phone it can be added to the home screen and opens offline.
-- **[The demo video](docs/video/steady-demo.mp4)** is 1 minute 59 seconds.
+- **[The demo video](docs/video/steady-demo.mp4)** tells Maya's story in under two minutes.
 
 ![Week 8 in the app: Maya's phone suggests a doctor, and her mom's phone gets the note](docs/img/week8-both-phones.png)
 

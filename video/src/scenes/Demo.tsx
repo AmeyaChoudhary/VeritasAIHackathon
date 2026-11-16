@@ -87,7 +87,7 @@ export const Demo: React.FC = () => {
   const musicAt = G(q("learn", "Spotify")), gameAt = G(q("learn", "games")), msgAt = G(q("learn", "chats")), readsAt = G(q("learn", "It's all read")), neverSeeAt = G(q("learn", "never see")), onceAt = G(q("learn", "Once a week"));
   const stableAt = G(q("learn", "Stable")), tapsAt = G(q("learn", "Two taps"));
   const driftAt = G(q("drift", "Every month")), asksAt = G(q("drift", "asks the two screening")), wordAt = G(q("drift", "scores two of six"));
-  const finalsAt = G(q("drift", "During finals")), modelAt = G(q("drift", "our ask model")), againAt = G(q("drift", "asks again two"));
+  const finalsAt = G(q("drift", "During finals")), modelAt = G(q("drift", "ask model's score")), againAt = G(q("drift", "asks again two"));
   const passAt = G(q("note", "In week eight")), nudgeAt = G(q("note", "Maya is nudged")), momAt = G(q("note", "and her mom")), whatAt = G(q("note", "sleep and messaging")), longAt = G(q("note", "for four weeks")), howAt = G(q("note", "how to start")), neverAt = G(q("note", "Never her"));
   const helpAt = G(q("private", "988 is"));
   const privAt = G(q("private", "Small models")), smallAt = G(q("private", "read what she types")), dotAt = G(q("private", "keep only numbers"));
@@ -124,8 +124,8 @@ export const Demo: React.FC = () => {
     seg(M.ci4 - 0.1, M.w4 - 0.15, W("learn", "Once a week", sec("learn").end + 0.2)),                 // the two taps
     seg(M.w4 - 0.2, M.ask1_a1 - 0.1, W("drift", "Every month", "In week four")),                         // week 4: the monthly ask
     seg(M.ask1_a1 - 0.1, M.ask1_closed + 1.0, W("drift", "In week four", "During finals"), 0.15),          // she answers low
-    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "During finals", "our ask model")),                        // finals: amber, a tense check-in
-    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "our ask model", "asks again two")),                 // week 6: the model asks
+    seg(M.w5 - 0.25, M.ci6 + 2.2, W("drift", "During finals", "ask model's score")),                        // finals: amber, a tense check-in
+    seg(M.w6 - 0.2, M.ask2_open + 0.9, W("drift", "ask model's score", "asks again two")),                 // week 6: the model asks
     seg(M.ask2_a1 - 0.1, M.ask2_closed + 0.6, W("drift", "asks again two", q("note", "In week eight")), 0.1),   // still under the cutoff
     seg(M.w8 - 0.1, M.w8 + 2.3, W("note", "In week eight", "so all eight")),
     seg(M.ask3_a1 - 0.3, M.ask3_a1 + 2.6, W("note", "so all eight", "Maya is nudged"), 0.1),

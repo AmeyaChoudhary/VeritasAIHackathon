@@ -1,37 +1,30 @@
 /* Stability landing page.
    Every number on the page lives in DATA. Change it here and nowhere else. */
 const DATA = {
-  // "What we found": asks that landed on a week with a high PHQ-2, at this many asks per student-year
+  // "It works": asks that landed on a week with a high PHQ-2, at this many asks per student-year (Experiment 4)
   budget: 12,
   students: 213,
-  // askModel is the model the app runs (Experiment 4); the other three rows are from Experiment 3
   askModel: {
-    hit: 44, // % of its asks that landed on a high week
-    matchedRandom: 45, // % for random weeks, same student and term
-    auc: "0.89", // on students it never saw
-    missed: "586", // high weeks that got no ask
-    highWeeks: "2,171",
-    falseAlarms: "2,012", // asks that landed on weeks that were not high
+    hit: 44, // % of its asks that landed on a hard week
+    schedule: 13, // % for a fixed schedule
+    times: "3.4", // 44 / 13
+    auc: "0.89", // on college students it never saw
   },
-  // Experiment 6: the same model, unchanged, on teenagers aged 12 to 17 (first follow-up)
-  teens: { n: 113, auc: "0.85", hitTop: 74, hitRandom: 41 },
-  asks: [
-    { label: "Fixed calendar", value: 13 },
-    { label: "Phone model", value: 18 },
-    { label: "One short check-in", value: 24 },
-  ],
-  asksScaleMax: 50,
-  // the tone model against a keyword list, on comments it had never seen
+  // Experiment 6: the same model, unchanged, on teenagers aged 12 to 17, over all their later answers
+  teens: { n: 113, answers: 635, auc: "0.90", hitTop: 92, hitRandom: 37 },
+  // every labelled example the models were trained and tested on (docs/video-script.md lists all of them)
+  examples: { total: "404,376", posts: "282,768", comments: "54,263", surveyed: "30,346", weeks: "16,886", more: "20,113" },
+  // Experiment 7: CDC Youth Risk Behavior Survey
+  sleep: { short: 54, eight: 24, year: 2025 },
+  // the mood model against a keyword list, on comments it had never seen (Experiment 2)
   tone: { model: 50, keyword: 24, commentsText: "5,427", scaleMax: 70 },
-  // a fine-tuned language model we tested and did not ship (Experiment 2b)
-  fineTuned: { found: 62, sizeMB: 91 },
-  limits: { aucMen: "0.75", aucWomen: "0.66" },
-  // Experiment 5: the phrase list plus the self-harm model, on our 60 messages and on held-out posts
-  selfHarm: { found: 13, total: 15, falseAlarms: 5, phraseFound: 6, depressionFlagged: 32 },
-  // Experiment 5b: the same model on 500 Reddit users rated by psychiatrists
-  psychiatrists: { users: 500, auc: "0.66", atRiskFlagged: 99, supportiveFlagged: 86 },
+  asksScaleMax: 50,
+  // Experiment 5: phrase list plus self-harm model, on our test messages
+  selfHarm: { found: 13, total: 15 },
+  // the rules the app runs
+  engine: { threshold: 16, phq2Cut: 3, phq8Cut: 10 },
   // "The problem" (NIMH, 2021)
-  problem: { one: 1, oneIn: 5, untreatedIn10: 6, treatedPct: "40.6" },
+  problem: { one: 1, oneIn: 5, untreatedIn10: 6, untreatedPct: 59, treatedPct: "40.6" },
   // the message typed in the privacy section
   typed: "i miss how things used to be",
 };
@@ -65,11 +58,11 @@ const DATA = {
       </div>`).join("");
   }
   buildBars($("#askBars"), [
-    ...DATA.asks,
-    { label: "The ask model in the app", value: DATA.askModel.hit, mark: DATA.askModel.matchedRandom, lead: true },
+    { label: "Fixed schedule", value: DATA.askModel.schedule },
+    { label: "Stability's ask model", value: DATA.askModel.hit, lead: true },
   ], DATA.asksScaleMax);
   buildBars($("#toneBars"), [
-    { label: "Our tone model", value: DATA.tone.model, lead: true },
+    { label: "Our mood model", value: DATA.tone.model, lead: true },
     { label: "Keyword list", value: DATA.tone.keyword },
   ], DATA.tone.scaleMax);
 
@@ -155,7 +148,7 @@ const DATA = {
   /* ---------- the problem ---------- */
   const beats = Object.fromEntries($$("#problem .beat").map((b) => [b.dataset.beat, b]));
   const oneDot = $(".five .one"), tens = $$(".ten i"), clipRect = $("#slipClipRect"), slipTags = $$(".slip-tag");
-  const beatCHead = $(".beat-c .headline"), slipWrap = $(".slip-wrap");
+  const storyLine = $(".story-line");
   (function slipPath() {
     const W = 1200, base = 118, drops = [[0.3, 46], [0.54, 60], [0.78, 70]], N = 240;
     let d = "";
@@ -168,30 +161,31 @@ const DATA = {
     $("#slipLine").setAttribute("d", d);
   })();
   const show = (el, o, y = 0) => { el.style.opacity = o.toFixed(3); el.style.transform = y ? `translate3d(0,${y.toFixed(1)}px,0)` : ""; };
+  // Maya's story first (beat c), then one of many (a), then most get no treatment (b), then nobody knows when to ask (d)
   function problem(p, rm) {
     if (rm) {
       oneDot.style.fillOpacity = 1;
       tens.forEach((el, i) => el.classList.toggle("off", i < DATA.problem.untreatedIn10));
       clipRect.setAttribute("width", 1200);
       slipTags.forEach((t) => t.classList.add("on"));
+      storyLine.classList.add("on");
       return;
     }
-    const a = 1 - smooth(0.2, 0.25, p);
-    const b = Math.min(smooth(0.25, 0.3, p), 1 - smooth(0.46, 0.51, p));
-    const c = smooth(0.51, 0.56, p);
-    const d = smooth(0.88, 0.94, p);
-    show(beats.a, a, -40 * smooth(0.1, 0.25, p));
-    show(beats.b, b, 40 * (1 - smooth(0.25, 0.3, p)) - 40 * smooth(0.4, 0.51, p));
-    show(beats.c, c, 40 * (1 - c));
+    const c = 1 - smooth(0.4, 0.45, p);
+    const a = Math.min(smooth(0.45, 0.5, p), 1 - smooth(0.62, 0.66, p));
+    const b = Math.min(smooth(0.66, 0.7, p), 1 - smooth(0.82, 0.86, p));
+    const d = smooth(0.87, 0.92, p);
+    show(beats.c, c, -40 * smooth(0.36, 0.45, p));
+    show(beats.a, a, 40 * (1 - smooth(0.45, 0.5, p)) - 40 * smooth(0.58, 0.66, p));
+    show(beats.b, b, 40 * (1 - smooth(0.66, 0.7, p)) - 40 * smooth(0.78, 0.86, p));
     show(beats.d, d, 30 * (1 - d));
-    oneDot.style.fillOpacity = smooth(0.05, 0.15, p).toFixed(3);
-    const off = DATA.problem.untreatedIn10;
-    tens.forEach((el, i) => el.classList.toggle("off", i < off && p > 0.3 + i * 0.016));
-    const r = smooth(0.57, 0.85, p);
+    const r = smooth(0.02, 0.28, p);
     clipRect.setAttribute("width", (1200 * r).toFixed(1));
     slipTags.forEach((t) => t.classList.toggle("on", r >= parseFloat(t.dataset.at)));
-    beatCHead.style.opacity = (1 - smooth(0.86, 0.91, p)).toFixed(3);
-    slipWrap.style.opacity = mix(1, 0.13, smooth(0.86, 0.94, p)).toFixed(3);
+    storyLine.classList.toggle("on", p > 0.27);
+    oneDot.style.fillOpacity = smooth(0.48, 0.56, p).toFixed(3);
+    const off = DATA.problem.untreatedIn10;
+    tens.forEach((el, i) => el.classList.toggle("off", i < off && p > 0.68 + i * 0.012));
   }
 
   /* ---------- what Stability does ---------- */

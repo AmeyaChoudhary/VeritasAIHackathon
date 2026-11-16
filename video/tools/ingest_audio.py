@@ -15,8 +15,10 @@ import difflib, json, os, re, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK = f"{ROOT}/takes/_work"
 LIMIT = 120.0 - 3.0          # two minutes, less the end card
-LEAD = 0.18
-SPEED = 1.10      # every recording plays this much faster, pitch unchanged
+LEAD = 0.55       # Whisper often marks a first word late; start this much earlier (never before the previous word ends)
+SPEED = 1.10      # default speed-up for cards not listed in CARD_SPEED
+CARD_SPEED = {"hook": 1.17, "learn": 1.17, "note": 1.17, "how": 1.17, "close": 1.12,
+              "steady": 1.04, "drift": 1.04, "private": 1.04, "proof": 1.04}
 MAX_SPEED = 1.15
 PAUSE = {"hook": 0.55, "steady": 0.45, "learn": 0.4, "drift": 0.45, "note": 0.5, "private": 0.55,
          "proof": 0.4, "timing": 0.5, "next": 0.55, "close": 0.4}
@@ -86,58 +88,54 @@ def main():
     MAXGAP = 0.55   # a pause longer than this inside a card (a stumble, a breath) is cut down
     KEEP = 0.28
 
-    def build(scale):
+    def build(scale, k=1.0):
+        """parts: (start, end, speed) in the source; timing in output seconds after per-card speed-up."""
         parts, timing, t = [], [], 0.6
         for sid, first, last in picks:
-            # split the take at long pauses so they can be shortened
+            sp = CARD_SPEED.get(sid, SPEED) * k
             runs, r0 = [], first
-            for k in range(first + 1, last + 1):
-                if words[k]["s"] - words[k - 1]["e"] > MAXGAP:
-                    runs.append((r0, k - 1)); r0 = k
+            for q in range(first + 1, last + 1):
+                if words[q]["s"] - words[q - 1]["e"] > MAXGAP:
+                    runs.append((r0, q - 1)); r0 = q
             runs.append((r0, last))
             sw = []
             for j, (a0, a1) in enumerate(runs):
                 w0, w1 = words[a0], words[a1]
                 prv = words[a0 - 1]["e"] if a0 > 0 else 0
-                s = max(prv + 0.05, w0["s"] - (LEAD if j == 0 else 0.06))
+                s0 = max(prv + 0.04, w0["s"] - (LEAD if j == 0 else 0.35))
                 if j < len(runs) - 1:
-                    e = w1["e"] + KEEP
+                    e0 = min(words[a1 + 1]["s"] - 0.04, w1["e"] + KEEP)
                 else:
                     nxt = words[last + 1]["s"] if last + 1 < len(words) else w1["e"] + 2
-                    tail = max(0.12, min(PAUSE.get(sid, 0.45) * scale + 0.12, nxt - w1["e"] - 0.06))
-                    e = w1["e"] + tail
-                parts.append((s, e))
-                sw += [{"w": w["w"], "s": round(t + (w["s"] - s), 3), "e": round(t + (w["e"] - s), 3)} for w in words[a0:a1 + 1]]
-                t += e - s
+                    tail = max(0.25, min(PAUSE.get(sid, 0.45) * scale + 0.25, nxt - w1["e"] - 0.06))
+                    e0 = w1["e"] + tail
+                parts.append((s0, e0, sp))
+                sw += [{"w": w["w"], "s": round(t + (w["s"] - s0) / sp, 3), "e": round(t + (w["e"] - s0) / sp, 3)} for w in words[a0:a1 + 1]]
+                t += (e0 - s0) / sp
             timing.append({"id": sid, "start": sw[0]["s"], "end": sw[-1]["e"], "words": sw})
         return parts, timing, t
 
     parts, timing, total = build(1.0)
     if total > LIMIT:
         parts, timing, total = build(0.45)
-    # Always a little brisker than read (SPEED), and faster still if needed to fit (up to MAX_SPEED).
-    factor = max(SPEED, min(MAX_SPEED, total / LIMIT))
-    print(f"speeding up x{factor:.3f}" + ("  !! STILL OVER TWO MINUTES: read a little faster or trim the script" if total / factor > LIMIT else ""))
+    k = 1.0
+    if total > LIMIT:
+        k = min(1.06, total / LIMIT)
+        parts, timing, total = build(0.45, k)
+        print(f"extra speed-up x{k:.3f} on every card" + ("  !! STILL OVER TWO MINUTES" if total > LIMIT else ""))
+    print("card speeds:", {sid: round(CARD_SPEED.get(sid, SPEED) * k, 3) for sid, _, _ in picks})
 
     inputs, filt = [], []
-    for i, (s, e) in enumerate(parts):
-        inputs += ["-ss", f"{s:.3f}", "-to", f"{e:.3f}", "-i", src]
-        filt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=mono,afade=t=in:d=0.02,afade=t=out:st={max(0, e - s - 0.04):.3f}:d=0.04[a{i}]")
+    for i, (s0, e0, sp) in enumerate(parts):
+        inputs += ["-ss", f"{s0:.3f}", "-to", f"{e0:.3f}", "-i", src]
+        filt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=mono,atempo={sp:.4f},afade=t=in:d=0.015,afade=t=out:st={max(0, (e0 - s0) / sp - 0.04):.3f}:d=0.04[a{i}]")
     filt.append("".join(f"[a{i}]" for i in range(len(parts))) + f"concat=n={len(parts)}:v=0:a=1[j]")
     chain = ("adelay=600,highpass=f=75,afftdn=nf=-30,equalizer=f=180:t=q:w=1:g=1.5,equalizer=f=6500:t=q:w=1.2:g=-2,"
              "acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120,loudnorm=I=-16:TP=-1.5:LRA=9")
-    if factor > 1.0:
-        chain = f"atempo={factor:.4f}," + chain
     filt.append(f"[j]{chain}[out]")
     os.makedirs(f"{ROOT}/public/voice", exist_ok=True)
     run("ffmpeg", "-v", "error", "-y", *inputs, "-filter_complex", ";".join(filt), "-map", "[out]", "-ar", "48000", "-ac", "1", f"{ROOT}/public/voice/voice.wav")
     run("ffmpeg", "-v", "error", "-y", "-i", f"{ROOT}/public/voice/voice.wav", "-c:a", "aac", "-b:a", "128k", f"{ROOT}/public/voice/voice.m4a")
-    if factor > 1.0:
-        for s_ in timing:
-            s_["start"], s_["end"] = round(s_["start"] / factor, 3), round(s_["end"] / factor, 3)
-            for w in s_["words"]:
-                w["s"], w["e"] = round(w["s"] / factor, 3), round(w["e"] / factor, 3)
-        total /= factor
     json.dump({"source": f"voice:{os.path.basename(src)}", "duration": round(total, 3), "sections": timing},
               open(f"{ROOT}/src/timing.json", "w"), indent=1)
     print(f"narration {total:.1f}s -> public/voice/voice.wav, src/timing.json")

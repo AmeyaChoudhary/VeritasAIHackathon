@@ -68,7 +68,7 @@ export const Evidence: React.FC = () => {
 
   const hoodAt = h("Under the hood"), tapsAt = h("two taps"), pastAt = h("past answers"), modelAt = h("feed our ask model"), whenAt = h("Past sixteen percent");
   const highAt = h("Three or more"), eightAt = h("all eight"), parentAt = h("alerts a parent"), lifeAt = hoodAt + 20, noWordsAt = parentAt + 20;
-  const worksAt = p("Does it work"), examplesAt = p("four hundred thousand"), kindsAt = examplesAt + 24, timesAt = p("three times"), aucAt = p("a hundred thirteen");
+  const worksAt = p("Does it work"), examplesAt = p("We tested"), kindsAt = examplesAt + 24, timesAt = p("three times"), aucAt = p("teens it had never");
   const sleepAt = p("sleeping four hours"), twiceAt = sleepAt + 45;
   const end = r1.from + r1.dur - r0.from;
   const out = exitAt(frame, end + 4, 12);
@@ -125,7 +125,7 @@ export const Evidence: React.FC = () => {
         </div>
         <Tile at={timesAt - 4} x={150} y={380} big={<>{numbers.pitch.times}×</>} label={`${numbers.timing.askModel}% of its asks hit a hard week, vs ${numbers.timing.calendar}% on a fixed schedule (213 students, 16,886 weeks)`} color={C.sage} />
         <Tile at={aucAt} x={980} y={380} big={numbers.pitch.teenAuc.toFixed(2)} label={`AUC predicting the next screening of ${numbers.teens.count} teens aged 12 to 17 it never saw. 0.5 is chance, 1.0 is perfect.`} />
-        <Tile at={sleepAt - 2} x={150} y={670} big={<>{numbers.sleep.short}%</>} label={`of US high schoolers sleeping 4 hours or less felt sad or hopeless, vs ${numbers.sleep.eight}% at 8 hours (CDC, 30,346 students)`} color={C.amber} />
+        <Tile at={sleepAt - 2} x={150} y={670} big={<>{numbers.sleep.short}%</>} label={`of US high schoolers sleeping 4 hours or less felt sad or hopeless, vs ${numbers.sleep.eight}% at 8 hours (CDC survey, 2025, 10,483 students)`} color={C.amber} />
         <Tile at={twiceAt} x={980} y={670} big="2×" label={`the low-mood messages a keyword list finds (50% vs 24%). Self-harm check: ${numbers.pitch.selfHarmFound} of ${numbers.pitch.selfHarmTotal} test messages.`} color={C.sage} />
       </AbsoluteFill>
     </AbsoluteFill>

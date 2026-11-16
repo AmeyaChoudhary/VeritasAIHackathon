@@ -21,7 +21,7 @@
   "id": "drift",
   "label": "It asks, and asks early",
   "show": "Week 4: the two questions; she answers 'several days' to both, 2 of 6. Weeks 5 and 6: the ring turns amber, her check-in stress goes from 2 to 4, the ask model's score climbs from 0.05 past 0.16, and the questions come up again in week 6.",
-  "text": "Every month, Stable asks the two screening questions doctors use. In week four, Maya scores two of six. During finals, her stress check-ins jump from two to four, and our ask model asks again two weeks early."
+  "text": "Every month, Stable asks the two screening questions doctors use. In week four, Maya scores two of six and is taken at her word. During finals, her stress check-ins jump from two to four. Our ask model's score crosses its line, and it asks again two weeks early."
  },
  {
   "id": "note",
@@ -45,7 +45,7 @@
   "id": "proof",
   "label": "It works",
   "show": "A counter runs to 404,376, broken down: 282,768 posts, 54,263 comments, 30,346 surveyed teens, 16,886 student-weeks and more. Tiles: 3.4x (44% vs 13%), AUC 0.90 on 113 teens, 54% vs 24% for sleep, 2x a keyword list with 13 of 15 self-harm messages.",
-  "text": "Does it work? We tested on four hundred thousand labelled examples. Our ask model finds a hard week three times as often as a schedule. On a hundred thirteen teens it never saw, its AUC was point nine oh. Teens sleeping four hours or less were twice as likely to feel hopeless."
+  "text": "Does it work? We tested on over four hundred thousand labeled examples: check-ins, surveys and real posts. Our ask model finds a hard week three times as often as a fixed schedule. On one hundred thirteen teens it had never seen, its AUC was point nine oh. In a CDC survey, teens sleeping four hours or less were twice as likely to feel hopeless."
  },
  {
   "id": "close",

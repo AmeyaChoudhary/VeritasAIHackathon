@@ -4,7 +4,7 @@ November 14, 2026
 
 ## The problem
 
-One in five American teenagers goes through depression in a year, and most of them get no help.
+Maya is 16. Last fall she quit soccer. By December she slept five hours a night and texted her friends half as much. Her mom thought it was finals, and two months passed before anyone asked how she really was. Maya is the teen we design for, and she is one of many: one in five American teenagers goes through depression in a year, and most of them get no help.
 
 - **It is common.** In 2021, [20.1% of US adolescents had a major depressive episode](https://www.nimh.nih.gov/health/statistics/major-depression). In the CDC's 2023 survey, [39.7% of high school students reported persistent sadness](https://www.cdc.gov/mmwr/volumes/73/su/su7304a9.htm), and 20.4% had seriously considered suicide.
 - **Most are never treated.** Only 40.6% of adolescents with a major depressive episode received treatment.
@@ -23,9 +23,11 @@ Today's tools miss all three. Monitoring apps read everything and alert a parent
 
 ## What Stability is
 
-Stability is an app on the student's phone that answers one question: is now the time to ask? It asks the student first. When the signs keep pointing the same way, it asks their parent to check in.
+Stability is an app on a teen's phone, linked to a parent's phone, that knows when to ask. It asks the student first. When the signs keep pointing the same way, it asks their parent to check in.
 
-1. **It learns your normal.** For four weeks it learns the student's own range for sleep, contact with friends, activity and the tone of what they type. One bad night changes nothing. Two weeks outside the range is what counts, and the student can see it on their own chart.
+**It starts with consent.** The teen and a parent both agree at setup. With that consent, Stability connects to the teen's digital life: Instagram, TikTok, YouTube, browsing, newsfeeds, Spotify, games and chats, 17 sources in all. Everything is read on the teen's phone, and parents never see a message, a search or a video.
+
+1. **It learns your normal.** For four weeks it learns the student's own range for sleep, contact with friends, activity and the tone of what they type, watch and search. One bad night changes nothing. Two weeks outside the range is what counts, and the student can see it on their own chart.
 2. **It checks in.** Once a week Stable, the app's mascot, asks for two taps: how stressed they are, and how much time they have spent with other people. It takes a few seconds and stays on the phone.
 3. **It asks.** Two screening questions come up once a month. A small model reads the check-ins and the earlier answers, and asks sooner when its score is high. If the answers are high, six more complete the eight-question form. They come from the questionnaire doctors use.
 4. **It asks a parent to check in.** After a high score, or a shift that lasts while the questions are skipped, Stability sends the linked parent a short note: what changed, for how long, and how to start the conversation. It suggests a doctor to the student.
@@ -36,6 +38,8 @@ Four rules make it safe to keep switched on:
 - **Text never leaves the phone.** Messages are scored on the device and discarded. A note to the parent names the areas that shifted and for how long, and contains no messages, answers or scores.
 - **It asks and never diagnoses.** The verdict stays with a questionnaire and a doctor.
 - **Help is one tap away.** Words about self-harm bring up the [988 Lifeline](https://988lifeline.org/) at once. Words that state a plan or intent to end their life, or say they have just hurt themselves, also send the parent an urgent note at once. Other words send one if the student does not say they are safe, or if it happens again within a week. Urgent notes also go to a trusted adult outside the home, if the student names one.
+
+**It works.** Tested on 404,376 labelled examples, the ask model finds a hard week 3.4 times as often as a fixed schedule (44% against 13%), and scored an AUC of 0.90 on 113 teens aged 12 to 17 it never saw. In the CDC's 2025 survey, teens sleeping 4 hours or less were twice as likely to feel sad or hopeless (54% against 24%). The mood model finds twice what a keyword list does, and the safety check caught 13 of our 15 self-harm test messages. The details, failures included, are under "What we found" below.
 
 When the parent is told, what each note says and what leaves the phone are set out in [Parent alerts](parent-alerts.md).
 
