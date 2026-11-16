@@ -15,8 +15,9 @@ import difflib, json, os, re, subprocess, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORK = f"{ROOT}/takes/_work"
 LIMIT = 120.0 - 3.0          # two minutes, less the end card
-LEAD = 0.55       # Whisper often marks a first word late; start this much earlier (never before the previous word ends)
+LEAD = 0.85       # Whisper often marks a first word late; start this much earlier (never before the previous word ends)
 SPEED = 1.10      # default speed-up for cards not listed in CARD_SPEED
+CARD_GAIN = {"steady": 6.11, "drift": 6.11, "private": 6.11, "proof": 6.11}   # dB, to even out two voices
 CARD_SPEED = {"hook": 1.17, "learn": 1.17, "note": 1.17, "how": 1.17, "close": 1.12,
               "steady": 1.04, "drift": 1.04, "private": 1.04, "proof": 1.04}
 MAX_SPEED = 1.15
@@ -82,15 +83,43 @@ def main():
         top = max(c[0] for c in cands)
         good = [c for c in cands if c[1] and c[0] >= top - 0.07] or [c for c in cands if c[0] >= top - 0.07]
         cover, _, first, last = max(good, key=lambda c: c[2])   # the latest good take
+        # The match can start a few words in (Whisper writes "16" for "sixteen", and so on). Step back over
+        # words said in the same breath, so the take starts at the card's real first word.
+        back = 0
+        while first > 0 and back < 6 and words[first]["s"] - words[first - 1]["e"] < 0.7:
+            first -= 1; back += 1
         picks.append((sec["id"], first, last))
         print(f"{sec['id']:8s} take at {int(words[first]['s'] // 60)}:{words[first]['s'] % 60:05.2f}  match {cover:.0%}")
 
+    import wave as _wave, numpy as _np
+    _tmp = f"{WORK}/_energy.wav"
+    run("ffmpeg", "-v", "error", "-y", "-i", src, "-ac", "1", "-ar", "16000", _tmp)
+    _w = _wave.open(_tmp); _x = _np.frombuffer(_w.readframes(_w.getnframes()), dtype=_np.int16).astype(float) / 32768
+    _fr = _x[: len(_x) // 160 * 160].reshape(-1, 160)
+    _db = 20 * _np.log10(_np.sqrt((_fr ** 2).mean(1)) + 1e-9)          # 10 ms frames
+    _thr = _np.percentile(_db[_db > -150], 15) + 12                     # a little above the room noise
+
+    def onset(t_mark, floor):
+        """Where speech really starts: the end of the last 0.2 s of silence before Whisper's mark (Whisper is often late)."""
+        i = int(t_mark * 100) + 10
+        lo = max(int(floor * 100), i - 350)
+        quiet = 0
+        while i > lo:
+            quiet = quiet + 1 if _db[i] < _thr else 0
+            if quiet >= 45:        # half a second of silence: a pause between sentences, not a gap between words
+                return (i + 45) / 100
+            i -= 1
+        return max(floor, t_mark - 0.85)
+
     MAXGAP = 0.55   # a pause longer than this inside a card (a stumble, a breath) is cut down
-    KEEP = 0.28
+    KEEP = 0.2
+
+    part_ids = []
 
     def build(scale, k=1.0):
         """parts: (start, end, speed) in the source; timing in output seconds after per-card speed-up."""
         parts, timing, t = [], [], 0.6
+        part_ids.clear()
         for sid, first, last in picks:
             sp = CARD_SPEED.get(sid, SPEED) * k
             runs, r0 = [], first
@@ -102,14 +131,14 @@ def main():
             for j, (a0, a1) in enumerate(runs):
                 w0, w1 = words[a0], words[a1]
                 prv = words[a0 - 1]["e"] if a0 > 0 else 0
-                s0 = max(prv + 0.04, w0["s"] - (LEAD if j == 0 else 0.35))
+                s0 = max(prv + 0.04, min(w0["s"] - 0.2, onset(w0["s"], prv + 0.04) - 0.15))
                 if j < len(runs) - 1:
                     e0 = min(words[a1 + 1]["s"] - 0.04, w1["e"] + KEEP)
                 else:
                     nxt = words[last + 1]["s"] if last + 1 < len(words) else w1["e"] + 2
                     tail = max(0.25, min(PAUSE.get(sid, 0.45) * scale + 0.25, nxt - w1["e"] - 0.06))
                     e0 = w1["e"] + tail
-                parts.append((s0, e0, sp))
+                parts.append((s0, e0, sp)); part_ids.append(sid)
                 sw += [{"w": w["w"], "s": round(t + (w["s"] - s0) / sp, 3), "e": round(t + (w["e"] - s0) / sp, 3)} for w in words[a0:a1 + 1]]
                 t += (e0 - s0) / sp
             timing.append({"id": sid, "start": sw[0]["s"], "end": sw[-1]["e"], "words": sw})
@@ -120,15 +149,20 @@ def main():
         parts, timing, total = build(0.45)
     k = 1.0
     if total > LIMIT:
-        k = min(1.06, total / LIMIT)
+        k = min(1.12, total / LIMIT)
         parts, timing, total = build(0.45, k)
         print(f"extra speed-up x{k:.3f} on every card" + ("  !! STILL OVER TWO MINUTES" if total > LIMIT else ""))
+    if os.environ.get("DEBUG_STARTS"):
+        seen = set()
+        for (s0, e0, sp), sid in zip(parts, part_ids):
+            if sid not in seen:
+                seen.add(sid); print(f"START {sid:8s} cut at {s0:7.2f}")
     print("card speeds:", {sid: round(CARD_SPEED.get(sid, SPEED) * k, 3) for sid, _, _ in picks})
 
     inputs, filt = [], []
-    for i, (s0, e0, sp) in enumerate(parts):
+    for i, ((s0, e0, sp), sid) in enumerate(zip(parts, part_ids)):
         inputs += ["-ss", f"{s0:.3f}", "-to", f"{e0:.3f}", "-i", src]
-        filt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=mono,atempo={sp:.4f},afade=t=in:d=0.015,afade=t=out:st={max(0, (e0 - s0) / sp - 0.04):.3f}:d=0.04[a{i}]")
+        filt.append(f"[{i}:a]aresample=48000,aformat=channel_layouts=mono,volume={CARD_GAIN.get(sid, 0.0):.1f}dB,atempo={sp:.4f},afade=t=in:d=0.01,afade=t=out:st={max(0, (e0 - s0) / sp - 0.03):.3f}:d=0.03[a{i}]")
     filt.append("".join(f"[a{i}]" for i in range(len(parts))) + f"concat=n={len(parts)}:v=0:a=1[j]")
     chain = ("adelay=600,highpass=f=75,afftdn=nf=-30,equalizer=f=180:t=q:w=1:g=1.5,equalizer=f=6500:t=q:w=1.2:g=-2,"
              "acompressor=threshold=-20dB:ratio=2.5:attack=8:release=120,loudnorm=I=-16:TP=-1.5:LRA=9")
